@@ -1,0 +1,22 @@
+.closeBtn {
+    -fx-background-color: #D9D9D9;
+    -fx-text-fill: black;
+    -fx-background-radius: 20px;
+}
+
+.homeTitle {
+    -fx-font-size: 32px;
+    -fx-padding: 10px;
+}
+
+.productsBtn, .suppliersBtn, .salesBtn, .reportsBtn {
+    -fx-background-color: #D9D9D9;
+    -fx-text-fill: black;
+    -fx-background-radius: 20px;
+    -fx-max-width: 160px;
+    -fx-font-size: 15px;
+}
+
+.buttonGridHome {
+    -fx-padding: 40px;
+}
