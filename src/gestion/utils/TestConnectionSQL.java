@@ -1,4 +1,4 @@
-package fr.abl.gestiondestock.utils;
+package gestion.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
