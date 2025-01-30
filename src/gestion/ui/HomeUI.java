@@ -33,6 +33,7 @@ public class HomeUI extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.setResizable(false);
+        primaryStage.initStyle(StageStyle.UNDECORATED);
     }
 
     private Region createContent() {
