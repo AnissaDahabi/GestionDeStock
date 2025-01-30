@@ -90,8 +90,9 @@ public class HomeUI extends Application {
         buttonGridHome.setAlignment(Pos.CENTER);
 
         VBox homeButtons = new VBox(20, buttonGridHome);
+        homeButtons.setStyle("-fx-padding: 80 0 0 0;");
 
-        homeButtons.setAlignment(Pos.CENTER);
+        homeButtons.setAlignment(Pos.BASELINE_CENTER);
 
         return homeButtons;
     }

@@ -13,10 +13,7 @@
     -fx-background-color: #D9D9D9;
     -fx-text-fill: black;
     -fx-background-radius: 20px;
-    -fx-max-width: 160px;
+    -fx-min-height: 35px;
+    -fx-min-width: 120px;
     -fx-font-size: 15px;
-}
-
-.buttonGridHome {
-    -fx-padding: 40px;
 }
