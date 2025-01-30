@@ -13,12 +13,7 @@ import javafx.scene.layout.*;
 import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.stage.StageStyle;
-
-import java.awt.*;
-import java.io.FileInputStream;
 
 public class HomeUI extends Application {
 
@@ -31,12 +26,13 @@ public class HomeUI extends Application {
         Scene scene = new Scene(createContent(), 300, 600);
         scene.getStylesheets().add("gestion/resources/style.css");
         primaryStage.setScene(scene);
+        primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.show();
         primaryStage.setResizable(false);
-        primaryStage.initStyle(StageStyle.UNDECORATED);
+
     }
 
-    private Region createContent() {
+    public static Region createContent() {
         Button closeBtn = new Button("Close");
         closeBtn.getStyleClass().add("closeBtn");
         closeBtn.setOnAction(event -> {
@@ -52,6 +48,8 @@ public class HomeUI extends Application {
         homeTitle.getStyleClass().add("homeTitle");
 
         homeTitle.setAlignment(Pos.CENTER);
+        homeTitle.setStyle("-fx-padding: 40 0 0 0;");
+
 
         Image logo = new Image("gestion/resources/logo.png");
         ImageView viewLogo = new ImageView(logo);
@@ -61,12 +59,12 @@ public class HomeUI extends Application {
         HBox logoContainer = new HBox(10);
         logoContainer.getChildren().add(viewLogo);
         logoContainer.setAlignment(Pos.CENTER);
-
+        logoContainer.setStyle("-fx-padding: 30 0 0 0;");
 
         return new VBox(20, closeBtnContainer, homeTitle, logoContainer, createHomeButtons());
     }
 
-    private Node createHomeButtons() {
+    private static Node createHomeButtons() {
 
         Button productsBtn = new Button("Products");
         productsBtn.getStyleClass().add("productsBtn");
@@ -91,9 +89,15 @@ public class HomeUI extends Application {
         buttonGridHome.setAlignment(Pos.CENTER);
 
         VBox homeButtons = new VBox(20, buttonGridHome);
-        homeButtons.setStyle("-fx-padding: 80 0 0 0;");
+        homeButtons.setStyle("-fx-padding: 20 0 0 0;");
 
         homeButtons.setAlignment(Pos.BASELINE_CENTER);
+
+        //Actions des boutons :
+        productsBtn.setOnAction(event -> {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(ProductsUI.homeProducts());
+        });
 
         return homeButtons;
     }
