@@ -6,7 +6,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
@@ -23,16 +22,16 @@ public class HomeUI extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Scene scene = new Scene(createContent(), 300, 600);
-        scene.getStylesheets().add("gestion/resources/style.css");
-        primaryStage.setScene(scene);
+        Scene homeScene = new Scene(createContent(), 300, 600);
+        homeScene.getStylesheets().add("gestion/resources/style.css");
+        primaryStage.setScene(homeScene);
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.show();
         primaryStage.setResizable(false);
 
     }
 
-    public static Region createContent() {
+    public static VBox createContent() {
         Button closeBtn = new Button("Close");
         closeBtn.getStyleClass().add("closeBtn"); // crée une classe pour lui donner un style en css
         closeBtn.setOnAction(event -> {
@@ -48,7 +47,7 @@ public class HomeUI extends Application {
         homeTitle.getStyleClass().add("homeTitle");
 
         homeTitle.setAlignment(Pos.CENTER); //placer sur la scene
-        homeTitle.setStyle("-fx-padding: 40 0 0 0;");
+
 
 
         Image logo = new Image("gestion/resources/logo.png");
@@ -61,7 +60,7 @@ public class HomeUI extends Application {
         logoContainer.setAlignment(Pos.CENTER);
         logoContainer.setStyle("-fx-padding: 30 0 0 0;");
 
-        return new VBox(20, closeBtnContainer, homeTitle, logoContainer, createHomeButtons()); //il faut return a la fin d'une fonction
+        return new VBox(20, closeBtnContainer, homeTitle, logoContainer, createHomeButtons());
     }
 
     private static Node createHomeButtons() {
@@ -96,7 +95,7 @@ public class HomeUI extends Application {
         //Actions des boutons :
         productsBtn.setOnAction(event -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(ProductsUI.homeProducts());
+            stage.setScene(SceneManager.getProductsHomeScene());
         });
 
         return homeButtons;
