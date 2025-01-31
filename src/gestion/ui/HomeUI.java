@@ -34,20 +34,20 @@ public class HomeUI extends Application {
 
     public static Region createContent() {
         Button closeBtn = new Button("Close");
-        closeBtn.getStyleClass().add("closeBtn");
+        closeBtn.getStyleClass().add("closeBtn"); // crée une classe pour lui donner un style en css
         closeBtn.setOnAction(event -> {
             Platform.exit();
         });
 
-        HBox closeBtnContainer = new HBox(10);
+        HBox closeBtnContainer = new HBox(10); // HBox = container horizontal
         closeBtnContainer.setAlignment(Pos.TOP_RIGHT);
-        closeBtnContainer.setPadding(new Insets(10, 10, 10, 10));
-        closeBtnContainer.getChildren().add(closeBtn);
+        closeBtnContainer.setPadding(new Insets(10, 10, 10, 10)); //équivalent du <style> blabla </style> en html
+        closeBtnContainer.getChildren().add(closeBtn); //ajouter un truc a un container
 
         HBox homeTitle = new HBox(new Label("L'Antique"));
         homeTitle.getStyleClass().add("homeTitle");
 
-        homeTitle.setAlignment(Pos.CENTER);
+        homeTitle.setAlignment(Pos.CENTER); //placer sur la scene
         homeTitle.setStyle("-fx-padding: 40 0 0 0;");
 
 
@@ -61,7 +61,7 @@ public class HomeUI extends Application {
         logoContainer.setAlignment(Pos.CENTER);
         logoContainer.setStyle("-fx-padding: 30 0 0 0;");
 
-        return new VBox(20, closeBtnContainer, homeTitle, logoContainer, createHomeButtons());
+        return new VBox(20, closeBtnContainer, homeTitle, logoContainer, createHomeButtons()); //il faut return a la fin d'une fonction
     }
 
     private static Node createHomeButtons() {
@@ -75,7 +75,7 @@ public class HomeUI extends Application {
         Button reportsBtn = new Button("Reports");
         reportsBtn.getStyleClass().add("reportsBtn");
 
-        GridPane buttonGridHome = new GridPane();
+        GridPane buttonGridHome = new GridPane(); //créer une grille
         buttonGridHome.getStyleClass().add("buttonGridHome");
 
         buttonGridHome.setVgap(20);
@@ -88,7 +88,7 @@ public class HomeUI extends Application {
 
         buttonGridHome.setAlignment(Pos.CENTER);
 
-        VBox homeButtons = new VBox(20, buttonGridHome);
+        VBox homeButtons = new VBox(20, buttonGridHome); // VBox = container vertical
         homeButtons.setStyle("-fx-padding: 20 0 0 0;");
 
         homeButtons.setAlignment(Pos.BASELINE_CENTER);
