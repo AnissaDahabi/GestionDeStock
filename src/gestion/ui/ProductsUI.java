@@ -94,9 +94,9 @@ public class ProductsUI {
             stage.setScene(SceneManager.getProductsHomeScene());
         });
 
-        HBox returnBtnContainer = new HBox(10); // HBox = container horizontal
+        HBox returnBtnContainer = new HBox(10);
         returnBtnContainer.setAlignment(Pos.TOP_RIGHT);
-        returnBtnContainer.setPadding(new Insets(10, 10, 10, 10)); //équivalent du <style> blabla </style> en html
+        returnBtnContainer.setPadding(new Insets(10, 10, 10, 10));
         returnBtnContainer.getChildren().add(returnBtn);
 
         // Title and txt:
@@ -135,6 +135,7 @@ public class ProductsUI {
         Label supplierProduct = new Label("Supplier: ");
         TextField supplierProductInput = new TextField();
 
+
         addProductGrid.add(idProduct, 0, 0);
         addProductGrid.add(idProductInput, 1, 0);
         addProductGrid.add(nameProduct, 0, 1);
@@ -160,6 +161,11 @@ public class ProductsUI {
         submitAddedProductBtn.setOnAction(event -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             gestion.dao.ProductsQuery.addProduct(idProductInput, nameProductInput, priceProductInput, quantityProductInput, supplierProductInput);
+            idProductInput.clear();
+            nameProductInput.clear();
+            priceProductInput.clear();
+            quantityProductInput.clear();
+            supplierProductInput.clear();
             stage.setScene(SceneManager.getProductsHomeScene());
         });
 
@@ -182,9 +188,9 @@ public class ProductsUI {
             stage.setScene(SceneManager.getProductsHomeScene());
         });
 
-        HBox returnBtnContainer = new HBox(10); // HBox = container horizontal
+        HBox returnBtnContainer = new HBox(10);
         returnBtnContainer.setAlignment(Pos.TOP_RIGHT);
-        returnBtnContainer.setPadding(new Insets(10, 10, 10, 10)); //équivalent du <style> blabla </style> en html
+        returnBtnContainer.setPadding(new Insets(10, 10, 10, 10));
         returnBtnContainer.getChildren().add(returnBtn);
 
         // Title and txt:
@@ -220,8 +226,8 @@ public class ProductsUI {
 
         submitDeletedProductBtn1.setOnAction(event -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            System.out.println("showDelProduct called");
             gestion.dao.ProductsQuery.showDelProduct(idProductInput, stage);
+            idProductInput.clear();
         });
 
         VBox delProducts1 = new VBox(returnBtnContainer, delTitle1, delTxtContainer1, idProductContainer, delProductContainer1);
@@ -243,9 +249,9 @@ public class ProductsUI {
             stage.setScene(SceneManager.getDelProductScene1());
         });
 
-        HBox returnBtnContainer = new HBox(10); // HBox = container horizontal
+        HBox returnBtnContainer = new HBox(10);
         returnBtnContainer.setAlignment(Pos.TOP_RIGHT);
-        returnBtnContainer.setPadding(new Insets(10, 10, 10, 10)); //équivalent du <style> blabla </style> en html
+        returnBtnContainer.setPadding(new Insets(10, 10, 10, 10));
         returnBtnContainer.getChildren().add(returnBtn);
 
         // Title and txt:
@@ -262,48 +268,14 @@ public class ProductsUI {
         delTxtContainer2.setId("delTxtContainer2");
         delTxtContainer2.setAlignment(Pos.CENTER);
 
+        // Id and name of product selected by user
         Label idProduct = new Label("ID Number: " + idProductSql);
         Label nameProduct = new Label("Name: " + nameProductSql);
 
-        // Créer la mise en page de la scène
         VBox inputResult = new VBox(10, idProduct, nameProduct);
-
-
-//        // User input:
-//        GridPane delProductGrid = new GridPane();
-//        delProductGrid.getStyleClass().add("addProductGrid");
-//
-//        delProductGrid.setVgap(10);
-//        delProductGrid.setHgap(10);
-//
-//        Label idProduct = new Label("ID Number: ");
-//        TextField idProductInput = new TextField();
-//
-//        Label nameProduct = new Label("Name: ");
-//        TextField nameProductInput = new TextField();
-//
-//        Label priceProduct = new Label("Price: ");
-//        TextField priceProductInput = new TextField();
-//
-//        Label quantityProduct = new Label("Quantity: ");
-//        TextField quantityProductInput = new TextField();
-//
-//        Label supplierProduct = new Label("Supplier: ");
-//        TextField supplierProductInput = new TextField();
-//
-//        delProductGrid.add(idProduct, 0, 0);
-//        delProductGrid.add(idProductInput, 1, 0);
-//        delProductGrid.add(nameProduct, 0, 1);
-//        delProductGrid.add(nameProductInput, 1, 1);
-//        delProductGrid.add(priceProduct, 0, 2);
-//        delProductGrid.add(priceProductInput, 1, 2);
-//        delProductGrid.add(quantityProduct, 0, 3);
-//        delProductGrid.add(quantityProductInput, 1, 3);
-//        delProductGrid.add(supplierProduct, 0, 4);
-//        delProductGrid.add(supplierProductInput, 1, 4);
-//
-//        delProductGrid.setAlignment(Pos.CENTER);
-//        delProductGrid.setPadding(new Insets(40, 0, 0, 0));
+        inputResult.setId("inputResult");
+        inputResult.setAlignment(Pos.CENTER);
+        inputResult.setPadding(new Insets(50, 10, 10, 10));
 
         Button submitDeletedProductBtn2 = new Button("Confirm");
         submitDeletedProductBtn2.getStyleClass().add("submitDeletedProductBtn2");
@@ -375,7 +347,8 @@ public class ProductsUI {
 
         submitEditedProductBtn1.setOnAction(event -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(SceneManager.getEditProductScene2());
+            gestion.dao.ProductsQuery.showEditedProduct(idProductInput, stage);
+            idProductInput.clear();
         });
 
         VBox editProducts1 = new VBox(returnBtnContainer, editTitle1, editTxtContainer1, idProductContainer, editProductContainer1);
@@ -385,8 +358,8 @@ public class ProductsUI {
         return editProductScene1;
     }
 
-    // DELETE PRODUCT SCENE 2
-    public static Scene editProductScene2() {
+    // EDIT PRODUCT SCENE 2
+    public static Scene editProductScene2(int idProductSql, String nameProductSql, double priceProductSql, int quantityProductSql, String supplierProductSql) {
 
         // Return button:
         Button returnBtn = new Button("Return");
@@ -394,12 +367,12 @@ public class ProductsUI {
 
         returnBtn.setOnAction(event -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(SceneManager.getDelProductScene1());
+            stage.setScene(SceneManager.getEditProductScene1());
         });
 
-        HBox returnBtnContainer = new HBox(10); // HBox = container horizontal
+        HBox returnBtnContainer = new HBox(10);
         returnBtnContainer.setAlignment(Pos.TOP_RIGHT);
-        returnBtnContainer.setPadding(new Insets(10, 10, 10, 10)); //équivalent du <style> blabla </style> en html
+        returnBtnContainer.setPadding(new Insets(10, 10, 10, 10));
         returnBtnContainer.getChildren().add(returnBtn);
 
         // Title and txt:
@@ -423,23 +396,30 @@ public class ProductsUI {
         editProductGrid.setVgap(10);
         editProductGrid.setHgap(10);
 
-        Label idProduct = new Label("ID Number: ");
-        TextField idProductInput = new TextField();
+        Label idProduct = new Label("ID Number: " + idProductSql );
+        idProduct.setId("idProductLabel");
 
         Label nameProduct = new Label("Name: ");
         TextField nameProductInput = new TextField();
+        nameProductInput.setPromptText(nameProductSql);
+        nameProductInput.setId("nameProductInput");
 
         Label priceProduct = new Label("Price: ");
         TextField priceProductInput = new TextField();
+        priceProductInput.setPromptText(String.valueOf(priceProductSql));
+        priceProductInput.setId("priceProductInput");
 
         Label quantityProduct = new Label("Quantity: ");
         TextField quantityProductInput = new TextField();
+        quantityProductInput.setPromptText(String.valueOf(quantityProductSql));
+        quantityProductInput.setId("quantityProductInput");
 
         Label supplierProduct = new Label("Supplier: ");
         TextField supplierProductInput = new TextField();
+        supplierProductInput.setPromptText(supplierProductSql);
+        supplierProductInput.setId("supplierProductInput");
 
         editProductGrid.add(idProduct, 0, 0);
-        editProductGrid.add(idProductInput, 1, 0);
         editProductGrid.add(nameProduct, 0, 1);
         editProductGrid.add(nameProductInput, 1, 1);
         editProductGrid.add(priceProduct, 0, 2);
@@ -461,6 +441,7 @@ public class ProductsUI {
 
         submitEditedProductBtn2.setOnAction(event -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            gestion.dao.ProductsQuery.editProduct(nameProductInput, priceProductInput, quantityProductInput, supplierProductInput);
             stage.setScene(SceneManager.getProductsHomeScene());
         });
 
@@ -483,9 +464,9 @@ public class ProductsUI {
             stage.setScene(SceneManager.getProductsHomeScene());
         });
 
-        HBox returnBtnContainer = new HBox(10); // HBox = container horizontal
+        HBox returnBtnContainer = new HBox(10);
         returnBtnContainer.setAlignment(Pos.TOP_RIGHT);
-        returnBtnContainer.setPadding(new Insets(10, 10, 10, 10)); //équivalent du <style> blabla </style> en html
+        returnBtnContainer.setPadding(new Insets(10, 10, 10, 10));
         returnBtnContainer.getChildren().add(returnBtn);
 
         // Title and txt:

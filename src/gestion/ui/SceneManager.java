@@ -59,9 +59,9 @@ public class SceneManager {
         return editProductScene1;
     }
 
-    public static Scene getEditProductScene2() {
+    public static Scene getEditProductScene2(int idProductSql, String nameProductSql, double priceProductSql, int quantityProductSql, String supplierProductSql) {
         if (editProductScene2 == null) {
-            editProductScene2 = ProductsUI.editProductScene2();
+            editProductScene2 = ProductsUI.editProductScene2(idProductSql, nameProductSql,priceProductSql,quantityProductSql,supplierProductSql);
         }
         return editProductScene2;
     }

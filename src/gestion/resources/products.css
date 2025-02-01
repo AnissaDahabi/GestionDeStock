@@ -89,6 +89,10 @@
     -fx-font-size: 15px;
 }
 
+#inputResult Label {
+    -fx-font-size: 15px;
+}
+
 
 
 /* EDIT PRODUCTS */
@@ -108,6 +112,11 @@
     -fx-padding: 20 0 0 0;
 }
 
+
+#idProductLabel Label {
+    fx-font-size: 20px;
+}
+
 #idProductContainer {
     -fx-padding: 40 0 0 0;
 }
@@ -121,7 +130,10 @@
     -fx-font-size: 15px;
 }
 
-
+#idProductInput, #nameProductInput, #priceProductInput, #quantityProductInput, #supplierProductInput {
+    -fx-prompt-text-fill: #929292;
+    -fx-text-fill: black;
+}
 
 /* SHOW PRODUCTS */
 
