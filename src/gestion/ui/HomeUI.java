@@ -24,7 +24,7 @@ public class HomeUI extends Application {
     @Override
     public void start(Stage primaryStage) {
         Scene homeScene = new Scene(createContent(), 300, 600);
-        homeScene.getStylesheets().add("gestion/resources/style.css");
+        homeScene.getStylesheets().add("gestion/resources/home.css");
         primaryStage.setScene(homeScene);
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.show();
