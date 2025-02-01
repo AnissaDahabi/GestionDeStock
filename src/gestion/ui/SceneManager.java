@@ -7,6 +7,9 @@ public class SceneManager {
     private static Scene homeScene;
     private static Scene productsScene;
     private static Scene addProductScene;
+    private static Scene delProductScene1;
+    private static Scene delProductScene2;
+
 
     public static Scene getHomeScene() {
         if (homeScene == null) {
@@ -29,6 +32,20 @@ public class SceneManager {
             addProductScene = ProductsUI.addProductScene();
         }
         return addProductScene;
+    }
+
+    public static Scene getDelProductScene1() {
+        if (delProductScene1 == null) {
+            delProductScene1 = ProductsUI.delProductScene1();
+        }
+        return delProductScene1;
+    }
+
+    public static Scene getDelProductScene2() {
+        if (delProductScene2 == null) {
+            delProductScene2 = ProductsUI.delProductScene2();
+        }
+        return delProductScene2;
     }
 }
 

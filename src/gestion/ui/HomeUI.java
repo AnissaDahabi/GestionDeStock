@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
@@ -28,7 +29,6 @@ public class HomeUI extends Application {
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.show();
         primaryStage.setResizable(false);
-
     }
 
     public static VBox createContent() {
@@ -47,8 +47,6 @@ public class HomeUI extends Application {
         homeTitle.getStyleClass().add("homeTitle");
 
         homeTitle.setAlignment(Pos.CENTER); //placer sur la scene
-
-
 
         Image logo = new Image("gestion/resources/logo.png");
         ImageView viewLogo = new ImageView(logo);
@@ -97,6 +95,20 @@ public class HomeUI extends Application {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(SceneManager.getProductsHomeScene());
         });
+
+        // Title and txt:
+        VBox delTitle1 = new VBox(new Label("Delete a product"));
+        delTitle1.setAlignment(Pos.CENTER);
+        delTitle1.getStyleClass().add("delTitle");
+
+        Text delTxt = new Text();
+        delTxt.setText("Please enter the details of the new product to be added into the inventory.");
+        delTxt.setId("delTxt");
+        delTxt.setWrappingWidth(300);
+        HBox delTxtContainer = new HBox();
+        delTxtContainer.getChildren().add(delTxt);
+        delTxtContainer.setId("delTxtContainer");
+        delTxtContainer.setAlignment(Pos.CENTER);
 
         return homeButtons;
     }

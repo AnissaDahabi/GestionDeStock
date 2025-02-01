@@ -51,12 +51,57 @@
     }
 
     #addTxt {
-        -fx-font-size: 18px;
+        -fx-font-size: 16px;
         -fx-fill: #929292;
-
         -fx-text-alignment: center;
     }
 
-    #txtContainer {
-        -fx-margin: 300 0 0 0;
+    #addTxtContainer {
+        -fx-padding: 20 0 0 0;
     }
+
+    .submitAddedProductBtn {
+        -fx-background-color: #D9D9D9;
+        -fx-text-fill: black;
+        -fx-background-radius: 20px;
+        -fx-min-height: 35px;
+        -fx-min-width: 110px;
+        -fx-font-size: 15px;
+    }
+
+    .addProductContainer {
+        -fx-padding: 50 0 0 0;
+    }
+
+    /* DELETE */
+    .delTitle1, .delTitle2 {
+        -fx-font-size: 24px;
+        -fx-padding: 40 0 0 0;
+    }
+
+    #delTxt1, #delTxt2 {
+        -fx-font-size: 16px;
+        -fx-fill: #929292;
+        -fx-text-alignment: center;
+    }
+
+    #delTxtContainer1, #delTxtContainer2 {
+        -fx-padding: 20 0 0 0;
+    }
+
+    #idProductContainer {
+        -fx-padding: 40 0 0 0;
+    }
+
+    .submitDeletedProductBtn1, .submitDeletedProductBtn2 {
+        -fx-background-color: #D9D9D9;
+        -fx-text-fill: black;
+        -fx-background-radius: 20px;
+        -fx-min-height: 35px;
+        -fx-min-width: 110px;
+        -fx-font-size: 15px;
+    }
+
+    /*.delProductContainer1, .delProductContainer2 {*/
+    /*    -fx-padding: 90 0 0 0;*/
+    /*}*/
