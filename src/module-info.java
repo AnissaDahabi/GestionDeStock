@@ -6,6 +6,7 @@ module GestionDeStock {
     requires javafx.graphics;
     requires javafx.base;
     requires java.desktop;
+    requires mysql.connector.j;
 
 
     opens gestion.dao;

@@ -159,6 +159,7 @@ public class ProductsUI {
 
         submitAddedProductBtn.setOnAction(event -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            gestion.dao.ProductsQuery.addProduct(idProductInput, nameProductInput, priceProductInput, quantityProductInput, supplierProductInput);
             stage.setScene(SceneManager.getProductsHomeScene());
         });
 
@@ -201,10 +202,10 @@ public class ProductsUI {
         delTxtContainer1.setAlignment(Pos.CENTER);
 
         //User input
-        Label idProduct = new Label("ID Number: ");
+        Label idProductLabel = new Label("ID Number: ");
         TextField idProductInput = new TextField();
         HBox idProductContainer = new HBox();
-        idProductContainer.getChildren().add(idProduct);
+        idProductContainer.getChildren().add(idProductLabel);
         idProductContainer.getChildren().add(idProductInput);
         idProductContainer.setId("idProductContainer");
         idProductContainer.setAlignment(Pos.CENTER);
@@ -219,7 +220,8 @@ public class ProductsUI {
 
         submitDeletedProductBtn1.setOnAction(event -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(SceneManager.getDelProductScene2());
+            System.out.println("showDelProduct called");
+            gestion.dao.ProductsQuery.showDelProduct(idProductInput, stage);
         });
 
         VBox delProducts1 = new VBox(returnBtnContainer, delTitle1, delTxtContainer1, idProductContainer, delProductContainer1);
@@ -230,7 +232,7 @@ public class ProductsUI {
     }
 
     // DELETE PRODUCT SCENE 2
-    public static Scene delProductScene2() {
+    public static Scene delProductScene2(int idProductSql, String nameProductSql) {
 
         // Return button:
         Button returnBtn = new Button("Return");
@@ -260,41 +262,48 @@ public class ProductsUI {
         delTxtContainer2.setId("delTxtContainer2");
         delTxtContainer2.setAlignment(Pos.CENTER);
 
-        // User input:
-        GridPane delProductGrid = new GridPane();
-        delProductGrid.getStyleClass().add("addProductGrid");
+        Label idProduct = new Label("ID Number: " + idProductSql);
+        Label nameProduct = new Label("Name: " + nameProductSql);
 
-        delProductGrid.setVgap(10);
-        delProductGrid.setHgap(10);
+        // Créer la mise en page de la scène
+        VBox inputResult = new VBox(10, idProduct, nameProduct);
 
-        Label idProduct = new Label("ID Number: ");
-        TextField idProductInput = new TextField();
 
-        Label nameProduct = new Label("Name: ");
-        TextField nameProductInput = new TextField();
-
-        Label priceProduct = new Label("Price: ");
-        TextField priceProductInput = new TextField();
-
-        Label quantityProduct = new Label("Quantity: ");
-        TextField quantityProductInput = new TextField();
-
-        Label supplierProduct = new Label("Supplier: ");
-        TextField supplierProductInput = new TextField();
-
-        delProductGrid.add(idProduct, 0, 0);
-        delProductGrid.add(idProductInput, 1, 0);
-        delProductGrid.add(nameProduct, 0, 1);
-        delProductGrid.add(nameProductInput, 1, 1);
-        delProductGrid.add(priceProduct, 0, 2);
-        delProductGrid.add(priceProductInput, 1, 2);
-        delProductGrid.add(quantityProduct, 0, 3);
-        delProductGrid.add(quantityProductInput, 1, 3);
-        delProductGrid.add(supplierProduct, 0, 4);
-        delProductGrid.add(supplierProductInput, 1, 4);
-
-        delProductGrid.setAlignment(Pos.CENTER);
-        delProductGrid.setPadding(new Insets(40, 0, 0, 0));
+//        // User input:
+//        GridPane delProductGrid = new GridPane();
+//        delProductGrid.getStyleClass().add("addProductGrid");
+//
+//        delProductGrid.setVgap(10);
+//        delProductGrid.setHgap(10);
+//
+//        Label idProduct = new Label("ID Number: ");
+//        TextField idProductInput = new TextField();
+//
+//        Label nameProduct = new Label("Name: ");
+//        TextField nameProductInput = new TextField();
+//
+//        Label priceProduct = new Label("Price: ");
+//        TextField priceProductInput = new TextField();
+//
+//        Label quantityProduct = new Label("Quantity: ");
+//        TextField quantityProductInput = new TextField();
+//
+//        Label supplierProduct = new Label("Supplier: ");
+//        TextField supplierProductInput = new TextField();
+//
+//        delProductGrid.add(idProduct, 0, 0);
+//        delProductGrid.add(idProductInput, 1, 0);
+//        delProductGrid.add(nameProduct, 0, 1);
+//        delProductGrid.add(nameProductInput, 1, 1);
+//        delProductGrid.add(priceProduct, 0, 2);
+//        delProductGrid.add(priceProductInput, 1, 2);
+//        delProductGrid.add(quantityProduct, 0, 3);
+//        delProductGrid.add(quantityProductInput, 1, 3);
+//        delProductGrid.add(supplierProduct, 0, 4);
+//        delProductGrid.add(supplierProductInput, 1, 4);
+//
+//        delProductGrid.setAlignment(Pos.CENTER);
+//        delProductGrid.setPadding(new Insets(40, 0, 0, 0));
 
         Button submitDeletedProductBtn2 = new Button("Confirm");
         submitDeletedProductBtn2.getStyleClass().add("submitDeletedProductBtn2");
@@ -305,10 +314,11 @@ public class ProductsUI {
 
         submitDeletedProductBtn2.setOnAction(event -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            gestion.dao.ProductsQuery.delProduct();
             stage.setScene(SceneManager.getProductsHomeScene());
         });
 
-        VBox delProducts2 = new VBox(returnBtnContainer, delTitle2, delTxtContainer2, delProductGrid,delProductContainer2);
+        VBox delProducts2 = new VBox(returnBtnContainer, delTitle2, delTxtContainer2, inputResult,delProductContainer2);
 
         Scene delProductScene2 = new Scene(delProducts2, 300, 600);
         delProductScene2.getStylesheets().add("gestion/resources/products.css");

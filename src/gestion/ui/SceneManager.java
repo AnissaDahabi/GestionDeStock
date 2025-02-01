@@ -45,9 +45,9 @@ public class SceneManager {
         return delProductScene1;
     }
 
-    public static Scene getDelProductScene2() {
+    public static Scene getDelProductScene2(int idProductSql, String nameProductSql) {
         if (delProductScene2 == null) {
-            delProductScene2 = ProductsUI.delProductScene2();
+            delProductScene2 = ProductsUI.delProductScene2(idProductSql, nameProductSql);
         }
         return delProductScene2;
     }
