@@ -1,5 +1,6 @@
 # Application de Gestion de Stock
-## Description
+<br>
+## Description :
 Ce projet est une application de gestion de stock de café, permettant d'effectuer des opérations 
 CRUD (Créer, Lire, Mettre à jour, Supprimer) sur un inventaire de produits. L'application est 
 développée avec Java, utilisant JavaFX pour l'interface graphique et une base de données SQL.
@@ -31,23 +32,15 @@ Compilez et exécutez le projet directement depuis votre IDE.
 
 ## Screenshots:
 ### Home menu:
-<br>
-<br>
 <img src="./src/gestion/resources/readmeImg/home.png" height="500">
 
 ### Products' home menu:
-<br>
-<br>
 <img src="./src/gestion/resources/readmeImg/productHome.png" height="500">
 
 ### Add a product: 
-<br>
-<br>
 <img src="./src/gestion/resources/readmeImg/addProduct.png" height="500">
 
 ### Edit a product:
-<br>
-<br>
 <img src="./src/gestion/resources/readmeImg/edit1.png" height="500">
 <img src="./src/gestion/resources/readmeImg/edit2.png" height="500">
 
