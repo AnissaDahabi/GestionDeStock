@@ -31,15 +31,19 @@ Compilez et exécutez le projet directement depuis votre IDE.
 
 ## Screenshots:
 Home menu:
-<img src="./src/gestion/resources/readmeImg/home.png" height="100">
+<br>
+<img src="./src/gestion/resources/readmeImg/home.png" height="500">
 
 Products' home menu:
-<img src="./src/gestion/resources/readmeImg/homeProducts.png" height="100">
+<br>
+<img src="./src/gestion/resources/readmeImg/productHome.png" height="500">
 
 Add a product: 
-<img src="./src/gestion/resources/readmeImg/addProduct.png" height="100">
+<br>
+<img src="./src/gestion/resources/readmeImg/addProduct.png" height="500">
 
 Edit a product:
-<img src="./src/gestion/resources/readmeImg/edit1.png" height="100">
-<img src="./src/gestion/resources/readmeImg/edit2.png" height="100">
+<br>
+<img src="./src/gestion/resources/readmeImg/edit1.png" height="500">
+<img src="./src/gestion/resources/readmeImg/edit2.png" height="500">
 
