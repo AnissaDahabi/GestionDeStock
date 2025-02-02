@@ -30,22 +30,22 @@ Vérifiez que JavaFX soit présent dans vos librairies;
 Compilez et exécutez le projet directement depuis votre IDE.
 
 ## Screenshots:
-###Home menu:
+### Home menu:
 <br>
 <br>
 <img src="./src/gestion/resources/readmeImg/home.png" height="500">
 
-###Products' home menu:
+### Products' home menu:
 <br>
 <br>
 <img src="./src/gestion/resources/readmeImg/productHome.png" height="500">
 
-###Add a product: 
+### Add a product: 
 <br>
 <br>
 <img src="./src/gestion/resources/readmeImg/addProduct.png" height="500">
 
-###Edit a product:
+### Edit a product:
 <br>
 <br>
 <img src="./src/gestion/resources/readmeImg/edit1.png" height="500">
