@@ -7,9 +7,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import java.sql.*;
 
-import static java.lang.reflect.Array.getDouble;
-import static javax.swing.UIManager.getInt;
-import static javax.swing.UIManager.getString;
 
 public class ProductsQuery {
 
