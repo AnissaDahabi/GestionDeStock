@@ -13,6 +13,16 @@ public class SceneManager {
     private static Scene editProductScene2;
     private static Scene showProductScene;
 
+    private static Scene suppliersScene;
+    private static Scene addSuppliersScene;
+    private static Scene delSuppliersScene;
+    private static Scene delSuppliersScene2;
+    private static Scene editSuppliersScene;
+    private static Scene editSuppliersScene2;
+    private static Scene showSuppliersScene;
+    private static Scene showSuppliersScene2;
+
+
 
 
     public static Scene getHomeScene() {
@@ -72,5 +82,41 @@ public class SceneManager {
         }
         return showProductScene;
     }
+
+    // SUPPLIERS PART
+
+    public static Scene getSuppliersHomeScene() {
+        if (suppliersScene == null) {
+            suppliersScene = SuppliersUI.createContent();
+        }
+        return suppliersScene;
+    }
+
+    public static Scene getAddSuppliersScene() {
+        if (addSuppliersScene == null) {
+            addSuppliersScene = SuppliersUI.createContent();
+        }
+        return addSuppliersScene;
+    }
+
+    public static Scene getDelSuppliersScene() {
+        if (delSuppliersScene == null) {
+            delSuppliersScene = SuppliersUI.createContent();
+        }
+        return delSuppliersScene;
+    }
+
+    public static Scene getDelSuppliersScene1() {
+        if (delSuppliersScene2 == null) {
+            delSuppliersScene2 = SuppliersUI.createContent();
+        }
+        return delSuppliersScene2;
+
+    }
+    //public static Scene getEditSuppliersScene() {}
+
+
+
+
 }
 

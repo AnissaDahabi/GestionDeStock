@@ -96,6 +96,11 @@ public class HomeUI extends Application {
             stage.setScene(SceneManager.getProductsHomeScene());
         });
 
+        suppliersBtn.setOnAction(event -> {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(SceneManager.getSuppliersHomeScene());
+        });
+
         // Title and txt:
         VBox delTitle1 = new VBox(new Label("Delete a product"));
         delTitle1.setAlignment(Pos.CENTER);
