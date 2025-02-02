@@ -1,5 +1,5 @@
 # Application de Gestion de Stock
-<br>
+
 ## Description :
 Ce projet est une application de gestion de stock de café, permettant d'effectuer des opérations 
 CRUD (Créer, Lire, Mettre à jour, Supprimer) sur un inventaire de produits. L'application est 
