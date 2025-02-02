@@ -6,11 +6,11 @@ CRUD (Créer, Lire, Mettre à jour, Supprimer) sur un inventaire de produits. L'
 développée avec Java, utilisant JavaFX pour l'interface graphique et une base de données SQL.
 
 ## Fonctionnalités :
-Ajouter, modifier et supprimer les produits et fournisseurs; <br>
-Afficher la liste des fournisseurs et produits en stock; <br>
-Pouvoir les trier par ordre croissant, décroissant et alphabétique; <br>
-Enregistrer les ventes de produits et gérer les transactions; <br>
-Générer des rapports sur l'état du stock et des ventes.
+- Ajouter, modifier et supprimer les produits et fournisseurs; <br>
+- Afficher la liste des fournisseurs et produits en stock; <br>
+- Pouvoir les trier par ordre croissant, décroissant et alphabétique; <br>
+- Enregistrer les ventes de produits et gérer les transactions; <br>
+- Générer des rapports sur l'état du stock et des ventes.
 
 ## Comment utiliser l'application ?
 ### Prérecquis :
