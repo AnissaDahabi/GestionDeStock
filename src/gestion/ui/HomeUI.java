@@ -14,6 +14,12 @@ import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.StageStyle;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+
+import java.awt.*;
 
 public class HomeUI extends Application {
 
@@ -23,12 +29,32 @@ public class HomeUI extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Scene homeScene = new Scene(createContent(), 300, 600);
+
+        //IPhone border
+        BorderPane iphone = new BorderPane();
+        iphone.getStyleClass().add("iphone-frame");
+
+        Rectangle iphoneFrame = new Rectangle(300, 600);
+        iphoneFrame.setArcWidth(40);
+        iphoneFrame.setArcHeight(40);
+        iphoneFrame.setFill(Color.BLACK);
+
+        Rectangle notch = new Rectangle(100, 20, Color.BLACK);
+        notch.setArcWidth(15);
+        notch.setArcHeight(15);
+        notch.setTranslateY(-270);
+        StackPane.setMargin(notch, new Insets(5, 0, 0, 0));
+
+        StackPane root = new StackPane();
+        root.getChildren().addAll(iphoneFrame, createContent(), notch);
+
+        Scene homeScene = new Scene(root, 300, 600);
         homeScene.getStylesheets().add("gestion/resources/home.css");
         primaryStage.setScene(homeScene);
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.show();
         primaryStage.setResizable(false);
+
     }
 
     public static VBox createContent() {
