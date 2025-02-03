@@ -9,7 +9,7 @@ import java.sql.*;
 
 public class SuppliersQuery {
 
-    private static int currentSupplierId;
+    private static int currentSuppliersId;
 
     public static void addSuppliers(TextField idSupplierInput, TextField nameSupplierInput, TextField phoneSupplierInput, TextField addressSupplierInput, TextField emailSupplierInput) {
         try {
@@ -63,11 +63,11 @@ public class SuppliersQuery {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
 
             // Préparation de la requête SQL
-            String query = "DELETE FROM Products WHERE id_supplier = ?";
+            String query = "DELETE FROM Suppliers WHERE id_supplier = ?";
             PreparedStatement pstmt = con.prepareStatement(query);
 
             // Récupération de l'ID saisi par l'utilisateur
-            pstmt.setInt(1, currentSupplierId);
+            pstmt.setInt(1, currentSuppliersId);
 
             // Exécution de la requête SQL
             int rowsAffected = pstmt.executeUpdate();
@@ -96,7 +96,53 @@ public class SuppliersQuery {
         }
     }
 
+    public static void showDelSuppliers(TextField idSuppliersInput, Stage stage) {
+        try {
+            // Connexion à la base de données
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
 
+            // Préparation de la requête SQL
+            String query = "SELECT id_supplier, name_supplier FROM Suppliers WHERE id_supplier = ?";
+            PreparedStatement pstmt = con.prepareStatement(query);
+
+            // Récupération de l'ID saisi par l'utilisateur
+            int idSuppliers = Integer.parseInt(idSuppliersInput.getText());
+
+            // Remplissage du paramètre de la requête SQL
+            pstmt.setInt(1, idSuppliers);
+
+            // Exécution de la requête SQL
+            ResultSet resultSet = pstmt.executeQuery();
+
+
+            if (resultSet.next()) {
+
+                int idSuppliersSql = resultSet.getInt("id_supplier");
+                String nameSuppliersSql = resultSet.getString("name_supplier");
+
+                currentSuppliersId = idSuppliersSql;
+
+
+                stage.setScene(SceneManager.getDelSuppliersScene2(idSuppliersSql, nameSuppliersSql));
+
+            }
+            // Fermeture des ressources
+            resultSet.close();
+            pstmt.close();
+            con.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error encountered");
+            alert.setContentText("Error: " + ex.getMessage());
+            alert.showAndWait();
+        }
+    }
 
 
 }
+
+
+
