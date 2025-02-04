@@ -88,3 +88,89 @@
 #inputResult Label {
     -fx-font-size: 15px;
 }
+
+/* EDIT SUPPLIERS */
+
+.editTitle1, .editTitle2 {
+    -fx-font-size: 24px;
+    -fx-padding: 40 0 0 0;
+}
+
+#editTxt1, #editTxt2 {
+    -fx-font-size: 16px;
+    -fx-fill: #929292;
+    -fx-text-alignment: center;
+}
+
+#editTxtContainer1, #editTxtContainer2 {
+    -fx-padding: 20 0 0 0;
+}
+
+
+#idSuppliersLabel Label {
+    fx-font-size: 20px;
+}
+
+#idSuppliersContainer {
+    -fx-padding: 40 0 0 0;
+}
+
+.submitEditedSuppliersBtn1, .submitEditedSuppliersBtn2 {
+    -fx-background-color: #D9D9D9;
+    -fx-text-fill: black;
+    -fx-background-radius: 20px;
+    -fx-min-height: 35px;
+    -fx-min-width: 110px;
+    -fx-font-size: 15px;
+}
+
+#idSuppliersInput, #nameSuppliersInput, #phoneSuppliersInput, #addressSuppliersInput, #emailSuppliersInput {
+    -fx-prompt-text-fill: #929292;
+    -fx-text-fill: black;
+}
+
+/* SHOW Suppliers */
+
+.showTitle {
+    -fx-font-size: 24px;
+    -fx-padding: 40 0 0 0;
+}
+
+.sortFilterContainer {
+    -fx-padding: 20 0 0 0;
+}
+
+.sortSuppliers {
+    -fx-font-size: 13px;
+    -fx-padding: 0 0 0 10;
+    -fx-text-fill: #929292;
+    -fx-font-weight: bold;
+}
+
+#sortFilter {
+    -fx-background-color: white;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-border-color: #929292;
+    -fx-min-height: 15px;
+    -fx-font-size: 10px;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: #929292;
+    -fx-font-weight: bold;
+}
+
+.combo-box .list-view .list-cell {
+    -fx-text-fill: #929292;
+}
+
+.combo-box .list-view .list-cell:hover {
+    -fx-background-color : #b7b7b7;
+    -fx-text-fill: white;
+}
+
+.combo-box .list-view .list-cell:focused {
+    -fx-background-color: #929292;
+    -fx-text-fill: white;
+}

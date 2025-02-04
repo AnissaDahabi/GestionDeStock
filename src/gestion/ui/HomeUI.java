@@ -31,7 +31,7 @@ public class HomeUI extends Application {
     public void start(Stage primaryStage) {
 
         //IPhone border
-        BorderPane iphone = new BorderPane();
+       /* BorderPane iphone = new BorderPane();
         iphone.getStyleClass().add("iphone-frame");
 
         Rectangle iphoneFrame = new Rectangle(300, 600);
@@ -46,9 +46,9 @@ public class HomeUI extends Application {
         StackPane.setMargin(notch, new Insets(5, 0, 0, 0));
 
         StackPane root = new StackPane();
-        root.getChildren().addAll(iphoneFrame, createContent(), notch);
+        root.getChildren().addAll(iphoneFrame, createContent(), notch); */
 
-        Scene homeScene = new Scene(root, 300, 600);
+        Scene homeScene = new Scene(createContent(), 300, 600);
         homeScene.getStylesheets().add("gestion/resources/home.css");
         primaryStage.setScene(homeScene);
         primaryStage.initStyle(StageStyle.UNDECORATED);
@@ -119,12 +119,12 @@ public class HomeUI extends Application {
         //Actions des boutons :
         productsBtn.setOnAction(event -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(SceneManager.getProductsHomeScene());
+            stage.setScene(gestion.ui.SceneManager.getProductsHomeScene());
         });
 
         suppliersBtn.setOnAction(event -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(SceneManager.getSuppliersHomeScene());
+            stage.setScene(gestion.ui.SceneManager.getSuppliersHomeScene());
         });
 
         // Title and txt:

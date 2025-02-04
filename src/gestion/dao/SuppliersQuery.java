@@ -10,6 +10,7 @@ import java.sql.*;
 public class SuppliersQuery {
 
     private static int currentSuppliersId;
+    //private static int currentPhoneSuppliers;
 
     public static void addSuppliers(TextField idSupplierInput, TextField nameSupplierInput, TextField phoneSupplierInput, TextField addressSupplierInput, TextField emailSupplierInput) {
         try {
@@ -22,14 +23,14 @@ public class SuppliersQuery {
             //Récupération des données saisies par l'utilisateur
             int idSupplier = Integer.parseInt(idSupplierInput.getText());
             String nameSupplier = nameSupplierInput.getText();
-            String phoneSupplier = phoneSupplierInput.getText();
+            int phoneSupplier = Integer.parseInt(phoneSupplierInput.getText());
             String addressSupplier = addressSupplierInput.getText();
             String emailSupplier = emailSupplierInput.getText();
 
             //Remplissage des paramètres de la requête SQL
             pstmt.setInt(1, idSupplier);
             pstmt.setString(2, nameSupplier);
-            pstmt.setString(3, phoneSupplier);
+            pstmt.setInt(3, phoneSupplier);
             pstmt.setString(4, addressSupplier);
             pstmt.setString(5, emailSupplier);
 
@@ -136,6 +137,109 @@ public class SuppliersQuery {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Error encountered");
+            alert.setContentText("Error: " + ex.getMessage());
+            alert.showAndWait();
+        }
+    }
+
+    public static void showEditedSuppliers(TextField idSuppliersInput,  Stage stage) {
+        try {
+
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
+
+            String query = "SELECT id_supplier, name_supplier, phone_supplier, address_supplier, email_supplier FROM Suppliers WHERE id_supplier = ?";
+            PreparedStatement pstmt = con.prepareStatement(query);
+
+            try {
+                currentSuppliersId  = Integer.parseInt(idSuppliersInput.getText());
+                pstmt.setInt(1, currentSuppliersId );
+
+            } catch (NumberFormatException ex) {
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Invalid Supplier ID, please enter an integer");
+                alert.setContentText("Error: " + ex.getMessage());
+                alert.showAndWait();
+                return;
+            }
+
+            try (ResultSet resultSet = pstmt.executeQuery()) {
+
+                if (resultSet.next()) {
+                    int idSuppliersSql = resultSet.getInt("id_supplier");
+                    String nameSuppliersSql = resultSet.getString("name_supplier");
+                    int phoneSuppliersSql = resultSet.getInt("phone_supplier");
+                    String addressSuppliersSql = resultSet.getString("address_supplier");
+                    String emailSuppliersSql = resultSet.getString("email_supplier");
+
+                    stage.setScene(SceneManager.getEditSuppliersScene2(idSuppliersSql, nameSuppliersSql, phoneSuppliersSql, addressSuppliersSql, emailSuppliersSql));
+
+                } else {
+                    Alert alert = new Alert(AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText("Supplier not found");
+                    alert.setContentText("No supplier found with this ID");
+                    alert.showAndWait();
+                }
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error encountered");
+            alert.setContentText("Error: " + ex.getMessage());
+            alert.showAndWait();
+        }
+    }
+
+    public static void editSuppliers(TextField nameSuppliersInput, TextField phoneSuppliersInput, TextField addressSuppliersInput, TextField emailSuppliersInput) {
+        try {
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
+
+            String query = "UPDATE Suppliers SET name_supplier = ?, phone_supplier = ?, address_supplier = ?, email_supplier = ? WHERE id_supplier = ?";
+            PreparedStatement pstmt = con.prepareStatement(query);
+
+            pstmt.setString(1, nameSuppliersInput.getText());
+
+            try {
+                pstmt.setInt(2, Integer.parseInt(phoneSuppliersInput.getText()));
+            } catch (NumberFormatException ex) {
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Invalid input");
+                alert.setContentText("Please enter a valid phone number");
+                return;
+            }
+
+            pstmt.setString(3, addressSuppliersInput.getText());
+            pstmt.setString(4, emailSuppliersInput.getText());
+
+            int rowsAffected = pstmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Success!");
+                alert.setHeaderText(null);
+                alert.setContentText("Supplier edited successfully");
+                alert.showAndWait();
+            } else {
+                Alert alert = new Alert(AlertType.WARNING);
+                alert.setTitle("No Changes");
+                alert.setHeaderText(null);
+                alert.setContentText("No changes were made.");
+                alert.showAndWait();
+            }
+
+            pstmt.close();
+            con.close();
+
+        } catch (SQLException ex) {
+            // Gestion des erreurs SQL
+            ex.printStackTrace();
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error encountered while editing the supplier");
             alert.setContentText("Error: " + ex.getMessage());
             alert.showAndWait();
         }

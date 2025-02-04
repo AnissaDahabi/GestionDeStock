@@ -19,7 +19,7 @@ public class SceneManager {
     private static Scene delSuppliersScene2;
     private static Scene editSuppliersScene;
     private static Scene editSuppliersScene2;
-    private static Scene showSuppliersScene;
+    private static Scene showSuppliersScene1;
     private static Scene showSuppliersScene2;
 
 
@@ -113,9 +113,37 @@ public class SceneManager {
         return delSuppliersScene2;
     }
 
-
+    public static Scene getEditSuppliersScene1() {
+        if (editSuppliersScene == null) {
+            editSuppliersScene = SuppliersUI.editSuppliersScene1();
+        }
+        return editSuppliersScene;
     }
-    //public static Scene getEditSuppliersScene() {}
+
+    public static Scene getEditSuppliersScene2(int idSuppliersSql, String nameSuppliersSql, int phoneSuppliersSql, String addressSuppliersSql, String emailSuppliersSql) {
+        if (editSuppliersScene2 == null) {
+            editSuppliersScene2 = SuppliersUI.editSuppliersScene2(idSuppliersSql, nameSuppliersSql, phoneSuppliersSql, addressSuppliersSql, emailSuppliersSql);
+        }
+        return editSuppliersScene2;
+    }
+
+    public static Scene getShowSuppliersScene1() {
+        if (showSuppliersScene1 == null) {
+            showSuppliersScene1 = SuppliersUI.showSuppliersScene1();
+        }
+        return showSuppliersScene1;
+    }
+
+  /*  public static Scene showSuppliersScene2() {
+        if (showSuppliersScene2 == null) {
+            showSuppliersScene2 = SuppliersUI.showSuppliersScene2();
+        }
+        return showSuppliersScene2;
+    } */
+}
+
+
+
 
 
 
