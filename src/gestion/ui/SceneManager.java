@@ -21,6 +21,16 @@ public class SceneManager {
     private static Scene editSuppliersScene2;
     private static Scene showSuppliersScene1;
     private static Scene showSuppliersScene2;
+    private static Scene showSuppliersScene3;
+
+    private static Scene salesScene;
+    private static Scene addSalesScene;
+    private static Scene delSalesScene;
+    private static Scene editSalesScene;
+    private static Scene editSalesScene2;
+    private static Scene showSalesScene1;
+    private static Scene showSalesScene2;
+    private static Scene showSalesScene3;
 
 
 
@@ -140,6 +150,23 @@ public class SceneManager {
         }
         return showSuppliersScene2;
     } */
+
+    public static Scene getSalesHomeScene() {
+        if (salesScene == null) {
+            salesScene = SalesUI.createContent();
+        }
+        return salesScene;
+    }
+
+    public static Scene getAddSalesScene() {
+        if (addSalesScene == null) {
+            addSalesScene = SalesUI.addSalesScene();
+        }
+        return addSalesScene;
+    }
+
+
+
 }
 
 
