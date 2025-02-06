@@ -5,6 +5,7 @@ Ce projet est une application de gestion de stock de café, permettant d'effectu
 CRUD (Créer, Lire, Mettre à jour, Supprimer) sur un inventaire de produits. L'application est 
 développée avec Java, utilisant JavaFX pour l'interface graphique et une base de données SQL.
 <br>
+<br>
 Lien vers la maquette Figma: https://www.figma.com/design/7DGJhtKYLpRDPshxSO6aHs/L'Antique-App?node-id=0-1&t=xzsyNejvFH34FWZj-1
 
 ## Fonctionnalités :
