@@ -123,10 +123,10 @@ public class SalesUI {
         Label idSales = new Label("ID Number: ");
         TextField idSalesInput = new TextField();
 
-        Label nameSalesSupplier = new Label("Name: ");
+        Label nameSalesSupplier = new Label("Supplier name: ");
         TextField nameSalesSupplierInput = new TextField();
 
-        Label nameSalesProducts = new Label("Name: ");
+        Label nameSalesProducts = new Label("Product name: ");
         TextField nameSalesProductInput = new TextField();
 
         Label quantitySalesProduct = new Label("Quantity: ");
