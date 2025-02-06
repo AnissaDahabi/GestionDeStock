@@ -25,8 +25,9 @@ public class SceneManager {
 
     private static Scene salesScene;
     private static Scene addSalesScene;
-    private static Scene delSalesScene;
-    private static Scene editSalesScene;
+    private static Scene delSalesScene1;
+    private static Scene delSalesScene2;
+    private static Scene editSalesScene1;
     private static Scene editSalesScene2;
     private static Scene showSalesScene1;
     private static Scene showSalesScene2;
@@ -163,6 +164,34 @@ public class SceneManager {
             addSalesScene = SalesUI.addSalesScene();
         }
         return addSalesScene;
+    }
+
+    public static Scene getDelSalesScene1() {
+        if (delSalesScene1 == null) {
+            delSalesScene1 = SalesUI.delSalesScene1();
+        }
+        return delSalesScene1;
+    }
+
+    public static Scene getDelSalesScene2(int idSalesSql, String nameSalesSuppliersSql, String nameSalesProductSql) {
+        if (delSalesScene2 == null) {
+            delSalesScene2 = SalesUI.delSalesScene2(idSalesSql, nameSalesSuppliersSql, nameSalesProductSql);
+        }
+        return delSalesScene2;
+    }
+
+    public static Scene getEditSalesScene1() {
+        if (editSalesScene1 == null) {
+            editSalesScene1 = SalesUI.editSalesScene1();
+        }
+        return editSalesScene1;
+    }
+
+    public static Scene getEditSalesScene2(int idSalesSql, String nameSalesSuppliersSql, String nameSalesProductSql, int quantitySalesProductSql, String priceSalesSql) {
+        if (editSalesScene2 == null) {
+            editSalesScene2 = SalesUI.editSalesScene2(idSalesSql, nameSalesSuppliersSql, nameSalesProductSql, quantitySalesProductSql, priceSalesSql);
+        }
+        return editSalesScene2;
     }
 
 
