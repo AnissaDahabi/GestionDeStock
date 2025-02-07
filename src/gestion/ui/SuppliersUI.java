@@ -136,6 +136,9 @@ public class SuppliersUI {
         Label emailSuppliers = new Label("Email: ");
         TextField emailSuppliersInput = new TextField();
 
+        Label idProduct = new Label("Product ID: ");
+        TextField idProductInput = new TextField();
+
 
         addSuppliersGrid.add(idSuppliers, 0, 0);
         addSuppliersGrid.add(idSuppliersInput, 1, 0);
@@ -147,6 +150,8 @@ public class SuppliersUI {
         addSuppliersGrid.add(addressSuppliersInput, 1, 3);
         addSuppliersGrid.add(emailSuppliers, 0, 4);
         addSuppliersGrid.add(emailSuppliersInput, 1, 4);
+        addSuppliersGrid.add(idProduct, 0, 5);
+        addSuppliersGrid.add(idProductInput, 1, 5);
 
         addSuppliersGrid.setAlignment(Pos.CENTER);
 
@@ -161,12 +166,13 @@ public class SuppliersUI {
 
         submitAddedSuppliersBtn.setOnAction(event -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            gestion.dao.SuppliersQuery.addSuppliers(idSuppliersInput, nameSuppliersInput, phoneSuppliersInput, addressSuppliersInput, emailSuppliersInput);
+            gestion.dao.SuppliersQuery.addSuppliers(idSuppliersInput, nameSuppliersInput, phoneSuppliersInput, addressSuppliersInput, emailSuppliersInput, idProductInput);
             idSuppliersInput.clear();
             nameSuppliersInput.clear();
             phoneSuppliersInput.clear();
             addressSuppliersInput.clear();
             emailSuppliersInput.clear();
+            idProductInput.clear();
             stage.setScene(SceneManager.getSuppliersHomeScene());
         });
 

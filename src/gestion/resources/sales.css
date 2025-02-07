@@ -128,3 +128,49 @@
     -fx-prompt-text-fill: #929292;
     -fx-text-fill: black;
 }
+
+/* SHOW Sales */
+
+.showTitle {
+    -fx-font-size: 24px;
+    -fx-padding: 40 0 0 0;
+}
+
+.sortFilterContainer {
+    -fx-padding: 20 0 0 0;
+}
+
+.sortSales {
+    -fx-font-size: 13px;
+    -fx-padding: 0 0 0 10;
+    -fx-text-fill: #929292;
+    -fx-font-weight: bold;
+}
+
+#sortFilter {
+    -fx-background-color: white;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-border-color: #929292;
+    -fx-min-height: 15px;
+    -fx-font-size: 10px;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: #929292;
+    -fx-font-weight: bold;
+}
+
+.combo-box .list-view .list-cell {
+    -fx-text-fill: #929292;
+}
+
+.combo-box .list-view .list-cell:hover {
+    -fx-background-color : #b7b7b7;
+    -fx-text-fill: white;
+}
+
+.combo-box .list-view .list-cell:focused {
+    -fx-background-color: #929292;
+    -fx-text-fill: white;
+}

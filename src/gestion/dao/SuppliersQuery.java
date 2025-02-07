@@ -12,12 +12,12 @@ public class SuppliersQuery {
     private static int currentSuppliersId;
     //private static int currentPhoneSuppliers;
 
-    public static void addSuppliers(TextField idSupplierInput, TextField nameSupplierInput, TextField phoneSupplierInput, TextField addressSupplierInput, TextField emailSupplierInput) {
+    public static void addSuppliers(TextField idSupplierInput, TextField nameSupplierInput, TextField phoneSupplierInput, TextField addressSupplierInput, TextField emailSupplierInput, TextField productInput) {
         try {
             Connection con =
                     DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
 
-            String query = "INSERT INTO Supplier (id_supplier, name_supplier, phone_supplier, address_supplier, email_supplier) VALUES (?, ?, ?, ?, ?)";
+            String query = "INSERT INTO Supplier (id_supplier, name_supplier, phone_supplier, address_supplier, email_supplier, id_product) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement pstmt = con.prepareStatement(query);
 
             //Récupération des données saisies par l'utilisateur
@@ -26,6 +26,7 @@ public class SuppliersQuery {
             int phoneSupplier = Integer.parseInt(phoneSupplierInput.getText());
             String addressSupplier = addressSupplierInput.getText();
             String emailSupplier = emailSupplierInput.getText();
+            int productId = Integer.parseInt(productInput.getText());
 
             //Remplissage des paramètres de la requête SQL
             pstmt.setInt(1, idSupplier);
@@ -33,6 +34,7 @@ public class SuppliersQuery {
             pstmt.setInt(3, phoneSupplier);
             pstmt.setString(4, addressSupplier);
             pstmt.setString(5, emailSupplier);
+            pstmt.setInt(6, productId);
 
             //Exécution de la requête SQL
             int rowsAffected = pstmt.executeUpdate();
@@ -244,6 +246,8 @@ public class SuppliersQuery {
             alert.showAndWait();
         }
     }
+
+
 
 
 }

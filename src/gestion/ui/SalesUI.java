@@ -74,6 +74,11 @@ public class SalesUI {
             stage.setScene(SceneManager.getEditSalesScene1());
         });
 
+        showSalesBtn.setOnAction(event -> {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(SceneManager.getShowSalesScene1());
+        });
+
 
         VBox homeSales = new VBox(returnBtnContainer, salesTitle, salesBtnContainer);
 
@@ -481,6 +486,51 @@ public class SalesUI {
         Scene editSalesScene2 = new Scene(editSales2, 300, 600);
         editSalesScene2.getStylesheets().add("gestion/resources/sales.css");
         return editSalesScene2;
+    }
+
+    public static Scene showSalesScene1() {
+        // Return button:
+        Button returnBtn = new Button("Return");
+        returnBtn.getStyleClass().add("returnBtn");
+
+        returnBtn.setOnAction(event -> {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(SceneManager.getSalesHomeScene());
+        });
+
+        HBox returnBtnContainer = new HBox(10);
+        returnBtnContainer.setAlignment(Pos.TOP_RIGHT);
+        returnBtnContainer.setPadding(new Insets(10, 10, 10, 10));
+        returnBtnContainer.getChildren().add(returnBtn);
+
+        // Title and txt:
+        VBox showTitle = new VBox(new Label("Sales repertory"));
+        showTitle.setAlignment(Pos.CENTER);
+        showTitle.getStyleClass().add("showTitle");
+
+        Label sortSales = new Label("Sort Sales: ");
+        sortSales.getStyleClass().add("sortSales");
+
+        ObservableList<String> sortOptions =
+                FXCollections.observableArrayList(
+                        "alphabetical order",
+                        "ascending order",
+                        "descending order"
+                );
+        final ComboBox sortFilter = new ComboBox(sortOptions);
+        sortFilter.setId("sortFilter");
+
+        HBox sortFilterContainer = new HBox();
+        sortFilterContainer.getChildren().add(sortSales);
+        sortFilterContainer.getChildren().add(sortFilter);
+        sortFilterContainer.getStyleClass().add("sortFilterContainer");
+
+
+        VBox showSales = new VBox(returnBtnContainer, showTitle, sortFilterContainer);
+
+        Scene showSalesScene = new Scene(showSales, 300, 600);
+        showSales.getStylesheets().add("gestion/resources/sales.css");
+        return showSalesScene;
     }
 
 

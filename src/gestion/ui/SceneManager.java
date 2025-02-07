@@ -33,6 +33,10 @@ public class SceneManager {
     private static Scene showSalesScene2;
     private static Scene showSalesScene3;
 
+    private static Scene reportsScene;
+    private static Scene showReportsScene;
+    private static Scene showReportsScene2;
+
 
 
 
@@ -194,6 +198,12 @@ public class SceneManager {
         return editSalesScene2;
     }
 
+    public static Scene getShowSalesScene1() {
+        if (showSalesScene1 == null) {
+            showSalesScene1 = SalesUI.showSalesScene1();
+        }
+        return showSalesScene1;
+    }
 
 
 }
