@@ -33,7 +33,7 @@ public class ProductsQuery {
             pstmt.setString(5, supplierProduct);
 
             // Exécution de la requête SQL
-            int rowsAffected = pstmt.executeUpdate();
+           pstmt.executeUpdate();
 
             // Fermeture de la connexion et du PreparedStatement
             pstmt.close();

@@ -31,13 +31,14 @@ public class HomeUI extends Application {
         Rectangle iphoneFrame = new Rectangle(300, 600);
         iphoneFrame.setArcWidth(40);
         iphoneFrame.setArcHeight(40);
-        iphoneFrame.setFill(Color.BLACK);
+        iphoneFrame.setFill(Color.RED);
 
         Rectangle notch = new Rectangle(100, 20, Color.BLACK);
-        notch.setArcWidth(15);
-        notch.setArcHeight(15);
+        notch.setArcWidth(10);
+        notch.setArcHeight(10);
         notch.setTranslateY(-270);
         StackPane.setMargin(notch, new Insets(5, 0, 0, 0));
+
 
         StackPane root = new StackPane();
         root.getChildren().addAll(iphoneFrame, createContent(), notch); */
