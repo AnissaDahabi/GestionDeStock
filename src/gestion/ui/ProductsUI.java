@@ -491,8 +491,21 @@ public class ProductsUI {
         sortFilterContainer.getChildren().add(sortFilter);
         sortFilterContainer.getStyleClass().add("sortFilterContainer");
 
+        Label searchProducts = new Label("Search by ID: ");
+        searchProducts.getStyleClass().add("searchProducts");
+        TextField searchProductsInput = new TextField();
+        searchProductsInput.getStyleClass().add("searchProductsInput");
 
-        VBox showProducts = new VBox(returnBtnContainer, showTitle, sortFilterContainer);
+        Button confirmBtn = new Button("Confirm");
+        confirmBtn.getStyleClass().add("confirmBtn");
+
+        HBox searchProductsContainer = new HBox();
+        searchProductsContainer.getChildren().add(searchProducts);
+        searchProductsContainer.getChildren().add(searchProductsInput);
+        searchProductsContainer.getChildren().add(confirmBtn);
+        searchProductsContainer.getStyleClass().add("searchProductsContainer");
+
+        VBox showProducts = new VBox(returnBtnContainer, showTitle, sortFilterContainer, searchProductsContainer);
 
         Scene showProductsScene = new Scene(showProducts, 300, 600);
         showProductsScene.getStylesheets().add("gestion/resources/products.css");
