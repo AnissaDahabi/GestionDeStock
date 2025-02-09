@@ -12,29 +12,29 @@ public class SuppliersQuery {
     private static int currentSuppliersId;
     //private static int currentPhoneSuppliers;
 
-    public static void addSuppliers(TextField idSupplierInput, TextField nameSupplierInput, TextField phoneSupplierInput, TextField addressSupplierInput, TextField emailSupplierInput, TextField productInput) {
+    public static void addSuppliers(TextField idSuppliersInput, TextField nameSuppliersInput, TextField phoneSuppliersInput, TextField addressSuppliersInput, TextField emailSuppliersInput, TextField productsInput) {
         try {
             Connection con =
                     DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
 
-            String query = "INSERT INTO Supplier (id_supplier, name_supplier, phone_supplier, address_supplier, email_supplier, id_product) VALUES (?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO Suppliers (id_supplier, name_supplier, phone_supplier, address_supplier, email_supplier, id_product) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement pstmt = con.prepareStatement(query);
 
             //Récupération des données saisies par l'utilisateur
-            int idSupplier = Integer.parseInt(idSupplierInput.getText());
-            String nameSupplier = nameSupplierInput.getText();
-            int phoneSupplier = Integer.parseInt(phoneSupplierInput.getText());
-            String addressSupplier = addressSupplierInput.getText();
-            String emailSupplier = emailSupplierInput.getText();
-            int productId = Integer.parseInt(productInput.getText());
+            int idSuppliers = Integer.parseInt(idSuppliersInput.getText());
+            String nameSuppliers = nameSuppliersInput.getText();
+            int phoneSuppliers = Integer.parseInt(phoneSuppliersInput.getText());
+            String addressSuppliers = addressSuppliersInput.getText();
+            String emailSuppliers = emailSuppliersInput.getText();
+            int productsId = Integer.parseInt(productsInput.getText());
 
             //Remplissage des paramètres de la requête SQL
-            pstmt.setInt(1, idSupplier);
-            pstmt.setString(2, nameSupplier);
-            pstmt.setInt(3, phoneSupplier);
-            pstmt.setString(4, addressSupplier);
-            pstmt.setString(5, emailSupplier);
-            pstmt.setInt(6, productId);
+            pstmt.setInt(1, idSuppliers);
+            pstmt.setString(2, nameSuppliers);
+            pstmt.setInt(3, phoneSuppliers);
+            pstmt.setString(4, addressSuppliers);
+            pstmt.setString(5, emailSuppliers);
+            pstmt.setInt(6, productsId);
 
             //Exécution de la requête SQL
             int rowsAffected = pstmt.executeUpdate();

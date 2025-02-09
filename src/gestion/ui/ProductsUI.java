@@ -511,5 +511,4 @@ public class ProductsUI {
         showProductsScene.getStylesheets().add("gestion/resources/products.css");
         return showProductsScene;
     }
-
 }
