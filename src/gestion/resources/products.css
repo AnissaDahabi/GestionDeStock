@@ -12,7 +12,7 @@
     -fx-padding: 40 0 0 0;
 }
 
-.addProductBtn, .delProductBtn, .editProductBtn, .showProductBtn {
+.addBtnProducts, .delBtnProducts, .editBtnProducts, .showBtnProducts {
     -fx-background-color: #D9D9D9;
     -fx-text-fill: black;
     -fx-background-radius: 20px;
@@ -44,7 +44,7 @@
     -fx-padding: 20 0 0 0;
 }
 
-.submitAddedProductBtn {
+.submitAddedProductsBtn {
     -fx-background-color: #D9D9D9;
     -fx-text-fill: black;
     -fx-background-radius: 20px;
@@ -53,7 +53,7 @@
     -fx-font-size: 15px;
 }
 
-.addProductContainer {
+.addProductsContainer {
     -fx-padding: 50 0 0 0;
 }
 
@@ -76,11 +76,11 @@
     -fx-padding: 20 0 0 0;
 }
 
-#idProductContainer {
+#idProductsContainer {
     -fx-padding: 40 0 0 0;
 }
 
-.submitDeletedProductBtn1, .submitDeletedProductBtn2 {
+.submitDeletedProductsBtn1, .submitDeletedProductsBtn2 {
     -fx-background-color: #D9D9D9;
     -fx-text-fill: black;
     -fx-background-radius: 20px;
@@ -113,15 +113,15 @@
 }
 
 
-#idProductLabel Label {
+#idProductsLabel Label {
     fx-font-size: 20px;
 }
 
-#idProductContainer {
+#idProductsContainer {
     -fx-padding: 40 0 0 0;
 }
 
-.submitEditedProductBtn1, .submitEditedProductBtn2 {
+.submitEditedProductsBtn1, .submitEditedProductsBtn2 {
     -fx-background-color: #D9D9D9;
     -fx-text-fill: black;
     -fx-background-radius: 20px;
@@ -130,7 +130,7 @@
     -fx-font-size: 15px;
 }
 
-#idProductInput, #nameProductInput, #priceProductInput, #quantityProductInput, #supplierProductInput {
+#idProductsInput, #nameProductsInput, #priceProductsInput, #quantityProductsInput, #supplierProductsInput {
     -fx-prompt-text-fill: #929292;
     -fx-text-fill: black;
 }

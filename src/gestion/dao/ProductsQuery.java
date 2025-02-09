@@ -10,7 +10,7 @@ import java.sql.*;
 
 public class ProductsQuery {
 
-    public static void addProduct(TextField idProductInput, TextField nameProductInput, TextField priceProductInput, TextField quantityProductInput, TextField supplierProductInput) {
+    public static void addProducts(TextField idProductsInput, TextField nameProductsInput, TextField priceProductsInput, TextField quantityProductsInput, TextField supplierProductsInput) {
         try {
             Connection con =
                     DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
@@ -19,18 +19,18 @@ public class ProductsQuery {
             PreparedStatement pstmt = con.prepareStatement(query);
 
             // Récupération des données saisies par l'utilisateur
-            int idProduct = Integer.parseInt(idProductInput.getText());
-            String nameProduct = nameProductInput.getText();
-            Double priceProduct = Double.parseDouble(priceProductInput.getText());
-            int quantityProduct = Integer.parseInt(quantityProductInput.getText());
-            String supplierProduct = supplierProductInput.getText();
+            int idProducts = Integer.parseInt(idProductsInput.getText());
+            String nameProducts = nameProductsInput.getText();
+            Double priceProducts = Double.parseDouble(priceProductsInput.getText());
+            int quantityProducts = Integer.parseInt(quantityProductsInput.getText());
+            String supplierProducts = supplierProductsInput.getText();
 
             // Remplissage des paramètres de la requête SQL
-            pstmt.setInt(1, idProduct);
-            pstmt.setString(2, nameProduct);
-            pstmt.setDouble(3, priceProduct);
-            pstmt.setInt(4, quantityProduct);
-            pstmt.setString(5, supplierProduct);
+            pstmt.setInt(1, idProducts);
+            pstmt.setString(2, nameProducts);
+            pstmt.setDouble(3, priceProducts);
+            pstmt.setInt(4, quantityProducts);
+            pstmt.setString(5, supplierProducts);
 
             // Exécution de la requête SQL
            pstmt.executeUpdate();
@@ -57,9 +57,9 @@ public class ProductsQuery {
         }
     }
 
-    private static int currentProductId; // stockage de l'id pour ensuite le supprimer
+    private static int currentProductsId; // stockage de l'id pour ensuite le supprimer
 
-    public static void showDelProduct(TextField idProductInput, Stage stage) {
+    public static void showDelProducts(TextField idProductsInput, Stage stage) {
         try {
             // Connexion à la base de données
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
@@ -69,10 +69,10 @@ public class ProductsQuery {
             PreparedStatement pstmt = con.prepareStatement(query);
 
             // Récupération de l'ID saisi par l'utilisateur
-            int idProduct = Integer.parseInt(idProductInput.getText());
+            int idProducts = Integer.parseInt(idProductsInput.getText());
 
             // Remplissage du paramètre de la requête SQL
-            pstmt.setInt(1, idProduct);
+            pstmt.setInt(1, idProducts);
 
             // Exécution de la requête SQL
             ResultSet resultSet = pstmt.executeQuery();
@@ -80,13 +80,13 @@ public class ProductsQuery {
 
             if (resultSet.next()) {
 
-            int idProductSql = resultSet.getInt("id_product");
-            String nameProductSql = resultSet.getString("name_product");
+            int idProductsSql = resultSet.getInt("id_product");
+            String nameProductsSql = resultSet.getString("name_product");
 
-            currentProductId = idProductSql;
+            currentProductsId = idProductsSql;
 
 
-            stage.setScene(SceneManager.getDelProductScene2(idProductSql, nameProductSql));
+            stage.setScene(SceneManager.getDelProductScene2(idProductsSql, nameProductsSql));
 
             }
             // Fermeture des ressources
@@ -104,7 +104,7 @@ public class ProductsQuery {
         }
     }
 
-    public static void delProduct() {
+    public static void delProducts() {
         try {
             // Connexion à la base de données
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
@@ -114,7 +114,7 @@ public class ProductsQuery {
             PreparedStatement pstmt = con.prepareStatement(query);
 
             // Récupération de l'ID saisi par l'utilisateur
-            pstmt.setInt(1, currentProductId);
+            pstmt.setInt(1, currentProductsId);
 
             // Exécution de la requête SQL
             int rowsAffected = pstmt.executeUpdate();
@@ -143,7 +143,7 @@ public class ProductsQuery {
         }
     }
 
-    public static void showEditedProduct(TextField idProductInput,  Stage stage) {
+    public static void showEditedProducts(TextField idProductsInput,  Stage stage) {
         try {
 
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
@@ -152,8 +152,8 @@ public class ProductsQuery {
             PreparedStatement pstmt = con.prepareStatement(query);
 
             try {
-                currentProductId  = Integer.parseInt(idProductInput.getText());
-                pstmt.setInt(1, currentProductId );
+                currentProductsId  = Integer.parseInt(idProductsInput.getText());
+                pstmt.setInt(1, currentProductsId );
 
             } catch (NumberFormatException ex) {
                 Alert alert = new Alert(AlertType.ERROR);
@@ -167,13 +167,13 @@ public class ProductsQuery {
             try (ResultSet resultSet = pstmt.executeQuery()) {
 
                 if (resultSet.next()) {
-                    int idProductSql = resultSet.getInt("id_product");
-                    String nameProductSql = resultSet.getString("name_product");
-                    double priceProductSql = resultSet.getDouble("price_product");
-                    int quantityProductSql = resultSet.getInt("quantity_product");
-                    String supplierProductSql = resultSet.getString("supplier_product");
+                    int idProductsSql = resultSet.getInt("id_product");
+                    String nameProductsSql = resultSet.getString("name_product");
+                    double priceProductsSql = resultSet.getDouble("price_product");
+                    int quantityProductsSql = resultSet.getInt("quantity_product");
+                    String supplierProductsSql = resultSet.getString("supplier_product");
 
-                    stage.setScene(SceneManager.getEditProductScene2(idProductSql, nameProductSql, priceProductSql, quantityProductSql, supplierProductSql));
+                    stage.setScene(SceneManager.getEditProductsScene2(idProductsSql, nameProductsSql, priceProductsSql, quantityProductsSql, supplierProductsSql));
 
                 } else {
                     Alert alert = new Alert(AlertType.ERROR);
@@ -194,17 +194,17 @@ public class ProductsQuery {
         }
     }
 
-    public static void editProduct(TextField nameProductInput, TextField priceProductInput, TextField quantityProductInput, TextField supplierProductInput) {
+    public static void editProducts(TextField nameProductsInput, TextField priceProductsInput, TextField quantityProductsInput, TextField supplierProductsInput) {
         try {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
 
             String query = "UPDATE Products SET name_product = ?, price_product = ?, quantity_product = ?, supplier_product = ? WHERE id_product = ?";
             PreparedStatement pstmt = con.prepareStatement(query);
 
-            pstmt.setString(1, nameProductInput.getText());
+            pstmt.setString(1, nameProductsInput.getText());
 
             try {
-                pstmt.setDouble(2, Double.parseDouble(priceProductInput.getText()));
+                pstmt.setDouble(2, Double.parseDouble(priceProductsInput.getText()));
             } catch (NumberFormatException ex) {
                 Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Error");
@@ -213,7 +213,7 @@ public class ProductsQuery {
                 return;
             }
             try {
-                pstmt.setInt(3, Integer.parseInt(quantityProductInput.getText()));
+                pstmt.setInt(3, Integer.parseInt(quantityProductsInput.getText()));
             } catch (NumberFormatException ex) {
                 Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Error");
@@ -222,8 +222,8 @@ public class ProductsQuery {
                 return;
             }
 
-            pstmt.setString(4, supplierProductInput.getText());
-            pstmt.setInt(5, currentProductId);
+            pstmt.setString(4, supplierProductsInput.getText());
+            pstmt.setInt(5, currentProductsId);
 
             int rowsAffected = pstmt.executeUpdate();
 

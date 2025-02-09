@@ -6,12 +6,12 @@ public class SceneManager {
 
     private static Scene homeScene;
     private static Scene productsScene;
-    private static Scene addProductScene;
-    private static Scene delProductScene1;
-    private static Scene delProductScene2;
-    private static Scene editProductScene1;
-    private static Scene editProductScene2;
-    private static Scene showProductScene;
+    private static Scene addProductsScene;
+    private static Scene delProductsScene1;
+    private static Scene delProductsScene2;
+    private static Scene editProductsScene1;
+    private static Scene editProductsScene2;
+    private static Scene showProductsScene;
 
     private static Scene suppliersScene;
     private static Scene addSuppliersScene;
@@ -56,46 +56,46 @@ public class SceneManager {
         return productsScene;
     }
 
-    public static Scene getAddProductScene() {
-        if (addProductScene == null) {
-            addProductScene = ProductsUI.addProductScene();
+    public static Scene getAddProductsScene() {
+        if (addProductsScene == null) {
+            addProductsScene = ProductsUI.addProductsScene();
         }
-        return addProductScene;
+        return addProductsScene;
     }
 
-    public static Scene getDelProductScene1() {
-        if (delProductScene1 == null) {
-            delProductScene1 = ProductsUI.delProductScene1();
+    public static Scene getDelProductsScene1() {
+        if (delProductsScene1 == null) {
+            delProductsScene1 = ProductsUI.delProductsScene1();
         }
-        return delProductScene1;
+        return delProductsScene1;
     }
 
-    public static Scene getDelProductScene2(int idProductSql, String nameProductSql) {
-        if (delProductScene2 == null) {
-            delProductScene2 = ProductsUI.delProductScene2(idProductSql, nameProductSql);
+    public static Scene getDelProductScene2(int idProductsSql, String nameProductsSql) {
+        if (delProductsScene2 == null) {
+            delProductsScene2 = ProductsUI.delProductsScene2(idProductsSql, nameProductsSql);
         }
-        return delProductScene2;
+        return delProductsScene2;
     }
 
-    public static Scene getEditProductScene1() {
-        if (editProductScene1 == null) {
-            editProductScene1 = ProductsUI.editProductScene1();
+    public static Scene getEditProductsScene1() {
+        if (editProductsScene1 == null) {
+            editProductsScene1 = ProductsUI.editProductsScene1();
         }
-        return editProductScene1;
+        return editProductsScene1;
     }
 
-    public static Scene getEditProductScene2(int idProductSql, String nameProductSql, double priceProductSql, int quantityProductSql, String supplierProductSql) {
-        if (editProductScene2 == null) {
-            editProductScene2 = ProductsUI.editProductScene2(idProductSql, nameProductSql,priceProductSql,quantityProductSql,supplierProductSql);
+    public static Scene getEditProductsScene2(int idProductsSql, String nameProductsSql, double priceProductsSql, int quantityProductsSql, String supplierProductsSql) {
+        if (editProductsScene2 == null) {
+            editProductsScene2 = ProductsUI.editProductsScene2(idProductsSql, nameProductsSql,priceProductsSql,quantityProductsSql,supplierProductsSql);
         }
-        return editProductScene2;
+        return editProductsScene2;
     }
 
-    public static Scene getShowProductScene() {
-        if (showProductScene == null) {
-            showProductScene = ProductsUI.showProductScene();
+    public static Scene getShowProductsScene() {
+        if (showProductsScene == null) {
+            showProductsScene = ProductsUI.showProductsScene();
         }
-        return showProductScene;
+        return showProductsScene;
     }
 
     // SUPPLIERS PART
