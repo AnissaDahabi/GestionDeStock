@@ -156,6 +156,35 @@
     -fx-font-size: 10px;
 }
 
+.searchSuppliers {
+    -fx-font-size: 13px;
+    -fx-padding: 0 0 0 10;
+    -fx-text-fill: #929292;
+    -fx-font-weight: bold;
+}
+
+.searchSuppliersInput {
+    -fx-background-color: white;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-border-color: #929292;
+    -fx-min-height: 15px;
+    -fx-font-size: 10px;
+}
+
+.confirmBtn {
+    -fx-background-color: #D9D9D9;
+    -fx-text-fill: black;
+    -fx-background-radius: 20px;
+    -fx-min-height: 15px;
+    -fx-min-width: 20px;
+    -fx-font-size: 10px;
+}
+
+.searchSuppliersContainer {
+    -fx-padding: 20 0 0 0;
+}
+
 .combo-box .list-cell {
     -fx-text-fill: #929292;
     -fx-font-weight: bold;

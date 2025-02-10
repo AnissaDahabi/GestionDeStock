@@ -497,11 +497,26 @@ public class SuppliersUI {
         sortFilterContainer.getChildren().add(sortFilter);
         sortFilterContainer.getStyleClass().add("sortFilterContainer");
 
+        Label searchSuppliers = new Label("Search by ID: ");
+        searchSuppliers.getStyleClass().add("searchSuppliers");
+        TextField searchSuppliersInput = new TextField();
+        searchSuppliersInput.getStyleClass().add("searchSuppliersInput");
 
-        VBox showSuppliers = new VBox(returnBtnContainer, showTitle, sortFilterContainer);
+        Button confirmBtn = new Button("Confirm");
+        confirmBtn.getStyleClass().add("confirmBtn");
+
+        HBox searchSuppliersContainer = new HBox();
+        searchSuppliersContainer.getChildren().add(searchSuppliers);
+        searchSuppliersContainer.getChildren().add(searchSuppliersInput);
+        searchSuppliersContainer.getChildren().add(confirmBtn);
+        searchSuppliersContainer.getStyleClass().add("searchSuppliersContainer");
+
+
+        VBox showSuppliers = new VBox(returnBtnContainer, showTitle, sortFilterContainer, searchSuppliersContainer);
 
         Scene showSuppliersScene = new Scene(showSuppliers, 300, 600);
         showSuppliersScene.getStylesheets().add("gestion/resources/suppliers.css");
+
         return showSuppliersScene;
     }
 
