@@ -1,5 +1,9 @@
 package gestion.ui;
 
+import gestion.dao.SuppliersQuery;
+import gestion.model.Products;
+import gestion.model.Suppliers;
+import gestion.service.SuppliersService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -16,7 +20,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+
+
 public class SuppliersUI {
+
 
     public static Scene createContent() {
 
@@ -166,7 +173,9 @@ public class SuppliersUI {
 
         submitAddedSuppliersBtn.setOnAction(event -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            gestion.dao.SuppliersQuery.addSuppliers(idSuppliersInput, nameSuppliersInput, phoneSuppliersInput, addressSuppliersInput, emailSuppliersInput, idProductInput);
+            Object suppliers = null;
+            Object products = null;
+            SuppliersService.addSuppliers((Suppliers) suppliers, (Products) products);
             idSuppliersInput.clear();
             nameSuppliersInput.clear();
             phoneSuppliersInput.clear();
@@ -233,7 +242,7 @@ public class SuppliersUI {
 
         submitDeletedSuppliersBtn1.setOnAction(event -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            gestion.dao.SuppliersQuery.showDelSuppliers(idSuppliersInput, stage);
+            SuppliersQuery.showDelSuppliers(idSuppliersInput, stage);
             idSuppliersInput.clear();
         });
 
@@ -293,7 +302,7 @@ public class SuppliersUI {
 
         submitDeletedSuppliersBtn2.setOnAction(event -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            gestion.dao.SuppliersQuery.delSuppliers();
+            SuppliersQuery.delSuppliers();
             stage.setScene(SceneManager.getSuppliersHomeScene());
         });
 
@@ -354,7 +363,7 @@ public class SuppliersUI {
 
         submitEditedSuppliersBtn1.setOnAction(event -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            gestion.dao.SuppliersQuery.showEditedSuppliers(idSuppliersInput, stage);
+            SuppliersQuery.showEditedSuppliers(idSuppliersInput, stage);
             idSuppliersInput.clear();
         });
 
@@ -447,7 +456,7 @@ public class SuppliersUI {
 
         submitEditedSuppliersBtn2.setOnAction(event -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            gestion.dao.SuppliersQuery.editSuppliers(nameSuppliersInput, phoneSuppliersInput, addressSuppliersInput, emailSuppliersInput);
+            SuppliersQuery.editSuppliers(nameSuppliersInput, phoneSuppliersInput, addressSuppliersInput, emailSuppliersInput);
             stage.setScene(SceneManager.getSuppliersHomeScene());
         });
 

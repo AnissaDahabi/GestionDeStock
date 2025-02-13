@@ -20,10 +20,32 @@ public class SuppliersService {
     }
 
 
-  /*  public boolean addSupplier(Suppliers suppliers) {
-        if
+    public static boolean addSuppliers(Suppliers suppliers, Products products) {
+
+
+        if (suppliers.getNameSupplier() == null || suppliers.getNameSupplier().isEmpty() || suppliers.getAddressSupplier() == null || suppliers.getAddressSupplier().isEmpty() || suppliers.getEmailSupplier() == null || !suppliers.getEmailSupplier().contains("@" + ".")) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Please, fill all the fields correctly.");
+            alert.showAndWait();
+            return false;
+        }
+        return SuppliersQuery.addSuppliers(suppliers, products);
     }
-*/
+
+    //public boolean delSuppliers(Suppliers suppliers) {
+    //}
+
+
+
+
 
 }
+
+
+
+
+
+
 
