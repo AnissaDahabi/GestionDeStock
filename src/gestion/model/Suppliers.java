@@ -4,11 +4,11 @@ public class Suppliers {
 
     private int idSupplier;
     private String nameSupplier;
-    private String phoneSupplier;
+    private int phoneSupplier;
     private String addressSupplier;
     private String emailSupplier;
 
-    public Suppliers(int idSupplier, String nameSupplier, String phoneSupplier, String addressSupplier, String emailSupplier) {
+    public Suppliers(int idSupplier, String nameSupplier, int phoneSupplier, String addressSupplier, String emailSupplier) {
         this.idSupplier = idSupplier;
         this.nameSupplier = nameSupplier;
         this.phoneSupplier = phoneSupplier;
@@ -22,7 +22,7 @@ public class Suppliers {
     public String getNameSupplier() {
         return nameSupplier;
     }
-    public String getPhoneSupplier() {
+    public int getPhoneSupplier() {
         return phoneSupplier;
     }
     public String getAddressSupplier() {
@@ -39,7 +39,7 @@ public class Suppliers {
     public void setNameSupplier(String nameSupplier) {
         this.nameSupplier = nameSupplier;
     }
-    public void setPhoneSupplier(String phoneSupplier) {
+    public void setPhoneSupplier(int phoneSupplier) {
         this.phoneSupplier = phoneSupplier;
     }
     public void setAddressSupplier(String addressSupplier) {

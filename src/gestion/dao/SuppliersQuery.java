@@ -1,40 +1,45 @@
 package gestion.dao;
 
+import gestion.model.Suppliers;
 import gestion.ui.SceneManager;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import java.sql.*;
+import java.util.function.Supplier;
+import gestion.model.Products;
 
 public class SuppliersQuery {
 
     private static int currentSuppliersId;
     //private static int currentPhoneSuppliers;
 
-    public static void addSuppliers(TextField idSuppliersInput, TextField nameSuppliersInput, TextField phoneSuppliersInput, TextField addressSuppliersInput, TextField emailSuppliersInput, TextField productsInput) {
+    /*
+
+    public static void addSuppliers(TextField idSupplierInput, TextField nameSupplierInput, TextField phoneSupplierInput, TextField addressSupplierInput, TextField emailSupplierInput, TextField productInput) {
         try {
             Connection con =
                     DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
 
-            String query = "INSERT INTO Suppliers (id_supplier, name_supplier, phone_supplier, address_supplier, email_supplier, id_product) VALUES (?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO Supplier (id_supplier, name_supplier, phone_supplier, address_supplier, email_supplier, id_product) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement pstmt = con.prepareStatement(query);
 
             //Récupération des données saisies par l'utilisateur
-            int idSuppliers = Integer.parseInt(idSuppliersInput.getText());
-            String nameSuppliers = nameSuppliersInput.getText();
-            int phoneSuppliers = Integer.parseInt(phoneSuppliersInput.getText());
-            String addressSuppliers = addressSuppliersInput.getText();
-            String emailSuppliers = emailSuppliersInput.getText();
-            int productsId = Integer.parseInt(productsInput.getText());
+            int idSupplier = Integer.parseInt(idSupplierInput.getText());
+            String nameSupplier = nameSupplierInput.getText();
+            int phoneSupplier = Integer.parseInt(phoneSupplierInput.getText());
+            String addressSupplier = addressSupplierInput.getText();
+            String emailSupplier = emailSupplierInput.getText();
+            int productId = Integer.parseInt(productInput.getText());
 
             //Remplissage des paramètres de la requête SQL
-            pstmt.setInt(1, idSuppliers);
-            pstmt.setString(2, nameSuppliers);
-            pstmt.setInt(3, phoneSuppliers);
-            pstmt.setString(4, addressSuppliers);
-            pstmt.setString(5, emailSuppliers);
-            pstmt.setInt(6, productsId);
+            pstmt.setInt(1, idSupplier);
+            pstmt.setString(2, nameSupplier);
+            pstmt.setInt(3, phoneSupplier);
+            pstmt.setString(4, addressSupplier);
+            pstmt.setString(5, emailSupplier);
+            pstmt.setInt(6, productId);
 
             //Exécution de la requête SQL
             int rowsAffected = pstmt.executeUpdate();
@@ -59,8 +64,30 @@ public class SuppliersQuery {
             alert.showAndWait();
         }
     }
+*/
+    public static boolean addSuppliers(Suppliers suppliers, Products products) {
 
-    public static void delSuppliers() {
+        try {
+            Connection con =
+                    DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
+            String query = "INSERT INTO Supplier (id_supplier, name_supplier, phone_supplier, address_supplier, email_supplier, id_product) VALUES (?, ?, ?, ?, ?, ?)";
+            PreparedStatement pstmt = con.prepareStatement(query);
+
+            pstmt.setInt(1, suppliers.getIdSupplier());
+            pstmt.setString(2, suppliers.getNameSupplier());
+            pstmt.setInt(3, suppliers.getPhoneSupplier());
+            pstmt.setString(4, suppliers.getAddressSupplier());
+            pstmt.setString(5, suppliers.getEmailSupplier());
+            pstmt.setInt(6, products.getIdProduct());
+
+            return pstmt.executeUpdate() > 0; //en gros ça return true parce que y'a eu une affectation
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+        public static void delSuppliers() {
         try {
             // Connexion à la base de données
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
