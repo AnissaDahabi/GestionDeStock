@@ -1,0 +1,12 @@
+/* HOME */
+
+.returnBtn {
+    -fx-background-color: #D9D9D9;
+    -fx-text-fill: black;
+    -fx-background-radius: 20px;
+}
+
+.reportsTitle {
+    -fx-font-size: 24px;
+    -fx-padding: 40 0 0 0;
+}

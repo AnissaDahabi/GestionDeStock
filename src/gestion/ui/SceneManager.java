@@ -38,8 +38,6 @@ public class SceneManager {
     private static Scene showReportsScene2;
 
 
-
-
     public static Scene getHomeScene() {
         if (homeScene == null) {
             homeScene = new Scene(HomeUI.createContent(), 300, 600);
@@ -98,7 +96,7 @@ public class SceneManager {
         return showProductsScene;
     }
 
-    // SUPPLIERS PART
+    // SUPPLIERS SCENES
 
     public static Scene getSuppliersHomeScene() {
         if (suppliersScene == null) {
@@ -156,6 +154,9 @@ public class SceneManager {
         return showSuppliersScene2;
     } */
 
+    // SALES SCENES
+
+
     public static Scene getSalesHomeScene() {
         if (salesScene == null) {
             salesScene = SalesUI.createContent();
@@ -205,6 +206,14 @@ public class SceneManager {
         return showSalesScene1;
     }
 
+    // REPORTS SCENES
+
+    public static Scene getReportsHomeScene() {
+        if (productsScene == null) {
+            productsScene = ReportsUI.createContent();
+        }
+        return productsScene;
+    }
 
 }
 
