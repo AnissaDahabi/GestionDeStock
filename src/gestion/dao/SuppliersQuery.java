@@ -69,7 +69,7 @@ public class SuppliersQuery {
         try {
             Connection con =
                     DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
-            String query = "INSERT INTO Supplier (id_supplier, name_supplier, phone_supplier, address_supplier, email_supplier, id_product) VALUES (?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO Suppliers (id_supplier, name_supplier, phone_supplier, address_supplier, email_supplier, id_product) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement pstmt = con.prepareStatement(query);
 
             pstmt.setInt(1, suppliers.getIdSupplier());
