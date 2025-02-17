@@ -1,15 +1,16 @@
 package gestion.ui;
 
+import gestion.model.Products;
+import gestion.dao.ProductsQuery;
+import gestion.service.ProductsService;
+import gestion.service.SuppliersService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.scene.text.Text;
@@ -120,7 +121,7 @@ public class ProductsUI {
         addProductsGrid.setVgap(10);
         addProductsGrid.setHgap(10);
 
-        Label idProducts = new Label("ID Number: ");
+        Label idProductsLabel = new Label("ID Number: ");
         TextField idProductsInput = new TextField();
 
         Label nameProducts = new Label("Name: ");
@@ -136,7 +137,7 @@ public class ProductsUI {
         TextField supplierProductsInput = new TextField();
 
 
-        addProductsGrid.add(idProducts, 0, 0);
+        addProductsGrid.add(idProductsLabel, 0, 0);
         addProductsGrid.add(idProductsInput, 1, 0);
         addProductsGrid.add(nameProducts, 0, 1);
         addProductsGrid.add(nameProductsInput, 1, 1);
@@ -159,14 +160,45 @@ public class ProductsUI {
         addProductsContainer.setPadding(new Insets(100, 10, 10, 10));
 
         submitAddedProductsBtn.setOnAction(event -> {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            gestion.dao.ProductsQuery.addProducts(idProductsInput, nameProductsInput, priceProductsInput, quantityProductsInput, supplierProductsInput);
-            idProductsInput.clear();
-            nameProductsInput.clear();
-            priceProductsInput.clear();
-            quantityProductsInput.clear();
-            supplierProductsInput.clear();
-            stage.setScene(SceneManager.getProductsHomeScene());
+            try {
+                int idProducts = Integer.parseInt(idProductsInput.getText());
+                String name = nameProductsInput.getText();
+                double price = Double.parseDouble(priceProductsInput.getText());
+                int quantity = Integer.parseInt(quantityProductsInput.getText());
+                String supplier = supplierProductsInput.getText();
+
+                boolean success = ProductsService.addProducts(idProducts, name, price, quantity, supplier);
+
+                if (success) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Success");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Product added successfully");
+                    alert.showAndWait();
+
+                    idProductsInput.clear();
+                    nameProductsInput.clear();
+                    priceProductsInput.clear();
+                    quantityProductsInput.clear();
+                    supplierProductsInput.clear();
+
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    stage.setScene(SceneManager.getProductsHomeScene());
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Something went wrong");
+                    alert.showAndWait();
+                }
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Something went wrong");
+                alert.showAndWait();
+            }
+
         });
 
         VBox addProducts = new VBox(returnBtnContainer, addTitle, addTxtContainer, addProductsGrid,addProductsContainer);

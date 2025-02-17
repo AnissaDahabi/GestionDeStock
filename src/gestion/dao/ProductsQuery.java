@@ -1,5 +1,6 @@
 package gestion.dao;
 
+import gestion.model.Products;
 import gestion.ui.SceneManager;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
@@ -10,7 +11,10 @@ import java.sql.*;
 
 public class ProductsQuery {
 
-    public static void addProducts(TextField idProductsInput, TextField nameProductsInput, TextField priceProductsInput, TextField quantityProductsInput, TextField supplierProductsInput) {
+    private static int currentProductsId; // stockage de l'id pour ensuite le supprimer
+
+    public static boolean addProducts(Products products) {
+
         try {
             Connection con =
                     DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
@@ -18,46 +22,20 @@ public class ProductsQuery {
             String query = "INSERT INTO Products (id_product, name_product, price_product, quantity_product, supplier_product) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement pstmt = con.prepareStatement(query);
 
-            // Récupération des données saisies par l'utilisateur
-            int idProducts = Integer.parseInt(idProductsInput.getText());
-            String nameProducts = nameProductsInput.getText();
-            Double priceProducts = Double.parseDouble(priceProductsInput.getText());
-            int quantityProducts = Integer.parseInt(quantityProductsInput.getText());
-            String supplierProducts = supplierProductsInput.getText();
-
             // Remplissage des paramètres de la requête SQL
-            pstmt.setInt(1, idProducts);
-            pstmt.setString(2, nameProducts);
-            pstmt.setDouble(3, priceProducts);
-            pstmt.setInt(4, quantityProducts);
-            pstmt.setString(5, supplierProducts);
+            pstmt.setInt(1, products.getIdProduct());
+            pstmt.setString(2, products.getNameProduct());
+            pstmt.setDouble(3, products.getPriceProduct());
+            pstmt.setInt(4, products.getQuantityProduct());
+            pstmt.setString(5, products.getSupplierProduct());
 
-            // Exécution de la requête SQL
-           pstmt.executeUpdate();
+            return pstmt.executeUpdate() > 0;
 
-            // Fermeture de la connexion et du PreparedStatement
-            pstmt.close();
-            con.close();
-
-            // Message de succès
-            Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("Success!");
-            alert.setHeaderText(null);
-            alert.setContentText("Product added successfully");
-            alert.showAndWait();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-
-            // Message d'échec
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Error encountered while adding the product");
-            alert.setContentText("Error: " + ex.getMessage());
-            alert.showAndWait();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
     }
-
-    private static int currentProductsId; // stockage de l'id pour ensuite le supprimer
 
     public static void showDelProducts(TextField idProductsInput, Stage stage) {
         try {
