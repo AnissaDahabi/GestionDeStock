@@ -4,16 +4,18 @@ public class Suppliers {
 
     private int idSupplier;
     private String nameSupplier;
-    private int phoneSupplier;
+    private String phoneSupplier;
     private String addressSupplier;
     private String emailSupplier;
+    private int idProduct;
 
-    public Suppliers(int idSupplier, String nameSupplier, int phoneSupplier, String addressSupplier, String emailSupplier) {
+    public Suppliers(int idSupplier, String nameSupplier, String phoneSupplier, String addressSupplier, String emailSupplier, int idProduct) {
         this.idSupplier = idSupplier;
         this.nameSupplier = nameSupplier;
         this.phoneSupplier = phoneSupplier;
         this.addressSupplier = addressSupplier;
         this.emailSupplier = emailSupplier;
+        this.idProduct = idProduct;
     }
 //Getter
     public int getIdSupplier() {
@@ -22,7 +24,7 @@ public class Suppliers {
     public String getNameSupplier() {
         return nameSupplier;
     }
-    public int getPhoneSupplier() {
+    public String getPhoneSupplier() {
         return phoneSupplier;
     }
     public String getAddressSupplier() {
@@ -30,6 +32,9 @@ public class Suppliers {
     }
     public String getEmailSupplier() {
         return emailSupplier;
+    }
+    public int getIdProduct() {
+        return idProduct;
     }
 
 //Setter
@@ -39,7 +44,7 @@ public class Suppliers {
     public void setNameSupplier(String nameSupplier) {
         this.nameSupplier = nameSupplier;
     }
-    public void setPhoneSupplier(int phoneSupplier) {
+    public void setPhoneSupplier(String phoneSupplier) {
         this.phoneSupplier = phoneSupplier;
     }
     public void setAddressSupplier(String addressSupplier) {
@@ -47,5 +52,8 @@ public class Suppliers {
     }
     public void setEmailSupplier(String emailSupplier) {
         this.emailSupplier = emailSupplier;
+    }
+    public void setIdProduct(int idProduct) {
+        this.idProduct = idProduct;
     }
 }

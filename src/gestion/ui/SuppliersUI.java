@@ -10,10 +10,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -128,7 +125,7 @@ public class SuppliersUI {
         addSuppliersGrid.setVgap(10);
         addSuppliersGrid.setHgap(10);
 
-        Label idSuppliers = new Label("ID Number: ");
+        Label idSupplier = new Label("ID Number: ");
         TextField idSuppliersInput = new TextField();
 
         Label nameSuppliers = new Label("Name: ");
@@ -147,7 +144,7 @@ public class SuppliersUI {
         TextField idProductInput = new TextField();
 
 
-        addSuppliersGrid.add(idSuppliers, 0, 0);
+        addSuppliersGrid.add(idSupplier, 0, 0);
         addSuppliersGrid.add(idSuppliersInput, 1, 0);
         addSuppliersGrid.add(nameSuppliers, 0, 1);
         addSuppliersGrid.add(nameSuppliersInput, 1, 1);
@@ -172,17 +169,47 @@ public class SuppliersUI {
         addSuppliersContainer.setPadding(new Insets(100, 10, 10, 10));
 
         submitAddedSuppliersBtn.setOnAction(event -> {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Object suppliers = null;
-            Object products = null;
-            SuppliersService.addSuppliers((Suppliers) suppliers, (Products) products);
-            idSuppliersInput.clear();
-            nameSuppliersInput.clear();
-            phoneSuppliersInput.clear();
-            addressSuppliersInput.clear();
-            emailSuppliersInput.clear();
-            idProductInput.clear();
-            stage.setScene(SceneManager.getSuppliersHomeScene());
+            try {
+                int idSuppliers = Integer.parseInt(idSuppliersInput.getText());
+                String name = nameSuppliersInput.getText();
+                String phone = phoneSuppliersInput.getText();
+                String address = addressSuppliersInput.getText();
+                String email = emailSuppliersInput.getText();
+                int idProducts = Integer.parseInt(idProductInput.getText());
+
+                boolean success = SuppliersService.addSuppliers(idSuppliers, name, phone, address, email, idProducts);
+
+                if (success) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Success");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Supplier added successfully");
+                    alert.showAndWait();
+
+                    idSuppliersInput.clear();
+                    nameSuppliersInput.clear();
+                    phoneSuppliersInput.clear();
+                    addressSuppliersInput.clear();
+                    emailSuppliersInput.clear();
+                    idProductInput.clear();
+
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    stage.setScene(SceneManager.getSuppliersHomeScene());
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Something went wrong");
+                    alert.showAndWait();
+                }
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Something went wrong");
+                alert.showAndWait();
+            }
+
         });
 
         VBox addSuppliers = new VBox(returnBtnContainer, addTitle, addTxtContainer, addSuppliersGrid,addSuppliersContainer);

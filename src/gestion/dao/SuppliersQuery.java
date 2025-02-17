@@ -1,5 +1,6 @@
 package gestion.dao;
 
+import gestion.model.Products;
 import gestion.model.Suppliers;
 import gestion.ui.SceneManager;
 import javafx.scene.control.TextField;
@@ -7,8 +8,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import java.sql.*;
-import java.util.function.Supplier;
-import gestion.model.Products;
 
 public class SuppliersQuery {
 
@@ -65,7 +64,7 @@ public class SuppliersQuery {
         }
     }
 */
-    public static boolean addSuppliers(Suppliers suppliers, Products products) {
+    public static boolean addSuppliers(Suppliers suppliers) {
 
         try {
             Connection con =
@@ -75,10 +74,10 @@ public class SuppliersQuery {
 
             pstmt.setInt(1, suppliers.getIdSupplier());
             pstmt.setString(2, suppliers.getNameSupplier());
-            pstmt.setInt(3, suppliers.getPhoneSupplier());
+            pstmt.setString(3, suppliers.getPhoneSupplier());
             pstmt.setString(4, suppliers.getAddressSupplier());
             pstmt.setString(5, suppliers.getEmailSupplier());
-            pstmt.setInt(6, products.getIdProduct());
+            pstmt.setInt(6, suppliers.getIdProduct());
 
             return pstmt.executeUpdate() > 0; //en gros ça return true parce que y'a eu une affectation
         } catch (SQLException e) {

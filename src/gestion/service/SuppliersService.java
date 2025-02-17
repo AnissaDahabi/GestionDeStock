@@ -20,18 +20,31 @@ public class SuppliersService {
     }
 
 
-    public static boolean addSuppliers(Suppliers suppliers, Products products) {
+    public static boolean addSuppliers(int idSuppliers, String name, String phone, String address, String email, int idProduct) {
 
+        try {
+            if(name.isEmpty() || phone.isEmpty() || address.isEmpty() || email.isEmpty()) {
+                throw new IllegalArgumentException("Please fill all the required fields");
+            }
+            if (idSuppliers==0 || idProduct==0) {
+                throw new IllegalArgumentException("Please fill all the required fields");
+            }
+            if (!email.contains("@")) {
+                throw new IllegalArgumentException("Please fill a valid email address");
+            }
 
-        if (suppliers.getNameSupplier() == null || suppliers.getNameSupplier().isEmpty() || suppliers.getAddressSupplier() == null || suppliers.getAddressSupplier().isEmpty() || suppliers.getEmailSupplier() == null || !suppliers.getEmailSupplier().contains("@" + ".")) {
+            Suppliers suppliers = new Suppliers(idSuppliers, name, phone, address, email, idProduct);
+
+            return SuppliersQuery.addSuppliers(suppliers);
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
-            alert.setContentText("Please, fill all the fields correctly.");
+            alert.setContentText(e.getMessage());
             alert.showAndWait();
             return false;
         }
-        return SuppliersQuery.addSuppliers(suppliers, products);
+
     }
 
     //public boolean delSuppliers(Suppliers suppliers) {
