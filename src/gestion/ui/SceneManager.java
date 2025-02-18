@@ -16,7 +16,6 @@ public class SceneManager {
     private static Scene suppliersScene;
     private static Scene addSuppliersScene;
     private static Scene delSuppliersScene1;
-    private static Scene delSuppliersScene2;
     private static Scene editSuppliersScene;
     private static Scene editSuppliersScene2;
     private static Scene showSuppliersScene1;
@@ -119,12 +118,6 @@ public class SceneManager {
         return delSuppliersScene1;
     }
 
-    public static Scene getDelSuppliersScene2(int idSuppliersSql, String nameSuppliersSql) {
-        if (delSuppliersScene2 == null) {
-            delSuppliersScene2 = SuppliersUI.delSuppliersScene2(idSuppliersSql, nameSuppliersSql);
-        }
-        return delSuppliersScene2;
-    }
 
     public static Scene getEditSuppliersScene1() {
         if (editSuppliersScene == null) {

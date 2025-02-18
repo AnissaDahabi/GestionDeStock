@@ -86,7 +86,25 @@ public class SuppliersQuery {
         }
     }
 
-        public static void delSuppliers() {
+    public static boolean delSuppliers(Suppliers suppliers) {
+        try {
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
+            String query = "DELETE FROM Suppliers WHERE id_supplier = ?";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, currentSuppliersId);
+            int rowsAffected = pstmt.executeUpdate();
+            if (rowsAffected > 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+        return false;
+
+    }
+
+       /* public static void delSuppliers() {
         try {
             // Connexion à la base de données
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
@@ -124,6 +142,7 @@ public class SuppliersQuery {
 
         }
     }
+*/
 
     public static void showDelSuppliers(TextField idSuppliersInput, Stage stage) {
         try {
@@ -152,7 +171,7 @@ public class SuppliersQuery {
                 currentSuppliersId = idSuppliersSql;
 
 
-                stage.setScene(SceneManager.getDelSuppliersScene2(idSuppliersSql, nameSuppliersSql));
+                stage.setScene(SceneManager.getDelSuppliersScene1());
 
             }
             // Fermeture des ressources

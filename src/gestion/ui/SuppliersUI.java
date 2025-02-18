@@ -17,6 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.util.Optional;
 
 
 public class SuppliersUI {
@@ -268,9 +269,36 @@ public class SuppliersUI {
         delSuppliersContainer1.setPadding(new Insets(250, 10, 10, 10));
 
         submitDeletedSuppliersBtn1.setOnAction(event -> {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            SuppliersQuery.showDelSuppliers(idSuppliersInput, stage);
-            idSuppliersInput.clear();
+
+            int idSuppliers = Integer.parseInt(idSuppliersInput.getText());
+            String name = null;
+            String phone = null;
+            String address = null;
+            String email = null;
+            int idProducts = 0;
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation");
+            alert.setHeaderText(null);
+            alert.setContentText("Are you sure you want to delete" + name + "from the database ?");
+
+            ButtonType yes = new ButtonType("Yes");
+            ButtonType no = new ButtonType("No");
+            alert.getButtonTypes().setAll(yes, no);
+
+            alert.showAndWait().ifPresent(button -> {
+                if (button == yes) {
+                    SuppliersService.delSuppliers(idSuppliers, name, phone, address, email, idProducts);
+                } else if (button == no) {
+                    Alert alert2 = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert2.setTitle("Reject");
+                    alert2.setHeaderText(null);
+                    alert2.setContentText("Please correct the id then");
+                    alert2.showAndWait();
+                }
+            });
+
+
         });
 
         VBox delSuppliers1 = new VBox(returnBtnContainer, delTitle1, delTxtContainer1, idSuppliersContainer, delSuppliersContainer1);
@@ -281,7 +309,7 @@ public class SuppliersUI {
     }
 
     // DELETE SUPPLIERS SCENE 2
-    public static Scene delSuppliersScene2(int idSuppliersSql, String nameSuppliersSql) {
+  /*  public static Scene delSuppliersScene2(int idSuppliersSql, String nameSuppliersSql) {
 
         // Return button:
         Button returnBtn = new Button("Return");
@@ -328,9 +356,11 @@ public class SuppliersUI {
         delSuppliersContainer2.setPadding(new Insets(130, 10, 10, 10));
 
         submitDeletedSuppliersBtn2.setOnAction(event -> {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            SuppliersQuery.delSuppliers();
-            stage.setScene(SceneManager.getSuppliersHomeScene());
+            try {
+                int idSupplier = Integer.parseInt(idSuppliersSql.getText());
+            } catch (Exception e) {
+
+            }
         });
 
         VBox delSuppliers2 = new VBox(returnBtnContainer, delTitle2, delTxtContainer2, inputResult,delSuppliersContainer2);
@@ -339,7 +369,7 @@ public class SuppliersUI {
         delSuppliersScene2.getStylesheets().add("gestion/resources/suppliers.css");
         return delSuppliersScene2;
     }
-
+*/
     //EDIT SUPPLIERS SCENE 1
     public static Scene editSuppliersScene1() {
 

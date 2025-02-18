@@ -5,12 +5,15 @@ import gestion.dao.SuppliersQuery;
 import gestion.model.Suppliers;
 import gestion.model.Products;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import org.w3c.dom.Text;
 
+import java.util.Optional;
 import java.util.function.Supplier;
 
 public class SuppliersService {
+    public static boolean delSuppliers;
     private final SuppliersQuery suppliersQuery;
     private final ProductsQuery productsQuery;
 
@@ -47,8 +50,22 @@ public class SuppliersService {
 
     }
 
-    //public boolean delSuppliers(Suppliers suppliers) {
-    //}
+    public static boolean delSuppliers(int idSuppliers, String name, String phone, String address, String email, int idProduct) {
+
+        try {
+            Suppliers suppliers = new Suppliers(idSuppliers, name, phone, address, email, idProduct);
+            return SuppliersQuery.delSuppliers(suppliers);
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+            return false;
+        }
+
+
+    }
 
 
 
