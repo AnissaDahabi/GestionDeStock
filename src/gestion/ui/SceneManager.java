@@ -67,12 +67,12 @@ public class SceneManager {
         return delProductsScene1;
     }
 
-    public static Scene getDelProductScene2(int idProductsSql, String nameProductsSql) {
-        if (delProductsScene2 == null) {
-            delProductsScene2 = ProductsUI.delProductsScene2(idProductsSql, nameProductsSql);
-        }
-        return delProductsScene2;
-    }
+//    public static Scene getDelProductScene2(int idProductsSql, String nameProductsSql) {
+//        if (delProductsScene2 == null) {
+//            delProductsScene2 = ProductsUI.delProductsScene2(idProductsSql, nameProductsSql);
+//        }
+//        return delProductsScene2;
+//    }
 
     public static Scene getEditProductsScene1() {
         if (editProductsScene1 == null) {
@@ -83,7 +83,7 @@ public class SceneManager {
 
     public static Scene getEditProductsScene2(int idProductsSql, String nameProductsSql, double priceProductsSql, int quantityProductsSql, String supplierProductsSql) {
         if (editProductsScene2 == null) {
-            editProductsScene2 = ProductsUI.editProductsScene2(idProductsSql, nameProductsSql,priceProductsSql,quantityProductsSql,supplierProductsSql);
+            editProductsScene2 = ProductsUI.editProductsScene2(idProductsSql, nameProductsSql, priceProductsSql, quantityProductsSql, supplierProductsSql);
         }
         return editProductsScene2;
     }

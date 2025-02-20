@@ -12,6 +12,7 @@ import java.sql.*;
 public class ProductsQuery {
 
     private static int currentProductsId; // stockage de l'id pour ensuite le supprimer
+    private String nameProductsSql1;
 
     public static boolean addProducts(Products products) {
 
@@ -37,89 +38,85 @@ public class ProductsQuery {
         }
     }
 
-    public static void showDelProducts(TextField idProductsInput, Stage stage) {
+    public static boolean delProducts(Products products, int idProducts, String name, double price, int quantity, String supplier) {
         try {
-            // Connexion à la base de données
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
 
-            // Préparation de la requête SQL
-            String query = "SELECT id_product, name_product FROM Products WHERE id_product = ?";
-            PreparedStatement pstmt = con.prepareStatement(query);
+            String queryShow = "SELECT id_product, name_product FROM Products WHERE id_product = ?";
+            PreparedStatement pstmtShow = con.prepareStatement(queryShow);
 
-            // Récupération de l'ID saisi par l'utilisateur
-            int idProducts = Integer.parseInt(idProductsInput.getText());
+            pstmtShow.setInt(1, products.getIdProduct());
 
-            // Remplissage du paramètre de la requête SQL
-            pstmt.setInt(1, idProducts);
+            ResultSet resultSetShow = pstmtShow.executeQuery();
 
-            // Exécution de la requête SQL
-            ResultSet resultSet = pstmt.executeQuery();
+            if (resultSetShow.next()) {
 
-
-            if (resultSet.next()) {
-
-            int idProductsSql = resultSet.getInt("id_product");
-            String nameProductsSql = resultSet.getString("name_product");
-
-            currentProductsId = idProductsSql;
+                int idProductsSql = resultSetShow.getInt("id_product");
+                String nameProductsSql = resultSetShow.getString("name_product");
 
 
-            stage.setScene(SceneManager.getDelProductScene2(idProductsSql, nameProductsSql));
+                String queryDel = "DELETE FROM Products WHERE id_product = ?";
+                PreparedStatement pstmtDel = con.prepareStatement(queryDel);
+                pstmtDel.setInt(1, idProductsSql);
+
+                int rowsAffected = pstmtDel.executeUpdate();
+
+                if (rowsAffected > 0) {
+               Alert alert = new Alert(AlertType.INFORMATION);
+               alert.setTitle("Success!");
+               alert.setHeaderText(null);
+               alert.setContentText("Product deleted successfully");
+               alert.showAndWait();
+            }
 
             }
-            // Fermeture des ressources
-            resultSet.close();
-            pstmt.close();
-            con.close();
 
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Error encountered");
-            alert.setContentText("Error: " + ex.getMessage());
-            alert.showAndWait();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 
-    public static void delProducts() {
-        try {
-            // Connexion à la base de données
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
 
-            // Préparation de la requête SQL
-            String query = "DELETE FROM Products WHERE id_product = ?";
-            PreparedStatement pstmt = con.prepareStatement(query);
-
-            // Récupération de l'ID saisi par l'utilisateur
-            pstmt.setInt(1, currentProductsId);
-
-            // Exécution de la requête SQL
-            int rowsAffected = pstmt.executeUpdate();
-
-
-            if (rowsAffected > 0) {
-                Alert alert = new Alert(AlertType.INFORMATION);
-                alert.setTitle("Success!");
-                alert.setHeaderText(null);
-                alert.setContentText("Product deleted successfully");
-                alert.showAndWait();
-            }
-
-            // Fermeture des ressources
-            pstmt.close();
-            con.close();
-        } catch (SQLException ex) {
-            // Gestion des erreurs SQL
-            ex.printStackTrace();
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Error encountered while deleting the product");
-            alert.setContentText("Error: " + ex.getMessage());
-            alert.showAndWait();
-
-        }
-    }
+//    public static void delProducts() {
+//        try {
+//            // Connexion à la base de données
+//            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
+//
+//            // Préparation de la requête SQL
+//            String query = "DELETE FROM Products WHERE id_product = ?";
+//            PreparedStatement pstmt = con.prepareStatement(query);
+//
+//            // Récupération de l'ID saisi par l'utilisateur
+//            pstmt.setInt(1, currentProductsId);
+//
+//            // Exécution de la requête SQL
+//            int rowsAffected = pstmt.executeUpdate();
+//
+//
+//            if (rowsAffected > 0) {
+//                Alert alert = new Alert(AlertType.INFORMATION);
+//                alert.setTitle("Success!");
+//                alert.setHeaderText(null);
+//                alert.setContentText("Product deleted successfully");
+//                alert.showAndWait();
+//            }
+//
+//            // Fermeture des ressources
+//            pstmt.close();
+//            con.close();
+//        } catch (SQLException ex) {
+//            // Gestion des erreurs SQL
+//            ex.printStackTrace();
+//            Alert alert = new Alert(AlertType.ERROR);
+//            alert.setTitle("Error");
+//            alert.setHeaderText("Error encountered while deleting the product");
+//            alert.setContentText("Error: " + ex.getMessage());
+//            alert.showAndWait();
+//
+//        }
+//    }
 
     public static void showEditedProducts(TextField idProductsInput,  Stage stage) {
         try {

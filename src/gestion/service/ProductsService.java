@@ -23,7 +23,7 @@ public class ProductsService {
             if (quantity < 0) {
                 throw new IllegalArgumentException("Please enter a valid quantity");
             }
-            if (price < 0 ) {
+            if (price < 0) {
                 throw new IllegalArgumentException("Please enter a valid price");
             }
 
@@ -31,6 +31,21 @@ public class ProductsService {
 
             return ProductsQuery.addProducts(products);
 
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+            return false;
+        }
+    }
+
+    public static boolean delProducts(int idProducts, String name, double price, int quantity, String supplier) {
+
+        try {
+            Products products = new Products(idProducts, name, price, quantity, supplier);
+            return ProductsQuery.delProducts(products);
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
