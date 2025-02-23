@@ -7,8 +7,7 @@ public class SceneManager {
     private static Scene homeScene;
     private static Scene productsScene;
     private static Scene addProductsScene;
-    private static Scene delProductsScene1;
-    private static Scene delProductsScene2;
+    private static Scene delProductsScene;
     private static Scene editProductsScene1;
     private static Scene editProductsScene2;
     private static Scene showProductsScene;
@@ -60,19 +59,12 @@ public class SceneManager {
         return addProductsScene;
     }
 
-    public static Scene getDelProductsScene1() {
-        if (delProductsScene1 == null) {
-            delProductsScene1 = ProductsUI.delProductsScene1();
+    public static Scene getDelProductsScene() {
+        if (delProductsScene == null) {
+            delProductsScene = ProductsUI.delProductsScene();
         }
-        return delProductsScene1;
+        return delProductsScene;
     }
-
-//    public static Scene getDelProductScene2(int idProductsSql, String nameProductsSql) {
-//        if (delProductsScene2 == null) {
-//            delProductsScene2 = ProductsUI.delProductsScene2(idProductsSql, nameProductsSql);
-//        }
-//        return delProductsScene2;
-//    }
 
     public static Scene getEditProductsScene1() {
         if (editProductsScene1 == null) {

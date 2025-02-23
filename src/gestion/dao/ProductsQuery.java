@@ -38,85 +38,44 @@ public class ProductsQuery {
         }
     }
 
-    public static boolean delProducts(Products products, int idProducts, String name, double price, int quantity, String supplier) {
+    public static boolean delProducts(int idProducts) {
         try {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
+            String query = "DELETE FROM Products WHERE ID_product = ?";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, idProducts);
 
-            String queryShow = "SELECT id_product, name_product FROM Products WHERE id_product = ?";
-            PreparedStatement pstmtShow = con.prepareStatement(queryShow);
-
-            pstmtShow.setInt(1, products.getIdProduct());
-
-            ResultSet resultSetShow = pstmtShow.executeQuery();
-
-            if (resultSetShow.next()) {
-
-                int idProductsSql = resultSetShow.getInt("id_product");
-                String nameProductsSql = resultSetShow.getString("name_product");
-
-
-                String queryDel = "DELETE FROM Products WHERE id_product = ?";
-                PreparedStatement pstmtDel = con.prepareStatement(queryDel);
-                pstmtDel.setInt(1, idProductsSql);
-
-                int rowsAffected = pstmtDel.executeUpdate();
-
-                if (rowsAffected > 0) {
-               Alert alert = new Alert(AlertType.INFORMATION);
-               alert.setTitle("Success!");
-               alert.setHeaderText(null);
-               alert.setContentText("Product deleted successfully");
-               alert.showAndWait();
-            }
-
-            }
-
+            int rowsAffected = pstmt.executeUpdate();
+            return rowsAffected > 0;
 
         } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+            throw new RuntimeException("Error deleting product: " + e.getMessage());
         }
     }
 
+    public static Products getProductById(int idProducts) {
+        try {
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
+            String query = "SELECT * FROM Products WHERE ID_product = ?";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, idProducts);
 
-//    public static void delProducts() {
-//        try {
-//            // Connexion à la base de données
-//            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
-//
-//            // Préparation de la requête SQL
-//            String query = "DELETE FROM Products WHERE id_product = ?";
-//            PreparedStatement pstmt = con.prepareStatement(query);
-//
-//            // Récupération de l'ID saisi par l'utilisateur
-//            pstmt.setInt(1, currentProductsId);
-//
-//            // Exécution de la requête SQL
-//            int rowsAffected = pstmt.executeUpdate();
-//
-//
-//            if (rowsAffected > 0) {
-//                Alert alert = new Alert(AlertType.INFORMATION);
-//                alert.setTitle("Success!");
-//                alert.setHeaderText(null);
-//                alert.setContentText("Product deleted successfully");
-//                alert.showAndWait();
-//            }
-//
-//            // Fermeture des ressources
-//            pstmt.close();
-//            con.close();
-//        } catch (SQLException ex) {
-//            // Gestion des erreurs SQL
-//            ex.printStackTrace();
-//            Alert alert = new Alert(AlertType.ERROR);
-//            alert.setTitle("Error");
-//            alert.setHeaderText("Error encountered while deleting the product");
-//            alert.setContentText("Error: " + ex.getMessage());
-//            alert.showAndWait();
-//
-//        }
-//    }
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return new Products(
+                        rs.getInt("ID_product"),
+                        rs.getString("name_product"),
+                        rs.getDouble("price_product"),
+                        rs.getInt("quantity_product"),
+                        rs.getString("supplier_product")
+                );
+            }
+            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error getting the product's data: " + e.getMessage());
+        }
+    }
+
 
     public static void showEditedProducts(TextField idProductsInput,  Stage stage) {
         try {

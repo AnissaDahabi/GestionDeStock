@@ -1,6 +1,7 @@
 package gestion.ui;
 
 import gestion.dao.ProductsQuery;
+import gestion.ui.AlertsProducts;
 import gestion.model.Products;
 import gestion.service.ProductsService;
 import javafx.collections.FXCollections;
@@ -62,7 +63,7 @@ public class ProductsUI {
         });
         delBtnProducts.setOnAction(event -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(SceneManager.getDelProductsScene1());
+            stage.setScene(SceneManager.getDelProductsScene());
         });
         editBtnProducts.setOnAction(event -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -207,8 +208,8 @@ public class ProductsUI {
         return addProductsScene;
     }
 
-    // DELETE PRODUCT SCENE 1
-    public static Scene delProductsScene1() {
+    // DELETE PRODUCT SCENE
+    public static Scene delProductsScene() {
 
         // Return button:
         Button returnBtn = new Button("Return");
@@ -248,117 +249,57 @@ public class ProductsUI {
         idProductsContainer.setAlignment(Pos.CENTER);
 
         //Next button:
-        Button submitDeletedProductsBtn1 = new Button("Next");
-        submitDeletedProductsBtn1.getStyleClass().add("submitDeletedProductsBtn1");
-        HBox delProductsContainer1 = new HBox(10);
-        delProductsContainer1.getChildren().add(submitDeletedProductsBtn1);
-        delProductsContainer1.setAlignment(Pos.CENTER);
-        delProductsContainer1.setPadding(new Insets(250, 10, 10, 10));
+        Button submitDeletedProductsBtn = new Button("Next");
+        submitDeletedProductsBtn.getStyleClass().add("submitDeletedProductsBtn");
+        HBox delProductsContainer = new HBox(10);
+        delProductsContainer.getChildren().add(submitDeletedProductsBtn);
+        delProductsContainer.setAlignment(Pos.CENTER);
+        delProductsContainer.setPadding(new Insets(250, 10, 10, 10));
 
-        submitDeletedProductsBtn1.setOnAction(event -> {
+        submitDeletedProductsBtn.setOnAction(event -> {
+            try {
+                int idProducts = Integer.parseInt(idProductsInput.getText());
 
-            int idProducts = Integer.parseInt(idProductsInput.getText());
+                Products products = ProductsService.getProductById(idProducts);
 
-            String name = null;
-            double price = 0;
-            int quantity = 0;
-            String supplier = null;
-
-            int idProductsSql = 0;
-            String nameProductsSql = "";
-
-
-
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation");
-            alert.setHeaderText(null);
-            alert.setContentText("Are you sure you want to delete" + nameProductsSql + "from the database ?");
-
-            ButtonType yes = new ButtonType("Yes");
-            ButtonType no = new ButtonType("No");
-            alert.getButtonTypes().setAll(yes, no);
-
-            alert.showAndWait().ifPresent(button -> {
-                if (button == yes) {
-                    ProductsQuery.delProducts();
-                } else if (button == no) {
-                    Alert alert2 = new Alert(Alert.AlertType.CONFIRMATION);
-                    alert2.setTitle("Reject");
-                    alert2.setHeaderText(null);
-                    alert2.setContentText("Please correct the id then");
-                    alert2.showAndWait();
+                if (products == null) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText(null);
+                    alert.setContentText("No product found with this ID number:" + idProducts);
+                    return;
                 }
-            });
 
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation");
+                alert.setHeaderText(null);
+                alert.setContentText("Are you sure you want to delete " + products.getNameProduct() + " from the database ?");
 
+                ButtonType yes = new ButtonType("Yes");
+                ButtonType no = new ButtonType("No");
+                alert.getButtonTypes().setAll(yes, no);
+
+                alert.showAndWait().ifPresent(button -> {
+                    if (button == yes) {
+                        boolean deleted = ProductsService.delProducts(idProducts);
+                        if (deleted) {
+                            AlertsProducts.showSuccessDelProduct("Product deleted successfully!");
+                            idProductsInput.clear();
+                        }
+                    }
+                });
+            } catch (NumberFormatException e) {
+                AlertsProducts.showErrorDelProduct("Please enter a valid ID");
+            }
         });
 
-        VBox delProducts1 = new VBox(returnBtnContainer, delTitle1, delTxtContainer1, idProductsContainer, delProductsContainer1);
+        VBox delProducts1 = new VBox(returnBtnContainer, delTitle1, delTxtContainer1, idProductsContainer, delProductsContainer);
 
         Scene delProductsScene1 = new Scene(delProducts1, 300, 600);
         delProductsScene1.getStylesheets().add("gestion/resources/products.css");
         return delProductsScene1;
     }
 
-    // DELETE PRODUCT SCENE 2
-//    public static Scene delProductsScene2(int idProductsSql, String nameProductsSql) {
-//
-//        // Return button:
-//        Button returnBtn = new Button("Return");
-//        returnBtn.getStyleClass().add("returnBtn");
-//
-//        returnBtn.setOnAction(event -> {
-//            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//            stage.setScene(SceneManager.getDelProductsScene1());
-//        });
-//
-//        HBox returnBtnContainer = new HBox(10);
-//        returnBtnContainer.setAlignment(Pos.TOP_RIGHT);
-//        returnBtnContainer.setPadding(new Insets(10, 10, 10, 10));
-//        returnBtnContainer.getChildren().add(returnBtn);
-//
-//        // Title and txt:
-//        VBox delTitle2 = new VBox(new Label("Delete product"));
-//        delTitle2.setAlignment(Pos.CENTER);
-//        delTitle2.getStyleClass().add("delTitle2");
-//
-//        Text delTxt2 = new Text();
-//        delTxt2.setText("Is this the product you want to delete from the inventory?");
-//        delTxt2.setId("delTxt2");
-//        delTxt2.setWrappingWidth(280);
-//        HBox delTxtContainer2 = new HBox();
-//        delTxtContainer2.getChildren().add(delTxt2);
-//        delTxtContainer2.setId("delTxtContainer2");
-//        delTxtContainer2.setAlignment(Pos.CENTER);
-//
-//        // Id and name of product selected by user
-//        Label idProducts = new Label("ID Number: " + idProductsSql);
-//        Label nameProducts = new Label("Name: " + nameProductsSql);
-//
-//        VBox inputResult = new VBox(10, idProducts, nameProducts);
-//        inputResult.setId("inputResult");
-//        inputResult.setAlignment(Pos.CENTER);
-//        inputResult.setPadding(new Insets(50, 10, 10, 10));
-//
-//        Button submitDeletedProductsBtn2 = new Button("Confirm");
-//        submitDeletedProductsBtn2.getStyleClass().add("submitDeletedProductsBtn2");
-//        HBox delProductsContainer2 = new HBox(10);
-//        delProductsContainer2.getChildren().add(submitDeletedProductsBtn2);
-//        delProductsContainer2.setAlignment(Pos.CENTER);
-//        delProductsContainer2.setPadding(new Insets(130, 10, 10, 10));
-//
-//        submitDeletedProductsBtn2.setOnAction(event -> {
-//            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//            gestion.dao.ProductsQuery.delProducts();
-//            stage.setScene(SceneManager.getProductsHomeScene());
-//        });
-//
-//        VBox delProducts2 = new VBox(returnBtnContainer, delTitle2, delTxtContainer2, inputResult,delProductsContainer2);
-//
-//        Scene delProductsScene2 = new Scene(delProducts2, 300, 600);
-//        delProductsScene2.getStylesheets().add("gestion/resources/products.css");
-//        return delProductsScene2;
-//    }
 
     // EDIT PRODUCT SCENE 1
     public static Scene editProductsScene1() {

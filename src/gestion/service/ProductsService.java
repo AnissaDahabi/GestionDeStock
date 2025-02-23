@@ -41,11 +41,9 @@ public class ProductsService {
         }
     }
 
-    public static boolean delProducts(int idProducts, String name, double price, int quantity, String supplier) {
-
+    public static boolean delProducts(int idProducts) {
         try {
-            Products products = new Products(idProducts, name, price, quantity, supplier);
-            return ProductsQuery.delProducts(products);
+            return ProductsQuery.delProducts(idProducts);
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -53,6 +51,18 @@ public class ProductsService {
             alert.setContentText(e.getMessage());
             alert.showAndWait();
             return false;
+        }
+    }
+    public static Products getProductById(int idProducts) {
+        try {
+            return ProductsQuery.getProductById(idProducts);
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Can't find the product");
+            alert.showAndWait();
+            return null;
         }
     }
 }

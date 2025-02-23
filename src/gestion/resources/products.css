@@ -61,18 +61,18 @@
 
 /* DELETE PRODUCTS*/
 
-.delTitle1, .delTitle2 {
+.delTitle1 {
     -fx-font-size: 24px;
     -fx-padding: 40 0 0 0;
 }
 
-#delTxt1, #delTxt2 {
+#delTxt1 {
     -fx-font-size: 16px;
     -fx-fill: #929292;
     -fx-text-alignment: center;
 }
 
-#delTxtContainer1, #delTxtContainer2 {
+#delTxtContainer1 {
     -fx-padding: 20 0 0 0;
 }
 
@@ -80,7 +80,7 @@
     -fx-padding: 40 0 0 0;
 }
 
-.submitDeletedProductsBtn1, .submitDeletedProductsBtn2 {
+.submitDeletedProductsBtn {
     -fx-background-color: #D9D9D9;
     -fx-text-fill: black;
     -fx-background-radius: 20px;
@@ -92,7 +92,6 @@
 #inputResult Label {
     -fx-font-size: 15px;
 }
-
 
 
 /* EDIT PRODUCTS */
