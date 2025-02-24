@@ -3,6 +3,8 @@ package gestion.service;
 import gestion.dao.ProductsQuery;
 import gestion.model.Products;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class ProductsService {
     private final ProductsQuery productsQuery;
@@ -65,4 +67,14 @@ public class ProductsService {
             return null;
         }
     }
+
+    public static boolean showEditedProducts(TextField idProductsInput, Stage stage) {
+        try {
+            return ProductsQuery.showEditedProducts(idProductsInput, stage);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 }

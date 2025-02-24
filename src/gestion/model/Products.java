@@ -8,6 +8,14 @@ public class Products {
         private int quantityProduct;
         private String supplierProduct;
 
+        public Products() {
+            this.idProduct = 0;
+            this.nameProduct = "";
+            this.priceProduct = 0;
+            this.quantityProduct = 0;
+            this.supplierProduct = "";
+        }
+
         public Products(int idProduct, String nameProduct, double priceProduct, int quantityProduct, String supplierProduct) {
             this.idProduct = idProduct;
             this.nameProduct = nameProduct;

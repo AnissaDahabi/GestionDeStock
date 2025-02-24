@@ -11,6 +11,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.scene.text.Text;
@@ -405,22 +406,22 @@ public class ProductsUI {
 
         Label nameProducts = new Label("Name: ");
         TextField nameProductsInput = new TextField();
-        nameProductsInput.setPromptText(nameProductsSql);
+        nameProductsInput.setText(nameProductsSql);
         nameProductsInput.setId("nameProductsInput");
 
         Label priceProducts = new Label("Price: ");
         TextField priceProductsInput = new TextField();
-        priceProductsInput.setPromptText(String.valueOf(priceProductsSql));
+        priceProductsInput.setText(String.valueOf(priceProductsSql));
         priceProductsInput.setId("priceProductsInput");
 
         Label quantityProducts = new Label("Quantity: ");
         TextField quantityProductsInput = new TextField();
-        quantityProductsInput.setPromptText(String.valueOf(quantityProductsSql));
+        quantityProductsInput.setText(String.valueOf(quantityProductsSql));
         quantityProductsInput.setId("quantityProductsInput");
 
         Label supplierProducts = new Label("Supplier: ");
         TextField supplierProductsInput = new TextField();
-        supplierProductsInput.setPromptText(supplierProductsSql);
+        supplierProductsInput.setText(supplierProductsSql);
         supplierProductsInput.setId("supplierProductsInput");
 
         editProductsGrid.add(idProducts, 0, 0);
@@ -508,8 +509,49 @@ public class ProductsUI {
         searchProductsContainer.getChildren().add(searchProductsInput);
         searchProductsContainer.getChildren().add(confirmBtn);
         searchProductsContainer.getStyleClass().add("searchProductsContainer");
+        searchProductsContainer.setSpacing(10);
 
-        VBox showProducts = new VBox(returnBtnContainer, showTitle, sortFilterContainer, searchProductsContainer);
+
+        TableView productsTable = new TableView<Products>();
+        productsTable.setEditable(true);
+        productsTable.setId("productsTable");
+
+        TableColumn idProductColumn = new TableColumn<Products, Integer>("ID");
+        idProductColumn.setCellValueFactory(new PropertyValueFactory<Products, Integer>("idProduct"));
+
+
+        TableColumn nameProductColumn = new TableColumn<Products, String>("Name");
+        nameProductColumn.setCellValueFactory(new PropertyValueFactory<Products, String>("nameProduct"));
+
+
+        TableColumn priceProductColumn = new TableColumn<Products, Double>("Price");
+        priceProductColumn.setCellValueFactory(new PropertyValueFactory<Products, Double>("priceProduct"));
+
+
+        TableColumn quantityProductColumn = new TableColumn<Products, Integer>("Quantity");
+        quantityProductColumn.setCellValueFactory(new PropertyValueFactory<Products, Integer>("quantityProduct"));
+
+
+        TableColumn supplierProductColumn = new TableColumn<Products, String>("Supplier");
+        supplierProductColumn.setCellValueFactory(new PropertyValueFactory<Products, String>("supplierProduct"));
+
+        productsTable.getColumns().addAll(idProductColumn, nameProductColumn, priceProductColumn, quantityProductColumn, supplierProductColumn);
+
+        productsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+        ProductsQuery.showProducts(productsTable);
+
+//        productsTable.getItems().add(new Products(1234, "Thé", 2.90, 3, "Contrevents" ));
+//        productsTable.getItems().add(new Products(1234, "Thé", 2.90, 3, "Contrevents" ));
+//        productsTable.getItems().add(new Products(1234, "Thé", 2.90, 3, "Contrevents" ));
+//        productsTable.getItems().add(new Products(1234, "Thé", 2.90, 3, "Contrevents" ));
+//        productsTable.getItems().add(new Products(1234, "Thé", 2.90, 3, "Contrevents" ));
+//        productsTable.getItems().add(new Products(1234, "Thé", 2.90, 3, "Contrevents" ));
+
+
+
+        VBox showProducts = new VBox(returnBtnContainer, showTitle, sortFilterContainer, searchProductsContainer, productsTable);
+
 
         Scene showProductsScene = new Scene(showProducts, 300, 600);
         showProductsScene.getStylesheets().add("gestion/resources/products.css");

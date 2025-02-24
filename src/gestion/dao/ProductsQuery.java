@@ -2,6 +2,7 @@ package gestion.dao;
 
 import gestion.model.Products;
 import gestion.ui.SceneManager;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -77,7 +78,7 @@ public class ProductsQuery {
     }
 
 
-    public static void showEditedProducts(TextField idProductsInput,  Stage stage) {
+    public static boolean showEditedProducts(TextField idProductsInput, Stage stage) {
         try {
 
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
@@ -86,8 +87,8 @@ public class ProductsQuery {
             PreparedStatement pstmt = con.prepareStatement(query);
 
             try {
-                currentProductsId  = Integer.parseInt(idProductsInput.getText());
-                pstmt.setInt(1, currentProductsId );
+                currentProductsId = Integer.parseInt(idProductsInput.getText());
+                pstmt.setInt(1, currentProductsId);
 
             } catch (NumberFormatException ex) {
                 Alert alert = new Alert(AlertType.ERROR);
@@ -95,7 +96,6 @@ public class ProductsQuery {
                 alert.setHeaderText("Invalid Product ID, please enter an integer");
                 alert.setContentText("Error: " + ex.getMessage());
                 alert.showAndWait();
-                return;
             }
 
             try (ResultSet resultSet = pstmt.executeQuery()) {
@@ -115,6 +115,7 @@ public class ProductsQuery {
                     alert.setHeaderText("Product not found");
                     alert.setContentText("No product found with this ID");
                     alert.showAndWait();
+                    return false;
                 }
             }
 
@@ -125,7 +126,9 @@ public class ProductsQuery {
             alert.setHeaderText("Error encountered");
             alert.setContentText("Error: " + ex.getMessage());
             alert.showAndWait();
+            return false;
         }
+        return false;
     }
 
     public static void editProducts(TextField nameProductsInput, TextField priceProductsInput, TextField quantityProductsInput, TextField supplierProductsInput) {
@@ -187,5 +190,35 @@ public class ProductsQuery {
             alert.setContentText("Error: " + ex.getMessage());
             alert.showAndWait();
         }
+    }
+
+    public static boolean showProducts(TableView<Products> productsTable) {
+
+        try {
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
+
+            String query = "SELECT ID_product, name_product, price_product, quantity_product, supplier_product FROM Products";
+            PreparedStatement pstmt = con.prepareStatement(query);
+
+            ResultSet rs = pstmt.executeQuery();
+
+
+            while (rs.next()) {
+                Products products = new Products(
+                        rs.getInt("ID_product"),
+                        rs.getString("name_product"),
+                        rs.getDouble("price_product"),
+                        rs.getInt("quantity_product"),
+                        rs.getString("supplier_product")
+                );
+                productsTable.getItems().add(products);
+            }
+            rs.close();
+            pstmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Database error: " + e.getMessage());        }
+        return false;
     }
 }
