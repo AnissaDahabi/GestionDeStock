@@ -1,7 +1,6 @@
 package gestion.ui;
 
 import gestion.dao.ProductsQuery;
-import gestion.ui.AlertsProducts;
 import gestion.model.Products;
 import gestion.service.ProductsService;
 import javafx.collections.FXCollections;
@@ -134,8 +133,8 @@ public class ProductsUI {
         Label quantityProducts = new Label("Quantity: ");
         TextField quantityProductsInput = new TextField();
 
-        Label supplierProducts = new Label("Supplier: ");
-        TextField supplierProductsInput = new TextField();
+        Label supplierId = new Label("Supplier: ");
+        TextField supplierIdInput = new TextField();
 
 
         addProductsGrid.add(idProductsLabel, 0, 0);
@@ -146,8 +145,8 @@ public class ProductsUI {
         addProductsGrid.add(priceProductsInput, 1, 2);
         addProductsGrid.add(quantityProducts, 0, 3);
         addProductsGrid.add(quantityProductsInput, 1, 3);
-        addProductsGrid.add(supplierProducts, 0, 4);
-        addProductsGrid.add(supplierProductsInput, 1, 4);
+        addProductsGrid.add(supplierId, 0, 4);
+        addProductsGrid.add(supplierIdInput, 1, 4);
 
         addProductsGrid.setAlignment(Pos.CENTER);
 
@@ -166,38 +165,27 @@ public class ProductsUI {
                 String name = nameProductsInput.getText();
                 double price = Double.parseDouble(priceProductsInput.getText());
                 int quantity = Integer.parseInt(quantityProductsInput.getText());
-                String supplier = supplierProductsInput.getText();
+                int supplier = Integer.parseInt(supplierIdInput.getText());
 
                 boolean success = ProductsService.addProducts(idProducts, name, price, quantity, supplier);
 
                 if (success) {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Success");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Product added successfully");
-                    alert.showAndWait();
+
+                    AlertsProducts.showSuccessAddProduct("Product added successfully");
 
                     idProductsInput.clear();
                     nameProductsInput.clear();
                     priceProductsInput.clear();
                     quantityProductsInput.clear();
-                    supplierProductsInput.clear();
+                    supplierIdInput.clear();
 
                     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     stage.setScene(SceneManager.getProductsHomeScene());
                 } else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Something went wrong");
-                    alert.showAndWait();
+                    AlertsProducts.showErrorAddProduct("Something went wrong");
                 }
             } catch (Exception e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Something went wrong");
-                alert.showAndWait();
+                AlertsProducts.showErrorAddProduct("Something went wrong");
             }
 
         });
@@ -264,10 +252,7 @@ public class ProductsUI {
                 Products products = ProductsService.getProductById(idProducts);
 
                 if (products == null) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setHeaderText(null);
-                    alert.setContentText("No product found with this ID number:" + idProducts);
+                    AlertsProducts.showErrorDelProduct2("No product found with this ID number: " + idProducts);
                     return;
                 }
 
@@ -364,7 +349,7 @@ public class ProductsUI {
     }
 
     // EDIT PRODUCT SCENE 2
-    public static Scene editProductsScene2(int idProductsSql, String nameProductsSql, double priceProductsSql, int quantityProductsSql, String supplierProductsSql) {
+    public static Scene editProductsScene2(int idProductsSql, String nameProductsSql, double priceProductsSql, int quantityProductsSql, int supplierIdSql) {
 
         // Return button:
         Button returnBtn = new Button("Return");
@@ -419,10 +404,10 @@ public class ProductsUI {
         quantityProductsInput.setText(String.valueOf(quantityProductsSql));
         quantityProductsInput.setId("quantityProductsInput");
 
-        Label supplierProducts = new Label("Supplier: ");
-        TextField supplierProductsInput = new TextField();
-        supplierProductsInput.setText(supplierProductsSql);
-        supplierProductsInput.setId("supplierProductsInput");
+        Label supplierId = new Label("Supplier: ");
+        TextField supplierIdInput = new TextField();
+        supplierIdInput.setText(String.valueOf(supplierIdSql));
+        supplierIdInput.setId("supplierProductsInput");
 
         editProductsGrid.add(idProducts, 0, 0);
         editProductsGrid.add(nameProducts, 0, 1);
@@ -431,8 +416,8 @@ public class ProductsUI {
         editProductsGrid.add(priceProductsInput, 1, 2);
         editProductsGrid.add(quantityProducts, 0, 3);
         editProductsGrid.add(quantityProductsInput, 1, 3);
-        editProductsGrid.add(supplierProducts, 0, 4);
-        editProductsGrid.add(supplierProductsInput, 1, 4);
+        editProductsGrid.add(supplierId, 0, 4);
+        editProductsGrid.add(supplierIdInput, 1, 4);
 
         editProductsGrid.setAlignment(Pos.CENTER);
         editProductsGrid.setPadding(new Insets(40, 0, 0, 0));
@@ -446,7 +431,7 @@ public class ProductsUI {
 
         submitEditedProductsBtn2.setOnAction(event -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            ProductsQuery.editProducts(nameProductsInput, priceProductsInput, quantityProductsInput, supplierProductsInput);
+            ProductsQuery.editProducts(nameProductsInput, priceProductsInput, quantityProductsInput, supplierIdInput);
             stage.setScene(SceneManager.getProductsHomeScene());
         });
 
@@ -533,7 +518,7 @@ public class ProductsUI {
 
 
         TableColumn supplierProductColumn = new TableColumn<Products, String>("Supplier");
-        supplierProductColumn.setCellValueFactory(new PropertyValueFactory<Products, String>("supplierProduct"));
+        supplierProductColumn.setCellValueFactory(new PropertyValueFactory<Products, String>("supplierId"));
 
         productsTable.getColumns().addAll(idProductColumn, nameProductColumn, priceProductColumn, quantityProductColumn, supplierProductColumn);
 
@@ -541,17 +526,7 @@ public class ProductsUI {
 
         ProductsQuery.showProducts(productsTable);
 
-//        productsTable.getItems().add(new Products(1234, "Thé", 2.90, 3, "Contrevents" ));
-//        productsTable.getItems().add(new Products(1234, "Thé", 2.90, 3, "Contrevents" ));
-//        productsTable.getItems().add(new Products(1234, "Thé", 2.90, 3, "Contrevents" ));
-//        productsTable.getItems().add(new Products(1234, "Thé", 2.90, 3, "Contrevents" ));
-//        productsTable.getItems().add(new Products(1234, "Thé", 2.90, 3, "Contrevents" ));
-//        productsTable.getItems().add(new Products(1234, "Thé", 2.90, 3, "Contrevents" ));
-
-
-
         VBox showProducts = new VBox(returnBtnContainer, showTitle, sortFilterContainer, searchProductsContainer, productsTable);
-
 
         Scene showProductsScene = new Scene(showProducts, 300, 600);
         showProductsScene.getStylesheets().add("gestion/resources/products.css");

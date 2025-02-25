@@ -13,7 +13,6 @@ import java.sql.*;
 public class ProductsQuery {
 
     private static int currentProductsId; // stockage de l'id pour ensuite le supprimer
-    private String nameProductsSql1;
 
     public static boolean addProducts(Products products) {
 
@@ -21,7 +20,7 @@ public class ProductsQuery {
             Connection con =
                     DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
 
-            String query = "INSERT INTO Products (id_product, name_product, price_product, quantity_product, supplier_product) VALUES (?, ?, ?, ?, ?)";
+            String query = "INSERT INTO Products (id_product, name_product, price_product, quantity_product, supplier_id) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement pstmt = con.prepareStatement(query);
 
             // Remplissage des paramètres de la requête SQL
@@ -29,7 +28,7 @@ public class ProductsQuery {
             pstmt.setString(2, products.getNameProduct());
             pstmt.setDouble(3, products.getPriceProduct());
             pstmt.setInt(4, products.getQuantityProduct());
-            pstmt.setString(5, products.getSupplierProduct());
+            pstmt.setInt(5, products.getSupplierId());
 
             return pstmt.executeUpdate() > 0;
 
@@ -54,36 +53,13 @@ public class ProductsQuery {
         }
     }
 
-    public static Products getProductById(int idProducts) {
-        try {
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
-            String query = "SELECT * FROM Products WHERE ID_product = ?";
-            PreparedStatement pstmt = con.prepareStatement(query);
-            pstmt.setInt(1, idProducts);
-
-            ResultSet rs = pstmt.executeQuery();
-            if (rs.next()) {
-                return new Products(
-                        rs.getInt("ID_product"),
-                        rs.getString("name_product"),
-                        rs.getDouble("price_product"),
-                        rs.getInt("quantity_product"),
-                        rs.getString("supplier_product")
-                );
-            }
-            return null;
-        } catch (SQLException e) {
-            throw new RuntimeException("Error getting the product's data: " + e.getMessage());
-        }
-    }
-
 
     public static boolean showEditedProducts(TextField idProductsInput, Stage stage) {
         try {
 
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
 
-            String query = "SELECT id_product, name_product, price_product, quantity_product, supplier_product FROM Products WHERE id_product = ?";
+            String query = "SELECT id_product, name_product, price_product, quantity_product, supplier_id FROM Products WHERE id_product = ?";
             PreparedStatement pstmt = con.prepareStatement(query);
 
             try {
@@ -105,9 +81,9 @@ public class ProductsQuery {
                     String nameProductsSql = resultSet.getString("name_product");
                     double priceProductsSql = resultSet.getDouble("price_product");
                     int quantityProductsSql = resultSet.getInt("quantity_product");
-                    String supplierProductsSql = resultSet.getString("supplier_product");
+                    int supplierIdSql = resultSet.getInt("supplier_id");
 
-                    stage.setScene(SceneManager.getEditProductsScene2(idProductsSql, nameProductsSql, priceProductsSql, quantityProductsSql, supplierProductsSql));
+                    stage.setScene(SceneManager.getEditProductsScene2(idProductsSql, nameProductsSql, priceProductsSql, quantityProductsSql, supplierIdSql));
 
                 } else {
                     Alert alert = new Alert(AlertType.ERROR);
@@ -131,11 +107,11 @@ public class ProductsQuery {
         return false;
     }
 
-    public static void editProducts(TextField nameProductsInput, TextField priceProductsInput, TextField quantityProductsInput, TextField supplierProductsInput) {
+    public static void editProducts(TextField nameProductsInput, TextField priceProductsInput, TextField quantityProductsInput, TextField supplierIdInput) {
         try {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
 
-            String query = "UPDATE Products SET name_product = ?, price_product = ?, quantity_product = ?, supplier_product = ? WHERE id_product = ?";
+            String query = "UPDATE Products SET name_product = ?, price_product = ?, quantity_product = ?, supplier_id = ? WHERE id_product = ?";
             PreparedStatement pstmt = con.prepareStatement(query);
 
             pstmt.setString(1, nameProductsInput.getText());
@@ -159,7 +135,7 @@ public class ProductsQuery {
                 return;
             }
 
-            pstmt.setString(4, supplierProductsInput.getText());
+            pstmt.setString(4, supplierIdInput.getText());
             pstmt.setInt(5, currentProductsId);
 
             int rowsAffected = pstmt.executeUpdate();
@@ -197,7 +173,7 @@ public class ProductsQuery {
         try {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
 
-            String query = "SELECT ID_product, name_product, price_product, quantity_product, supplier_product FROM Products";
+            String query = "SELECT ID_product, name_product, price_product, quantity_product, supplier_id FROM Products";
             PreparedStatement pstmt = con.prepareStatement(query);
 
             ResultSet rs = pstmt.executeQuery();
@@ -209,7 +185,7 @@ public class ProductsQuery {
                         rs.getString("name_product"),
                         rs.getDouble("price_product"),
                         rs.getInt("quantity_product"),
-                        rs.getString("supplier_product")
+                        rs.getInt("supplier_id")
                 );
                 productsTable.getItems().add(products);
             }
@@ -220,5 +196,28 @@ public class ProductsQuery {
             e.printStackTrace();
             System.out.println("Database error: " + e.getMessage());        }
         return false;
+    }
+
+    public static Products getProductById(int idProducts) {
+        try {
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
+            String query = "SELECT * FROM Products WHERE ID_product = ?";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, idProducts);
+
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return new Products(
+                        rs.getInt("ID_product"),
+                        rs.getString("name_product"),
+                        rs.getDouble("price_product"),
+                        rs.getInt("quantity_product"),
+                        rs.getInt("supplier_id")
+                );
+            }
+            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error getting the product's data: " + e.getMessage());
+        }
     }
 }

@@ -13,13 +13,10 @@ public class ProductsService {
         this.productsQuery = productsQuery;
     }
 
-    public static boolean addProducts(int idProducts, String name, double price, int quantity, String supplier) {
+    public static boolean addProducts(int idProducts, String name, double price, int quantity, int supplier) {
 
         try {
-            if (name.isEmpty() || supplier.isEmpty()) {
-                throw new IllegalArgumentException("Please fill all the required fields");
-            }
-            if (idProducts == 0 || price == 0 || quantity == 0) {
+            if (name.isEmpty() || supplier == 0 | idProducts == 0 || price == 0 || quantity == 0) {
                 throw new IllegalArgumentException("Please fill all the required fields");
             }
             if (quantity < 0) {
@@ -75,6 +72,5 @@ public class ProductsService {
             throw new RuntimeException(e);
         }
     }
-
 
 }

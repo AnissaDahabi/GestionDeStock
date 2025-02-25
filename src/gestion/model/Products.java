@@ -6,22 +6,22 @@ public class Products {
         private String nameProduct;
         private double priceProduct;
         private int quantityProduct;
-        private String supplierProduct;
+        private int supplierId;
 
         public Products() {
             this.idProduct = 0;
             this.nameProduct = "";
             this.priceProduct = 0;
             this.quantityProduct = 0;
-            this.supplierProduct = "";
+            this.supplierId = 0;
         }
 
-        public Products(int idProduct, String nameProduct, double priceProduct, int quantityProduct, String supplierProduct) {
+        public Products(int idProduct, String nameProduct, double priceProduct, int quantityProduct, int supplierId) {
             this.idProduct = idProduct;
             this.nameProduct = nameProduct;
             this.priceProduct = priceProduct;
             this.quantityProduct = quantityProduct;
-            this.supplierProduct = supplierProduct;
+            this.supplierId = supplierId;
         }
 
     public int getIdProduct() { return idProduct; }
@@ -36,7 +36,7 @@ public class Products {
     public int getQuantityProduct() { return quantityProduct; }
     public void setQuantityProduct(int quantityProduct) { this.quantityProduct = quantityProduct; }
 
-    public String getSupplierProduct() { return supplierProduct; }
-    public void setSupplierProduct(String supplierProduct) { this.supplierProduct = supplierProduct; }
+    public int getSupplierId() { return supplierId; }
+    public void setSupplierId(int supplierId) { this.supplierId = supplierId; }
 
 }
