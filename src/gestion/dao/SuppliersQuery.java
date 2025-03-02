@@ -86,22 +86,47 @@ public class SuppliersQuery {
         }
     }
 
-    public static boolean delSuppliers(Suppliers suppliers) {
+    public static boolean delSuppliers(int suppliersId) {
+
         try {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
             String query = "DELETE FROM Suppliers WHERE id_supplier = ?";
             PreparedStatement pstmt = con.prepareStatement(query);
-            pstmt.setInt(1, currentSuppliersId);
+            pstmt.setInt(1, suppliersId);
             int rowsAffected = pstmt.executeUpdate();
             if (rowsAffected > 0) {
                 return true;
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } return false;
 
-        }
-        return false;
+    }
 
+    public Suppliers getSuppliersId(int idSupplier) {
+        String query = "SELECT * FROM Suppliers WHERE id_supplier = ?";
+
+        try {
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
+            PreparedStatement stmt = con.prepareStatement(query);
+
+            stmt.setInt(1, idSupplier);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return new Suppliers(
+                        rs.getInt("id_suppliers"),
+                        rs.getString("name_suppliers"),
+                        rs.getString("phone_suppliers"),
+                        rs.getString("address_suppliers"),
+                        rs.getString("mail_suppliers"),
+                        rs.getInt("id_products")
+                );
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } return null;
     }
 
        /* public static void delSuppliers() {

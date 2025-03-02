@@ -3,18 +3,11 @@ package gestion.service;
 import gestion.dao.ProductsQuery;
 import gestion.dao.SuppliersQuery;
 import gestion.model.Suppliers;
-import gestion.model.Products;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
-import org.w3c.dom.Text;
-
-import java.util.Optional;
-import java.util.function.Supplier;
 
 public class SuppliersService {
     public static boolean delSuppliers;
-    private final SuppliersQuery suppliersQuery;
+    private static SuppliersQuery suppliersQuery;
     private final ProductsQuery productsQuery;
 
     public SuppliersService(SuppliersQuery suppliersQuery, ProductsQuery productsQuery) {
@@ -50,7 +43,7 @@ public class SuppliersService {
 
     }
 
-    public static boolean delSuppliers(int idSuppliers, String name, String phone, String address, String email, int idProduct) {
+/*    public static boolean delSuppliers(int idSuppliers, String name, String phone, String address, String email, int idProduct) {
 
         try {
             Suppliers suppliers = new Suppliers(idSuppliers, name, phone, address, email, idProduct);
@@ -67,6 +60,18 @@ public class SuppliersService {
 
     }
 
+
+ */
+
+    public static Suppliers getSuppliers(int idSupplier) {
+        return suppliersQuery.getSuppliersId(idSupplier);
+    }
+
+    public static boolean delSuppliers(int suppliersId) {
+
+        return SuppliersQuery.delSuppliers(suppliersId);
+
+    }
 
 
 

@@ -270,34 +270,47 @@ public class SuppliersUI {
 
         submitDeletedSuppliersBtn1.setOnAction(event -> {
 
-            int idSuppliers = Integer.parseInt(idSuppliersInput.getText());
-            String name = null;
-            String phone = null;
-            String address = null;
-            String email = null;
-            int idProducts = 0;
+            try {
+                int idSuppliers = Integer.parseInt(idSuppliersInput.getText());
+                Suppliers getSuppliersId = SuppliersService.getSuppliers(idSuppliers);
 
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation");
-            alert.setHeaderText(null);
-            alert.setContentText("Are you sure you want to delete" + name + "from the database ?");
+                if (getSuppliersId != null) {
+                    String suppliersName = getSuppliersId.getNameSupplier();
 
-            ButtonType yes = new ButtonType("Yes");
-            ButtonType no = new ButtonType("No");
-            alert.getButtonTypes().setAll(yes, no);
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Confirmation");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Do you want to delete " + suppliersName + " from the database ?");
 
-            alert.showAndWait().ifPresent(button -> {
-                if (button == yes) {
-                    SuppliersService.delSuppliers(idSuppliers, name, phone, address, email, idProducts);
-                } else if (button == no) {
-                    Alert alert2 = new Alert(Alert.AlertType.CONFIRMATION);
-                    alert2.setTitle("Reject");
-                    alert2.setHeaderText(null);
-                    alert2.setContentText("Please correct the id then");
-                    alert2.showAndWait();
+                    ButtonType yes = new ButtonType("Yes");
+                    ButtonType no = new ButtonType("No");
+                    alert.getButtonTypes().setAll(yes, no);
+
+                    alert.showAndWait().ifPresent(button -> {
+                        if (button == yes) {
+                            SuppliersService.delSuppliers(idSuppliers);
+                        } else if (button == no) {
+                            Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                            alert2.setTitle("Error");
+                            alert2.setHeaderText(null);
+                            alert2.setContentText("Please enter the ID number of the supplier you want to delete from the database");
+                            alert2.showAndWait();
+                        }
+                    });
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Error");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Supplier not found");
+                    alert.showAndWait();
                 }
-            });
-
+            } catch (NumberFormatException e) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Supplier not found");
+                alert.showAndWait();
+            }
 
         });
 
