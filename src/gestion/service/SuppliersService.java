@@ -4,9 +4,10 @@ import gestion.dao.ProductsQuery;
 import gestion.dao.SuppliersQuery;
 import gestion.model.Suppliers;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TextField;
 
 public class SuppliersService {
-    public static boolean delSuppliers;
+
     private static SuppliersQuery suppliersQuery;
     private final ProductsQuery productsQuery;
 
@@ -67,14 +68,19 @@ public class SuppliersService {
         return suppliersQuery.getSuppliersId(idSupplier);
     }
 
-    public static boolean delSuppliers(int suppliersId) {
+    public static boolean delSuppliers(int idSupplier) {
 
-        return SuppliersQuery.delSuppliers(suppliersId);
+        return SuppliersQuery.delSuppliers(idSupplier);
 
     }
 
+   // public static boolean showEditedSuppliers(TextField idSuppliersInput, int idSuppliers) {}
 
-
+  /*  public static boolean editSuppliers(int idSuppliers, String name, String phone, String address, String email, int idProduct) {
+        Suppliers suppliers = new Suppliers(idSuppliers, name, phone, address, email, idProduct);
+        return SuppliersQuery.editSuppliers(suppliers);
+    }
+*/
 
 }
 

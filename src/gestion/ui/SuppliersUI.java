@@ -1,16 +1,20 @@
 package gestion.ui;
 
+import gestion.dao.ProductsQuery;
 import gestion.dao.SuppliersQuery;
 import gestion.model.Products;
 import gestion.model.Suppliers;
 import gestion.service.SuppliersService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -589,9 +593,57 @@ public class SuppliersUI {
         searchSuppliersContainer.getChildren().add(searchSuppliersInput);
         searchSuppliersContainer.getChildren().add(confirmBtn);
         searchSuppliersContainer.getStyleClass().add("searchSuppliersContainer");
+        searchSuppliersContainer.setSpacing(10);
+
+        TableView suppliersTable = new TableView<Suppliers>();
+        suppliersTable.setEditable(true);
+        suppliersTable.setId("suppliersTable");
+
+        TableColumn idSuppliersColumn = new TableColumn<Suppliers, Integer>("ID");
+        idSuppliersColumn.setCellValueFactory(new PropertyValueFactory<Suppliers, Integer>("idSupplier"));
 
 
-        VBox showSuppliers = new VBox(returnBtnContainer, showTitle, sortFilterContainer, searchSuppliersContainer);
+        TableColumn nameSuppliersColumn = new TableColumn<Suppliers, String>("Name");
+        nameSuppliersColumn.setCellValueFactory(new PropertyValueFactory<Suppliers, String>("nameSupplier"));
+
+
+        TableColumn phoneSuppliersColumn = new TableColumn<Suppliers, String>("Phone");
+        phoneSuppliersColumn.setCellValueFactory(new PropertyValueFactory<Suppliers, String>("phoneSupplier"));
+
+
+        TableColumn addressSuppliersColumn = new TableColumn<Suppliers, String>("Address");
+        addressSuppliersColumn.setCellValueFactory(new PropertyValueFactory<Suppliers, String>("addressSupplier"));
+
+
+        TableColumn emailSuppliersColumn = new TableColumn<Suppliers, String>("Email");
+        emailSuppliersColumn.setCellValueFactory(new PropertyValueFactory<Suppliers, String>("emailSupplier"));
+
+        suppliersTable.getColumns().addAll(idSuppliersColumn, nameSuppliersColumn, phoneSuppliersColumn, addressSuppliersColumn, emailSuppliersColumn);
+
+        suppliersTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+        SuppliersQuery.showSuppliers(suppliersTable);
+
+        ObservableList<Suppliers> suppliersData = SuppliersQuery.getSuppliersID();
+        FilteredList<Suppliers> filteredSuppliersData = new FilteredList<>(suppliersData, p -> true);
+
+        searchSuppliersInput.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredSuppliersData.setPredicate(suppliers -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                return String.valueOf(suppliers.getIdSupplier()).toLowerCase().contains(lowerCaseFilter);
+            });
+        });
+
+        SortedList<Suppliers> sortedSuppliersData = new SortedList<>(filteredSuppliersData);
+        sortedSuppliersData.comparatorProperty().bind(suppliersTable.comparatorProperty());
+        suppliersTable.setItems(sortedSuppliersData);
+
+
+        VBox showSuppliers = new VBox(returnBtnContainer, showTitle, sortFilterContainer, searchSuppliersContainer, suppliersTable);
 
         Scene showSuppliersScene = new Scene(showSuppliers, 300, 600);
         showSuppliersScene.getStylesheets().add("gestion/resources/suppliers.css");
