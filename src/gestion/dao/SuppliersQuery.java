@@ -243,10 +243,10 @@ public class SuppliersQuery {
             String query = "UPDATE Suppliers SET name_supplier = ?, phone_supplier = ?, address_supplier = ?, email_supplier = ? WHERE id_supplier = ?";
             PreparedStatement pstmt = con.prepareStatement(query);
 
-            pstmt.setString(1, nameSuppliersInput.getText());
+            pstmt.setString(2, nameSuppliersInput.getText());
 
             try {
-                pstmt.setInt(2, Integer.parseInt(phoneSuppliersInput.getText()));
+                pstmt.setInt(3, Integer.parseInt(phoneSuppliersInput.getText()));
             } catch (NumberFormatException ex) {
                 Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Error");
@@ -255,8 +255,8 @@ public class SuppliersQuery {
                 return;
             }
 
-            pstmt.setString(3, addressSuppliersInput.getText());
-            pstmt.setString(4, emailSuppliersInput.getText());
+            pstmt.setString(4, addressSuppliersInput.getText());
+            pstmt.setString(5, emailSuppliersInput.getText());
 
             int rowsAffected = pstmt.executeUpdate();
 

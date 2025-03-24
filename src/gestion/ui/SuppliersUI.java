@@ -449,6 +449,29 @@ public class SuppliersUI {
         idSuppliersContainer.setId("idSuppliersContainer");
         idSuppliersContainer.setAlignment(Pos.CENTER);
 
+        ComboBox<Suppliers> suppliersComboBox = new ComboBox<>(SuppliersQuery.getSuppliersID());
+        suppliersComboBox.setPromptText("Choose supplier");
+        suppliersComboBox.setId("suppliersComboBox");
+
+        suppliersComboBox.setConverter(new StringConverter<Suppliers>() {
+            @Override
+            public String toString(Suppliers suppliers) {
+                return suppliers != null ? String.valueOf(suppliers.getIdSupplier()) : "";
+            }
+
+            @Override
+            public Suppliers fromString(String s) {
+                return null;
+            }
+        });
+        suppliersComboBox.setCellFactory(lv -> new ListCell<Suppliers>() {
+            @Override
+            protected void updateItem(Suppliers supplier, boolean empty) {
+                super.updateItem(supplier, empty);
+                setText(empty || supplier == null ? null : String.valueOf(supplier.getIdSupplier()));
+            }
+        });
+
         //Next button:
         Button submitEditedSuppliersBtn1 = new Button("Next");
         submitEditedSuppliersBtn1.getStyleClass().add("submitEditedSuppliersBtn1");
@@ -459,11 +482,26 @@ public class SuppliersUI {
 
         submitEditedSuppliersBtn1.setOnAction(event -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            SuppliersQuery.showEditedSuppliers(idSuppliersInput, stage);
-            idSuppliersInput.clear();
+            Suppliers selectedSupplier = suppliersComboBox.getValue();
+            if (selectedSupplier != null) {
+
+                stage.setScene(SceneManager.getEditSuppliersScene2(
+                        selectedSupplier.getIdSupplier(),
+                        selectedSupplier.getNameSupplier(),
+                        Integer.parseInt(selectedSupplier.getPhoneSupplier()),
+                        selectedSupplier.getAddressSupplier(),
+                        selectedSupplier.getEmailSupplier()
+                ));
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setHeaderText(null);
+                alert.setContentText("Please choose a supplier to edit.");
+                alert.showAndWait();
+            }
         });
 
-        VBox editSuppliers1 = new VBox(returnBtnContainer, editTitle1, editTxtContainer1, idSuppliersContainer, editSuppliersContainer1);
+        VBox editSuppliers1 = new VBox(returnBtnContainer, editTitle1, editTxtContainer1, editSuppliersContainer1, suppliersComboBox);
 
         Scene editSuppliersScene1 = new Scene(editSuppliers1, 300, 600);
         editSuppliersScene1.getStylesheets().add("gestion/resources/suppliers.css");
