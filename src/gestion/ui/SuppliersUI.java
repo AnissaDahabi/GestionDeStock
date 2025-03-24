@@ -15,12 +15,16 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
+
+import java.util.List;
 import java.util.Optional;
 
 
@@ -249,7 +253,7 @@ public class SuppliersUI {
         delTxtContainer1.setAlignment(Pos.CENTER);
 
         //User input
-        Label idSuppliersLabel = new Label("ID Number: ");
+       Label idSuppliersLabel = new Label("ID Number: ");
         TextField idSuppliersInput = new TextField();
         HBox idSuppliersContainer = new HBox();
         idSuppliersContainer.getChildren().add(idSuppliersLabel);
@@ -258,8 +262,48 @@ public class SuppliersUI {
         idSuppliersContainer.setAlignment(Pos.CENTER);
 
 
+
+
+
+       /* ComboBox<Integer> supplierIdComboBox = new ComboBox<>();
+        supplierIdComboBox.setPromptText("Choose supplier ID");
+
+        List<Integer> supplierID = SuppliersQuery.getSuppliersID();
+        supplierIdComboBox.getItems().addAll(supplierID);
+
+
+        */
+
+        //Fil déroulant
+
+
+        ComboBox<Suppliers> suppliersComboBox = new ComboBox<>(SuppliersQuery.getSuppliersID());
+        suppliersComboBox.setPromptText("Choose supplier");
+        suppliersComboBox.setId("suppliersComboBox");
+
+        suppliersComboBox.setConverter(new StringConverter<Suppliers>() {
+            @Override
+            public String toString(Suppliers suppliers) {
+                return suppliers != null ? String.valueOf(suppliers.getIdSupplier()) : "";
+            }
+
+            @Override
+            public Suppliers fromString(String s) {
+                return null;
+            }
+        });
+        suppliersComboBox.setCellFactory(lv -> new ListCell<Suppliers>() {
+            @Override
+            protected void updateItem(Suppliers supplier, boolean empty) {
+                super.updateItem(supplier, empty);
+                setText(empty || supplier == null ? null : String.valueOf(supplier.getIdSupplier()));
+            }
+        });
+
+
+
         //Next button:
-        Button submitDeletedSuppliersBtn1 = new Button("Next");
+        Button submitDeletedSuppliersBtn1 = new Button("Delete");
         submitDeletedSuppliersBtn1.getStyleClass().add("submitDeletedSuppliersBtn1");
         HBox delSuppliersContainer1 = new HBox(10);
         delSuppliersContainer1.getChildren().add(submitDeletedSuppliersBtn1);
@@ -268,62 +312,35 @@ public class SuppliersUI {
 
         submitDeletedSuppliersBtn1.setOnAction(event -> {
 
-            try {
-                int idSuppliers = Integer.parseInt(idSuppliersInput.getText());
-                Suppliers getSuppliersId = SuppliersService.getSuppliers(idSuppliers);
-
-                if (getSuppliersId != null) {
-                    String suppliersName = getSuppliersId.getNameSupplier();
-
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Confirmation");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Do you want to delete " + suppliersName + " from the database ?");
-
-                    ButtonType yes = new ButtonType("Yes");
-                    ButtonType no = new ButtonType("No");
-                    alert.getButtonTypes().setAll(yes, no);
-
-                    alert.showAndWait().ifPresent(button -> {
-                        if (button == yes) {
-                            boolean deleted = SuppliersService.delSuppliers(idSuppliers);
-                            if (deleted) {
-                                Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
-                                alert1.setTitle("Confirmation");
-                                alert1.setHeaderText(null);
-                                alert1.setContentText("Supplier deleted successfully");
-                                alert1.showAndWait();
-
-                                idSuppliersInput.clear();
-
-                                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                                stage.setScene(SceneManager.getSuppliersHomeScene());
-
-                            }
-                        } else if (button == no) {
-                            Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
-                            alert2.setTitle("Error");
-                            alert2.setHeaderText(null);
-                            alert2.setContentText("Please enter the ID number of the supplier you want to delete from the database");
-                            alert2.showAndWait();
-                        }
-
-                    });
-
+            Suppliers selectedSupplier = suppliersComboBox.getValue();
+            if (selectedSupplier != null) {
+                boolean deleted = SuppliersService.delSuppliers(selectedSupplier.getIdSupplier());
+                if (deleted) {
+                    Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                    successAlert.setTitle("Success");
+                    successAlert.setHeaderText(null);
+                    successAlert.setContentText("Supplier deleted successfully");
+                    successAlert.showAndWait();
+                    suppliersComboBox.setItems(SuppliersQuery.getSuppliersID());
+                } else {
+                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                    errorAlert.setTitle("Error");
+                    errorAlert.setHeaderText(null);
+                    errorAlert.setContentText("Shit happened");
+                    errorAlert.showAndWait();
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("An error occurred");
-                alert.setContentText(e.getMessage());
-                alert.showAndWait();
+            } else {
+                Alert warningAlert = new Alert(Alert.AlertType.WARNING);
+                warningAlert.setTitle("Warning");
+                warningAlert.setHeaderText(null);
+                warningAlert.setContentText("Please choose a supplier");
+                warningAlert.showAndWait();
             }
-
-
         });
 
-        VBox delSuppliers1 = new VBox(returnBtnContainer, delTitle1, delTxtContainer1, idSuppliersContainer, delSuppliersContainer1);
+        VBox delSuppliers1 = new VBox(returnBtnContainer, delTitle1, delTxtContainer1, delSuppliersContainer1, suppliersComboBox);
+
+
 
         Scene delSuppliersScene1 = new Scene(delSuppliers1, 300, 600);
         delSuppliersScene1.getStylesheets().add("gestion/resources/suppliers.css");

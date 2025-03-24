@@ -76,6 +76,10 @@
     -fx-padding: 40 0 0 0;
 }
 
+#suppliersComboBox {
+    -fx-padding: 40 0 0 0;
+}
+
 .submitDeletedSuppliersBtn1, .submitDeletedSuppliersBtn2 {
     -fx-background-color: #D9D9D9;
     -fx-text-fill: black;
