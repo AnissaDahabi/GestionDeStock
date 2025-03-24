@@ -1,8 +1,6 @@
 package gestion.ui;
 
-import gestion.dao.ProductsQuery;
 import gestion.dao.SuppliersQuery;
-import gestion.model.Products;
 import gestion.model.Suppliers;
 import gestion.service.SuppliersService;
 import javafx.collections.FXCollections;
@@ -15,17 +13,12 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
-
-
-import java.util.List;
-import java.util.Optional;
 
 
 public class SuppliersUI {
@@ -488,7 +481,7 @@ public class SuppliersUI {
                 stage.setScene(SceneManager.getEditSuppliersScene2(
                         selectedSupplier.getIdSupplier(),
                         selectedSupplier.getNameSupplier(),
-                        Integer.parseInt(selectedSupplier.getPhoneSupplier()),
+                        selectedSupplier.getPhoneSupplier(),
                         selectedSupplier.getAddressSupplier(),
                         selectedSupplier.getEmailSupplier()
                 ));
@@ -508,7 +501,7 @@ public class SuppliersUI {
         return editSuppliersScene1;
     }
 
-    public static Scene editSuppliersScene2(int idSuppliersSql, String nameSuppliersSql, int phoneSuppliersSql, String addressSuppliersSql, String emailSuppliersSql) {
+    public static Scene editSuppliersScene2(int idSuppliersSql, String nameSuppliersSql, String phoneSuppliersSql, String addressSuppliersSql, String emailSuppliersSql) {
 
         // Return button:
         Button returnBtn = new Button("Return");

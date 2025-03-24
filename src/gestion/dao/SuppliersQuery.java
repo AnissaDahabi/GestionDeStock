@@ -188,7 +188,7 @@ public class SuppliersQuery {
                 if (resultSet.next()) {
                     int idSuppliersSql = resultSet.getInt("id_supplier");
                     String nameSuppliersSql = resultSet.getString("name_supplier");
-                    int phoneSuppliersSql = resultSet.getInt("phone_supplier");
+                    String phoneSuppliersSql = resultSet.getString("phone_supplier");
                     String addressSuppliersSql = resultSet.getString("address_supplier");
                     String emailSuppliersSql = resultSet.getString("email_supplier");
 
@@ -243,10 +243,11 @@ public class SuppliersQuery {
             String query = "UPDATE Suppliers SET name_supplier = ?, phone_supplier = ?, address_supplier = ?, email_supplier = ? WHERE id_supplier = ?";
             PreparedStatement pstmt = con.prepareStatement(query);
 
+
             pstmt.setString(2, nameSuppliersInput.getText());
 
             try {
-                pstmt.setInt(3, Integer.parseInt(phoneSuppliersInput.getText()));
+                pstmt.setString(3, phoneSuppliersInput.getText());
             } catch (NumberFormatException ex) {
                 Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Error");
