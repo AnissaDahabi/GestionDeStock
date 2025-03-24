@@ -7,15 +7,15 @@ public class Suppliers {
     private String phoneSupplier;
     private String addressSupplier;
     private String emailSupplier;
-    private int idProduct;
 
-    public Suppliers(int idSupplier, String nameSupplier, String phoneSupplier, String addressSupplier, String emailSupplier, int idProduct) {
+
+    public Suppliers(int idSupplier, String nameSupplier, String phoneSupplier, String addressSupplier, String emailSupplier) {
         this.idSupplier = idSupplier;
         this.nameSupplier = nameSupplier;
         this.phoneSupplier = phoneSupplier;
         this.addressSupplier = addressSupplier;
         this.emailSupplier = emailSupplier;
-        this.idProduct = idProduct;
+
     }
 //Getter
     public int getIdSupplier() {
@@ -33,9 +33,7 @@ public class Suppliers {
     public String getEmailSupplier() {
         return emailSupplier;
     }
-    public int getIdProduct() {
-        return idProduct;
-    }
+
 
 //Setter
     public void setIdSupplier(int idSupplier) {
@@ -53,7 +51,5 @@ public class Suppliers {
     public void setEmailSupplier(String emailSupplier) {
         this.emailSupplier = emailSupplier;
     }
-    public void setIdProduct(int idProduct) {
-        this.idProduct = idProduct;
-    }
+
 }

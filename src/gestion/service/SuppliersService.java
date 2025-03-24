@@ -17,20 +17,20 @@ public class SuppliersService {
     }
 
 
-    public static boolean addSuppliers(int idSuppliers, String name, String phone, String address, String email, int idProduct) {
+    public static boolean addSuppliers(int idSuppliers, String name, String phone, String address, String email) {
 
         try {
             if(name.isEmpty() || phone.isEmpty() || address.isEmpty() || email.isEmpty()) {
                 throw new IllegalArgumentException("Please fill all the required fields");
             }
-            if (idSuppliers==0 || idProduct==0) {
+            if (idSuppliers==0) {
                 throw new IllegalArgumentException("Please fill all the required fields");
             }
             if (!email.contains("@")) {
                 throw new IllegalArgumentException("Please fill a valid email address");
             }
 
-            Suppliers suppliers = new Suppliers(idSuppliers, name, phone, address, email, idProduct);
+            Suppliers suppliers = new Suppliers(idSuppliers, name, phone, address, email);
 
             return SuppliersQuery.addSuppliers(suppliers);
         } catch (Exception e) {
@@ -65,12 +65,29 @@ public class SuppliersService {
  */
 
     public static Suppliers getSuppliers(int idSupplier) {
-        return suppliersQuery.getSuppliersId(idSupplier);
+        try {
+            return SuppliersQuery.getSuppliersId(idSupplier);
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+            return null;
+        }
     }
 
     public static boolean delSuppliers(int idSupplier) {
-
-        return SuppliersQuery.delSuppliers(idSupplier);
+        try {
+            return SuppliersQuery.delSuppliers(idSupplier);
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+            return false;
+        }
 
     }
 

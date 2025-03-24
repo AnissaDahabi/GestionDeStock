@@ -145,9 +145,6 @@ public class SuppliersUI {
         Label emailSuppliers = new Label("Email: ");
         TextField emailSuppliersInput = new TextField();
 
-        Label idProduct = new Label("Product ID: ");
-        TextField idProductInput = new TextField();
-
 
         addSuppliersGrid.add(idSupplier, 0, 0);
         addSuppliersGrid.add(idSuppliersInput, 1, 0);
@@ -159,8 +156,6 @@ public class SuppliersUI {
         addSuppliersGrid.add(addressSuppliersInput, 1, 3);
         addSuppliersGrid.add(emailSuppliers, 0, 4);
         addSuppliersGrid.add(emailSuppliersInput, 1, 4);
-        addSuppliersGrid.add(idProduct, 0, 5);
-        addSuppliersGrid.add(idProductInput, 1, 5);
 
         addSuppliersGrid.setAlignment(Pos.CENTER);
 
@@ -180,9 +175,8 @@ public class SuppliersUI {
                 String phone = phoneSuppliersInput.getText();
                 String address = addressSuppliersInput.getText();
                 String email = emailSuppliersInput.getText();
-                int idProducts = Integer.parseInt(idProductInput.getText());
 
-                boolean success = SuppliersService.addSuppliers(idSuppliers, name, phone, address, email, idProducts);
+                boolean success = SuppliersService.addSuppliers(idSuppliers, name, phone, address, email);
 
                 if (success) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -196,7 +190,7 @@ public class SuppliersUI {
                     phoneSuppliersInput.clear();
                     addressSuppliersInput.clear();
                     emailSuppliersInput.clear();
-                    idProductInput.clear();
+
 
                     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     stage.setScene(SceneManager.getSuppliersHomeScene());
@@ -292,7 +286,20 @@ public class SuppliersUI {
 
                     alert.showAndWait().ifPresent(button -> {
                         if (button == yes) {
-                            SuppliersService.delSuppliers(idSuppliers);
+                            boolean deleted = SuppliersService.delSuppliers(idSuppliers);
+                            if (deleted) {
+                                Alert alert1 = new Alert(Alert.AlertType.INFORMATION);
+                                alert1.setTitle("Confirmation");
+                                alert1.setHeaderText(null);
+                                alert1.setContentText("Supplier deleted successfully");
+                                alert1.showAndWait();
+
+                                idSuppliersInput.clear();
+
+                                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                                stage.setScene(SceneManager.getSuppliersHomeScene());
+
+                            }
                         } else if (button == no) {
                             Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
                             alert2.setTitle("Error");
@@ -300,21 +307,19 @@ public class SuppliersUI {
                             alert2.setContentText("Please enter the ID number of the supplier you want to delete from the database");
                             alert2.showAndWait();
                         }
+
                     });
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Error");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Supplier not found");
-                    alert.showAndWait();
+
                 }
-            } catch (NumberFormatException e) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Supplier not found");
+                alert.setHeaderText("An error occurred");
+                alert.setContentText(e.getMessage());
                 alert.showAndWait();
             }
+
 
         });
 

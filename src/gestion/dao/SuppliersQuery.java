@@ -73,7 +73,7 @@ public class SuppliersQuery {
         try {
             Connection con =
                     DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
-            String query = "INSERT INTO Suppliers (id_supplier, name_supplier, phone_supplier, address_supplier, email_supplier, id_product) VALUES (?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO Suppliers (id_supplier, name_supplier, phone_supplier, address_supplier, email_supplier) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement pstmt = con.prepareStatement(query);
 
             pstmt.setInt(1, suppliers.getIdSupplier());
@@ -81,7 +81,7 @@ public class SuppliersQuery {
             pstmt.setString(3, suppliers.getPhoneSupplier());
             pstmt.setString(4, suppliers.getAddressSupplier());
             pstmt.setString(5, suppliers.getEmailSupplier());
-            pstmt.setInt(6, suppliers.getIdProduct());
+
 
             return pstmt.executeUpdate() > 0; //en gros ça return true parce que y'a eu une affectation
         } catch (SQLException e) {
@@ -98,12 +98,11 @@ public class SuppliersQuery {
             PreparedStatement pstmt = con.prepareStatement(query);
             pstmt.setInt(1, suppliersId);
             int rowsAffected = pstmt.executeUpdate();
-            if (rowsAffected > 0) {
-                return true;
-            }
+            return rowsAffected > 0;
+
         } catch (SQLException e) {
-            e.printStackTrace();
-        } return false;
+            throw new RuntimeException("Error deleting supplier", e.getCause());
+        }
 
     }
 
@@ -118,14 +117,13 @@ public class SuppliersQuery {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                       int id = rs.getInt("id_suppliers");
-                       String name = rs.getString("name_suppliers");
-                       String phone = rs.getString("phone_suppliers");
-                       String address = rs.getString("address_suppliers");
-                       String mail = rs.getString("mail_suppliers");
-                       int idProduct =  rs.getInt("id_products");
+                       int id = rs.getInt("id_supplier");
+                       String name = rs.getString("name_supplier");
+                       String phone = rs.getString("phone_supplier");
+                       String address = rs.getString("address_supplier");
+                       String mail = rs.getString("email_supplier");
 
-                        Suppliers suppliers = new Suppliers(id, name, phone, address, mail, idProduct);
+                        Suppliers suppliers = new Suppliers(id, name, phone, address, mail);
                         suppliersList.add(suppliers);
             }
 
@@ -136,7 +134,7 @@ public class SuppliersQuery {
     }
 
 
-    public Suppliers getSuppliersId(int idSupplier) {
+    public static Suppliers getSuppliersId(int idSupplier) {
         String query = "SELECT * FROM Suppliers WHERE id_supplier = ?";
 
         try {
@@ -148,12 +146,11 @@ public class SuppliersQuery {
 
             if (rs.next()) {
                 return new Suppliers(
-                        rs.getInt("id_suppliers"),
-                        rs.getString("name_suppliers"),
-                        rs.getString("phone_suppliers"),
-                        rs.getString("address_suppliers"),
-                        rs.getString("mail_suppliers"),
-                        rs.getInt("id_products")
+                        rs.getInt("id_supplier"),
+                        rs.getString("name_supplier"),
+                        rs.getString("phone_supplier"),
+                        rs.getString("address_supplier"),
+                        rs.getString("email_supplier")
                 );
 
             }
@@ -307,12 +304,11 @@ public class SuppliersQuery {
 
             while (rs.next()) {
                 Suppliers suppliers = new Suppliers(
-                        rs.getInt("id_suppliers"),
-                        rs.getString("name_suppliers"),
-                        rs.getString("phone_suppliers"),
-                        rs.getString("address_suppliers"),
-                        rs.getString("mail_suppliers"),
-                        rs.getInt("id_products")
+                        rs.getInt("id_supplier"),
+                        rs.getString("name_supplier"),
+                        rs.getString("phone_supplier"),
+                        rs.getString("address_supplier"),
+                        rs.getString("email_supplier")
                 );
                 suppliersTable.getItems().add(suppliers);
             }
