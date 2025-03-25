@@ -588,6 +588,7 @@ public class SuppliersUI {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             SuppliersQuery.editSuppliers(idSuppliersSql ,nameSuppliersInput, phoneSuppliersInput, addressSuppliersInput, emailSuppliersInput);
             stage.setScene(SceneManager.getSuppliersHomeScene());
+
         });
 
         VBox editSuppliers2 = new VBox(returnBtnContainer, editTitle2, editTxtContainer2, editSuppliersGrid,editSuppliersContainer2);
@@ -604,10 +605,6 @@ public class SuppliersUI {
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
 
-        returnBtn.setOnAction(event -> {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(SceneManager.getSuppliersHomeScene());
-        });
 
         HBox returnBtnContainer = new HBox(10);
         returnBtnContainer.setAlignment(Pos.TOP_RIGHT);
@@ -630,6 +627,8 @@ public class SuppliersUI {
                 );
         final ComboBox sortFilter = new ComboBox(sortOptions);
         sortFilter.setId("sortFilter");
+
+
 
         HBox sortFilterContainer = new HBox();
         sortFilterContainer.getChildren().add(sortSuppliers);
@@ -693,10 +692,19 @@ public class SuppliersUI {
                 return String.valueOf(suppliers.getIdSupplier()).toLowerCase().contains(lowerCaseFilter);
             });
         });
+        returnBtn.setOnAction(event -> {
+            ObservableList<Suppliers> newData = SuppliersQuery.getSuppliersID();
+            suppliersData.setAll(newData);
+            suppliersTable.refresh();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(SceneManager.getSuppliersHomeScene());
+        });
 
         SortedList<Suppliers> sortedSuppliersData = new SortedList<>(filteredSuppliersData);
         sortedSuppliersData.comparatorProperty().bind(suppliersTable.comparatorProperty());
         suppliersTable.setItems(sortedSuppliersData);
+        suppliersData.setAll(SuppliersQuery.getSuppliersID());
+        suppliersTable.refresh();
 
 
         VBox showSuppliers = new VBox(returnBtnContainer, showTitle, sortFilterContainer, searchSuppliersContainer, suppliersTable);
