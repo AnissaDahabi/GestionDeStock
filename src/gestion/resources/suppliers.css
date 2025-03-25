@@ -120,6 +120,18 @@
     -fx-text-fill: #3C582B;
 }
 
+#suppliersComboBox {
+    -fx-padding: 0 0 0 0;
+    -fx-pref-height: 25px;
+    -fx-font-size: 10px;
+}
+
+.boxSuppliersContainer Label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #3C582B;
+    -fx-font-weight: bold;
+}
+
 /* EDIT SUPPLIERS */
 
 .editTitle1 Label, .editTitle2 Label {

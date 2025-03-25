@@ -237,7 +237,7 @@ public class SuppliersUI {
         delTitle1.getStyleClass().add("delTitle1");
 
         Text delTxt1 = new Text();
-        delTxt1.setText("Please enter the ID number of the supplier you want to delete from the database");
+        delTxt1.setText("Please select the ID number of the supplier you want to delete from the inventory");
         delTxt1.setId("delTxt1");
         delTxt1.setWrappingWidth(280);
         HBox delTxtContainer1 = new HBox();
@@ -268,10 +268,9 @@ public class SuppliersUI {
         */
 
         //Fil déroulant
-
-
+        Label comboLabel = new Label("ID number : ");
         ComboBox<Suppliers> suppliersComboBox = new ComboBox<>(SuppliersQuery.getSuppliersID());
-        suppliersComboBox.setPromptText("Choose supplier");
+        //suppliersComboBox.setPromptText("Choose supplier");
         suppliersComboBox.setId("suppliersComboBox");
         suppliersComboBox.setItems(SuppliersQuery.getSuppliersID());
 
@@ -294,6 +293,13 @@ public class SuppliersUI {
             }
         });
 
+        HBox boxSuppliersContainer = new HBox();
+        boxSuppliersContainer.getStyleClass().add("boxSuppliersContainer");
+        boxSuppliersContainer.getChildren().add(comboLabel);
+        boxSuppliersContainer.getChildren().add(suppliersComboBox);
+        boxSuppliersContainer.setAlignment(Pos.CENTER);
+        boxSuppliersContainer.setSpacing(5);
+        boxSuppliersContainer.setPadding(new Insets(20, 0, 0, 0));
 
 
         //Next button:
@@ -332,7 +338,7 @@ public class SuppliersUI {
             }
         });
 
-        VBox delSuppliers1 = new VBox(returnBtnContainer, delTitle1, delTxtContainer1, delSuppliersContainer1, suppliersComboBox);
+        VBox delSuppliers1 = new VBox(returnBtnContainer, delTitle1, delTxtContainer1, boxSuppliersContainer, delSuppliersContainer1);
 
 
 
@@ -426,7 +432,7 @@ public class SuppliersUI {
         editTitle1.getStyleClass().add("editTitle1");
 
         Text editTxt1 = new Text();
-        editTxt1.setText("Please enter the ID number of the supplier you want to edit");
+        editTxt1.setText("Please select the ID number of the supplier you want to edit");
         editTxt1.setId("editTxt1");
         editTxt1.setWrappingWidth(280);
         HBox editTxtContainer1 = new HBox();
@@ -435,16 +441,16 @@ public class SuppliersUI {
         editTxtContainer1.setAlignment(Pos.CENTER);
 
         //User input
-        Label idSuppliers = new Label("ID Number: ");
-        TextField idSuppliersInput = new TextField();
-        HBox idSuppliersContainer = new HBox();
-        idSuppliersContainer.getChildren().add(idSuppliers);
-        idSuppliersContainer.getChildren().add(idSuppliersInput);
-        idSuppliersContainer.setId("idSuppliersContainer");
-        idSuppliersContainer.setAlignment(Pos.CENTER);
+        Label comboLabel = new Label("ID Number: ");
+        //TextField idSuppliersInput = new TextField();
+        //HBox idSuppliersContainer = new HBox();
+        //idSuppliersContainer.getChildren().add(idSuppliers);
+        //idSuppliersContainer.getChildren().add(idSuppliersInput);
+        //idSuppliersContainer.setId("idSuppliersContainer");
+        //idSuppliersContainer.setAlignment(Pos.CENTER);
 
         ComboBox<Suppliers> suppliersComboBox = new ComboBox<>(SuppliersQuery.getSuppliersID());
-        suppliersComboBox.setPromptText("Choose supplier");
+        //suppliersComboBox.setPromptText("Choose supplier");
         suppliersComboBox.setId("suppliersComboBox");
         suppliersComboBox.setItems(SuppliersQuery.getSuppliersID());
 
@@ -466,6 +472,14 @@ public class SuppliersUI {
                 setText(empty || supplier == null ? null : String.valueOf(supplier.getIdSupplier()));
             }
         });
+
+        HBox boxSuppliersContainer = new HBox();
+        boxSuppliersContainer.getStyleClass().add("boxSuppliersContainer");
+        boxSuppliersContainer.getChildren().add(comboLabel);
+        boxSuppliersContainer.getChildren().add(suppliersComboBox);
+        boxSuppliersContainer.setAlignment(Pos.CENTER);
+        boxSuppliersContainer.setSpacing(5);
+        boxSuppliersContainer.setPadding(new Insets(20, 0, 0, 0));
 
         //Next button:
         Button submitEditedSuppliersBtn1 = new Button("Next");
@@ -497,7 +511,7 @@ public class SuppliersUI {
             }
         });
 
-        VBox editSuppliers1 = new VBox(returnBtnContainer, editTitle1, editTxtContainer1, editSuppliersContainer1, suppliersComboBox);
+        VBox editSuppliers1 = new VBox(returnBtnContainer, editTitle1, editTxtContainer1, boxSuppliersContainer, editSuppliersContainer1);
 
         Scene editSuppliersScene1 = new Scene(editSuppliers1, 300, 600);
         editSuppliersScene1.getStylesheets().add("gestion/resources/suppliers.css");
