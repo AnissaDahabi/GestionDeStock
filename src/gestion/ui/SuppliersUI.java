@@ -273,6 +273,7 @@ public class SuppliersUI {
         ComboBox<Suppliers> suppliersComboBox = new ComboBox<>(SuppliersQuery.getSuppliersID());
         suppliersComboBox.setPromptText("Choose supplier");
         suppliersComboBox.setId("suppliersComboBox");
+        suppliersComboBox.setItems(SuppliersQuery.getSuppliersID());
 
         suppliersComboBox.setConverter(new StringConverter<Suppliers>() {
             @Override
@@ -445,6 +446,7 @@ public class SuppliersUI {
         ComboBox<Suppliers> suppliersComboBox = new ComboBox<>(SuppliersQuery.getSuppliersID());
         suppliersComboBox.setPromptText("Choose supplier");
         suppliersComboBox.setId("suppliersComboBox");
+        suppliersComboBox.setItems(SuppliersQuery.getSuppliersID());
 
         suppliersComboBox.setConverter(new StringConverter<Suppliers>() {
             @Override
@@ -485,6 +487,7 @@ public class SuppliersUI {
                         selectedSupplier.getAddressSupplier(),
                         selectedSupplier.getEmailSupplier()
                 ));
+
             } else {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Warning");
@@ -583,7 +586,7 @@ public class SuppliersUI {
 
         submitEditedSuppliersBtn2.setOnAction(event -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            SuppliersQuery.editSuppliers(nameSuppliersInput, phoneSuppliersInput, addressSuppliersInput, emailSuppliersInput);
+            SuppliersQuery.editSuppliers(idSuppliersSql ,nameSuppliersInput, phoneSuppliersInput, addressSuppliersInput, emailSuppliersInput);
             stage.setScene(SceneManager.getSuppliersHomeScene());
         });
 

@@ -1,6 +1,5 @@
 package gestion.dao;
 
-import gestion.model.Products;
 import gestion.model.Suppliers;
 import gestion.ui.SceneManager;
 import javafx.collections.FXCollections;
@@ -10,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
+
 import java.sql.*;
 
 public class SuppliersQuery {
@@ -236,7 +236,7 @@ public class SuppliersQuery {
 
 
   */
-    public static void editSuppliers(TextField nameSuppliersInput, TextField phoneSuppliersInput, TextField addressSuppliersInput, TextField emailSuppliersInput) {
+    public static void editSuppliers(int idSuppliersInput , TextField nameSuppliersInput, TextField phoneSuppliersInput, TextField addressSuppliersInput, TextField emailSuppliersInput) {
         try {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
 
@@ -244,10 +244,10 @@ public class SuppliersQuery {
             PreparedStatement pstmt = con.prepareStatement(query);
 
 
-            pstmt.setString(2, nameSuppliersInput.getText());
+            pstmt.setString(1, nameSuppliersInput.getText());
 
             try {
-                pstmt.setString(3, phoneSuppliersInput.getText());
+                pstmt.setString(2, phoneSuppliersInput.getText());
             } catch (NumberFormatException ex) {
                 Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Error");
@@ -256,8 +256,9 @@ public class SuppliersQuery {
                 return;
             }
 
-            pstmt.setString(4, addressSuppliersInput.getText());
-            pstmt.setString(5, emailSuppliersInput.getText());
+            pstmt.setString(3, addressSuppliersInput.getText());
+            pstmt.setString(4, emailSuppliersInput.getText());
+            pstmt.setInt(5, Integer.parseInt(String.valueOf(idSuppliersInput)));
 
             int rowsAffected = pstmt.executeUpdate();
 
