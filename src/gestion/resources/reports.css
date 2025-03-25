@@ -1,12 +1,21 @@
+
 /* HOME */
 
+.root {
+    -fx-background-color: #F7EFDE;
+    -fx-font-family: "Roboto";
+}
+
 .returnBtn {
-    -fx-background-color: #D9D9D9;
-    -fx-text-fill: black;
+    -fx-background-color: linear-gradient(#ACBEA2, #A4B997);
+    -fx-text-fill: #FFFBF4;
+    -fx-font-weight: bold;
     -fx-background-radius: 20px;
 }
 
-.reportsTitle {
+.reportsTitle Label {
     -fx-font-size: 24px;
+    -fx-text-fill: #3C582B;
+    -fx-font-weight: bold;
     -fx-padding: 40 0 0 0;
 }

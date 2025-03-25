@@ -1,20 +1,29 @@
 
 /* HOME */
 
+.root {
+    -fx-background-color: #F7EFDE;
+    -fx-font-family: "Roboto";
+}
+
 .returnBtn {
-    -fx-background-color: #D9D9D9;
-    -fx-text-fill: black;
+    -fx-background-color: linear-gradient(#ACBEA2, #A4B997);
+    -fx-text-fill: #FFFBF4;
+    -fx-font-weight: bold;
     -fx-background-radius: 20px;
 }
 
-.salesTitle {
+.salesTitle Label{
     -fx-font-size: 24px;
+    -fx-text-fill: #3C582B;
+    -fx-font-weight: bold;
     -fx-padding: 40 0 0 0;
 }
 
 .addSalesBtn, .delSalesBtn, .editSalesBtn, .showSalesBtn {
-    -fx-background-color: #D9D9D9;
-    -fx-text-fill: black;
+    -fx-background-color: linear-gradient(#ACBEA2, #A4B997);
+    -fx-text-fill: #FFFBF4;
+    -fx-font-weight: bold;
     -fx-background-radius: 20px;
     -fx-min-height: 35px;
     -fx-min-width: 160px;
@@ -27,14 +36,16 @@
 
 /* ADD SALES */
 
-.addTitle {
+.addTitle Label {
     -fx-font-size: 24px;
+    -fx-text-fill: #3C582B;
+    -fx-font-weight: bold;
     -fx-padding: 40 0 0 0;
 }
 
 #addTxt {
     -fx-font-size: 16px;
-    -fx-fill: #929292;
+    -fx-fill: #758B68;
     -fx-text-alignment: center;
 }
 
@@ -42,9 +53,15 @@
     -fx-padding: 20 0 0 0;
 }
 
+.addSalesGrid Label {
+    -fx-text-fill: #3C582B;
+    -fx-font-weight: bold;
+}
+
 .submitAddedSalesBtn {
-    -fx-background-color: #D9D9D9;
-    -fx-text-fill: black;
+    -fx-background-color: linear-gradient(#ACBEA2, #A4B997);
+    -fx-text-fill: #FFFBF4;
+    -fx-font-weight: bold;
     -fx-background-radius: 20px;
     -fx-min-height: 35px;
     -fx-min-width: 110px;
@@ -57,14 +74,16 @@
 
 /* DEL SALES */
 
-.delTitle1, .delTitle2 {
+.delTitle1 Label, .delTitle2 Label {
     -fx-font-size: 24px;
+    -fx-text-fill: #3C582B;
+    -fx-font-weight: bold;
     -fx-padding: 40 0 0 0;
 }
 
 #delTxt1, #delTxt2 {
     -fx-font-size: 16px;
-    -fx-fill: #929292;
+    -fx-fill: #758B68;
     -fx-text-alignment: center;
 }
 
@@ -77,8 +96,9 @@
 }
 
 .submitDeletedSalesBtn1, .submitDeletedSalesBtn2 {
-    -fx-background-color: #D9D9D9;
-    -fx-text-fill: black;
+    -fx-background-color: linear-gradient(#ACBEA2, #A4B997);
+    -fx-text-fill: #FFFBF4;
+    -fx-font-weight: bold;
     -fx-background-radius: 20px;
     -fx-min-height: 35px;
     -fx-min-width: 110px;
@@ -87,18 +107,21 @@
 
 #inputResult Label {
     -fx-font-size: 15px;
+    -fx-text-fill: #3C582B;
 }
 
 /* EDIT Sales */
 
-.editTitle1, .editTitle2 {
+.editTitle1 Label, .editTitle2 Label{
     -fx-font-size: 24px;
+    -fx-text-fill: #3C582B;
+    -fx-font-weight: bold;
     -fx-padding: 40 0 0 0;
 }
 
 #editTxt1, #editTxt2 {
     -fx-font-size: 16px;
-    -fx-fill: #929292;
+    -fx-fill: #758B68;
     -fx-text-alignment: center;
 }
 
@@ -109,6 +132,12 @@
 
 #idSalesLabel Label {
     fx-font-size: 20px;
+    -fx-text-fill: #3C582B;
+}
+
+.editSalesGrid Label {
+    -fx-text-fill: #3C582B;
+    -fx-font-weight: bold;
 }
 
 #idSalesContainer {
@@ -116,8 +145,9 @@
 }
 
 .submitEditedSalesBtn1, .submitEditedSalesBtn2 {
-    -fx-background-color: #D9D9D9;
-    -fx-text-fill: black;
+    -fx-background-color: linear-gradient(#ACBEA2, #A4B997);
+    -fx-text-fill: #FFFBF4;
+    -fx-font-weight: bold;
     -fx-background-radius: 20px;
     -fx-min-height: 35px;
     -fx-min-width: 110px;
@@ -125,14 +155,16 @@
 }
 
 #idSalesInput, #nameSalesSuppliersInput, #nameSalesProductInput, #quantitySalesProductInput, #priceSalesInput {
-    -fx-prompt-text-fill: #929292;
-    -fx-text-fill: black;
+    -fx-prompt-text-fill: #758B68;
+    -fx-text-fill: #3C582B;
 }
 
 /* SHOW Sales */
 
-.showTitle {
+.showTitle Label{
     -fx-font-size: 24px;
+    -fx-text-fill: #3C582B;
+    -fx-font-weight: bold;
     -fx-padding: 40 0 0 0;
 }
 
@@ -143,7 +175,7 @@
 .sortSales {
     -fx-font-size: 13px;
     -fx-padding: 0 0 0 10;
-    -fx-text-fill: #929292;
+    -fx-text-fill: #758B68;
     -fx-font-weight: bold;
 }
 
@@ -151,26 +183,26 @@
     -fx-background-color: white;
     -fx-background-radius: 20px;
     -fx-border-radius: 20px;
-    -fx-border-color: #929292;
+    -fx-border-color: #758B68;
     -fx-min-height: 15px;
     -fx-font-size: 10px;
 }
 
 .combo-box .list-cell {
-    -fx-text-fill: #929292;
+    -fx-text-fill: #758B68;
     -fx-font-weight: bold;
 }
 
 .combo-box .list-view .list-cell {
-    -fx-text-fill: #929292;
+    -fx-text-fill: #758B68;
 }
 
 .combo-box .list-view .list-cell:hover {
-    -fx-background-color : #b7b7b7;
+    -fx-background-color : #D0D4BE;
     -fx-text-fill: white;
 }
 
 .combo-box .list-view .list-cell:focused {
-    -fx-background-color: #929292;
+    -fx-background-color: #D0D4BE;
     -fx-text-fill: white;
 }
