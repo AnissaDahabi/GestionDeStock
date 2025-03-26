@@ -1,45 +1,39 @@
 package gestion.dao;
 
 import gestion.ui.SceneManager;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.sql.*;
-
 
 
 public class SalesQuery {
 
     private static int currentSalesId;
 
-    public static void addSales(TextField idSalesInput, TextField nameSalesSupplierInput, TextField nameSalesProductInput, TextField quantitySalesProductInput, TextField priceSalesInput) {
+    public static void addSales(TextField idSalesInput, TextField namesupplierInput, TextField nameproductInput, TextField quantitysalesInput, TextField priceSalesInput, TextField datesSalesInput) {
         try {
             Connection con =
                     DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
 
-            String query = "INSERT INTO Sales (id_sales, name_sales_supplier, name_sales_product, quantity_sales_product, price_sales) VALUES (?, ?, ?, ?, ?)";
+            String query = "INSERT INTO Sales (id_sales, name_supplier, name_product, quantity_sales, price_sales, date_sales ) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement pstmt = con.prepareStatement(query);
 
             //Récupération des données saisies par l'utilisateur
-            int idSupplier = Integer.parseInt(idSalesInput.getText());
-            String nameSalesSupplier = nameSalesSupplierInput.getText();
-            String nameSalesProduct = nameSalesProductInput.getText();
-            int quantitySalesProduct = Integer.parseInt(quantitySalesProductInput.getText());
+            int idsales = Integer.parseInt(idSalesInput.getText());
+            String namesupplier = namesupplierInput.getText();
+            String nameproduct = nameproductInput.getText();
+            int quantitySalesProduct = Integer.parseInt(quantitysalesInput.getText());
             int priceSales = Integer.parseInt(priceSalesInput.getText());
+            String dateSales = datesSalesInput.getText();
 
             //Remplissage des paramètres de la requête SQL
-            pstmt.setInt(1, idSupplier);
-            pstmt.setString(2, nameSalesSupplier);
-            pstmt.setString(3, nameSalesProduct);
+            pstmt.setInt(1, idsales);
+            pstmt.setString(2, namesupplier);
+            pstmt.setString(3, nameproduct);
             pstmt.setInt(4, quantitySalesProduct);
             pstmt.setInt(5, priceSales);
+            pstmt.setString(6, dateSales);
 
             //Exécution de la requête SQL
             int rowsAffected = pstmt.executeUpdate();
@@ -175,7 +169,7 @@ public class SalesQuery {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
 
             // Préparation de la requête SQL
-            String query = "SELECT id_supplier, name_sales_suppliers, name_sales_product FROM Sales WHERE id_supplier = ?";
+            String query = "SELECT id_supplier, namesuppliers, name_sales_product, date_sales FROM Sales WHERE id_supplier = ?";
             PreparedStatement pstmt = con.prepareStatement(query);
 
             // Récupération de l'ID saisi par l'utilisateur
@@ -191,13 +185,14 @@ public class SalesQuery {
             if (resultSet.next()) {
 
                 int idSalesSql = resultSet.getInt("id_sales");
-                String nameSalesSuppliersSql = resultSet.getString("name_sales_supplier");
+                String namesuppliersSql = resultSet.getString("name_sales_supplier");
                 String nameSalesProductSql = resultSet.getString("name_sales_product");
+                String dateSalesSql = resultSet.getString("date_sales");
 
                 currentSalesId = idSalesSql;
 
 
-                stage.setScene(SceneManager.getDelSalesScene2(idSalesSql, nameSalesSuppliersSql, nameSalesProductSql));
+                stage.setScene(SceneManager.getDelSalesScene2(idSalesSql, namesuppliersSql, nameSalesProductSql, dateSalesSql));
 
             }
             // Fermeture des ressources
@@ -224,7 +219,7 @@ public class SalesQuery {
 
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
 
-            String query = "SELECT id_sales, name_sales_suppliers, name_sales_product, quantity_sales_product, price_sales FROM Sales WHERE id_sales = ?";
+            String query = "SELECT id_sales, namesuppliers, name_sales_product, quantity_sales_product, price_sales,date_sales FROM Sales WHERE id_sales = ?";
             PreparedStatement pstmt = con.prepareStatement(query);
 
             try {
@@ -244,12 +239,13 @@ public class SalesQuery {
 
                 if (resultSet.next()) {
                     int idSalesSql = resultSet.getInt("id_sales");
-                    String nameSalesSuppliersSql = resultSet.getString("name_sales_supplier");
+                    String namesuppliersSql = resultSet.getString("name_sales_supplier");
                     String nameSalesProductSql = resultSet.getString("name_sales_product");
                     int quantitySalesProduct = resultSet.getInt("quantity_sales");
                     String priceSales = resultSet.getString("price_sales");
+                    String dateSalesSql = resultSet.getString("date_sales");
 
-                    stage.setScene(SceneManager.getEditSalesScene2(idSalesSql, nameSalesSuppliersSql, nameSalesProductSql, quantitySalesProduct, priceSales));
+                    stage.setScene(SceneManager.getEditSalesScene2(idSalesSql, namesuppliersSql, nameSalesProductSql, quantitySalesProduct, priceSales, dateSalesSql));
 
                 } else {
                     Alert alert = new Alert(AlertType.ERROR);
@@ -271,14 +267,14 @@ public class SalesQuery {
 
     }
 
-    public static void editSales(TextField nameSalesSuppliersInput, TextField nameSalesProductInput, TextField quantitySalesProductInput, TextField priceSalesInput) {
+    public static void editSales(TextField namesuppliersInput, TextField nameSalesProductInput, TextField quantitySalesProductInput, TextField priceSalesInput, TextField dateSalesInput) {
         try {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
 
-            String query = "UPDATE Sales SET name_sales_supplier = ?, name_sales_product = ?, quantity_sales_product = ?, price_sales = ? WHERE id_sales = ?";
+            String query = "UPDATE Sales SET namesupplier = ?, name_sales_product = ?, quantity_sales_product = ?, price_sales = ? WHERE id_sales = ?";
             PreparedStatement pstmt = con.prepareStatement(query);
 
-            pstmt.setString(1, nameSalesSuppliersInput.getText());
+            pstmt.setString(1, namesuppliersInput.getText());
             pstmt.setString(2, nameSalesProductInput.getText());
 
             try {

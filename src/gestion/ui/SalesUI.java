@@ -128,29 +128,33 @@ public class SalesUI {
         Label idSales = new Label("ID Number: ");
         TextField idSalesInput = new TextField();
 
-        Label nameSalesSupplier = new Label("Supplier name: ");
-        TextField nameSalesSupplierInput = new TextField();
+        Label namesupplier = new Label("Supplier name: ");
+        TextField namesupplierInput = new TextField();
 
-        Label nameSalesProducts = new Label("Product name: ");
-        TextField nameSalesProductInput = new TextField();
+        Label nameproducts = new Label("Product name: ");
+        TextField nameproductInput = new TextField();
 
-        Label quantitySalesProduct = new Label("Quantity: ");
-        TextField quantitySalesProductInput = new TextField();
+        Label quantitysales = new Label("Quantity: ");
+        TextField quantitysalesInput = new TextField();
 
         Label priceSales = new Label("Price: ");
         TextField priceSalesInput = new TextField();
 
+        Label DateSales = new Label("Date: ");
+        TextField DatesSalesInput = new TextField();
 
         addSalesGrid.add(idSales, 0, 0);
         addSalesGrid.add(idSalesInput, 1, 0);
-        addSalesGrid.add(nameSalesSupplier, 0, 1);
-        addSalesGrid.add(nameSalesSupplierInput, 1, 1);
-        addSalesGrid.add(nameSalesProducts, 0, 2);
-        addSalesGrid.add(nameSalesProductInput, 1, 2);
-        addSalesGrid.add(quantitySalesProduct, 0, 3);
-        addSalesGrid.add(quantitySalesProductInput, 1, 3);
+        addSalesGrid.add(namesupplier, 0, 1);
+        addSalesGrid.add(namesupplierInput, 1, 1);
+        addSalesGrid.add(nameproducts, 0, 2);
+        addSalesGrid.add(nameproductInput, 1, 2);
+        addSalesGrid.add(quantitysales, 0, 3);
+        addSalesGrid.add(quantitysalesInput, 1, 3);
         addSalesGrid.add(priceSales, 0, 4);
         addSalesGrid.add(priceSalesInput, 1, 4);
+        addSalesGrid.add(DateSales, 0, 5);
+        addSalesGrid.add(DatesSalesInput, 1, 5);
 
         addSalesGrid.setAlignment(Pos.CENTER);
 
@@ -165,12 +169,13 @@ public class SalesUI {
 
         submitAddedSalesBtn.setOnAction(event -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            gestion.dao.SalesQuery.addSales(idSalesInput, nameSalesSupplierInput, nameSalesProductInput, quantitySalesProductInput, priceSalesInput);
+            gestion.dao.SalesQuery.addSales(idSalesInput, namesupplierInput, nameproductInput, quantitysalesInput, priceSalesInput, DatesSalesInput);
             idSalesInput.clear();
-            nameSalesSupplierInput.clear();
-            nameSalesProductInput.clear();
-            quantitySalesProductInput.clear();
+            namesupplierInput.clear();
+            nameproductInput.clear();
+            quantitysalesInput.clear();
             priceSalesInput.clear();
+            DatesSalesInput.clear();
             stage.setScene(SceneManager.getSalesHomeScene());
         });
 
@@ -242,7 +247,7 @@ public class SalesUI {
         return delSuppliersScene1;
     }
 
-    public static Scene delSalesScene2(int idSalesSql, String nameSalesSuppliersSql, String nameSalesProductsSql) {
+    public static Scene delSalesScene2(int idSalesSql, String namesuppliersSql, String nameSalesProductsSql) {
         // Return button:
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
@@ -273,10 +278,10 @@ public class SalesUI {
 
         // Id and name of sale selected by user
         Label idSales = new Label("ID Number: " + idSalesSql);
-        Label nameSalesSuppliers = new Label("Name: " + nameSalesSuppliersSql);
+        Label namesuppliers = new Label("Name: " + namesuppliersSql);
         Label nameSalesProducts = new Label("Name: " + nameSalesProductsSql);
 
-        VBox inputResult = new VBox(10, idSales, nameSalesSuppliers, nameSalesProducts);
+        VBox inputResult = new VBox(10, idSales, namesuppliers, nameSalesProducts);
         inputResult.setId("inputResult");
         inputResult.setAlignment(Pos.CENTER);
         inputResult.setPadding(new Insets(50, 10, 10, 10));
@@ -356,16 +361,16 @@ public class SalesUI {
             Label idSales = new Label("ID Number: ");
             TextField idSalesInput = new TextField();
 
-            Label nameSalesSuppliers = new Label("Supplier name: ");
-            TextField nameSalesSuppliersInput = new TextField();
+            Label namesuppliers = new Label("Supplier name: ");
+            TextField namesuppliersInput = new TextField();
 
             Label nameSalesProducts = new Label("Product name: ");
             TextField nameSalesProductsInput = new TextField();
 
             editSalesGrid.add(idSales, 0, 0);
             editSalesGrid.add(idSalesInput, 1, 0);
-            editSalesGrid.add(nameSalesSuppliers, 0, 1);
-            editSalesGrid.add(nameSalesSuppliersInput, 1, 1);
+            editSalesGrid.add(namesuppliers, 0, 1);
+            editSalesGrid.add(namesuppliersInput, 1, 1);
             editSalesGrid.add(nameSalesProducts, 0, 2);
             editSalesGrid.add(nameSalesProductsInput, 1, 2);
 
@@ -396,7 +401,7 @@ public class SalesUI {
             return editSalesScene1;
     }
 
-    public static Scene editSalesScene2(int idSalesSql, String nameSalesSuppliersSql, String nameSalesProductSql, int quantitySalesProductSql, String priceSalesSql) {
+    public static Scene editSalesScene2(int idSalesSql, String namesuppliersSql, String nameSalesProductSql, int quantitySalesProductSql, String priceSalesSql, String dateSalesSql) {
 // Return button:
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
@@ -435,10 +440,10 @@ public class SalesUI {
         Label idSales = new Label("ID Number: " + idSalesSql );
         idSales.setId("idSalesLabel");
 
-        Label nameSalesSuppliers = new Label("Supplier name: ");
-        TextField nameSalesSuppliersInput = new TextField();
-        nameSalesSuppliersInput.setPromptText(nameSalesSuppliersSql);
-        nameSalesSuppliersInput.setId("nameSalesSuppliersInput");
+        Label namesuppliers = new Label("Supplier name: ");
+        TextField namesuppliersInput = new TextField();
+        namesuppliersInput.setPromptText(namesuppliersSql);
+        namesuppliersInput.setId("namesuppliersInput");
 
         Label nameSalesProduct = new Label("Product name: ");
         TextField nameSalesProductInput = new TextField();
@@ -455,15 +460,21 @@ public class SalesUI {
         priceSalesInput.setPromptText(priceSalesSql);
         priceSalesInput.setId("priceSalesInput");
 
+        Label datesSales = new Label("Dates: ");
+        TextField dateSalesInput = new TextField();
+        dateSalesInput.setPromptText(String.valueOf(dateSalesSql));
+        datesSales.setId("datesalesInput");
+
         editSalesGrid.add(idSales, 0, 0);
-        editSalesGrid.add(nameSalesSuppliers, 0, 1);
-        editSalesGrid.add(nameSalesSuppliersInput, 1, 1);
+        editSalesGrid.add(namesuppliers, 0, 1);
+        editSalesGrid.add(namesuppliersInput, 1, 1);
         editSalesGrid.add(nameSalesProduct, 0, 2);
         editSalesGrid.add(nameSalesProductInput, 1, 2);
         editSalesGrid.add(quantitySalesProduct, 0, 3);
         editSalesGrid.add(quantitySalesProductInput, 1, 3);
         editSalesGrid.add(priceSales, 0, 4);
         editSalesGrid.add(priceSalesInput, 1, 4);
+        editSalesGrid.add(datesSales, 0, 5);
 
         editSalesGrid.setAlignment(Pos.CENTER);
         editSalesGrid.setPadding(new Insets(40, 0, 0, 0));
@@ -477,7 +488,7 @@ public class SalesUI {
 
         submitEditedSalesBtn2.setOnAction(event -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            gestion.dao.SalesQuery.editSales(nameSalesSuppliersInput, nameSalesProductInput, quantitySalesProductInput, priceSalesInput);
+            gestion.dao.SalesQuery.editSales(namesuppliersInput, nameSalesProductInput, quantitySalesProductInput, priceSalesInput, dateSalesInput);
             stage.setScene(SceneManager.getSalesHomeScene());
         });
 
