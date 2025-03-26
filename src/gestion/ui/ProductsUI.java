@@ -1,8 +1,11 @@
 package gestion.ui;
 
 import gestion.dao.ProductsQuery;
+import gestion.dao.SuppliersQuery;
 import gestion.model.Products;
+import gestion.model.Suppliers;
 import gestion.service.ProductsService;
+import gestion.service.SuppliersService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -14,6 +17,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.scene.text.Text;
+import javafx.util.StringConverter;
 
 
 public class ProductsUI {
@@ -237,8 +241,42 @@ public class ProductsUI {
         idProductsContainer.setId("idProductsContainer");
         idProductsContainer.setAlignment(Pos.CENTER);
 
-        //Next button:
-        Button submitDeletedProductsBtn = new Button("Next");
+        //ComboBox
+        Label comboLabel = new Label("ID number : ");
+        ComboBox<Products> productsComboBox = new ComboBox<>(ProductsQuery.getProductsID());
+        productsComboBox.setId("productsComboBox");
+        productsComboBox.setItems(ProductsQuery.getProductsID());
+
+        productsComboBox.setConverter(new StringConverter<Products>() {
+            @Override
+            public String toString(Products products) {
+                return products != null ? String.valueOf(products.getIdProduct()) : "";
+            }
+
+            @Override
+            public Products fromString(String s) {
+                return null;
+            }
+        });
+        productsComboBox.setCellFactory(lv -> new ListCell<Products>() {
+            @Override
+            protected void updateItem(Products product, boolean empty) {
+                super.updateItem(product, empty);
+                setText(empty || product == null ? null : String.valueOf(product.getIdProduct()));
+            }
+        });
+
+        HBox boxProductsContainer = new HBox();
+        boxProductsContainer.getStyleClass().add("boxProductsContainer");
+        boxProductsContainer.getChildren().add(comboLabel);
+        boxProductsContainer.getChildren().add(productsComboBox);
+        boxProductsContainer.setAlignment(Pos.CENTER);
+        boxProductsContainer.setSpacing(5);
+        boxProductsContainer.setPadding(new Insets(20, 0, 0, 0));
+
+
+        //Delete button:
+        Button submitDeletedProductsBtn = new Button("Delete");
         submitDeletedProductsBtn.getStyleClass().add("submitDeletedProductsBtn");
         HBox delProductsContainer = new HBox(10);
         delProductsContainer.getChildren().add(submitDeletedProductsBtn);
@@ -246,40 +284,66 @@ public class ProductsUI {
         delProductsContainer.setPadding(new Insets(250, 10, 10, 10));
 
         submitDeletedProductsBtn.setOnAction(event -> {
-            try {
-                int idProducts = Integer.parseInt(idProductsInput.getText());
-
-                Products products = ProductsService.getProductById(idProducts);
-
-                if (products == null) {
-                    AlertsProducts.showErrorDelProduct2("No product found with this ID number: " + idProducts);
-                    return;
+            Products selectedProduct = productsComboBox.getValue();
+            if (selectedProduct != null) {
+                boolean deleted = ProductsService.delProducts(selectedProduct.getIdProduct());
+                if (deleted) {
+                    Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                    successAlert.setTitle("Success");
+                    successAlert.setHeaderText(null);
+                    successAlert.setContentText("Product deleted successfully");
+                    successAlert.showAndWait();
+                    productsComboBox.setItems(ProductsQuery.getProductsID());
+                } else {
+                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                    errorAlert.setTitle("Error");
+                    errorAlert.setHeaderText(null);
+                    errorAlert.setContentText(" :( ");
+                    errorAlert.showAndWait();
                 }
-
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Confirmation");
-                alert.setHeaderText(null);
-                alert.setContentText("Are you sure you want to delete " + products.getNameProduct() + " from the database ?");
-
-                ButtonType yes = new ButtonType("Yes");
-                ButtonType no = new ButtonType("No");
-                alert.getButtonTypes().setAll(yes, no);
-
-                alert.showAndWait().ifPresent(button -> {
-                    if (button == yes) {
-                        boolean deleted = ProductsService.delProducts(idProducts);
-                        if (deleted) {
-                            AlertsProducts.showSuccessDelProduct("Product deleted successfully!");
-                            idProductsInput.clear();
-                        }
-                    }
-                });
-            } catch (NumberFormatException e) {
-                AlertsProducts.showErrorDelProduct("Please enter a valid ID");
+            } else {
+                Alert warningAlert = new Alert(Alert.AlertType.WARNING);
+                warningAlert.setTitle("Warning");
+                warningAlert.setHeaderText(null);
+                warningAlert.setContentText("Please select a product");
+                warningAlert.showAndWait();
             }
         });
 
-        VBox delProducts1 = new VBox(returnBtnContainer, delTitle1, delTxtContainer1, idProductsContainer, delProductsContainer);
+//            try {
+//                int idProducts = Integer.parseInt(idProductsInput.getText());
+//
+//                Products products = ProductsService.getProductById(idProducts);
+//
+//                if (products == null) {
+//                    AlertsProducts.showErrorDelProduct2("No product found with this ID number: " + idProducts);
+//                    return;
+//                }
+//
+//                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//                alert.setTitle("Confirmation");
+//                alert.setHeaderText(null);
+//                alert.setContentText("Are you sure you want to delete " + products.getNameProduct() + " from the database ?");
+//
+//                ButtonType yes = new ButtonType("Yes");
+//                ButtonType no = new ButtonType("No");
+//                alert.getButtonTypes().setAll(yes, no);
+//
+//                alert.showAndWait().ifPresent(button -> {
+//                    if (button == yes) {
+//                        boolean deleted = ProductsService.delProducts(idProducts);
+//                        if (deleted) {
+//                            AlertsProducts.showSuccessDelProduct("Product deleted successfully!");
+//                            idProductsInput.clear();
+//                        }
+//                    }
+//                });
+//            } catch (NumberFormatException e) {
+//                AlertsProducts.showErrorDelProduct("Please enter a valid ID");
+//            }
+//        });
+
+        VBox delProducts1 = new VBox(returnBtnContainer, delTitle1, delTxtContainer1, boxProductsContainer, delProductsContainer);
 
         Scene delProductsScene1 = new Scene(delProducts1, 300, 600);
         delProductsScene1.getStylesheets().add("gestion/resources/products.css");
@@ -319,13 +383,46 @@ public class ProductsUI {
         editTxtContainer1.setAlignment(Pos.CENTER);
 
         //User input
-        Label idProducts = new Label("ID Number: ");
-        TextField idProductsInput = new TextField();
-        HBox idProductsContainer = new HBox();
-        idProductsContainer.getChildren().add(idProducts);
-        idProductsContainer.getChildren().add(idProductsInput);
-        idProductsContainer.setId("idProductsContainer");
-        idProductsContainer.setAlignment(Pos.CENTER);
+        Label comboLabel = new Label("ID Number: ");
+//        TextField idProductsInput = new TextField();
+//        HBox idProductsContainer = new HBox();
+//        idProductsContainer.getChildren().add(idProducts);
+//        idProductsContainer.getChildren().add(idProductsInput);
+//        idProductsContainer.setId("idProductsContainer");
+//        idProductsContainer.setAlignment(Pos.CENTER);
+
+        ComboBox<Products> productsComboBox = new ComboBox<>(ProductsQuery.getProductsID());
+        productsComboBox.setId("productsComboBox");
+        productsComboBox.setItems(ProductsQuery.getProductsID());
+
+        productsComboBox.setConverter(new StringConverter<Products>() {
+            @Override
+            public String toString(Products products) {
+                return products != null ? String.valueOf(products.getIdProduct()) : "";
+            }
+
+            @Override
+            public Products fromString(String s) {
+                return null;
+            }
+        });
+        productsComboBox.setCellFactory(lv -> new ListCell<Products>() {
+            @Override
+            protected void updateItem(Products product, boolean empty) {
+                super.updateItem(product, empty);
+                setText(empty || product == null ? null : String.valueOf(product.getIdProduct()));
+            }
+        });
+
+        HBox boxProductsContainer = new HBox();
+        boxProductsContainer.getStyleClass().add("boxProductsContainer");
+        boxProductsContainer.getChildren().add(comboLabel);
+        boxProductsContainer.getChildren().add(productsComboBox);
+        boxProductsContainer.setAlignment(Pos.CENTER);
+        boxProductsContainer.setSpacing(5);
+        boxProductsContainer.setPadding(new Insets(20, 0, 0, 0));
+
+
 
         //Next button:
         Button submitEditedProductsBtn1 = new Button("Next");
@@ -337,11 +434,28 @@ public class ProductsUI {
 
         submitEditedProductsBtn1.setOnAction(event -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            ProductsQuery.showEditedProducts(idProductsInput, stage);
-            idProductsInput.clear();
+            Products selectedProduct = productsComboBox.getValue();
+            if (selectedProduct != null) {
+
+                stage.setScene(SceneManager.getEditProductsScene2(
+                        selectedProduct.getIdProduct(),
+                        selectedProduct.getNameProduct(),
+                        selectedProduct.getPriceProduct(),
+                        selectedProduct.getQuantityProduct(),
+                        selectedProduct.getSupplierId()
+                ));
+
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setHeaderText(null);
+                alert.setContentText("Please choose a product to edit.");
+                alert.showAndWait();
+            }
         });
 
-        VBox editProducts1 = new VBox(returnBtnContainer, editTitle1, editTxtContainer1, idProductsContainer, editProductsContainer1);
+
+        VBox editProducts1 = new VBox(returnBtnContainer, editTitle1, editTxtContainer1, boxProductsContainer, editProductsContainer1);
 
         Scene editProductsScene1 = new Scene(editProducts1, 300, 600);
         editProductsScene1.getStylesheets().add("gestion/resources/products.css");

@@ -1,7 +1,10 @@
 package gestion.dao;
 
 import gestion.model.Products;
+import gestion.model.Suppliers;
 import gestion.ui.SceneManager;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
@@ -219,5 +222,57 @@ public class ProductsQuery {
         } catch (SQLException e) {
             throw new RuntimeException("Error getting the product's data: " + e.getMessage());
         }
+    }
+
+    public static Products getProductsId (int idProducts) {
+        String query = "SELECT * FROM Products WHERE id_product = ?";
+
+        try {
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
+            PreparedStatement stmt = con.prepareStatement(query);
+
+            stmt.setInt(1, idProducts);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return new Products(
+                        rs.getInt("id_product"),
+                        rs.getString("name_product"),
+                        rs.getDouble("price_product"),
+                        rs.getInt("quantity_product"),
+                        rs.getInt("id_supplier")
+                );
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } return null;
+    }
+
+    public static ObservableList<Products> getProductsID() {
+        ObservableList<Products> productsList = FXCollections.observableArrayList();
+
+        String query = "SELECT * FROM Products";
+
+        try {
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
+            PreparedStatement stmt = con.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id_product");
+                String name = rs.getString("name_product");
+                Double price = rs.getDouble("price_product");
+                int quantity = rs.getInt("quantity_product");
+                int id_supplier = rs.getInt("id_supplier");
+
+                Products products = new Products(id, name, price, quantity, id_supplier);
+                productsList.add(products);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return productsList;
     }
 }

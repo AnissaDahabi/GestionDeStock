@@ -107,12 +107,13 @@
     -fx-padding: 40 0 0 0;
 }
 
-#idProductsContainer Label {
+.boxProductsContainer Label {
+    -fx-font-size: 13px;
     -fx-text-fill: #3C582B;
     -fx-font-weight: bold;
 }
 
-#idProductsContainer TextField {
+.boxProductsContainer ComboBox {
     -fx-background-color: #D0D4BE;
     -fx-background-radius: 20px;
     -fx-border-radius: 20px;
