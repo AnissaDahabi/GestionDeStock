@@ -416,10 +416,6 @@ public class SuppliersUI {
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
 
-        returnBtn.setOnAction(event -> {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(SceneManager.getSuppliersHomeScene());
-        });
 
         HBox returnBtnContainer = new HBox(10);
         returnBtnContainer.setAlignment(Pos.TOP_RIGHT);
@@ -488,6 +484,12 @@ public class SuppliersUI {
         editSuppliersContainer1.getChildren().add(submitEditedSuppliersBtn1);
         editSuppliersContainer1.setAlignment(Pos.CENTER);
         editSuppliersContainer1.setPadding(new Insets(270, 10, 10, 10));
+
+        returnBtn.setOnAction(event -> {
+            suppliersComboBox.setItems(SuppliersQuery.getSuppliersID());
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(SceneManager.getSuppliersHomeScene());
+        });
 
         submitEditedSuppliersBtn1.setOnAction(event -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
