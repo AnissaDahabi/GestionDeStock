@@ -526,7 +526,11 @@ public class ProductsUI {
 
         ProductsQuery.showProducts(productsTable);
 
-        VBox showProducts = new VBox(returnBtnContainer, showTitle, sortFilterContainer, searchProductsContainer, productsTable);
+        VBox productsTableContainer = new VBox();
+        productsTableContainer.setPadding(new Insets(20, 20, 20, 20));
+        productsTableContainer.getChildren().add(productsTable);
+
+        VBox showProducts = new VBox(returnBtnContainer, showTitle, sortFilterContainer, searchProductsContainer, productsTableContainer);
 
         Scene showProductsScene = new Scene(showProducts, 300, 600);
         showProductsScene.getStylesheets().add("gestion/resources/products.css");

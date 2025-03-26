@@ -59,6 +59,16 @@
     -fx-font-weight: bold;
 }
 
+.addProductGrid TextField {
+    -fx-background-color: #D0D4BE;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-text-fill: #3C582B;
+    -fx-max-height: 12px;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+}
+
 .submitAddedProductsBtn {
     -fx-background-color: linear-gradient(#ACBEA2, #A4B997);
     -fx-text-fill: #FFFBF4;
@@ -102,6 +112,17 @@
     -fx-font-weight: bold;
 }
 
+#idProductsContainer TextField {
+    -fx-background-color: #D0D4BE;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-max-height: 12px;
+    -fx-font-size: 10px;
+    -fx-prompt-text-fill: #758B68;
+    -fx-text-fill: #3C582B;
+    -fx-font-weight: bold;
+}
+
 .submitDeletedProductsBtn {
     -fx-background-color: linear-gradient(#ACBEA2, #A4B997);
     -fx-text-fill: #FFFBF4;
@@ -137,12 +158,34 @@
     -fx-padding: 20 0 0 0;
 }
 
-#idProductsLabel Label {
+#idProductsContainer Label {
     fx-font-size: 20px;
     -fx-text-fill: #3C582B;
 }
 
+#idProductsContainer TextField {
+    -fx-background-color: #D0D4BE;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-max-height: 12px;
+    -fx-font-size: 10px;
+    -fx-prompt-text-fill: #758B68;
+    -fx-text-fill: #3C582B;
+    -fx-font-weight: bold;
+}
+
 .editProductsGrid Label {
+    -fx-text-fill: #3C582B;
+    -fx-font-weight: bold;
+}
+
+.editProductsGrid TextField {
+    -fx-background-color: #D0D4BE;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-max-height: 12px;
+    -fx-font-size: 10px;
+    -fx-prompt-text-fill: #758B68;
     -fx-text-fill: #3C582B;
     -fx-font-weight: bold;
 }
@@ -187,12 +230,14 @@
 }
 
 #sortFilter {
-    -fx-background-color: white;
+    -fx-background-color: #D0D4BE;
     -fx-background-radius: 20px;
     -fx-border-radius: 20px;
-    -fx-border-color: #758B68;
-    -fx-min-height: 15px;
+    -fx-max-height: 12px;
     -fx-font-size: 10px;
+    -fx-prompt-text-fill: #758B68;
+    -fx-text-fill: #3C582B;
+    -fx-font-weight: bold;
 }
 
 .searchProducts {
@@ -203,13 +248,14 @@
 }
 
 .searchProductsInput {
-    -fx-background-color: white;
+    -fx-background-color: #D0D4BE;
     -fx-background-radius: 20px;
     -fx-border-radius: 20px;
-    -fx-border-color: #758B68;
-    -fx-text-fill: #758B68;
-    -fx-min-height: 15px;
+    -fx-max-height: 12px;
     -fx-font-size: 10px;
+    -fx-prompt-text-fill: #758B68;
+    -fx-text-fill: #3C582B;
+    -fx-font-weight: bold;
 }
 
 .confirmBtn {

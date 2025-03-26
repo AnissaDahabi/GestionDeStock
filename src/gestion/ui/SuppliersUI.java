@@ -722,8 +722,12 @@ public class SuppliersUI {
         suppliersData.setAll(SuppliersQuery.getSuppliersID());
         suppliersTable.refresh();
 
+        VBox suppliersTableContainer = new VBox();
+        suppliersTableContainer.setPadding(new Insets(20, 20, 20, 20));
+        suppliersTableContainer.getChildren().add(suppliersTable);
 
-        VBox showSuppliers = new VBox(returnBtnContainer, showTitle, sortFilterContainer, searchSuppliersContainer, suppliersTable);
+
+        VBox showSuppliers = new VBox(returnBtnContainer, showTitle, sortFilterContainer, searchSuppliersContainer, suppliersTableContainer);
 
         Scene showSuppliersScene = new Scene(showSuppliers, 300, 600);
         showSuppliersScene.getStylesheets().add("gestion/resources/suppliers.css");
