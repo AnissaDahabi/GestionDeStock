@@ -58,6 +58,16 @@
     -fx-font-weight: bold;
 }
 
+.addSuppliersGrid TextField {
+    -fx-background-color: #D0D4BE;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-text-fill: #3C582B;
+    -fx-max-height: 12px;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+}
+
 .submitAddedSuppliersBtn {
     -fx-background-color: linear-gradient(#ACBEA2, #A4B997);
     -fx-text-fill: #FFFBF4;
@@ -96,11 +106,6 @@
     -fx-padding: 40 0 0 0;
 }
 
-#idSuppliersContainer Label {
-    -fx-text-fill: #3C582B;
-    -fx-font-weight: bold;
-}
-
 #suppliersComboBox {
     -fx-padding: 40 0 0 0;
 }
@@ -132,6 +137,17 @@
     -fx-font-weight: bold;
 }
 
+.boxSuppliersContainer ComboBox {
+    -fx-background-color: #D0D4BE;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-max-height: 12px;
+    -fx-font-size: 10px;
+    -fx-prompt-text-fill: #758B68;
+    -fx-text-fill: #3C582B;
+    -fx-font-weight: bold;
+}
+
 /* EDIT SUPPLIERS */
 
 .editTitle1 Label, .editTitle2 Label {
@@ -157,6 +173,16 @@
 
 .editSuppliersGrid Label {
     -fx-text-fill: #3C582B;
+    -fx-font-weight: bold;
+}
+
+.editSuppliersGrid TextField {
+    -fx-background-color: #D0D4BE;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-text-fill: #3C582B;
+    -fx-max-height: 12px;
+    -fx-font-size: 10px;
     -fx-font-weight: bold;
 }
 
@@ -200,12 +226,14 @@
 }
 
 #sortFilter {
-    -fx-background-color: white;
+    -fx-background-color: #D0D4BE;
     -fx-background-radius: 20px;
     -fx-border-radius: 20px;
-    -fx-border-color: #758B68;
-    -fx-min-height: 15px;
+    -fx-max-height: 12px;
     -fx-font-size: 10px;
+    -fx-prompt-text-fill: #758B68;
+    -fx-text-fill: #3C582B;
+    -fx-font-weight: bold;
 }
 
 .searchSuppliers {
@@ -216,13 +244,14 @@
 }
 
 .searchSuppliersInput {
-    -fx-background-color: white;
+    -fx-background-color: #D0D4BE;
     -fx-background-radius: 20px;
     -fx-border-radius: 20px;
-    -fx-border-color: #758B68;
-    -fx-text-fill: #758B68;
-    -fx-min-height: 15px;
+    -fx-max-height: 12px;
     -fx-font-size: 10px;
+    -fx-prompt-text-fill: #758B68;
+    -fx-text-fill: #3C582B;
+    -fx-font-weight: bold;
 }
 
 .confirmBtn {
@@ -257,4 +286,5 @@
     -fx-background-color: #D0D4BE;
     -fx-text-fill: white;
 }
+
 
