@@ -1,7 +1,6 @@
 package gestion.dao;
 
 import gestion.model.Products;
-import gestion.model.Suppliers;
 import gestion.ui.SceneManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,6 +21,7 @@ public class ProductsQuery {
         try {
             Connection con =
                     DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
+                    System.out.println("Database connection established.");
 
             String query = "INSERT INTO Products (id_product, name_product, price_product, quantity_product, id_supplier) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement pstmt = con.prepareStatement(query);
@@ -110,7 +110,7 @@ public class ProductsQuery {
         return false;
     }
 
-    public static void editProducts(TextField nameProductsInput, TextField priceProductsInput, TextField quantityProductsInput, TextField supplierIdInput) {
+    public static void editProducts(int idProductsInput, TextField nameProductsInput, TextField priceProductsInput, TextField quantityProductsInput, TextField supplierIdInput) {
         try {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
 
@@ -139,7 +139,7 @@ public class ProductsQuery {
             }
 
             pstmt.setString(4, supplierIdInput.getText());
-            pstmt.setInt(5, currentProductsId);
+            pstmt.setInt(5, Integer.parseInt(String.valueOf(idProductsInput)));
 
             int rowsAffected = pstmt.executeUpdate();
 
@@ -262,7 +262,7 @@ public class ProductsQuery {
             while (rs.next()) {
                 int id = rs.getInt("id_product");
                 String name = rs.getString("name_product");
-                Double price = rs.getDouble("price_product");
+                double price = rs.getDouble("price_product");
                 int quantity = rs.getInt("quantity_product");
                 int id_supplier = rs.getInt("id_supplier");
 

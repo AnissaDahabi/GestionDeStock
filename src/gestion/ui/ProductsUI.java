@@ -545,11 +545,11 @@ public class ProductsUI {
 
         submitEditedProductsBtn2.setOnAction(event -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            ProductsQuery.editProducts(nameProductsInput, priceProductsInput, quantityProductsInput, supplierIdInput);
+            ProductsQuery.editProducts(idProductsSql, nameProductsInput, priceProductsInput, quantityProductsInput, supplierIdInput);
             stage.setScene(SceneManager.getProductsHomeScene());
         });
 
-        VBox editProducts2 = new VBox(returnBtnContainer, editTitle2, editTxtContainer2, editProductsGrid,editProductsContainer2);
+        VBox editProducts2 = new VBox(returnBtnContainer, editTitle2, editTxtContainer2, editProductsGrid, editProductsContainer2);
 
         Scene editProductsScene2 = new Scene(editProducts2, 300, 600);
         editProductsScene2.getStylesheets().add("gestion/resources/products.css");
