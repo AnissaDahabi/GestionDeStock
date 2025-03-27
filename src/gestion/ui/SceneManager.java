@@ -163,7 +163,7 @@ public class SceneManager {
         return delSalesScene1;
     }
 
-    public static Scene getDelSalesScene2(int idSalesSql, String nameSalesSuppliersSql, String nameSalesProductSql) {
+    public static Scene getDelSalesScene2(int idSalesSql, String nameSalesSuppliersSql, String nameSalesProductSql, String dateSalesSql) {
         if (delSalesScene2 == null) {
             delSalesScene2 = SalesUI.delSalesScene2(idSalesSql, nameSalesSuppliersSql, nameSalesProductSql);
         }
@@ -177,9 +177,9 @@ public class SceneManager {
         return editSalesScene1;
     }
 
-    public static Scene getEditSalesScene2(int idSalesSql, String nameSalesSuppliersSql, String nameSalesProductSql, int quantitySalesProductSql, String priceSalesSql) {
+    public static Scene getEditSalesScene2(int idSalesSql, String nameSalesSuppliersSql, String nameSalesProductSql, int quantitySalesProductSql, String priceSalesSql, String dateSalesSql) {
         if (editSalesScene2 == null) {
-            editSalesScene2 = SalesUI.editSalesScene2(idSalesSql, nameSalesSuppliersSql, nameSalesProductSql, quantitySalesProductSql, priceSalesSql);
+            editSalesScene2 = SalesUI.editSalesScene2(idSalesSql, nameSalesSuppliersSql, nameSalesProductSql, quantitySalesProductSql, priceSalesSql, dateSalesSql);
         }
         return editSalesScene2;
     }
@@ -194,12 +194,24 @@ public class SceneManager {
     // REPORTS SCENES
 
     public static Scene getReportsHomeScene() {
-        if (productsScene == null) {
-            productsScene = ReportsUI.createContent();
+        if (reportsScene == null) {
+            reportsScene = ReportsUI.createContent();
         }
-        return productsScene;
+        return reportsScene;
     }
 
+    public static Scene getGenerateScene1() {
+        if (showReportsScene == null) {
+            showReportsScene = ReportsUI.createContent();
+        }
+        return showReportsScene;
+    }
+
+    public static Scene getReportsScene2() {
+        if (showReportsScene2 == null) {
+            showReportsScene2 = ReportsUI.createContent();
+        } return showReportsScene2;
+    }
 }
 
 

@@ -5,14 +5,18 @@ public class Sales {
     private int idSuppliers;
     private int idProduct;
     private int idSales;
+    private double priceSales;
+    private int quantitySales;
     private String nameSales;
     private String dateSales;
 
 
-    public Sales(int idSuppliers, int idProduct, int idSales, String nameSales, String dateSales) {
+    public Sales(int idSuppliers, int idProduct, int idSales, double priceSales,int quantitySales, String nameSales, String dateSales) {
         this.idSuppliers = idSuppliers;
         this.idProduct = idProduct;
         this.idSales = idSales;
+        this.priceSales = priceSales;
+        this.quantitySales = quantitySales;
         this.nameSales = nameSales;
         this.dateSales = dateSales;
     }
@@ -47,6 +51,17 @@ public class Sales {
     public void setDateSales(String dateSales) {
         this.dateSales = dateSales;
     }
-
+    public void setPriceSales(double priceSales) {
+        this.priceSales = priceSales;
+    }
+    public double getPriceSales() {
+        return priceSales;
+    }
+    public void setQuantitySales(int quantitySales) {
+        this.quantitySales = quantitySales;
+    }
+    public int getQuantitySales() {
+        return quantitySales;
+    }
 }
 
