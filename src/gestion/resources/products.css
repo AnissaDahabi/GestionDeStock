@@ -83,6 +83,17 @@
     -fx-padding: 50 0 0 0;
 }
 
+#suppliersComboBox {
+    -fx-background-color: #D0D4BE;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-max-height: 12px;
+    -fx-font-size: 10px;
+    -fx-prompt-text-fill: #758B68;
+    -fx-text-fill: #3C582B;
+    -fx-font-weight: bold;
+}
+
 
 /* DELETE PRODUCTS*/
 

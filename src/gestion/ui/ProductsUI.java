@@ -137,8 +137,41 @@ public class ProductsUI {
         Label quantityProducts = new Label("Quantity: ");
         TextField quantityProductsInput = new TextField();
 
-        Label supplierId = new Label("Supplier: ");
-        TextField supplierIdInput = new TextField();
+//        Label supplierId = new Label("Supplier: ");
+//        TextField supplierIdInput = new TextField();
+
+        Label comboLabel = new Label("Supplier ID: ");
+        ComboBox<Suppliers> suppliersComboBox = new ComboBox<>(SuppliersQuery.getSuppliersID());
+        suppliersComboBox.setId("suppliersComboBox");
+        suppliersComboBox.setItems(SuppliersQuery.getSuppliersID());
+
+        suppliersComboBox.setConverter(new StringConverter<Suppliers>() {
+            @Override
+            public String toString(Suppliers suppliers) {
+                return suppliers != null ? String.valueOf(suppliers.getIdSupplier()) : "";
+            }
+
+            @Override
+            public Suppliers fromString(String s) {
+                return null;
+            }
+        });
+        suppliersComboBox.setCellFactory(lv -> new ListCell<Suppliers>() {
+            @Override
+            protected void updateItem(Suppliers supplier, boolean empty) {
+                super.updateItem(supplier, empty);
+                setText(empty || supplier == null ? null : String.valueOf(supplier.getIdSupplier()));
+            }
+        });
+
+//        HBox boxSuppliersContainer = new HBox();
+//        boxSuppliersContainer.getStyleClass().add("boxSuppliersContainer");
+//        boxSuppliersContainer.getChildren().add(comboLabel);
+//        boxSuppliersContainer.getChildren().add(suppliersComboBox);
+//        boxSuppliersContainer.setAlignment(Pos.CENTER);
+//        boxSuppliersContainer.setSpacing(5);
+//        boxSuppliersContainer.setPadding(new Insets(20, 0, 0, 0));
+
 
 
         addProductsGrid.add(idProductsLabel, 0, 0);
@@ -149,8 +182,9 @@ public class ProductsUI {
         addProductsGrid.add(priceProductsInput, 1, 2);
         addProductsGrid.add(quantityProducts, 0, 3);
         addProductsGrid.add(quantityProductsInput, 1, 3);
-        addProductsGrid.add(supplierId, 0, 4);
-        addProductsGrid.add(supplierIdInput, 1, 4);
+        addProductsGrid.add(comboLabel, 0, 4);
+        addProductsGrid.add(suppliersComboBox, 1, 4);
+
 
         addProductsGrid.setAlignment(Pos.CENTER);
 
@@ -169,9 +203,10 @@ public class ProductsUI {
                 String name = nameProductsInput.getText();
                 double price = Double.parseDouble(priceProductsInput.getText());
                 int quantity = Integer.parseInt(quantityProductsInput.getText());
-                int supplier = Integer.parseInt(supplierIdInput.getText());
+                Suppliers selectedSupplier = suppliersComboBox.getValue();
 
-                boolean success = ProductsService.addProducts(idProducts, name, price, quantity, supplier);
+
+                boolean success = ProductsService.addProducts(idProducts, name, price, quantity, selectedSupplier.getIdSupplier());
 
                 if (success) {
 
@@ -181,7 +216,7 @@ public class ProductsUI {
                     nameProductsInput.clear();
                     priceProductsInput.clear();
                     quantityProductsInput.clear();
-                    supplierIdInput.clear();
+                    suppliersComboBox.valueProperty().set(null);
 
                     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     stage.setScene(SceneManager.getProductsHomeScene());
@@ -194,7 +229,7 @@ public class ProductsUI {
 
         });
 
-        VBox addProducts = new VBox(returnBtnContainer, addTitle, addTxtContainer, addProductsGrid,addProductsContainer);
+        VBox addProducts = new VBox(returnBtnContainer, addTitle, addTxtContainer, addProductsGrid, addProductsContainer);
 
         Scene addProductsScene = new Scene(addProducts, 300, 600);
         addProductsScene.getStylesheets().add("gestion/resources/products.css");
