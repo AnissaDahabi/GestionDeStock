@@ -47,6 +47,7 @@
     -fx-font-size: 16px;
     -fx-fill: #758B68;
     -fx-text-alignment: center;
+    -fx-font-weight: bold;
 }
 
 #addTxtContainer {
@@ -96,6 +97,7 @@
     -fx-font-size: 16px;
     -fx-fill: #758B68;
     -fx-text-alignment: center;
+    -fx-font-weight: bold;
 }
 
 #delTxtContainer1, #delTxtContainer2 {
@@ -161,6 +163,7 @@
     -fx-font-size: 16px;
     -fx-fill: #758B68;
     -fx-text-alignment: center;
+    -fx-font-weight: bold;
 }
 
 #editTxtContainer1, #editTxtContainer2 {

@@ -5,9 +5,9 @@ import gestion.dao.SuppliersQuery;
 import gestion.model.Products;
 import gestion.model.Suppliers;
 import gestion.service.ProductsService;
-import gestion.service.SuppliersService;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -33,9 +33,9 @@ public class ProductsUI {
             stage.setScene(SceneManager.getHomeScene());
         });
 
-        HBox returnBtnContainer = new HBox(10); // HBox = container horizontal
+        HBox returnBtnContainer = new HBox(10);
         returnBtnContainer.setAlignment(Pos.TOP_RIGHT);
-        returnBtnContainer.setPadding(new Insets(10, 10, 10, 10)); //équivalent du <style> blabla </style> en html
+        returnBtnContainer.setPadding(new Insets(10, 10, 10, 10));
         returnBtnContainer.getChildren().add(returnBtn);
 
         // Title:
@@ -137,9 +137,6 @@ public class ProductsUI {
         Label quantityProducts = new Label("Quantity: ");
         TextField quantityProductsInput = new TextField();
 
-//        Label supplierId = new Label("Supplier: ");
-//        TextField supplierIdInput = new TextField();
-
         Label comboLabel = new Label("Supplier ID: ");
         ComboBox<Suppliers> suppliersComboBox = new ComboBox<>(SuppliersQuery.getSuppliersID());
         suppliersComboBox.setId("suppliersComboBox");
@@ -164,16 +161,6 @@ public class ProductsUI {
             }
         });
 
-//        HBox boxSuppliersContainer = new HBox();
-//        boxSuppliersContainer.getStyleClass().add("boxSuppliersContainer");
-//        boxSuppliersContainer.getChildren().add(comboLabel);
-//        boxSuppliersContainer.getChildren().add(suppliersComboBox);
-//        boxSuppliersContainer.setAlignment(Pos.CENTER);
-//        boxSuppliersContainer.setSpacing(5);
-//        boxSuppliersContainer.setPadding(new Insets(20, 0, 0, 0));
-
-
-
         addProductsGrid.add(idProductsLabel, 0, 0);
         addProductsGrid.add(idProductsInput, 1, 0);
         addProductsGrid.add(nameProducts, 0, 1);
@@ -184,7 +171,6 @@ public class ProductsUI {
         addProductsGrid.add(quantityProductsInput, 1, 3);
         addProductsGrid.add(comboLabel, 0, 4);
         addProductsGrid.add(suppliersComboBox, 1, 4);
-
 
         addProductsGrid.setAlignment(Pos.CENTER);
 
@@ -226,7 +212,6 @@ public class ProductsUI {
             } catch (Exception e) {
                 AlertsProducts.showErrorAddProduct("Something went wrong");
             }
-
         });
 
         VBox addProducts = new VBox(returnBtnContainer, addTitle, addTxtContainer, addProductsGrid, addProductsContainer);
@@ -267,7 +252,7 @@ public class ProductsUI {
         delTxtContainer1.setId("delTxtContainer1");
         delTxtContainer1.setAlignment(Pos.CENTER);
 
-        //User input
+        //User input:
         Label idProductsLabel = new Label("ID Number: ");
         TextField idProductsInput = new TextField();
         HBox idProductsContainer = new HBox();
@@ -276,7 +261,7 @@ public class ProductsUI {
         idProductsContainer.setId("idProductsContainer");
         idProductsContainer.setAlignment(Pos.CENTER);
 
-        //ComboBox
+        //ComboBox:
         Label comboLabel = new Label("ID number : ");
         ComboBox<Products> productsComboBox = new ComboBox<>(ProductsQuery.getProductsID());
         productsComboBox.setId("productsComboBox");
@@ -344,39 +329,6 @@ public class ProductsUI {
                 warningAlert.showAndWait();
             }
         });
-
-//            try {
-//                int idProducts = Integer.parseInt(idProductsInput.getText());
-//
-//                Products products = ProductsService.getProductById(idProducts);
-//
-//                if (products == null) {
-//                    AlertsProducts.showErrorDelProduct2("No product found with this ID number: " + idProducts);
-//                    return;
-//                }
-//
-//                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-//                alert.setTitle("Confirmation");
-//                alert.setHeaderText(null);
-//                alert.setContentText("Are you sure you want to delete " + products.getNameProduct() + " from the database ?");
-//
-//                ButtonType yes = new ButtonType("Yes");
-//                ButtonType no = new ButtonType("No");
-//                alert.getButtonTypes().setAll(yes, no);
-//
-//                alert.showAndWait().ifPresent(button -> {
-//                    if (button == yes) {
-//                        boolean deleted = ProductsService.delProducts(idProducts);
-//                        if (deleted) {
-//                            AlertsProducts.showSuccessDelProduct("Product deleted successfully!");
-//                            idProductsInput.clear();
-//                        }
-//                    }
-//                });
-//            } catch (NumberFormatException e) {
-//                AlertsProducts.showErrorDelProduct("Please enter a valid ID");
-//            }
-//        });
 
         VBox delProducts1 = new VBox(returnBtnContainer, delTitle1, delTxtContainer1, boxProductsContainer, delProductsContainer);
 
@@ -613,73 +565,95 @@ public class ProductsUI {
         showTitle.setAlignment(Pos.CENTER);
         showTitle.getStyleClass().add("showTitle");
 
-        Label sortProducts = new Label("Sort Products: ");
-        sortProducts.getStyleClass().add("sortProducts");
-
-        ObservableList<String> sortOptions =
-                FXCollections.observableArrayList(
-                        "alphabetical order",
-                        "ascending order",
-                        "descending order"
-                );
-        final ComboBox sortFilter = new ComboBox(sortOptions);
-        sortFilter.setId("sortFilter");
-
-        HBox sortFilterContainer = new HBox();
-        sortFilterContainer.getChildren().add(sortProducts);
-        sortFilterContainer.getChildren().add(sortFilter);
-        sortFilterContainer.getStyleClass().add("sortFilterContainer");
-
         Label searchProducts = new Label("Search by ID: ");
         searchProducts.getStyleClass().add("searchProducts");
         TextField searchProductsInput = new TextField();
+        searchProductsInput.setPromptText("Search products...");
         searchProductsInput.getStyleClass().add("searchProductsInput");
-
-        Button confirmBtn = new Button("Confirm");
-        confirmBtn.getStyleClass().add("confirmBtn");
 
         HBox searchProductsContainer = new HBox();
         searchProductsContainer.getChildren().add(searchProducts);
         searchProductsContainer.getChildren().add(searchProductsInput);
-        searchProductsContainer.getChildren().add(confirmBtn);
         searchProductsContainer.getStyleClass().add("searchProductsContainer");
         searchProductsContainer.setSpacing(10);
 
-
+        //Tableau:
         TableView productsTable = new TableView<Products>();
-        productsTable.setEditable(true);
+        productsTable.setEditable(false);
         productsTable.setId("productsTable");
 
-        TableColumn idProductColumn = new TableColumn<Products, Integer>("ID");
-        idProductColumn.setCellValueFactory(new PropertyValueFactory<Products, Integer>("idProduct"));
+        TableColumn<Products, Integer> idProductColumn = new TableColumn<>("ID");
+        idProductColumn.setCellValueFactory(new PropertyValueFactory<>("idProduct"));
+        idProductColumn.setResizable(false);
+        idProductColumn.setReorderable(false);
 
+        TableColumn<Products, String> nameProductColumn = new TableColumn<>("Name");
+        nameProductColumn.setCellValueFactory(new PropertyValueFactory<>("nameProduct"));
+        nameProductColumn.setResizable(false);
+        nameProductColumn.setReorderable(false);
 
-        TableColumn nameProductColumn = new TableColumn<Products, String>("Name");
-        nameProductColumn.setCellValueFactory(new PropertyValueFactory<Products, String>("nameProduct"));
+        TableColumn<Products, Double> priceProductColumn = new TableColumn<>("Price");
+        priceProductColumn.setCellValueFactory(new PropertyValueFactory<>("priceProduct"));
+        priceProductColumn.setResizable(false);
+        priceProductColumn.setReorderable(false);
 
+        TableColumn<Products, Integer> quantityProductColumn = new TableColumn<>("Stock");
+        quantityProductColumn.setCellValueFactory(new PropertyValueFactory<>("quantityProduct"));
+        quantityProductColumn.setResizable(false);
+        quantityProductColumn.setReorderable(false);
 
-        TableColumn priceProductColumn = new TableColumn<Products, Double>("Price");
-        priceProductColumn.setCellValueFactory(new PropertyValueFactory<Products, Double>("priceProduct"));
+        TableColumn<Products, String> supplierProductColumn = new TableColumn<>("Supplier");
+        supplierProductColumn.setCellValueFactory(new PropertyValueFactory<>("supplierId"));
+        supplierProductColumn.setResizable(false);
+        supplierProductColumn.setReorderable(false);
 
-
-        TableColumn quantityProductColumn = new TableColumn<Products, Integer>("Quantity");
-        quantityProductColumn.setCellValueFactory(new PropertyValueFactory<Products, Integer>("quantityProduct"));
-
-
-        TableColumn supplierProductColumn = new TableColumn<Products, String>("Supplier");
-        supplierProductColumn.setCellValueFactory(new PropertyValueFactory<Products, String>("supplierId"));
+        idProductColumn.setPrefWidth(50);
+        nameProductColumn.setPrefWidth(85);
+        priceProductColumn.setPrefWidth(42);
+        quantityProductColumn.setPrefWidth(45);
+        supplierProductColumn.setPrefWidth(55);
 
         productsTable.getColumns().addAll(idProductColumn, nameProductColumn, priceProductColumn, quantityProductColumn, supplierProductColumn);
 
-        productsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-
-        ProductsQuery.showProducts(productsTable);
-
         VBox productsTableContainer = new VBox();
-        productsTableContainer.setPadding(new Insets(20, 20, 20, 20));
+        productsTableContainer.setPadding(new Insets(20, 10, 10, 10));
         productsTableContainer.getChildren().add(productsTable);
 
-        VBox showProducts = new VBox(returnBtnContainer, showTitle, sortFilterContainer, searchProductsContainer, productsTableContainer);
+        //Search filter:
+        ObservableList<Products> data = ProductsQuery.showProducts(productsTable);
+
+        FilteredList<Products> filteredData = new FilteredList<>(data, p -> true);
+
+        searchProductsInput.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(product -> {
+
+                if (newValue == null || newValue.isEmpty()) {
+                    return true; //si le textfield est vide, afficher ts les produits
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (String.valueOf(product.getIdProduct()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (product.getNameProduct().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (String.valueOf(product.getPriceProduct()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (String.valueOf(product.getQuantityProduct()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (String.valueOf(product.getSupplierId()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                }
+
+                return false; //pas de math avec la recherche
+            });
+        });
+
+        SortedList<Products> sortedData = new SortedList<>(filteredData);
+
+        sortedData.comparatorProperty().bind(productsTable.comparatorProperty());
+        productsTable.setItems(sortedData);
+
+        VBox showProducts = new VBox(returnBtnContainer, showTitle, searchProductsContainer, productsTableContainer);
 
         Scene showProductsScene = new Scene(showProducts, 300, 600);
         showProductsScene.getStylesheets().add("gestion/resources/products.css");

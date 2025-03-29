@@ -171,7 +171,8 @@ public class ProductsQuery {
         }
     }
 
-    public static boolean showProducts(TableView<Products> productsTable) {
+    public static ObservableList<Products> showProducts(TableView<Products> productsTable) {
+        ObservableList<Products> productsList = FXCollections.observableArrayList();
 
         try {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
@@ -190,15 +191,19 @@ public class ProductsQuery {
                         rs.getInt("quantity_product"),
                         rs.getInt("id_supplier")
                 );
-                productsTable.getItems().add(products);
+                productsList.add(products);
+            }
+            if (productsTable != null) {
+                productsTable.setItems(productsList);
             }
             rs.close();
             pstmt.close();
             con.close();
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Database error: " + e.getMessage());        }
-        return false;
+            System.out.println("Database error: " + e.getMessage());
+        }
+        return productsList;
     }
 
     public static Products getProductById(int idProducts) {
@@ -224,30 +229,30 @@ public class ProductsQuery {
         }
     }
 
-    public static Products getProductsId (int idProducts) {
-        String query = "SELECT * FROM Products WHERE id_product = ?";
-
-        try {
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
-            PreparedStatement stmt = con.prepareStatement(query);
-
-            stmt.setInt(1, idProducts);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                return new Products(
-                        rs.getInt("id_product"),
-                        rs.getString("name_product"),
-                        rs.getDouble("price_product"),
-                        rs.getInt("quantity_product"),
-                        rs.getInt("id_supplier")
-                );
-
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } return null;
-    }
+//    public static Products getProductsId (int idProducts) {
+//        String query = "SELECT * FROM Products WHERE id_product = ?";
+//
+//        try {
+//            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
+//            PreparedStatement stmt = con.prepareStatement(query);
+//
+//            stmt.setInt(1, idProducts);
+//            ResultSet rs = stmt.executeQuery();
+//
+//            if (rs.next()) {
+//                return new Products(
+//                        rs.getInt("id_product"),
+//                        rs.getString("name_product"),
+//                        rs.getDouble("price_product"),
+//                        rs.getInt("quantity_product"),
+//                        rs.getInt("id_supplier")
+//                );
+//
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } return null;
+//    }
 
     public static ObservableList<Products> getProductsID() {
         ObservableList<Products> productsList = FXCollections.observableArrayList();

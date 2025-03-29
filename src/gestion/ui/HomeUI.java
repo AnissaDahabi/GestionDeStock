@@ -6,7 +6,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
@@ -24,7 +23,6 @@ public class HomeUI extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-
         Scene homeScene = new Scene(createContent(), 300, 600);
         homeScene.getStylesheets().add("gestion/resources/home.css");
         primaryStage.setScene(homeScene);
@@ -36,20 +34,20 @@ public class HomeUI extends Application {
 
     public static VBox createContent() {
         Button closeBtn = new Button("Close");
-        closeBtn.getStyleClass().add("closeBtn"); // crée une classe pour lui donner un style en css
+        closeBtn.getStyleClass().add("closeBtn");
         closeBtn.setOnAction(event -> {
             Platform.exit();
         });
 
-        HBox closeBtnContainer = new HBox(10); // HBox = container horizontal
+        HBox closeBtnContainer = new HBox(10);
         closeBtnContainer.setAlignment(Pos.TOP_RIGHT);
-        closeBtnContainer.setPadding(new Insets(10, 10, 10, 10)); //équivalent du <style> blabla </style> en html
-        closeBtnContainer.getChildren().add(closeBtn); //ajouter un truc a un container
+        closeBtnContainer.setPadding(new Insets(10, 10, 10, 10));
+        closeBtnContainer.getChildren().add(closeBtn);
 
         HBox homeTitle = new HBox(new Label("L'Antique"));
         homeTitle.getStyleClass().add("homeTitle");
 
-        homeTitle.setAlignment(Pos.CENTER); //placer sur la scene
+        homeTitle.setAlignment(Pos.CENTER);
 
         Image logo = new Image("gestion/resources/logo.png");
         ImageView viewLogo = new ImageView(logo);
@@ -75,20 +73,20 @@ public class HomeUI extends Application {
         Button reportsBtn = new Button("Reports");
         reportsBtn.getStyleClass().add("reportsBtn");
 
-        GridPane buttonGridHome = new GridPane(); //créer une grille
+        GridPane buttonGridHome = new GridPane();
         buttonGridHome.getStyleClass().add("buttonGridHome");
 
         buttonGridHome.setVgap(20);
         buttonGridHome.setHgap(30);
 
-        buttonGridHome.add(productsBtn, 0, 0); // Colonne 0, ligne 0
-        buttonGridHome.add(suppliersBtn, 1, 0); // Colonne 1, ligne 0
-        buttonGridHome.add(salesBtn, 0, 1); // Colonne 0, ligne 1
-        buttonGridHome.add(reportsBtn, 1, 1); // Colonne 1, ligne 1
+        buttonGridHome.add(productsBtn, 0, 0);
+        buttonGridHome.add(suppliersBtn, 1, 0);
+        buttonGridHome.add(salesBtn, 0, 1);
+        buttonGridHome.add(reportsBtn, 1, 1);
 
         buttonGridHome.setAlignment(Pos.CENTER);
 
-        VBox homeButtons = new VBox(20, buttonGridHome); // VBox = container vertical
+        VBox homeButtons = new VBox(20, buttonGridHome);
         homeButtons.setStyle("-fx-padding: 20 0 0 0;");
 
         homeButtons.setAlignment(Pos.BASELINE_CENTER);
@@ -113,20 +111,6 @@ public class HomeUI extends Application {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(gestion.ui.SceneManager.getReportsHomeScene());
         });
-
-        // Title and txt:
-        VBox delTitle1 = new VBox(new Label("Delete a product"));
-        delTitle1.setAlignment(Pos.CENTER);
-        delTitle1.getStyleClass().add("delTitle");
-
-        Text delTxt = new Text();
-        delTxt.setText("Please enter the details of the new product to be added into the inventory.");
-        delTxt.setId("delTxt");
-        delTxt.setWrappingWidth(300);
-        HBox delTxtContainer = new HBox();
-        delTxtContainer.getChildren().add(delTxt);
-        delTxtContainer.setId("delTxtContainer");
-        delTxtContainer.setAlignment(Pos.CENTER);
 
         return homeButtons;
     }
