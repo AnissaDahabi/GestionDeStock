@@ -14,9 +14,11 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.scene.text.Text;
+import javafx.stage.StageStyle;
 import javafx.util.StringConverter;
 
 
@@ -196,7 +198,17 @@ public class ProductsUI {
 
                 if (success) {
 
-                    AlertsProducts.showSuccessAddProduct("Product added successfully");
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle(null);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Product added successfully!");
+
+                    DialogPane dialogPane = alert.getDialogPane();
+                    dialogPane.setGraphic(null);
+
+                    alert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
+
+                    alert.showAndWait();
 
                     idProductsInput.clear();
                     nameProductsInput.clear();

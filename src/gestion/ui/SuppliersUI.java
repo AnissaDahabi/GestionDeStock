@@ -672,22 +672,23 @@ public class SuppliersUI {
 
         TableColumn idSuppliersColumn = new TableColumn<Suppliers, Integer>("ID");
         idSuppliersColumn.setCellValueFactory(new PropertyValueFactory<Suppliers, Integer>("idSupplier"));
-
+        idSuppliersColumn.setReorderable(false);
 
         TableColumn nameSuppliersColumn = new TableColumn<Suppliers, String>("Name");
         nameSuppliersColumn.setCellValueFactory(new PropertyValueFactory<Suppliers, String>("nameSupplier"));
-
+        nameSuppliersColumn.setReorderable(false);
 
         TableColumn phoneSuppliersColumn = new TableColumn<Suppliers, String>("Phone");
         phoneSuppliersColumn.setCellValueFactory(new PropertyValueFactory<Suppliers, String>("phoneSupplier"));
-
+        phoneSuppliersColumn.setReorderable(false);
 
         TableColumn addressSuppliersColumn = new TableColumn<Suppliers, String>("Address");
         addressSuppliersColumn.setCellValueFactory(new PropertyValueFactory<Suppliers, String>("addressSupplier"));
-
+        addressSuppliersColumn.setReorderable(false);
 
         TableColumn emailSuppliersColumn = new TableColumn<Suppliers, String>("Email");
         emailSuppliersColumn.setCellValueFactory(new PropertyValueFactory<Suppliers, String>("emailSupplier"));
+        emailSuppliersColumn.setReorderable(false);
 
         suppliersTable.getColumns().addAll(idSuppliersColumn, nameSuppliersColumn, phoneSuppliersColumn, addressSuppliersColumn, emailSuppliersColumn);
 
@@ -723,7 +724,7 @@ public class SuppliersUI {
         suppliersTable.refresh();
 
         VBox suppliersTableContainer = new VBox();
-        suppliersTableContainer.setPadding(new Insets(20, 20, 20, 20));
+        suppliersTableContainer.setPadding(new Insets(10, 10, 10, 10));
         suppliersTableContainer.getChildren().add(suppliersTable);
 
 
