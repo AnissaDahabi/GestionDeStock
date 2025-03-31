@@ -11,26 +11,26 @@ public class SalesQuery {
 
     private static int currentSalesId;
 
-    public static void addSales(TextField idSalesInput, TextField namesupplierInput, TextField nameproductInput, TextField quantitysalesInput, TextField priceSalesInput, TextField datesSalesInput) {
+    public static void addSales(TextField idSalesInput, TextField idsupplierInput, TextField idproductInput, TextField quantitysalesInput, TextField priceSalesInput, TextField datesSalesInput) {
         try {
             Connection con =
                     DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
 
-            String query = "INSERT INTO Sales (id_sales, name_supplier, name_product, quantity_sales, price_sales, date_sales ) VALUES (?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO Sales (id_sales, id_supplier, id_product, quantity_sales, price_sales, date_sales ) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement pstmt = con.prepareStatement(query);
 
             //Récupération des données saisies par l'utilisateur
             int idsales = Integer.parseInt(idSalesInput.getText());
-            String namesupplier = namesupplierInput.getText();
-            String nameproduct = nameproductInput.getText();
+            int idsupplier = Integer.parseInt(idsupplierInput.getText());
+            int idproduct = Integer.parseInt(idproductInput.getText());
             int quantitySalesProduct = Integer.parseInt(quantitysalesInput.getText());
             int priceSales = Integer.parseInt(priceSalesInput.getText());
             String dateSales = datesSalesInput.getText();
 
             //Remplissage des paramètres de la requête SQL
             pstmt.setInt(1, idsales);
-            pstmt.setString(2, namesupplier);
-            pstmt.setString(3, nameproduct);
+            pstmt.setInt(2, idsupplier);
+            pstmt.setInt(3, idproduct);
             pstmt.setInt(4, quantitySalesProduct);
             pstmt.setInt(5, priceSales);
             pstmt.setString(6, dateSales);
@@ -169,7 +169,7 @@ public class SalesQuery {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
 
             // Préparation de la requête SQL
-            String query = "SELECT id_supplier, namesuppliers, name_sales_product, date_sales FROM Sales WHERE id_supplier = ?";
+            String query = "SELECT id_sales, id_supplier, id_product, date_sales FROM Sales WHERE id_sales = ?";
             PreparedStatement pstmt = con.prepareStatement(query);
 
             // Récupération de l'ID saisi par l'utilisateur
@@ -219,7 +219,7 @@ public class SalesQuery {
 
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
 
-            String query = "SELECT id_sales, namesuppliers, name_sales_product, quantity_sales_product, price_sales,date_sales FROM Sales WHERE id_sales = ?";
+            String query = "SELECT id_sales, id_supplier, id_product, quantity_sales, price_sales,date_sales FROM Sales WHERE id_sales = ?";
             PreparedStatement pstmt = con.prepareStatement(query);
 
             try {
@@ -239,13 +239,13 @@ public class SalesQuery {
 
                 if (resultSet.next()) {
                     int idSalesSql = resultSet.getInt("id_sales");
-                    String namesuppliersSql = resultSet.getString("name_sales_supplier");
-                    String nameSalesProductSql = resultSet.getString("name_sales_product");
+                    int  idsuppliersSql = resultSet.getInt("id_supplier");
+                    int idProductSql = resultSet.getInt("id_product");
                     int quantitySalesProduct = resultSet.getInt("quantity_sales");
-                    String priceSales = resultSet.getString("price_sales");
+                    int priceSales = resultSet.getInt("price_sales");
                     String dateSalesSql = resultSet.getString("date_sales");
 
-                    stage.setScene(SceneManager.getEditSalesScene2(idSalesSql, namesuppliersSql, nameSalesProductSql, quantitySalesProduct, priceSales, dateSalesSql));
+                    stage.setScene(SceneManager.getEditSalesScene2(idSalesSql, idsuppliersSql, idProductSql, quantitySalesProduct, priceSales, dateSalesSql));
 
                 } else {
                     Alert alert = new Alert(AlertType.ERROR);
@@ -267,18 +267,18 @@ public class SalesQuery {
 
     }
 
-    public static void editSales(TextField namesuppliersInput, TextField nameSalesProductInput, TextField quantitySalesProductInput, TextField priceSalesInput, TextField dateSalesInput) {
+    public static void editSales(int idSalesInput,TextField idsuppliersInput, TextField idProductInput, TextField quantitySalesInput, TextField priceSalesInput, TextField dateSalesInput) {
         try {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
 
-            String query = "UPDATE Sales SET namesupplier = ?, name_sales_product = ?, quantity_sales_product = ?, price_sales = ? WHERE id_sales = ?";
+            String query = "UPDATE Sales SET id_supplier = ?, id_product = ?, quantity_sales = ?, price_sales = ?, date_sales= ? WHERE id_sales = ?";
             PreparedStatement pstmt = con.prepareStatement(query);
 
-            pstmt.setString(1, namesuppliersInput.getText());
-            pstmt.setString(2, nameSalesProductInput.getText());
+            pstmt.setInt(1, Integer.parseInt(idsuppliersInput.getText()));
+            pstmt.setInt(2, Integer.parseInt(idProductInput.getText()));
 
             try {
-                pstmt.setInt(3, Integer.parseInt(quantitySalesProductInput.getText()));
+                pstmt.setInt(3, Integer.parseInt(quantitySalesInput.getText()));
             } catch (NumberFormatException e) {
                 Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Error");
@@ -287,13 +287,24 @@ public class SalesQuery {
             }
 
             try {
-                pstmt.setDouble(4, Double.parseDouble(priceSalesInput.getText()));
+                pstmt.setInt(4, Integer.parseInt(priceSalesInput.getText()));
             } catch (NumberFormatException e) {
                 Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setHeaderText("Invalid price value, please enter an integer");
                 alert.setContentText("Error: " + e.getMessage());
             }
+
+            try {
+                pstmt.setString(5, dateSalesInput.getText());
+            } catch (NumberFormatException e ) {
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Invalid date value, please enter an integer");
+                alert.setContentText("Error: " + e.getMessage());
+            }
+
+            pstmt.setInt(6, Integer.parseInt(String.valueOf(idSalesInput)));
 
             int rowsAffected = pstmt.executeUpdate();
 

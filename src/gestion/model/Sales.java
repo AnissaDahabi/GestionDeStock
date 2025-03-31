@@ -7,17 +7,15 @@ public class Sales {
     private int idSales;
     private double priceSales;
     private int quantitySales;
-    private String nameSales;
     private String dateSales;
 
 
-    public Sales(int idSuppliers, int idProduct, int idSales, double priceSales,int quantitySales, String nameSales, String dateSales) {
+    public Sales(int idSuppliers, int idProduct, int idSales, double priceSales,int quantitySales, String dateSales) {
         this.idSuppliers = idSuppliers;
         this.idProduct = idProduct;
         this.idSales = idSales;
         this.priceSales = priceSales;
         this.quantitySales = quantitySales;
-        this.nameSales = nameSales;
         this.dateSales = dateSales;
     }
 
@@ -38,12 +36,6 @@ public class Sales {
     }
     public void setIdSales(int idSales) {
         this.idSales = idSales;
-    }
-    public String getNameSales() {
-        return nameSales;
-    }
-    public void setNameSales(String nameSales) {
-        this.nameSales = nameSales;
     }
     public String getDateSales() {
         return dateSales;
