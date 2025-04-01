@@ -1,6 +1,9 @@
 package gestion.dao;
-/*
+
+import gestion.model.Reports;
 import gestion.ui.SceneManager;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -15,12 +18,39 @@ import java.sql.*;
 
 
 public class ReportsQuery {
-    public static void SupplierRepport()
+
+    public static ObservableList<Reports> getReports() {
+        ObservableList<Reports> reportsList = FXCollections.observableArrayList();
+
+        String query = "SELECT * FROM Sales";
+
         try {
-            connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root" );
-            String query = "Insert INTO Reports (name_fournisseur,num_fournisseur) Select name_fournisseur, num_fournisseur from Supplier";
-            PreparedStatement pstmt = con.prepareStatement(query);
-            pstmt.setInt
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
+            PreparedStatement stmt = con.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()) {
+
+                String nameSupplier = rs.getString("name_supplier");
+                String nameProduct = rs.getString("name_product");
+                double priceSales = rs.getDouble("price_sales");
+                int quantitySales= rs.getInt("quantity_sales");
+                String dateSales = rs.getString("date_sales");
+
+
+
+                Reports reports = new Reports(nameSupplier, nameProduct, priceSales, quantitySales,dateSales);
+                reportsList.add(reports);
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return reportsList;
+
     }
+
+
+
 }
-*/

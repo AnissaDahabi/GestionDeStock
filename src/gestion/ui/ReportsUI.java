@@ -1,18 +1,18 @@
 package gestion.ui;
 
+import gestion.dao.ReportsQuery;
+import gestion.model.Reports;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.scene.text.Text;
+import javafx.util.StringConverter;
 
 
 public class ReportsUI {
@@ -37,13 +37,50 @@ public class ReportsUI {
         reportsTitle.getStyleClass().add("reportsTitle");
         reportsTitle.setAlignment(Pos.CENTER);
 
-        VBox homeReports = new VBox(returnBtnContainer, reportsTitle);
+        //Buttons
+
+        Button generateReportsBtn = new Button("Generate");
+        generateReportsBtn.getStyleClass().add("generateBtn");
+
+        VBox reportsBtnContainer = new VBox(40);
+        reportsBtnContainer.getStyleClass().add("reportsBtnContainer");
+        reportsBtnContainer.setAlignment(Pos.CENTER);
+        reportsBtnContainer.getChildren().add(generateReportsBtn);
+
+        //Fil déroulants
+
+        Label comboLabel = new Label("Supplier : ");
+        ComboBox<Reports> reportsComboBox = new ComboBox(ReportsQuery.getReports());
+        reportsComboBox.getStyleClass().add("reportsComboBox");
+        reportsComboBox.setItems(FXCollections.observableArrayList(ReportsQuery.getReports()));
+
+        reportsComboBox.setConverter(new StringConverter<Reports>() {
+            @Override
+            public String toString(Reports reports) {
+                return reports != null ? String.valueOf(reports.getNameSupplier()) : "";
+            }
+
+            @Override
+            public Reports fromString(String s) {
+                return null;
+            }
+        });
+        reportsComboBox.setCellFactory(lv -> new ListCell<Reports>() {
+            @Override
+            protected void updateItem(Reports reports, boolean empty) {
+                super.updateItem(reports, empty);
+                setText(empty || reports == null ? null : String.valueOf(reports.getNameSupplier()));
+            }
+        });
+
+        VBox homeReports = new VBox(returnBtnContainer, reportsTitle, reportsBtnContainer);
 
         Scene reportsScene = new Scene(homeReports, 300, 600);
         reportsScene.getStylesheets().add("gestion/resources/reports.css");
 
         return reportsScene;
     }
+
 
 
 }

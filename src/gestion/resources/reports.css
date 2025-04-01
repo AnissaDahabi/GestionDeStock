@@ -19,3 +19,19 @@
     -fx-font-weight: bold;
     -fx-padding: 40 0 0 0;
 }
+
+.generateBtn {
+    -fx-background-color: linear-gradient(#ACBEA2, #A4B997);
+    -fx-text-fill: #FFFBF4;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20px;
+    -fx-min-height: 35px;
+    -fx-min-width: 160px;
+    -fx-font-size: 15px;
+}
+
+.reportsBtnContainer {
+    -fx-padding: 70 0 0 0;
+}
+
+
