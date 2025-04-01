@@ -5,6 +5,9 @@ import gestion.dao.ProductsQuery;
 import gestion.dao.SuppliersQuery;
 import gestion.model.Products;
 import gestion.model.Sales;
+import gestion.service.SalesService;
+import gestion.model.Suppliers;
+import gestion.service.SuppliersService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -20,6 +23,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import org.controlsfx.control.spreadsheet.Grid;
 
 public class SalesUI {
@@ -230,27 +234,86 @@ public class SalesUI {
         idSalesContainer.setAlignment(Pos.CENTER);
 
 
+        Label comboLabel = new Label("ID number : ");
+        ComboBox<Sales> salesComboBox = new ComboBox<>(SalesQuery.getSalesbyId());
+        //suppliersComboBox.setPromptText("Choose sales");
+        salesComboBox.setId("salesComboBox");
+        salesComboBox.setItems(SalesQuery.getSalesbyId());
+
+        salesComboBox.setConverter(new StringConverter<Sales>() {
+            @Override
+            public String toString(Sales sales) {
+                return sales != null ? String.valueOf(sales.getIdSales()) : "";
+            }
+
+            @Override
+            public Sales fromString(String s) {
+                return null;
+            }
+        });
+        salesComboBox.setCellFactory(lv -> new ListCell<Sales>() {
+            @Override
+            protected void updateItem(Sales sales, boolean empty) {
+                super.updateItem(sales, empty);
+                setText(empty || sales == null ? null : String.valueOf(sales.getIdSales()));
+            }
+        });
+
+        HBox boxSuppliersContainer = new HBox();
+        boxSuppliersContainer.getStyleClass().add("boxSuppliersContainer");
+        boxSuppliersContainer.getChildren().add(comboLabel);
+        boxSuppliersContainer.getChildren().add(salesComboBox);
+        boxSuppliersContainer.setAlignment(Pos.CENTER);
+        boxSuppliersContainer.setSpacing(5);
+        boxSuppliersContainer.setPadding(new Insets(20, 0, 0, 0));
+
+
         //Next button:
-        Button submitDeletedSalesBtn1 = new Button("Next");
-        submitDeletedSalesBtn1.getStyleClass().add("submitDeletedSalesBtn1");
+        Button submitDeletedSalesBtn1 = new Button("Delete");
+        submitDeletedSalesBtn1.getStyleClass().add("submitDeletedSuppliersBtn1");
         HBox delSalesContainer1 = new HBox(10);
         delSalesContainer1.getChildren().add(submitDeletedSalesBtn1);
         delSalesContainer1.setAlignment(Pos.CENTER);
         delSalesContainer1.setPadding(new Insets(250, 10, 10, 10));
 
         submitDeletedSalesBtn1.setOnAction(event -> {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            gestion.dao.SalesQuery.showDelSales(idSalesInput, stage);
-            idSalesInput.clear();
+
+            Sales selectedSale = salesComboBox.getValue();
+            if (selectedSale != null) {
+                boolean deleted = SalesService.delSales(selectedSale.getIdSales());
+                if (deleted) {
+                    Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                    successAlert.setTitle("Success");
+                    successAlert.setHeaderText(null);
+                    successAlert.setContentText("Sales deleted successfully");
+                    successAlert.showAndWait();
+                    salesComboBox.setItems(SalesQuery.getSalesbyId());
+                } else {
+                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                    errorAlert.setTitle("Error");
+                    errorAlert.setHeaderText(null);
+                    errorAlert.setContentText("Shit happened");
+                    errorAlert.showAndWait();
+                }
+            } else {
+                Alert warningAlert = new Alert(Alert.AlertType.WARNING);
+                warningAlert.setTitle("Warning");
+                warningAlert.setHeaderText(null);
+                warningAlert.setContentText("Please choose a supplier");
+                warningAlert.showAndWait();
+            }
         });
 
-        VBox delSuppliers1 = new VBox(returnBtnContainer, delTitle1, delTxtContainer1, idSalesContainer, delSalesContainer1);
+        VBox delSales1 = new VBox(returnBtnContainer, delTitle1, delTxtContainer1, boxSuppliersContainer, delSalesContainer1);
 
-        Scene delSuppliersScene1 = new Scene(delSuppliers1, 300, 600);
-        delSuppliersScene1.getStylesheets().add("gestion/resources/suppliers.css");
-        return delSuppliersScene1;
+
+
+        Scene delSalesScene1 = new Scene(delSales1, 300, 600);
+        delSalesScene1.getStylesheets().add("gestion/resources/suppliers.css");
+        return delSalesScene1;
     }
 
+    /*
     public static Scene delSalesScene2(int idSalesSql, String namesuppliersSql, String nameSalesProductsSql) {
         // Return button:
         Button returnBtn = new Button("Return");
@@ -309,7 +372,7 @@ public class SalesUI {
         delSalesScene2.getStylesheets().add("gestion/resources/sales.css");
         return delSalesScene2;
     }
-
+*/
     public static Scene editSalesScene1() {
 
         // Return button:

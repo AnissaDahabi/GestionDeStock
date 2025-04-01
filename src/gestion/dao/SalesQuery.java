@@ -64,45 +64,19 @@ public class SalesQuery {
 
     }
 
-    public static void delSales() {
+    public static boolean  delSales(int idSales) {
         try {
-            // Connexion à la base de données
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
-
-            // Préparation de la requête SQL
             String query = "DELETE FROM Sales WHERE id_sales = ?";
             PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, idSales);
 
-            // Récupération de l'ID saisi par l'utilisateur
-            pstmt.setInt(1, currentSalesId);
-
-            // Exécution de la requête SQL
             int rowsAffected = pstmt.executeUpdate();
+            return rowsAffected > 0;
 
-
-            if (rowsAffected > 0) {
-                Alert alert = new Alert(AlertType.INFORMATION);
-                alert.setTitle("Success!");
-                alert.setHeaderText(null);
-                alert.setContentText("Sale deleted successfully");
-                alert.showAndWait();
-            }
-
-            // Fermeture des ressources
-            pstmt.close();
-            con.close();
         } catch (SQLException e) {
-            // Gestion des erreurs SQL
-            e.printStackTrace();
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Error encountered while deleting the sale");
-            alert.setContentText("Error: " + e.getMessage());
-            alert.showAndWait();
-
+            throw new RuntimeException("Error deleting product: " + e.getMessage());
         }
-
-
     }
 
    /* public static Scene delSales2(int idSalesSql, String nameSalesSuppliersSql, String nameSalesProductSql) {
@@ -166,52 +140,7 @@ public class SalesQuery {
     }
 */
 
-    public static void showDelSales(TextField idSalesInput, Stage stage) {
-        try {
-            // Connexion à la base de données
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
 
-            // Préparation de la requête SQL
-            String query = "SELECT id_sales, id_supplier, id_product, date_sales FROM Sales WHERE id_sales = ?";
-            PreparedStatement pstmt = con.prepareStatement(query);
-
-            // Récupération de l'ID saisi par l'utilisateur
-            int idSales = Integer.parseInt(idSalesInput.getText());
-
-            // Remplissage du paramètre de la requête SQL
-            pstmt.setInt(1, idSales);
-
-            // Exécution de la requête SQL
-            ResultSet resultSet = pstmt.executeQuery();
-
-
-            if (resultSet.next()) {
-
-                int idSalesSql = resultSet.getInt("id_sales");
-                String namesuppliersSql = resultSet.getString("name_sales_supplier");
-                String nameSalesProductSql = resultSet.getString("name_sales_product");
-                String dateSalesSql = resultSet.getString("date_sales");
-
-                currentSalesId = idSalesSql;
-
-
-                stage.setScene(SceneManager.getDelSalesScene2(idSalesSql, namesuppliersSql, nameSalesProductSql, dateSalesSql));
-
-            }
-            // Fermeture des ressources
-            resultSet.close();
-            pstmt.close();
-            con.close();
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Error encountered");
-            alert.setContentText("Error: " + ex.getMessage());
-            alert.showAndWait();
-        }
-    }
 
     public static void editSales1() {
 
@@ -369,6 +298,55 @@ public class SalesQuery {
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Database error: " + e.getMessage());
+        }
+        return salesList;
+    }
+    public static Sales getSalesbyId(int idSales) {
+        try {
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
+            String query = "Select * from Sales where id_sales = ?";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, idSales);
+
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return new Sales(
+                        rs.getInt("id_sales"),
+                        rs.getInt("id_product"),
+                        rs.getInt("id_supplier"),
+                        rs.getInt("quantity_sales"),
+                        rs.getInt("price_sales"),
+                        rs.getString("date_sales")
+                );
+            }
+            return null;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error getting sales data: " + e.getMessage());
+        }
+    }
+    public static ObservableList<Sales> getSalesbyId() {
+        ObservableList<Sales> salesList = FXCollections.observableArrayList();
+
+        String query = "Select * from Sales";
+
+        try{
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
+            PreparedStatement stmt = con.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()){
+                int idsales = rs.getInt("id_sales");
+                int idsupplier = rs.getInt("id_supplier");
+                int idproduct = rs.getInt("id_product");
+                int quantitysales = rs.getInt("quantity_sales");
+                int pricesales = rs.getInt("price_sales");
+                String datesales = rs.getString("date_sales");
+
+                Sales sales = new Sales(idsales, idsupplier, idproduct, quantitysales, pricesales, datesales);
+                salesList.add(sales);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return salesList;
     }

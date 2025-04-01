@@ -163,13 +163,6 @@ public class SceneManager {
         return delSalesScene1;
     }
 
-    public static Scene getDelSalesScene2(int idSalesSql, String nameSalesSuppliersSql, String nameSalesProductSql, String dateSalesSql) {
-        if (delSalesScene2 == null) {
-            delSalesScene2 = SalesUI.delSalesScene2(idSalesSql, nameSalesSuppliersSql, nameSalesProductSql);
-        }
-        return delSalesScene2;
-    }
-
     public static Scene getEditSalesScene1() {
         if (editSalesScene1 == null) {
             editSalesScene1 = SalesUI.editSalesScene1();
