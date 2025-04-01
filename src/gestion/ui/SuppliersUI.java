@@ -129,12 +129,30 @@ public class SuppliersUI {
 
         Label idSupplier = new Label("ID Number: ");
         TextField idSuppliersInput = new TextField();
+        idSuppliersInput.setTextFormatter(new TextFormatter<>(change -> {
+            if (change.getControlNewText().matches("\\d*")) {
+                return change;
+            }
+            return null;
+        }));
 
         Label nameSuppliers = new Label("Name: ");
         TextField nameSuppliersInput = new TextField();
+        nameSuppliersInput.setTextFormatter(new TextFormatter<>(change -> {
+            if (change.getControlNewText().matches("[a-zA-Z\\s\\-']+")) {
+                return change;
+            }
+            return null;
+        }));
 
         Label phoneSuppliers = new Label("Phone: ");
         TextField phoneSuppliersInput = new TextField();
+        phoneSuppliersInput.setTextFormatter(new TextFormatter<>(change -> {
+            if (change.getControlNewText().matches("^[0-9]*")) {
+                return change;
+            }
+            return null;
+        }));
 
         Label addressSuppliers = new Label("Address: ");
         TextField addressSuppliersInput = new TextField();
@@ -221,10 +239,7 @@ public class SuppliersUI {
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
 
-        returnBtn.setOnAction(event -> {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(SceneManager.getSuppliersHomeScene());
-        });
+
 
         HBox returnBtnContainer = new HBox(10);
         returnBtnContainer.setAlignment(Pos.TOP_RIGHT);
@@ -309,6 +324,12 @@ public class SuppliersUI {
         delSuppliersContainer1.getChildren().add(submitDeletedSuppliersBtn1);
         delSuppliersContainer1.setAlignment(Pos.CENTER);
         delSuppliersContainer1.setPadding(new Insets(250, 10, 10, 10));
+
+        returnBtn.setOnAction(event -> {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(SceneManager.getSuppliersHomeScene());
+            suppliersComboBox.setItems(SuppliersQuery.getSuppliersID());
+        });
 
         submitDeletedSuppliersBtn1.setOnAction(event -> {
 
@@ -564,11 +585,24 @@ public class SuppliersUI {
         TextField nameSuppliersInput = new TextField();
         nameSuppliersInput.setPromptText(nameSuppliersSql);
         nameSuppliersInput.setId("nameSuppliersInput");
+        nameSuppliersInput.setTextFormatter(new TextFormatter<>(change -> {
+            if (change.getControlNewText().matches("[a-zA-Z\\s\\-']+")) {
+                return change;
+            }
+            return null;
+        }));
 
         Label phoneSuppliers = new Label("Phone: ");
         TextField phoneSuppliersInput = new TextField();
         phoneSuppliersInput.setPromptText(String.valueOf(phoneSuppliersSql));
         phoneSuppliersInput.setId("phoneSuppliersInput");
+        phoneSuppliersInput.setTextFormatter(new TextFormatter<>(change -> {
+            if (change.getControlNewText().matches("^[0-9]*")) {
+                return change;
+            }
+            return null;
+        }));
+
 
         Label addressSuppliers = new Label("Address: ");
         TextField addressSuppliersInput = new TextField();

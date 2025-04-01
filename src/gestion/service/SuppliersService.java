@@ -4,7 +4,6 @@ import gestion.dao.ProductsQuery;
 import gestion.dao.SuppliersQuery;
 import gestion.model.Suppliers;
 import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
 
 public class SuppliersService {
 
@@ -20,6 +19,8 @@ public class SuppliersService {
     public static boolean addSuppliers(int idSuppliers, String name, String phone, String address, String email) {
 
         try {
+            Suppliers suppliers = new Suppliers(idSuppliers, name, phone, address, email);
+
             if(name.isEmpty() || phone.isEmpty() || address.isEmpty() || email.isEmpty()) {
                 throw new IllegalArgumentException("Please fill all the required fields");
             }
@@ -29,8 +30,16 @@ public class SuppliersService {
             if (!email.contains("@")) {
                 throw new IllegalArgumentException("Please fill a valid email address");
             }
+            if (!isValidName(suppliers.getNameSupplier())) {
+                throw new IllegalArgumentException("Name not valid");
+            }
+            if (!isValidPhone(suppliers.getPhoneSupplier())) {
+                throw new IllegalArgumentException("Phone not valid");
+            }
+            if (!isValidEmail(suppliers.getEmailSupplier())) {
+                throw new IllegalArgumentException("Email not valid");
+            }
 
-            Suppliers suppliers = new Suppliers(idSuppliers, name, phone, address, email);
 
             return SuppliersQuery.addSuppliers(suppliers);
         } catch (Exception e) {
@@ -98,6 +107,19 @@ public class SuppliersService {
         return SuppliersQuery.editSuppliers(suppliers);
     }
 */
+
+    public static boolean isValidName(String name) {
+        return name.matches("[a-zA-Z\\s\\-']+");
+    }
+
+    public static boolean isValidPhone(String phone) {
+        return phone.matches("\\d*");
+    }
+
+    public static boolean isValidEmail(String email) {
+        return email.matches("^[\\w!#$%&'*+/=?`{|}~^.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$");
+    }
+
 
 }
 
