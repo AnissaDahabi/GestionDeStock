@@ -5,6 +5,7 @@ import gestion.dao.ProductsQuery;
 import gestion.dao.SuppliersQuery;
 import gestion.model.Products;
 import gestion.model.Sales;
+import gestion.service.ProductsService;
 import gestion.service.SalesService;
 import gestion.model.Suppliers;
 import gestion.service.SuppliersService;
@@ -136,11 +137,6 @@ public class SalesUI {
         Label idSales = new Label("ID Number: ");
         TextField idSalesInput = new TextField();
 
-        Label idsupplier = new Label("Supplier ID: ");
-        TextField idsupplierInput = new TextField();
-
-        Label idproduct = new Label("Product ID: ");
-        TextField idproductInput = new TextField();
 
         Label quantitysales = new Label("Quantity: ");
         TextField quantitysalesInput = new TextField();
@@ -151,12 +147,61 @@ public class SalesUI {
         Label DateSales = new Label("Date: ");
         TextField DatesSalesInput = new TextField();
 
+        Label comboLabel1 = new Label("Supplier ID: ");
+        ComboBox<Suppliers> suppliersComboBox = new ComboBox<>(SuppliersQuery.getSuppliersID());
+        suppliersComboBox.setId("suppliersComboBox");
+        suppliersComboBox.setItems(SuppliersQuery.getSuppliersID());
+
+        suppliersComboBox.setConverter(new StringConverter<Suppliers>() {
+            @Override
+            public String toString(Suppliers suppliers) {
+                return suppliers != null ? String.valueOf(suppliers.getIdSupplier()) : "";
+            }
+
+            @Override
+            public Suppliers fromString(String s) {
+                return null;
+            }
+        });
+        suppliersComboBox.setCellFactory(lv -> new ListCell<Suppliers>() {
+            @Override
+            protected void updateItem(Suppliers supplier, boolean empty) {
+                super.updateItem(supplier, empty);
+                setText(empty || supplier == null ? null : String.valueOf(supplier.getIdSupplier()));
+            }
+        });
+
+        Label comboLabel2 = new Label("Product ID: ");
+        ComboBox<Products> productsComboBox = new ComboBox<>(ProductsQuery.getProductsID());
+        productsComboBox.setId("productsComboBox");
+        productsComboBox.setItems(ProductsQuery.getProductsID());
+
+        productsComboBox.setConverter(new StringConverter<Products>() {
+            @Override
+            public String toString(Products products) {
+                return products != null ? String.valueOf(products.getIdProduct()) : "";
+            }
+
+            @Override
+            public Products fromString(String s) {
+                return null;
+            }
+        });
+        productsComboBox.setCellFactory(lv -> new ListCell<Products>() {
+            @Override
+            protected void updateItem(Products product, boolean empty) {
+                super.updateItem(product, empty);
+                setText(empty || product == null ? null : String.valueOf(product.getIdProduct()));
+            }
+        });
+
+
         addSalesGrid.add(idSales, 0, 0);
         addSalesGrid.add(idSalesInput, 1, 0);
-        addSalesGrid.add(idsupplier, 0, 1);
-        addSalesGrid.add(idsupplierInput, 1, 1);
-        addSalesGrid.add(idproduct, 0, 2);
-        addSalesGrid.add(idproductInput, 1, 2);
+        addSalesGrid.add(comboLabel1, 0, 1);
+        addSalesGrid.add(suppliersComboBox, 1, 1);
+        addSalesGrid.add(comboLabel2, 0, 2);
+        addSalesGrid.add(productsComboBox, 1, 2);
         addSalesGrid.add(quantitysales, 0, 3);
         addSalesGrid.add(quantitysalesInput, 1, 3);
         addSalesGrid.add(priceSales, 0, 4);
@@ -176,15 +221,44 @@ public class SalesUI {
         addSalesContainer.setPadding(new Insets(100, 10, 10, 10));
 
         submitAddedSalesBtn.setOnAction(event -> {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            gestion.dao.SalesQuery.addSales(idSalesInput, idsupplierInput, idproductInput, quantitysalesInput, priceSalesInput, DatesSalesInput);
-            idSalesInput.clear();
-            idsupplierInput.clear();
-            idproductInput.clear();
-            quantitysalesInput.clear();
-            priceSalesInput.clear();
-            DatesSalesInput.clear();
-            stage.setScene(SceneManager.getSalesHomeScene());
+                try {
+                    int idsales = Integer.parseInt(idSalesInput.getText());
+                    Suppliers selectedSupplier = suppliersComboBox.getValue();
+                    Products selectedProduct = productsComboBox.getValue();
+                    int quantity = Integer.parseInt(quantitysalesInput.getText());
+                    int price = Integer.parseInt(priceSalesInput.getText());
+                    String date = DatesSalesInput.getText();
+
+                    boolean success = SalesService.addSales(idsales, selectedSupplier.getIdSupplier(), selectedProduct.getIdProduct(), quantity,price, date);
+
+                    if(success) {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle(null);
+                        alert.setHeaderText(null);
+                        alert.setContentText("Sale added successfully");
+
+                        DialogPane dialogPane = alert.getDialogPane();
+                        dialogPane.setGraphic(null);
+
+                        alert.getDialogPane().getStylesheets().add("gestion/resouces/sales.css");
+
+                        alert.showAndWait();
+
+                        idSalesInput.clear();
+                        suppliersComboBox.valueProperty().set(null);
+                        productsComboBox.valueProperty().set(null);
+                        quantitysalesInput.clear();
+                        priceSalesInput.clear();
+                        DatesSalesInput.clear();
+
+                        Stage stage = (Stage)  ((Node) event.getSource()).getScene().getWindow();
+                        stage.setScene(SceneManager.getSalesHomeScene());
+                    }else {
+                        AlertsProducts.showErrorAddProduct("Something went wrong");
+                    }
+                }catch (Exception e){
+                    AlertsProducts.showErrorAddProduct("Something went wrong");
+                }
         });
 
         VBox addSales = new VBox(returnBtnContainer, addTitle, addTxtContainer, addSalesGrid, addSalesContainer);

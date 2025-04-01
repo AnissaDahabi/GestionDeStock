@@ -4,6 +4,8 @@ import gestion.model.Sales;
 import gestion.ui.SceneManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
@@ -14,7 +16,7 @@ public class SalesQuery {
 
     private static int currentSalesId;
 
-    public static void addSales(TextField idSalesInput, TextField idsupplierInput, TextField idproductInput, TextField quantitysalesInput, TextField priceSalesInput, TextField datesSalesInput) {
+    public static boolean addSales(Sales sales) {
         try {
             Connection con =
                     DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
@@ -22,43 +24,19 @@ public class SalesQuery {
             String query = "INSERT INTO Sales (id_sales, id_supplier, id_product, quantity_sales, price_sales, date_sales ) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement pstmt = con.prepareStatement(query);
 
-            //Récupération des données saisies par l'utilisateur
-            int idsales = Integer.parseInt(idSalesInput.getText());
-            int idsupplier = Integer.parseInt(idsupplierInput.getText());
-            int idproduct = Integer.parseInt(idproductInput.getText());
-            int quantitySalesProduct = Integer.parseInt(quantitysalesInput.getText());
-            int priceSales = Integer.parseInt(priceSalesInput.getText());
-            String dateSales = datesSalesInput.getText();
-
             //Remplissage des paramètres de la requête SQL
-            pstmt.setInt(1, idsales);
-            pstmt.setInt(2, idsupplier);
-            pstmt.setInt(3, idproduct);
-            pstmt.setInt(4, quantitySalesProduct);
-            pstmt.setInt(5, priceSales);
-            pstmt.setString(6, dateSales);
+            pstmt.setInt(1, sales.getIdSales());
+            pstmt.setInt(2, sales.getIdSuppliers());
+            pstmt.setInt(3, sales.getIdProduct());
+            pstmt.setInt(4, sales.getQuantitySales());
+            pstmt.setInt(5, sales.getPriceSales());
+            pstmt.setString(6, sales.getDateSales());
 
-            //Exécution de la requête SQL
-            int rowsAffected = pstmt.executeUpdate();
+            return pstmt.executeUpdate() > 0;
 
-            //Fermeture de la connexion et du PreparedStatement
-            pstmt.close();
-            con.close();
-
-            //Message de succès
-            Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("Success !");
-            alert.setHeaderText(null);
-            alert.setContentText("Sale added successfully");
-            alert.showAndWait();
         } catch (SQLException e) {
             e.printStackTrace();
-
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Error" + e.getMessage());
-            alert.showAndWait();
+            return false;
         }
 
 

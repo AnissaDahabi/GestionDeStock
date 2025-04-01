@@ -19,8 +19,8 @@ public class Sales {
     }
 
 
-    public Sales(int sales ,int idSuppliers, int idProduct,  int priceSales,int quantitySales, String dateSales) {
-        this.idSales=sales;
+    public Sales(int idsales ,int idSuppliers, int idProduct,  int priceSales,int quantitySales, String dateSales) {
+        this.idSales=idsales;
         this.idSuppliers=idSuppliers;
         this.idProduct=idProduct;
         this.priceSales=priceSales;
