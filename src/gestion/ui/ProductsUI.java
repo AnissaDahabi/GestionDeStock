@@ -14,8 +14,10 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.text.Text;
 import javafx.stage.StageStyle;
@@ -129,15 +131,41 @@ public class ProductsUI {
 
         Label idProductsLabel = new Label("ID Number: ");
         TextField idProductsInput = new TextField();
+        idProductsInput.setTextFormatter(new TextFormatter<>(change -> {
+            if (change.getControlNewText().matches("\\d{0,4}")) {
+                return change;
+            }
+            return null;
+        }));
 
         Label nameProducts = new Label("Name: ");
         TextField nameProductsInput = new TextField();
+        nameProductsInput.setTextFormatter(new TextFormatter<>(change -> {
+            String input = change.getControlNewText();
+            if (input.isEmpty() || input.matches("[a-zA-Z0-9\\s\\-']+")) {
+                return change;
+            }
+            return null;
+        }));
 
         Label priceProducts = new Label("Price: ");
         TextField priceProductsInput = new TextField();
+        priceProductsInput.setTextFormatter(new TextFormatter<>(change -> {
+            String input = change.getControlNewText();
+            if (input.isEmpty() || input.matches("\\d+(\\.\\d{0,2})?")) {
+                return change;
+            }
+            return null;
+        }));
 
         Label quantityProducts = new Label("Quantity: ");
         TextField quantityProductsInput = new TextField();
+        quantityProductsInput.setTextFormatter(new TextFormatter<>(change -> {
+            if (change.getControlNewText().matches("\\d*")) {
+                return change;
+            }
+            return null;
+        }));
 
         Label comboLabel = new Label("Supplier ID: ");
         ComboBox<Suppliers> suppliersComboBox = new ComboBox<>(SuppliersQuery.getSuppliersID());
@@ -193,21 +221,19 @@ public class ProductsUI {
                 int quantity = Integer.parseInt(quantityProductsInput.getText());
                 Suppliers selectedSupplier = suppliersComboBox.getValue();
 
-
                 boolean success = ProductsService.addProducts(idProducts, name, price, quantity, selectedSupplier.getIdSupplier());
 
                 if (success) {
-
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle(null);
                     alert.setHeaderText(null);
                     alert.setContentText("Product added successfully!");
 
+                    //Alert's design
                     DialogPane dialogPane = alert.getDialogPane();
                     dialogPane.setGraphic(null);
-
+                    alert.initStyle(StageStyle.UTILITY);
                     alert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
-
                     alert.showAndWait();
 
                     idProductsInput.clear();
@@ -216,13 +242,33 @@ public class ProductsUI {
                     quantityProductsInput.clear();
                     suppliersComboBox.valueProperty().set(null);
 
-                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    stage.setScene(SceneManager.getProductsHomeScene());
+                    Stage addProductsScene = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    addProductsScene.setScene(SceneManager.getProductsHomeScene());
                 } else {
-                    AlertsProducts.showErrorAddProduct("Something went wrong");
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle(null);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Something went wrong");
+                    alert.showAndWait();
+                    //Alert's design
+                    DialogPane dialogPane = alert.getDialogPane();
+                    dialogPane.setGraphic(null);
+                    alert.initStyle(StageStyle.UTILITY);
+                    alert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
+                    alert.showAndWait();
                 }
             } catch (Exception e) {
-                AlertsProducts.showErrorAddProduct("Something went wrong");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle(null);
+                alert.setHeaderText(null);
+                alert.setContentText("Something went wrong");
+                alert.showAndWait();
+                //Alert's design
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.setGraphic(null);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
+                alert.showAndWait();
             }
         });
 
@@ -321,23 +367,37 @@ public class ProductsUI {
                 boolean deleted = ProductsService.delProducts(selectedProduct.getIdProduct());
                 if (deleted) {
                     Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-                    successAlert.setTitle("Success");
+                    successAlert.setTitle(null);
                     successAlert.setHeaderText(null);
                     successAlert.setContentText("Product deleted successfully");
-                    successAlert.showAndWait();
                     productsComboBox.setItems(ProductsQuery.getProductsID());
+                    //Alert's design
+                    DialogPane dialogPane = successAlert.getDialogPane();
+                    dialogPane.setGraphic(null);
+                    successAlert.initStyle(StageStyle.UTILITY);
+                    successAlert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
+                    successAlert.showAndWait();
                 } else {
                     Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                    errorAlert.setTitle("Error");
+                    errorAlert.setTitle(null);
                     errorAlert.setHeaderText(null);
                     errorAlert.setContentText(" :( ");
-                    errorAlert.showAndWait();
-                }
+                    //Alert's design
+                    DialogPane dialogPane = errorAlert.getDialogPane();
+                    dialogPane.setGraphic(null);
+                    errorAlert.initStyle(StageStyle.UTILITY);
+                    errorAlert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
+                    errorAlert.showAndWait();                }
             } else {
                 Alert warningAlert = new Alert(Alert.AlertType.WARNING);
-                warningAlert.setTitle("Warning");
+                warningAlert.setTitle(null);
                 warningAlert.setHeaderText(null);
                 warningAlert.setContentText("Please select a product");
+                //Alert's design
+                DialogPane dialogPane = warningAlert.getDialogPane();
+                dialogPane.setGraphic(null);
+                warningAlert.initStyle(StageStyle.UTILITY);
+                warningAlert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
                 warningAlert.showAndWait();
             }
         });
@@ -383,12 +443,6 @@ public class ProductsUI {
 
         //User input
         Label comboLabel = new Label("ID Number: ");
-//        TextField idProductsInput = new TextField();
-//        HBox idProductsContainer = new HBox();
-//        idProductsContainer.getChildren().add(idProducts);
-//        idProductsContainer.getChildren().add(idProductsInput);
-//        idProductsContainer.setId("idProductsContainer");
-//        idProductsContainer.setAlignment(Pos.CENTER);
 
         ComboBox<Products> productsComboBox = new ComboBox<>(ProductsQuery.getProductsID());
         productsComboBox.setId("productsComboBox");
@@ -421,8 +475,6 @@ public class ProductsUI {
         boxProductsContainer.setSpacing(5);
         boxProductsContainer.setPadding(new Insets(20, 0, 0, 0));
 
-
-
         //Next button:
         Button submitEditedProductsBtn1 = new Button("Next");
         submitEditedProductsBtn1.getStyleClass().add("submitEditedProductsBtn1");
@@ -446,11 +498,15 @@ public class ProductsUI {
 
             } else {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning");
+                alert.setTitle(null);
                 alert.setHeaderText(null);
                 alert.setContentText("Please choose a product to edit.");
-                alert.showAndWait();
-            }
+                //Alert's design
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.setGraphic(null);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
+                alert.showAndWait();            }
         });
 
 
@@ -506,16 +562,36 @@ public class ProductsUI {
         TextField nameProductsInput = new TextField();
         nameProductsInput.setText(nameProductsSql);
         nameProductsInput.setId("nameProductsInput");
+        nameProductsInput.setTextFormatter(new TextFormatter<>(change -> {
+            String input = change.getControlNewText();
+            if (input.isEmpty() || input.matches("[a-zA-Z0-9\\s\\-']+")) {
+                return change;
+            }
+            return null;
+        }));
 
         Label priceProducts = new Label("Price: ");
         TextField priceProductsInput = new TextField();
         priceProductsInput.setText(String.valueOf(priceProductsSql));
         priceProductsInput.setId("priceProductsInput");
+        priceProductsInput.setTextFormatter(new TextFormatter<>(change -> {
+            String input = change.getControlNewText();
+            if (input.isEmpty() || input.matches("\\d+(\\.\\d{0,2})?")) {
+                return change;
+            }
+            return null;
+        }));
 
         Label quantityProducts = new Label("Quantity: ");
         TextField quantityProductsInput = new TextField();
         quantityProductsInput.setText(String.valueOf(quantityProductsSql));
         quantityProductsInput.setId("quantityProductsInput");
+        quantityProductsInput.setTextFormatter(new TextFormatter<>(change -> {
+            if (change.getControlNewText().matches("\\d*")) {
+                return change;
+            }
+            return null;
+        }));
 
         Label supplierId = new Label("Supplier: ");
         TextField supplierIdInput = new TextField();

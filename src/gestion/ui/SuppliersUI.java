@@ -211,14 +211,14 @@ public class SuppliersUI {
                     stage.setScene(SceneManager.getSuppliersHomeScene());
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
+                    alert.setTitle(null);
                     alert.setHeaderText(null);
                     alert.setContentText("Something went wrong");
                     alert.showAndWait();
                 }
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
+                alert.setTitle(null);
                 alert.setHeaderText(null);
                 alert.setContentText("Something went wrong");
                 alert.showAndWait();
