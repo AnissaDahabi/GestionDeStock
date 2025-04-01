@@ -1,6 +1,9 @@
 package gestion.dao;
 
+import gestion.model.Sales;
 import gestion.ui.SceneManager;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
@@ -334,6 +337,40 @@ public class SalesQuery {
             alert.setContentText("Error: " + ex.getMessage());
             alert.showAndWait();
         }
+    }
+    public static ObservableList<Sales> showSales(TableView<Sales> salesTable) {
+        ObservableList<Sales> salesList = FXCollections.observableArrayList();
+
+        try {
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
+
+            String query = "Select id_sales, id_product, id_supplier, quantity_sales, price_sales, date_sales from Sales";
+            PreparedStatement pstmt = con.prepareStatement(query);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()){
+                Sales sales = new Sales(
+                        rs.getInt("id_sales"),
+                        rs.getInt("id_product"),
+                        rs.getInt("id_supplier"),
+                        rs.getInt("quantity_sales"),
+                        rs.getInt("price_sales"),
+                        rs.getString("date_sales")
+                );
+                salesList.add(sales);
+            }
+            if (salesTable != null) {
+                salesTable.setItems(salesList);
+            }
+            rs.close();
+            pstmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Database error: " + e.getMessage());
+        }
+        return salesList;
     }
 
 }

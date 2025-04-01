@@ -1,15 +1,20 @@
 package gestion.ui;
 
+import gestion.dao.SalesQuery;
+import gestion.dao.ProductsQuery;
+import gestion.dao.SuppliersQuery;
+import gestion.model.Products;
+import gestion.model.Sales;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -18,7 +23,6 @@ import javafx.stage.Stage;
 import org.controlsfx.control.spreadsheet.Grid;
 
 public class SalesUI {
-
 
     public static Scene createContent() {
 
@@ -89,7 +93,7 @@ public class SalesUI {
         return salesScene;
     }
 
-    public static Scene addSalesScene(){
+    public static Scene addSalesScene() {
         // Return button:
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
@@ -179,7 +183,7 @@ public class SalesUI {
             stage.setScene(SceneManager.getSalesHomeScene());
         });
 
-        VBox addSales = new VBox(returnBtnContainer, addTitle, addTxtContainer, addSalesGrid,addSalesContainer);
+        VBox addSales = new VBox(returnBtnContainer, addTitle, addTxtContainer, addSalesGrid, addSalesContainer);
 
         Scene addSalesScene = new Scene(addSales, 300, 600);
         addSalesScene.getStylesheets().add("gestion/resources/sales.css");
@@ -299,7 +303,7 @@ public class SalesUI {
             stage.setScene(SceneManager.getSalesHomeScene());
         });
 
-        VBox delSales2 = new VBox(returnBtnContainer, delTitle2, delTxtContainer2, inputResult,delSalesContainer2);
+        VBox delSales2 = new VBox(returnBtnContainer, delTitle2, delTxtContainer2, inputResult, delSalesContainer2);
 
         Scene delSalesScene2 = new Scene(delSales2, 300, 600);
         delSalesScene2.getStylesheets().add("gestion/resources/sales.css");
@@ -308,35 +312,35 @@ public class SalesUI {
 
     public static Scene editSalesScene1() {
 
-            // Return button:
-            Button returnBtn = new Button("Return");
-            returnBtn.getStyleClass().add("returnBtn");
+        // Return button:
+        Button returnBtn = new Button("Return");
+        returnBtn.getStyleClass().add("returnBtn");
 
-            returnBtn.setOnAction(event -> {
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                stage.setScene(SceneManager.getSalesHomeScene());
-            });
+        returnBtn.setOnAction(event -> {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(SceneManager.getSalesHomeScene());
+        });
 
-            HBox returnBtnContainer = new HBox(10);
-            returnBtnContainer.setAlignment(Pos.TOP_RIGHT);
-            returnBtnContainer.setPadding(new Insets(10, 10, 10, 10));
-            returnBtnContainer.getChildren().add(returnBtn);
+        HBox returnBtnContainer = new HBox(10);
+        returnBtnContainer.setAlignment(Pos.TOP_RIGHT);
+        returnBtnContainer.setPadding(new Insets(10, 10, 10, 10));
+        returnBtnContainer.getChildren().add(returnBtn);
 
-            // Title and txt:
-            VBox editTitle1 = new VBox(new Label("Edit sales"));
-            editTitle1.setAlignment(Pos.CENTER);
-            editTitle1.getStyleClass().add("editTitle1");
+        // Title and txt:
+        VBox editTitle1 = new VBox(new Label("Edit sales"));
+        editTitle1.setAlignment(Pos.CENTER);
+        editTitle1.getStyleClass().add("editTitle1");
 
-            Text editTxt1 = new Text();
-            editTxt1.setText("Please enter the ID number of the sale you want to edit");
-            editTxt1.setId("editTxt1");
-            editTxt1.setWrappingWidth(280);
-            HBox editTxtContainer1 = new HBox();
-            editTxtContainer1.getChildren().add(editTxt1);
-            editTxtContainer1.setId("delTxtContainer1");
-            editTxtContainer1.setAlignment(Pos.CENTER);
+        Text editTxt1 = new Text();
+        editTxt1.setText("Please enter the ID number of the sale you want to edit");
+        editTxt1.setId("editTxt1");
+        editTxt1.setWrappingWidth(280);
+        HBox editTxtContainer1 = new HBox();
+        editTxtContainer1.getChildren().add(editTxt1);
+        editTxtContainer1.setId("delTxtContainer1");
+        editTxtContainer1.setAlignment(Pos.CENTER);
 
-            //User input
+        //User input
           /*  Label idSales = new Label("ID Number: ");
             TextField idSalesInput = new TextField();
             TextField idSalesSuppliersInput = new TextField();
@@ -350,58 +354,57 @@ public class SalesUI {
             idSalesContainer.setAlignment(Pos.CENTER);
 */
 
-            //User input
+        //User input
 
-            GridPane editSalesGrid = new GridPane();
-            editSalesGrid.getStyleClass().add("editSalesGrid");
+        GridPane editSalesGrid = new GridPane();
+        editSalesGrid.getStyleClass().add("editSalesGrid");
 
-            editSalesGrid.setVgap(10);
-            editSalesGrid.setHgap(10);
+        editSalesGrid.setVgap(10);
+        editSalesGrid.setHgap(10);
 
-            Label idSales = new Label("ID Number: ");
-            TextField idSalesInput = new TextField();
+        Label idSales = new Label("ID Number: ");
+        TextField idSalesInput = new TextField();
 
-            Label idsuppliers = new Label("ID Supplier: ");
-            TextField idsuppliersInput = new TextField();
+        Label idsuppliers = new Label("ID Supplier: ");
+        TextField idsuppliersInput = new TextField();
 
-            Label idProducts = new Label("Id products: ");
-            TextField idProductsInput = new TextField();
+        Label idProducts = new Label("Id products: ");
+        TextField idProductsInput = new TextField();
 
-            editSalesGrid.add(idSales, 0, 0);
-            editSalesGrid.add(idSalesInput, 1, 0);
-            editSalesGrid.add(idsuppliers, 0, 1);
-            editSalesGrid.add(idsuppliersInput, 1, 1);
-            editSalesGrid.add(idProducts, 0, 2);
-            editSalesGrid.add(idProductsInput, 1, 2);
+        editSalesGrid.add(idSales, 0, 0);
+        editSalesGrid.add(idSalesInput, 1, 0);
+        editSalesGrid.add(idsuppliers, 0, 1);
+        editSalesGrid.add(idsuppliersInput, 1, 1);
+        editSalesGrid.add(idProducts, 0, 2);
+        editSalesGrid.add(idProductsInput, 1, 2);
 
-            editSalesGrid.setAlignment(Pos.CENTER);
+        editSalesGrid.setAlignment(Pos.CENTER);
 
-            editSalesGrid.setPadding(new Insets(40,0,0,0));
+        editSalesGrid.setPadding(new Insets(40, 0, 0, 0));
 
 
+        //Next button:
+        Button submitEditedSalesBtn1 = new Button("Next");
+        submitEditedSalesBtn1.getStyleClass().add("submitEditedSalesBtn1");
+        HBox editSalesContainer1 = new HBox(10);
+        editSalesContainer1.getChildren().add(submitEditedSalesBtn1);
+        editSalesContainer1.setAlignment(Pos.CENTER);
+        editSalesContainer1.setPadding(new Insets(270, 10, 10, 10));
 
-            //Next button:
-            Button submitEditedSalesBtn1 = new Button("Next");
-            submitEditedSalesBtn1.getStyleClass().add("submitEditedSalesBtn1");
-            HBox editSalesContainer1 = new HBox(10);
-            editSalesContainer1.getChildren().add(submitEditedSalesBtn1);
-            editSalesContainer1.setAlignment(Pos.CENTER);
-            editSalesContainer1.setPadding(new Insets(270, 10, 10, 10));
+        submitEditedSalesBtn1.setOnAction(event -> {
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            gestion.dao.SalesQuery.showEditedSales(idSalesInput, stage);
+            idSalesInput.clear();
+        });
 
-            submitEditedSalesBtn1.setOnAction(event -> {
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                gestion.dao.SalesQuery.showEditedSales(idSalesInput, stage);
-                idSalesInput.clear();
-            });
+        VBox editSales1 = new VBox(returnBtnContainer, editTitle1, editTxtContainer1, editSalesGrid, editSalesContainer1);
 
-            VBox editSales1 = new VBox(returnBtnContainer, editTitle1, editTxtContainer1, editSalesGrid, editSalesContainer1);
-
-            Scene editSalesScene1 = new Scene(editSales1, 300, 600);
-            editSalesScene1.getStylesheets().add("gestion/resources/sales.css");
-            return editSalesScene1;
+        Scene editSalesScene1 = new Scene(editSales1, 300, 600);
+        editSalesScene1.getStylesheets().add("gestion/resources/sales.css");
+        return editSalesScene1;
     }
 
-    public static Scene editSalesScene2(int idSalesSql, int  idsuppliersSql, int idProductSql, int quantitySalesSql, int priceSalesSql, String dateSalesSql) {
+    public static Scene editSalesScene2(int idSalesSql, int idsuppliersSql, int idProductSql, int quantitySalesSql, int priceSalesSql, String dateSalesSql) {
 // Return button:
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
@@ -437,7 +440,7 @@ public class SalesUI {
         editSalesGrid.setVgap(10);
         editSalesGrid.setHgap(10);
 
-        Label idSales = new Label("ID Number: " + idSalesSql );
+        Label idSales = new Label("ID Number: " + idSalesSql);
         idSales.setId("idSalesLabel");
 
         Label idsuppliers = new Label("Supplier id: ");
@@ -489,18 +492,18 @@ public class SalesUI {
 
         submitEditedSalesBtn2.setOnAction(event -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            gestion.dao.SalesQuery.editSales(idSalesSql,idsuppliersInput, idProductInput, quantitySalesInput, priceSalesInput, dateSalesInput);
+            gestion.dao.SalesQuery.editSales(idSalesSql, idsuppliersInput, idProductInput, quantitySalesInput, priceSalesInput, dateSalesInput);
             stage.setScene(SceneManager.getSalesHomeScene());
         });
 
-        VBox editSales2 = new VBox(returnBtnContainer, editTitle2, editTxtContainer2, editSalesGrid,editSalesContainer2);
+        VBox editSales2 = new VBox(returnBtnContainer, editTitle2, editTxtContainer2, editSalesGrid, editSalesContainer2);
 
         Scene editSalesScene2 = new Scene(editSales2, 300, 600);
         editSalesScene2.getStylesheets().add("gestion/resources/sales.css");
         return editSalesScene2;
     }
 
-    public static Scene showSalesScene1() {
+    public static Scene showSalesScene() {
         // Return button:
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
@@ -520,30 +523,111 @@ public class SalesUI {
         showTitle.setAlignment(Pos.CENTER);
         showTitle.getStyleClass().add("showTitle");
 
-        Label sortSales = new Label("Sort Sales: ");
-        sortSales.getStyleClass().add("sortSales");
+        Label searchSales = new Label("Search by ID: ");
+        searchSales.getStyleClass().add("searSales");
+        TextField searchSalesInput = new TextField();
+        searchSalesInput.setPromptText("searchSalesInput...");
+        searchSalesInput.getStyleClass().add("searchSalesInput");
 
-        ObservableList<String> sortOptions =
-                FXCollections.observableArrayList(
-                        "alphabetical order",
-                        "ascending order",
-                        "descending order"
-                );
-        final ComboBox sortFilter = new ComboBox(sortOptions);
-        sortFilter.setId("sortFilter");
-
-        HBox sortFilterContainer = new HBox();
-        sortFilterContainer.getChildren().add(sortSales);
-        sortFilterContainer.getChildren().add(sortFilter);
-        sortFilterContainer.getStyleClass().add("sortFilterContainer");
+        HBox searchSalesContainer = new HBox();
+        searchSalesContainer.getChildren().add(searchSales);
+        searchSalesContainer.getChildren().add(searchSalesInput);
+        searchSalesContainer.getStyleClass().add("searchSalesContainer");
+        searchSalesContainer.setSpacing(10);
 
 
-        VBox showSales = new VBox(returnBtnContainer, showTitle, sortFilterContainer);
+        TableView salesTable = new TableView<Sales>();
+        salesTable.setEditable(false);
+        salesTable.setId("salesTable");
 
-        Scene showSalesScene = new Scene(showSales, 300, 600);
-        showSales.getStylesheets().add("gestion/resources/sales.css");
-        return showSalesScene;
+        javafx.scene.control.TableColumn<Sales, Integer> idSaleColumn = new javafx.scene.control.TableColumn<>("idsale");
+        idSaleColumn.setCellValueFactory(new PropertyValueFactory<>("idSales"));
+        idSaleColumn.setResizable(false);
+        idSaleColumn.setReorderable(false);
+
+        javafx.scene.control.TableColumn<Sales, Integer> idProductColumn = new javafx.scene.control.TableColumn<>("idProduct");
+        idProductColumn.setCellValueFactory(new PropertyValueFactory<>("idProduct"));
+        idProductColumn.setResizable(false);
+        idProductColumn.setReorderable(false);
+
+        javafx.scene.control.TableColumn<Sales, Integer> idSupplierColumn = new javafx.scene.control.TableColumn<>("idSupplier");
+        idSupplierColumn.setCellValueFactory(new PropertyValueFactory<>("idSuppliers"));
+        idSupplierColumn.setResizable(false);
+        idSupplierColumn.setReorderable(false);
+
+        javafx.scene.control.TableColumn<Sales, Integer> quantitySaleColumn = new javafx.scene.control.TableColumn<>("quantitySale");
+        quantitySaleColumn.setCellValueFactory(new PropertyValueFactory<>("quantitySales"));
+        quantitySaleColumn.setResizable(false);
+        quantitySaleColumn.setReorderable(false);
+
+        javafx.scene.control.TableColumn<Sales, Integer> priceSaleColumn = new TableColumn<>("pricesale");
+        priceSaleColumn.setCellValueFactory(new PropertyValueFactory<>("priceSales"));
+        priceSaleColumn.setResizable(false);
+        priceSaleColumn.setReorderable(false);
+
+        javafx.scene.control.TableColumn<Sales, String> dateSaleColumn = new javafx.scene.control.TableColumn<>("Datesale");
+        dateSaleColumn.setCellValueFactory(new PropertyValueFactory<>("dateSales"));
+        dateSaleColumn.setResizable(false);
+        dateSaleColumn.setReorderable(false);
+
+        idSaleColumn.setPrefWidth(42);
+        idProductColumn.setPrefWidth(42);
+        idSupplierColumn.setPrefWidth(42);
+        quantitySaleColumn.setPrefWidth(42);
+        priceSaleColumn.setPrefWidth(42);
+        dateSaleColumn.setPrefWidth(85);
+
+        salesTable.getColumns().addAll(idSaleColumn, idProductColumn, idSupplierColumn, quantitySaleColumn, priceSaleColumn, dateSaleColumn);
+
+        VBox salesTableContainer = new VBox();
+        salesTableContainer.setPadding(new Insets(20, 10, 10, 10));
+        salesTableContainer.getChildren().add(salesTable);
+
+        //Search filter:
+        ObservableList<Sales> data = SalesQuery.showSales(salesTable);
+
+        FilteredList<Sales> filteredData = new FilteredList<>(data, s -> true);
+
+        searchSalesInput.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(sale -> {
+
+                if (newValue == null || newValue.isEmpty()) {
+                    return true; //si le textfield est vide, afficher ts les produits
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (String.valueOf(sale.getIdSales()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (String.valueOf(sale.getPriceSales()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (String.valueOf(sale.getIdSuppliers()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (String.valueOf(sale.getIdProduct()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (String.valueOf(sale.getDateSales()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (String.valueOf(sale.getQuantitySales()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                }
+                    return false; //pas de math avec la recherche
+                });
+            });
+
+            SortedList<Sales> sortedData = new SortedList<>(filteredData);
+
+            sortedData.comparatorProperty().bind(salesTable.comparatorProperty());
+            salesTable.setItems(sortedData);
+
+            VBox showProducts = new VBox(returnBtnContainer, showTitle, searchSalesContainer, salesTableContainer);
+
+            Scene showProductsScene = new Scene(showProducts, 300, 600);
+            showProductsScene.getStylesheets().add("gestion/resources/products.css");
+            return showProductsScene;
+
+        }
+
+
+
     }
 
 
-}

@@ -186,7 +186,7 @@ public class SceneManager {
 
     public static Scene getShowSalesScene1() {
         if (showSalesScene1 == null) {
-            showSalesScene1 = SalesUI.showSalesScene1();
+            showSalesScene1 = SalesUI.showSalesScene();
         }
         return showSalesScene1;
     }
