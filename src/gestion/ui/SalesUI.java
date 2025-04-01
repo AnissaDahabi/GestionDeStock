@@ -24,6 +24,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.StringConverter;
 import org.controlsfx.control.spreadsheet.Grid;
 
@@ -254,11 +255,30 @@ public class SalesUI {
                         Stage stage = (Stage)  ((Node) event.getSource()).getScene().getWindow();
                         stage.setScene(SceneManager.getSalesHomeScene());
                     }else {
-                        AlertsProducts.showErrorAddProduct("Something went wrong");
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle(null);
+                        alert.setHeaderText(null);
+                        alert.setContentText("Something went wrong");
+                        alert.showAndWait();
+                        //Alert's design
+                        DialogPane dialogPane = alert.getDialogPane();
+                        dialogPane.setGraphic(null);
+                        alert.initStyle(StageStyle.UTILITY);
+                        alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
+                        alert.showAndWait();
                     }
                 }catch (Exception e){
-                    AlertsProducts.showErrorAddProduct("Something went wrong");
-                }
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle(null);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Something went wrong");
+                    alert.showAndWait();
+                    //Alert's design
+                    DialogPane dialogPane = alert.getDialogPane();
+                    dialogPane.setGraphic(null);
+                    alert.initStyle(StageStyle.UTILITY);
+                    alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
+                    alert.showAndWait();                }
         });
 
         VBox addSales = new VBox(returnBtnContainer, addTitle, addTxtContainer, addSalesGrid, addSalesContainer);
