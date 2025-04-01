@@ -54,24 +54,6 @@ public class ReportsUI {
         reportsComboBox.getStyleClass().add("reportsComboBox");
         reportsComboBox.setItems(FXCollections.observableArrayList(ReportsQuery.getReports()));
 
-        reportsComboBox.setConverter(new StringConverter<Reports>() {
-            @Override
-            public String toString(Reports reports) {
-                return reports != null ? String.valueOf(reports.getNameSupplier()) : "";
-            }
-
-            @Override
-            public Reports fromString(String s) {
-                return null;
-            }
-        });
-        reportsComboBox.setCellFactory(lv -> new ListCell<Reports>() {
-            @Override
-            protected void updateItem(Reports reports, boolean empty) {
-                super.updateItem(reports, empty);
-                setText(empty || reports == null ? null : String.valueOf(reports.getNameSupplier()));
-            }
-        });
 
         VBox homeReports = new VBox(returnBtnContainer, reportsTitle, reportsBtnContainer);
 

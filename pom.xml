@@ -13,6 +13,13 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 <junit.version>5.10.2</junit.version>  </properties>
 
+  <repositories>
+    <repository>
+      <id>central</id>
+      <url>https://repo.maven.apache.org/maven2</url>
+    </repository>
+  </repositories>
+
   <dependencies>
     <dependency>
       <groupId>org.openjfx</groupId>
@@ -102,7 +109,17 @@
       <artifactId>junit-jupiter-engine</artifactId>
       <version>${junit.version}</version>
       <scope>test</scope>
-    </dependency>  </dependencies>
+    </dependency>
+
+    <dependency>
+      <groupId>com.itextpdf</groupId>
+      <artifactId>itextpdf</artifactId>
+      <version>5.5.13.4</version>
+    </dependency>
+
+
+
+  </dependencies>
 
   <build>
     <plugins>

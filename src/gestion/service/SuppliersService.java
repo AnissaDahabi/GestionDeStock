@@ -30,15 +30,6 @@ public class SuppliersService {
             if (!email.contains("@")) {
                 throw new IllegalArgumentException("Please fill a valid email address");
             }
-            if (!isValidName(suppliers.getNameSupplier())) {
-                throw new IllegalArgumentException("Name not valid");
-            }
-            if (!isValidPhone(suppliers.getPhoneSupplier())) {
-                throw new IllegalArgumentException("Phone not valid");
-            }
-            if (!isValidEmail(suppliers.getEmailSupplier())) {
-                throw new IllegalArgumentException("Email not valid");
-            }
 
 
             return SuppliersQuery.addSuppliers(suppliers);
@@ -108,17 +99,6 @@ public class SuppliersService {
     }
 */
 
-    public static boolean isValidName(String name) {
-        return name.matches("[a-zA-Z\\s\\-']+");
-    }
-
-    public static boolean isValidPhone(String phone) {
-        return phone.matches("\\d*");
-    }
-
-    public static boolean isValidEmail(String email) {
-        return email.matches("^[\\w!#$%&'*+/=?`{|}~^.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$");
-    }
 
 
 }

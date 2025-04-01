@@ -39,7 +39,7 @@ public class ReportsQuery {
 
 
 
-                Reports reports = new Reports(nameSupplier, nameProduct, priceSales, quantitySales,dateSales);
+                Reports reports = new Reports();
                 reportsList.add(reports);
 
             }
