@@ -215,11 +215,94 @@ public class ProductsUI {
 
         submitAddedProductsBtn.setOnAction(event -> {
             try {
+                if (idProductsInput.getText().isEmpty()){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle(null);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Please enter an ID for the product");
+                    //Alert's design
+                    DialogPane dialogPane = alert.getDialogPane();
+                    dialogPane.setGraphic(null);
+                    alert.initStyle(StageStyle.UTILITY);
+                    alert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
+                    alert.showAndWait();
+                    return;
+                }
+
+                if (nameProductsInput.getText().isEmpty()){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle(null);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Please enter a name for the product");
+                    //Alert's design
+                    DialogPane dialogPane = alert.getDialogPane();
+                    dialogPane.setGraphic(null);
+                    alert.initStyle(StageStyle.UTILITY);
+                    alert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
+                    alert.showAndWait();
+                    return;
+                }
+
+                if (priceProductsInput.getText().isEmpty()){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle(null);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Please enter a price for the product");
+                    //Alert's design
+                    DialogPane dialogPane = alert.getDialogPane();
+                    dialogPane.setGraphic(null);
+                    alert.initStyle(StageStyle.UTILITY);
+                    alert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
+                    alert.showAndWait();
+                    return;
+                }
+                if (priceProductsInput.getText().equals("0")){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle(null);
+                    alert.setHeaderText(null);
+                    alert.setContentText("The price cannot be 0");
+                    //Alert's design
+                    DialogPane dialogPane = alert.getDialogPane();
+                    dialogPane.setGraphic(null);
+                    alert.initStyle(StageStyle.UTILITY);
+                    alert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
+                    alert.showAndWait();
+                    return;
+                }
+
+                if (quantityProductsInput.getText().isEmpty()){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle(null);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Please enter a quantity for the product");
+                    //Alert's design
+                    DialogPane dialogPane = alert.getDialogPane();
+                    dialogPane.setGraphic(null);
+                    alert.initStyle(StageStyle.UTILITY);
+                    alert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
+                    alert.showAndWait();
+                    return;
+                }
+
                 int idProducts = Integer.parseInt(idProductsInput.getText());
                 String name = nameProductsInput.getText();
                 double price = Double.parseDouble(priceProductsInput.getText());
                 int quantity = Integer.parseInt(quantityProductsInput.getText());
+
                 Suppliers selectedSupplier = suppliersComboBox.getValue();
+                if (selectedSupplier == null) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle(null);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Please select a supplier");
+                    //Alert's design
+                    DialogPane dialogPane = alert.getDialogPane();
+                    dialogPane.setGraphic(null);
+                    alert.initStyle(StageStyle.UTILITY);
+                    alert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
+                    alert.showAndWait();
+                    return;
+                }
 
                 boolean success = ProductsService.addProducts(idProducts, name, price, quantity, selectedSupplier.getIdSupplier());
 
@@ -244,25 +327,13 @@ public class ProductsUI {
 
                     Stage addProductsScene = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     addProductsScene.setScene(SceneManager.getProductsHomeScene());
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle(null);
-                    alert.setHeaderText(null);
-                    alert.setContentText("Something went wrong");
-                    alert.showAndWait();
-                    //Alert's design
-                    DialogPane dialogPane = alert.getDialogPane();
-                    dialogPane.setGraphic(null);
-                    alert.initStyle(StageStyle.UTILITY);
-                    alert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
-                    alert.showAndWait();
                 }
             } catch (Exception e) {
+                e.printStackTrace();
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle(null);
                 alert.setHeaderText(null);
                 alert.setContentText("Something went wrong");
-                alert.showAndWait();
                 //Alert's design
                 DialogPane dialogPane = alert.getDialogPane();
                 dialogPane.setGraphic(null);
