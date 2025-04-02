@@ -223,16 +223,10 @@ public class ReportsUI {
                     alert.showAndWait();
                 }
 
-
                 document.close();
-
                 con.close();
 
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            } catch (DocumentException e) {
+            } catch (SQLException  | RuntimeException | FileNotFoundException | DocumentException e){
                 throw new RuntimeException(e);
             }
         });
