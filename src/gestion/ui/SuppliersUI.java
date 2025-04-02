@@ -583,7 +583,7 @@ public class SuppliersUI {
 
         Label nameSuppliers = new Label("Name: ");
         TextField nameSuppliersInput = new TextField();
-        nameSuppliersInput.setPromptText(nameSuppliersSql);
+        nameSuppliersInput.setText(nameSuppliersSql);
         nameSuppliersInput.setId("nameSuppliersInput");
         nameSuppliersInput.setTextFormatter(new TextFormatter<>(change -> {
             if (change.getControlNewText().matches("[a-zA-Z\\s\\-']+")) {
@@ -594,7 +594,7 @@ public class SuppliersUI {
 
         Label phoneSuppliers = new Label("Phone: ");
         TextField phoneSuppliersInput = new TextField();
-        phoneSuppliersInput.setPromptText(String.valueOf(phoneSuppliersSql));
+        phoneSuppliersInput.setText(String.valueOf(phoneSuppliersSql));
         phoneSuppliersInput.setId("phoneSuppliersInput");
         phoneSuppliersInput.setTextFormatter(new TextFormatter<>(change -> {
             if (change.getControlNewText().matches("^[0-9]*")) {
@@ -606,12 +606,12 @@ public class SuppliersUI {
 
         Label addressSuppliers = new Label("Address: ");
         TextField addressSuppliersInput = new TextField();
-        addressSuppliersInput.setPromptText(String.valueOf(addressSuppliersSql));
+        addressSuppliersInput.setText(String.valueOf(addressSuppliersSql));
         addressSuppliersInput.setId("addressSuppliersInput");
 
         Label emailSuppliers = new Label("Email: ");
         TextField emailSuppliersInput = new TextField();
-        emailSuppliersInput.setPromptText(emailSuppliersSql);
+        emailSuppliersInput.setText(emailSuppliersSql);
         emailSuppliersInput.setId("emailSuppliersInput");
 
         editSuppliersGrid.add(idSuppliers, 0, 0);

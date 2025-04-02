@@ -98,11 +98,6 @@ public class ProductsUI {
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
 
-        returnBtn.setOnAction(event -> {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(SceneManager.getProductsHomeScene());
-        });
-
         HBox returnBtnContainer = new HBox(10);
         returnBtnContainer.setAlignment(Pos.TOP_RIGHT);
         returnBtnContainer.setPadding(new Insets(10, 10, 10, 10));
@@ -341,6 +336,16 @@ public class ProductsUI {
                 alert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
                 alert.showAndWait();
             }
+        });
+
+        returnBtn.setOnAction(event -> {
+            idProductsInput.clear();
+            nameProductsInput.clear();
+            priceProductsInput.clear();
+            quantityProductsInput.clear();
+            suppliersComboBox.valueProperty().set(null);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(SceneManager.getProductsHomeScene());
         });
 
         VBox addProducts = new VBox(returnBtnContainer, addTitle, addTxtContainer, addProductsGrid, addProductsContainer);

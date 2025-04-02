@@ -648,27 +648,27 @@ public class SalesUI {
 
         Label idSuppliers = new Label("Supplier id: ");
         TextField idSuppliersInput = new TextField();
-        idSuppliersInput.setPromptText(String.valueOf(idSuppliersSql));
+        idSuppliersInput.setText(String.valueOf(idSuppliersSql));
         idSuppliersInput.setId("IdsuppliersInput");
 
         Label idProduct = new Label("Product id: ");
         TextField idProductInput = new TextField();
-        idProductInput.setPromptText(String.valueOf(idProductSql));
+        idProductInput.setText(String.valueOf(idProductSql));
         idProductInput.setId("idProductInput");
 
         Label quantitySales = new Label("Sales quantity: ");
         TextField quantitySalesInput = new TextField();
-        quantitySalesInput.setPromptText(String.valueOf(quantitySalesSql));
+        quantitySalesInput.setText(String.valueOf(quantitySalesSql));
         quantitySalesInput.setId("quantitySalesInput");
 
         Label priceSales = new Label("Price: ");
         TextField priceSalesInput = new TextField();
-        priceSalesInput.setPromptText(String.valueOf(priceSalesSql));
+        priceSalesInput.setText(String.valueOf(priceSalesSql));
         priceSalesInput.setId("priceSalesInput");
 
         Label datesSales = new Label("Dates: ");
         TextField dateSalesInput = new TextField();
-        dateSalesInput.setPromptText(String.valueOf(dateSalesSql));
+        dateSalesInput.setText(String.valueOf(dateSalesSql));
         datesSales.setId("datesalesInput");
 
         editSalesGrid.add(idSales, 0, 0);
