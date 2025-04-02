@@ -73,6 +73,28 @@
     -fx-padding: 50 0 0 0;
 }
 
+#suppliersComboBox {
+    -fx-background-color: #D0D4BE;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-max-height: 12px;
+    -fx-font-size: 10px;
+    -fx-prompt-text-fill: #758B68;
+    -fx-text-fill: #3C582B;
+    -fx-font-weight: bold;
+}
+
+#productsComboBox {
+    -fx-background-color: #D0D4BE;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-max-height: 12px;
+    -fx-font-size: 10px;
+    -fx-prompt-text-fill: #758B68;
+    -fx-text-fill: #3C582B;
+    -fx-font-weight: bold;
+}
+
 /* DEL SALES */
 
 .delTitle1 Label, .delTitle2 Label {
@@ -137,12 +159,31 @@
     fx-font-size: 20px;
     -fx-text-fill: #3C582B;
 }
+#idSalesContainer Textfield{
+    -fx-background-color: #D0D4BE;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-max-height: 12px;
+    -fx-font-size: 10px;
+    -fx-prompt-text-fill: #758B68;
+    -fx-text-fill: #3C582B;
+    -fx-font-weight: bold;
+}
 
 .editSalesGrid Label {
     -fx-text-fill: #3C582B;
     -fx-font-weight: bold;
 }
 
+.editSalesGrid Textfield{
+    -fx-background-color: #D0D4BE;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-text-fill: #3C582B;
+    -fx-max-height: 12px;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+}
 #idSalesContainer {
     -fx-padding: 40 0 0 0;
 }
@@ -162,6 +203,18 @@
     -fx-text-fill: #3C582B;
 }
 
+#salesComboBox {
+    -fx-background-color: #D0D4BE;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-max-height: 12px;
+    -fx-font-size: 10px;
+    -fx-prompt-text-fill: #758B68;
+    -fx-text-fill: #3C582B;
+    -fx-font-weight: bold;
+}
+
+
 /* SHOW Sales */
 
 .showTitle Label{
@@ -175,10 +228,37 @@
     -fx-padding: 20 0 0 0;
 }
 
+.sortSales{
+    -fx-font-size: 13px;
+    -fx-padding: 0 0 0 10;
+    -fx-text-fill: #758B68;
+    -fx-font-weight: bold;
+}
+#sortFilter{
+    -fx-background-color: #D0D4BE;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-max-height: 12px;
+    -fx-font-size: 10px;
+    -fx-prompt-text-fill: #758B68;
+    -fx-text-fill: #3C582B;
+    -fx-font-weight: bold;
+}
+
 .sortSales {
     -fx-font-size: 13px;
     -fx-padding: 0 0 0 10;
     -fx-text-fill: #758B68;
+    -fx-font-weight: bold;
+}
+.searchSalesInput {
+    -fx-background-color: #D0D4BE;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-max-height: 12px;
+    -fx-font-size: 10px;
+    -fx-prompt-text-fill: #758B68;
+    -fx-text-fill: #3C582B;
     -fx-font-weight: bold;
 }
 
@@ -209,3 +289,7 @@
     -fx-background-color: #D0D4BE;
     -fx-text-fill: white;
 }
+
+
+
+

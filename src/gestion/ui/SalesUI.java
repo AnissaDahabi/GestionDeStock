@@ -137,13 +137,27 @@ public class SalesUI {
 
         Label idSales = new Label("ID Number: ");
         TextField idSalesInput = new TextField();
+        idSalesInput.setTextFormatter(new TextFormatter<>(change -> {
+            if (change.getControlNewText().matches("\\d*")){
+                return change;
+            }
+            return null;
+        }));
 
 
-        Label quantitysales = new Label("Quantity: ");
-        TextField quantitysalesInput = new TextField();
+        Label quantitySales = new Label("Quantity: ");
+        TextField quantitySalesInput = new TextField();
+        quantitySalesInput.setTextFormatter(new TextFormatter<>(change ->{
+            if (change.getControlNewText().matches("\\d*")){
+                return change;
+            }
+            return null;
+        }));
+
 
         Label priceSales = new Label("Price: ");
         TextField priceSalesInput = new TextField();
+
 
         Label DateSales = new Label("Date: ");
         TextField DatesSalesInput = new TextField();
@@ -203,8 +217,8 @@ public class SalesUI {
         addSalesGrid.add(suppliersComboBox, 1, 1);
         addSalesGrid.add(comboLabel2, 0, 2);
         addSalesGrid.add(productsComboBox, 1, 2);
-        addSalesGrid.add(quantitysales, 0, 3);
-        addSalesGrid.add(quantitysalesInput, 1, 3);
+        addSalesGrid.add(quantitySales, 0, 3);
+        addSalesGrid.add(quantitySalesInput, 1, 3);
         addSalesGrid.add(priceSales, 0, 4);
         addSalesGrid.add(priceSalesInput, 1, 4);
         addSalesGrid.add(DateSales, 0, 5);
@@ -223,10 +237,11 @@ public class SalesUI {
 
         submitAddedSalesBtn.setOnAction(event -> {
                 try {
+
                     int idsales = Integer.parseInt(idSalesInput.getText());
                     Suppliers selectedSupplier = suppliersComboBox.getValue();
                     Products selectedProduct = productsComboBox.getValue();
-                    int quantity = Integer.parseInt(quantitysalesInput.getText());
+                    int quantity = Integer.parseInt(quantitySalesInput.getText());
                     int price = Integer.parseInt(priceSalesInput.getText());
                     String date = DatesSalesInput.getText();
 
@@ -248,7 +263,7 @@ public class SalesUI {
                         idSalesInput.clear();
                         suppliersComboBox.valueProperty().set(null);
                         productsComboBox.valueProperty().set(null);
-                        quantitysalesInput.clear();
+                        quantitySalesInput.clear();
                         priceSalesInput.clear();
                         DatesSalesInput.clear();
 
@@ -519,26 +534,37 @@ public class SalesUI {
         editSalesGrid.setVgap(10);
         editSalesGrid.setHgap(10);
 
-        Label idSales = new Label("ID Number: ");
-        TextField idSalesInput = new TextField();
+        Label comboLabel = new Label("ID Number: ");
 
-        Label idsuppliers = new Label("ID Supplier: ");
-        TextField idsuppliersInput = new TextField();
+        ComboBox<Sales>salesComboBox = new ComboBox<>(SalesQuery.getSalesbyId());
+        salesComboBox.setId("salesCombox");
+        salesComboBox.setItems(SalesQuery.getSalesbyId());
 
-        Label idProducts = new Label("Id products: ");
-        TextField idProductsInput = new TextField();
+        salesComboBox.setConverter(new StringConverter<Sales>() {
+            @Override
+            public String toString(Sales sales) {
+                return sales != null ? String.valueOf(sales.getIdSales()) : "";
+            }
+            @Override
+            public Sales fromString(String s) {
+                return null;
+            }
+        });
+        salesComboBox.setCellFactory(lv -> new ListCell<Sales>() {
+            @Override
+            protected void updateItem(Sales sales, boolean empty) {
+                super.updateItem(sales, empty);
+                setText(empty || sales == null ? null : String.valueOf(sales.getIdSales()));
+            }
+        });
 
-        editSalesGrid.add(idSales, 0, 0);
-        editSalesGrid.add(idSalesInput, 1, 0);
-        editSalesGrid.add(idsuppliers, 0, 1);
-        editSalesGrid.add(idsuppliersInput, 1, 1);
-        editSalesGrid.add(idProducts, 0, 2);
-        editSalesGrid.add(idProductsInput, 1, 2);
-
-        editSalesGrid.setAlignment(Pos.CENTER);
-
-        editSalesGrid.setPadding(new Insets(40, 0, 0, 0));
-
+        HBox boxSalesContainer = new HBox();
+        boxSalesContainer.getStyleClass().add("boxSalesContainer");
+        boxSalesContainer.getChildren().add(comboLabel);
+        boxSalesContainer.getChildren().add(salesComboBox);
+        boxSalesContainer.setAlignment(Pos.CENTER);
+        boxSalesContainer.setSpacing(5);
+        boxSalesContainer.setPadding(new Insets(20, 0, 0, 0));
 
         //Next button:
         Button submitEditedSalesBtn1 = new Button("Next");
@@ -550,18 +576,38 @@ public class SalesUI {
 
         submitEditedSalesBtn1.setOnAction(event -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            gestion.dao.SalesQuery.showEditedSales(idSalesInput, stage);
-            idSalesInput.clear();
+            Sales selectedSale = salesComboBox.getValue();
+             if (selectedSale != null) {
+
+                 stage.setScene(SceneManager.getEditSalesScene2(
+                         selectedSale.getIdSales(),
+                         selectedSale.getIdSuppliers(),
+                         selectedSale.getIdProduct(),
+                         selectedSale.getQuantitySales(),
+                         selectedSale.getPriceSales(),
+                         selectedSale.getDateSales()
+                 ));
+             } else {
+                 Alert alert = new Alert(Alert.AlertType.WARNING);
+                 alert.setTitle(null);
+                 alert.setHeaderText(null);
+                 alert.setContentText("Please choose a sales to edit");
+                 //Alert's design
+                 DialogPane dialogPane = alert.getDialogPane();
+                 dialogPane.setGraphic(null);
+                 alert.initStyle(StageStyle.UTILITY);
+                 alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
+             }
         });
 
-        VBox editSales1 = new VBox(returnBtnContainer, editTitle1, editTxtContainer1, editSalesGrid, editSalesContainer1);
+        VBox editSales1 = new VBox(returnBtnContainer, editTitle1, editTxtContainer1, boxSalesContainer,editSalesContainer1);
 
         Scene editSalesScene1 = new Scene(editSales1, 300, 600);
         editSalesScene1.getStylesheets().add("gestion/resources/sales.css");
         return editSalesScene1;
     }
 
-    public static Scene editSalesScene2(int idSalesSql, int idsuppliersSql, int idProductSql, int quantitySalesSql, int priceSalesSql, String dateSalesSql) {
+    public static Scene editSalesScene2(int idSalesSql, int idSuppliersSql, int idProductSql, int quantitySalesSql, int priceSalesSql, String dateSalesSql) {
 // Return button:
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
@@ -600,10 +646,10 @@ public class SalesUI {
         Label idSales = new Label("ID Number: " + idSalesSql);
         idSales.setId("idSalesLabel");
 
-        Label idsuppliers = new Label("Supplier id: ");
-        TextField idsuppliersInput = new TextField();
-        idsuppliersInput.setPromptText(String.valueOf(idsuppliersSql));
-        idsuppliersInput.setId("IdsuppliersInput");
+        Label idSuppliers = new Label("Supplier id: ");
+        TextField idSuppliersInput = new TextField();
+        idSuppliersInput.setPromptText(String.valueOf(idSuppliersSql));
+        idSuppliersInput.setId("IdsuppliersInput");
 
         Label idProduct = new Label("Product id: ");
         TextField idProductInput = new TextField();
@@ -626,8 +672,8 @@ public class SalesUI {
         datesSales.setId("datesalesInput");
 
         editSalesGrid.add(idSales, 0, 0);
-        editSalesGrid.add(idsuppliers, 0, 1);
-        editSalesGrid.add(idsuppliersInput, 1, 1);
+        editSalesGrid.add(idSuppliers, 0, 1);
+        editSalesGrid.add(idSuppliersInput, 1, 1);
         editSalesGrid.add(idProduct, 0, 2);
         editSalesGrid.add(idProductInput, 1, 2);
         editSalesGrid.add(quantitySales, 0, 3);
@@ -649,7 +695,7 @@ public class SalesUI {
 
         submitEditedSalesBtn2.setOnAction(event -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            gestion.dao.SalesQuery.editSales(idSalesSql, idsuppliersInput, idProductInput, quantitySalesInput, priceSalesInput, dateSalesInput);
+            gestion.dao.SalesQuery.editSales(idSalesSql, idSuppliersInput, idProductInput, quantitySalesInput, priceSalesInput, dateSalesInput);
             stage.setScene(SceneManager.getSalesHomeScene());
         });
 
