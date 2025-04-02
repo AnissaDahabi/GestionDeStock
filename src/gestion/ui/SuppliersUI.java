@@ -547,10 +547,7 @@ public class SuppliersUI {
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
 
-        returnBtn.setOnAction(event -> {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(SceneManager.getEditSuppliersScene1());
-        });
+
 
         HBox returnBtnContainer = new HBox(10);
         returnBtnContainer.setAlignment(Pos.TOP_RIGHT);
@@ -604,6 +601,33 @@ public class SuppliersUI {
         }));
 
 
+        //ComboBox for the refresh
+
+        ComboBox<Suppliers> suppliersComboBox = new ComboBox<>(SuppliersQuery.getSuppliersID());
+        //suppliersComboBox.setPromptText("Choose supplier");
+        suppliersComboBox.setId("suppliersComboBox");
+        suppliersComboBox.setItems(SuppliersQuery.getSuppliersID());
+
+        suppliersComboBox.setConverter(new StringConverter<Suppliers>() {
+            @Override
+            public String toString(Suppliers suppliers) {
+                return suppliers != null ? String.valueOf(suppliers.getIdSupplier()) : "";
+            }
+
+            @Override
+            public Suppliers fromString(String s) {
+                return null;
+            }
+        });
+        suppliersComboBox.setCellFactory(lv -> new ListCell<Suppliers>() {
+            @Override
+            protected void updateItem(Suppliers supplier, boolean empty) {
+                super.updateItem(supplier, empty);
+                setText(empty || supplier == null ? null : String.valueOf(supplier.getIdSupplier()));
+            }
+        });
+
+
         Label addressSuppliers = new Label("Address: ");
         TextField addressSuppliersInput = new TextField();
         addressSuppliersInput.setText(String.valueOf(addressSuppliersSql));
@@ -633,6 +657,12 @@ public class SuppliersUI {
         editSuppliersContainer2.getChildren().add(submitEditedSuppliersBtn2);
         editSuppliersContainer2.setAlignment(Pos.CENTER);
         editSuppliersContainer2.setPadding(new Insets(145, 10, 10, 10));
+
+        returnBtn.setOnAction(event -> {
+            suppliersComboBox.setItems(SuppliersQuery.getSuppliersID());
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(SceneManager.getEditSuppliersScene1());
+        });
 
         submitEditedSuppliersBtn2.setOnAction(event -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

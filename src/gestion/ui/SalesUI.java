@@ -28,6 +28,8 @@ import javafx.stage.StageStyle;
 import javafx.util.StringConverter;
 import org.controlsfx.control.spreadsheet.Grid;
 
+import java.time.LocalDate;
+
 public class SalesUI {
 
     public static Scene createContent() {
@@ -160,7 +162,7 @@ public class SalesUI {
 
 
         Label DateSales = new Label("Date: ");
-        TextField DatesSalesInput = new TextField();
+        DatePicker DatesSalesInput = new DatePicker();
 
         Label comboLabel1 = new Label("Supplier ID: ");
         ComboBox<Suppliers> suppliersComboBox = new ComboBox<>(SuppliersQuery.getSuppliersID());
@@ -243,9 +245,9 @@ public class SalesUI {
                     Products selectedProduct = productsComboBox.getValue();
                     int quantity = Integer.parseInt(quantitySalesInput.getText());
                     int price = Integer.parseInt(priceSalesInput.getText());
-                    String date = DatesSalesInput.getText();
+                    LocalDate date = DatesSalesInput.getValue();
 
-                    boolean success = SalesService.addSales(idsales, selectedSupplier.getIdSupplier(), selectedProduct.getIdProduct(), quantity,price, date);
+                    boolean success = SalesService.addSales(idsales, selectedSupplier.getIdSupplier(), selectedProduct.getIdProduct(), quantity,price, String.valueOf(date));
 
                     if(success) {
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -265,7 +267,7 @@ public class SalesUI {
                         productsComboBox.valueProperty().set(null);
                         quantitySalesInput.clear();
                         priceSalesInput.clear();
-                        DatesSalesInput.clear();
+                        DatesSalesInput.valueProperty().set(null);
 
                         Stage stage = (Stage)  ((Node) event.getSource()).getScene().getWindow();
                         stage.setScene(SceneManager.getSalesHomeScene());
@@ -488,10 +490,7 @@ public class SalesUI {
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
 
-        returnBtn.setOnAction(event -> {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(SceneManager.getSalesHomeScene());
-        });
+
 
         HBox returnBtnContainer = new HBox(10);
         returnBtnContainer.setAlignment(Pos.TOP_RIGHT);
@@ -573,6 +572,12 @@ public class SalesUI {
         editSalesContainer1.getChildren().add(submitEditedSalesBtn1);
         editSalesContainer1.setAlignment(Pos.CENTER);
         editSalesContainer1.setPadding(new Insets(270, 10, 10, 10));
+
+        returnBtn.setOnAction(event -> {
+            salesComboBox.getValue();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(SceneManager.getSalesHomeScene());
+        });
 
         submitEditedSalesBtn1.setOnAction(event -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -667,8 +672,7 @@ public class SalesUI {
         priceSalesInput.setId("priceSalesInput");
 
         Label datesSales = new Label("Dates: ");
-        TextField dateSalesInput = new TextField();
-        dateSalesInput.setText(String.valueOf(dateSalesSql));
+        DatePicker datesSalesInput = new DatePicker();
         datesSales.setId("datesalesInput");
 
         editSalesGrid.add(idSales, 0, 0);
@@ -681,7 +685,7 @@ public class SalesUI {
         editSalesGrid.add(priceSales, 0, 4);
         editSalesGrid.add(priceSalesInput, 1, 4);
         editSalesGrid.add(datesSales, 0, 5);
-        editSalesGrid.add(dateSalesInput, 1, 5);
+        editSalesGrid.add(datesSalesInput, 1, 5);
 
         editSalesGrid.setAlignment(Pos.CENTER);
         editSalesGrid.setPadding(new Insets(40, 0, 0, 0));
@@ -695,7 +699,7 @@ public class SalesUI {
 
         submitEditedSalesBtn2.setOnAction(event -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            gestion.dao.SalesQuery.editSales(idSalesSql, idSuppliersInput, idProductInput, quantitySalesInput, priceSalesInput, dateSalesInput);
+            gestion.dao.SalesQuery.editSales(idSalesSql, idSuppliersInput, idProductInput, quantitySalesInput, priceSalesInput, datesSalesInput.getEditor());
             stage.setScene(SceneManager.getSalesHomeScene());
         });
 
@@ -711,10 +715,7 @@ public class SalesUI {
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
 
-        returnBtn.setOnAction(event -> {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(SceneManager.getSalesHomeScene());
-        });
+
 
         HBox returnBtnContainer = new HBox(10);
         returnBtnContainer.setAlignment(Pos.TOP_RIGHT);
@@ -779,6 +780,34 @@ public class SalesUI {
         quantitySaleColumn.setPrefWidth(42);
         priceSaleColumn.setPrefWidth(42);
         dateSaleColumn.setPrefWidth(85);
+
+        ComboBox<Sales>salesComboBox = new ComboBox<>(SalesQuery.getSalesbyId());
+        salesComboBox.setId("salesCombox");
+        salesComboBox.setItems(SalesQuery.getSalesbyId());
+
+        salesComboBox.setConverter(new StringConverter<Sales>() {
+            @Override
+            public String toString(Sales sales) {
+                return sales != null ? String.valueOf(sales.getIdSales()) : "";
+            }
+            @Override
+            public Sales fromString(String s) {
+                return null;
+            }
+        });
+        salesComboBox.setCellFactory(lv -> new ListCell<Sales>() {
+            @Override
+            protected void updateItem(Sales sales, boolean empty) {
+                super.updateItem(sales, empty);
+                setText(empty || sales == null ? null : String.valueOf(sales.getIdSales()));
+            }
+        });
+
+        returnBtn.setOnAction(event -> {
+            salesComboBox.getValue();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(SceneManager.getSalesHomeScene());
+        });
 
         salesTable.getColumns().addAll(idSaleColumn, idProductColumn, idSupplierColumn, quantitySaleColumn, priceSaleColumn, dateSaleColumn);
 
