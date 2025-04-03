@@ -4,6 +4,8 @@ import gestion.dao.ProductsQuery;
 import gestion.dao.SuppliersQuery;
 import gestion.model.Suppliers;
 import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
+import javafx.stage.StageStyle;
 
 public class SuppliersService {
 
@@ -38,6 +40,10 @@ public class SuppliersService {
             alert.setTitle("Error");
             alert.setHeaderText(null);
             alert.setContentText(e.getMessage());
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.setGraphic(null);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
             alert.showAndWait();
             return false;
         }
@@ -72,6 +78,10 @@ public class SuppliersService {
             alert.setTitle("Error");
             alert.setHeaderText(null);
             alert.setContentText(e.getMessage());
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.setGraphic(null);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
             alert.showAndWait();
             return null;
         }
@@ -85,6 +95,10 @@ public class SuppliersService {
             alert.setTitle("Error");
             alert.setHeaderText(null);
             alert.setContentText(e.getMessage());
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.setGraphic(null);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
             alert.showAndWait();
             return false;
         }

@@ -83,6 +83,17 @@
     -fx-padding: 50 0 0 0;
 }
 
+#suppliersComboBox {
+    -fx-background-color: #D0D4BE;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-max-height: 12px;
+    -fx-font-size: 10px;
+    -fx-prompt-text-fill: #758B68;
+    -fx-text-fill: #3C582B;
+    -fx-font-weight: bold;
+}
+
 
 /* DEL SUPPLIERS */
 
@@ -300,4 +311,37 @@
     -fx-background-color: transparent;
 }
 
+/* ALERTS */
+.dialog-pane {
+    -fx-pref-width: 250px;
+    -fx-pref-height: 80px;
+    -fx-background-color: #FFF;
+    -fx-border-color: #D0D4BE;
+    -fx-text-fill: #3C582B;
+}
 
+.dialog-pane .content {
+    -fx-text-fill: #3C582B;
+    -fx-font-weight: bold;
+}
+
+.dialog-pane .header {
+    -fx-background-color: #F7EFDE !important;
+}
+
+.dialog-pane .header .graphic {
+    -fx-opacity: 0 !important;
+}
+
+.dialog-pane .button:default {
+    -fx-background-color: linear-gradient(#ACBEA2, #A4B997);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.dialog-pane .header .close-button {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-text-fill: #3C582B;
+}
