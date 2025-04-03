@@ -53,32 +53,20 @@ public class ReportsUI {
         reportsTitle.setAlignment(Pos.CENTER);
 
         //Buttons
-
         Button generateReportsBtn = new Button("Generate");
         generateReportsBtn.getStyleClass().add("generateBtn");
 
-        VBox reportsBtnContainer = new VBox(40);
+        VBox reportsBtnContainer = new VBox(10);
         reportsBtnContainer.getStyleClass().add("reportsBtnContainer");
         reportsBtnContainer.setAlignment(Pos.CENTER);
         reportsBtnContainer.getChildren().add(generateReportsBtn);
 
-
-
-        //Titre tu connais
-
+        //Labels:
         Label startDateLabel = new Label("Start Date : ");
         Label endDateLabel = new Label("End Date : ");
         Label displayLabel = new Label("Display : ");
-        HBox labelContainer = new HBox();
-        labelContainer.getStyleClass().add("labelContainer");
-        labelContainer.getChildren().add(startDateLabel);
-        labelContainer.getChildren().add(endDateLabel);
-        labelContainer.getChildren().add(displayLabel);
-        labelContainer.setAlignment(Pos.CENTER);
-
 
         //Fil déroulants
-
         DatePicker startDatePicker = new DatePicker();
         startDatePicker.getStyleClass().add("startDatePicker");
         reportsBtnContainer.getChildren().add(startDatePicker);
@@ -88,7 +76,6 @@ public class ReportsUI {
         reportsBtnContainer.getChildren().add(endDatePicker);
 
         //Radiobuttons
-
         RadioButton productCheck = new RadioButton("Products : ");
         RadioButton supplierCheck = new RadioButton("Suppliers : ");
         RadioButton salesCheck = new RadioButton("Sales : ");
@@ -98,13 +85,25 @@ public class ReportsUI {
         supplierCheck.setToggleGroup(toggleGroup);
         salesCheck.setToggleGroup(toggleGroup);
 
-        reportsBtnContainer.getChildren().add(productCheck);
-        reportsBtnContainer.getChildren().add(supplierCheck);
-        reportsBtnContainer.getChildren().add(salesCheck);
+//        reportsBtnContainer.getChildren().add(productCheck);
+//        reportsBtnContainer.getChildren().add(supplierCheck);
+//        reportsBtnContainer.getChildren().add(salesCheck);
 
+        GridPane reportsGrid = new GridPane();
+        reportsGrid.getStyleClass().add("reportsGrid");
+        reportsGrid.setAlignment(Pos.CENTER);
+        reportsGrid.setPadding(new Insets(60, 0, 70, 0));
 
-
-
+        reportsGrid.setVgap(20);
+        reportsGrid.setHgap(20);
+        reportsGrid.add(startDateLabel, 0, 0);
+        reportsGrid.add(startDatePicker, 1, 0);
+        reportsGrid.add(endDateLabel, 0, 1);
+        reportsGrid.add(endDatePicker, 1, 1);
+        reportsGrid.add(displayLabel, 0, 2);
+        reportsGrid.add(productCheck, 1, 2);
+        reportsGrid.add(supplierCheck, 1, 3);
+        reportsGrid.add(salesCheck, 1, 4);
 
         generateReportsBtn.setOnAction(event -> {
 
@@ -231,14 +230,11 @@ public class ReportsUI {
             }
         });
 
-        VBox homeReports = new VBox(returnBtnContainer, reportsTitle, reportsBtnContainer, labelContainer);
+        VBox homeReports = new VBox(returnBtnContainer, reportsTitle, reportsGrid, reportsBtnContainer);
 
         Scene reportsScene = new Scene(homeReports, 300, 600);
         reportsScene.getStylesheets().add("gestion/resources/reports.css");
 
         return reportsScene;
     }
-
-
-
 }
