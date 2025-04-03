@@ -18,6 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.StringConverter;
 
 
@@ -198,6 +199,11 @@ public class SuppliersUI {
                     alert.setTitle("Success");
                     alert.setHeaderText(null);
                     alert.setContentText("Supplier added successfully");
+
+                    DialogPane dialogPane = alert.getDialogPane();
+                    dialogPane.setGraphic(null);
+                    alert.initStyle(StageStyle.UTILITY);
+                    alert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
                     alert.showAndWait();
 
                     idSuppliersInput.clear();
@@ -214,6 +220,11 @@ public class SuppliersUI {
                     alert.setTitle(null);
                     alert.setHeaderText(null);
                     alert.setContentText("Something went wrong");
+
+                    DialogPane dialogPane = alert.getDialogPane();
+                    dialogPane.setGraphic(null);
+                    alert.initStyle(StageStyle.UTILITY);
+                    alert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
                     alert.showAndWait();
                 }
             } catch (Exception e) {
@@ -221,7 +232,12 @@ public class SuppliersUI {
                 alert.setTitle(null);
                 alert.setHeaderText(null);
                 alert.setContentText("Something went wrong");
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.setGraphic(null);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
                 alert.showAndWait();
+
             }
 
         });
@@ -341,6 +357,11 @@ public class SuppliersUI {
                     successAlert.setTitle("Success");
                     successAlert.setHeaderText(null);
                     successAlert.setContentText("Supplier deleted successfully");
+
+                    DialogPane dialogPane = successAlert.getDialogPane();
+                    dialogPane.setGraphic(null);
+                    successAlert.initStyle(StageStyle.UTILITY);
+                    successAlert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
                     successAlert.showAndWait();
                     suppliersComboBox.setItems(SuppliersQuery.getSuppliersID());
                 } else {
@@ -348,6 +369,10 @@ public class SuppliersUI {
                     errorAlert.setTitle("Error");
                     errorAlert.setHeaderText(null);
                     errorAlert.setContentText("Shit happened");
+                    DialogPane dialogPane = errorAlert.getDialogPane();
+                    dialogPane.setGraphic(null);
+                    errorAlert.initStyle(StageStyle.UTILITY);
+                    errorAlert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
                     errorAlert.showAndWait();
                 }
             } else {
@@ -355,6 +380,10 @@ public class SuppliersUI {
                 warningAlert.setTitle("Warning");
                 warningAlert.setHeaderText(null);
                 warningAlert.setContentText("Please choose a supplier");
+                DialogPane dialogPane = warningAlert.getDialogPane();
+                dialogPane.setGraphic(null);
+                warningAlert.initStyle(StageStyle.UTILITY);
+                warningAlert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
                 warningAlert.showAndWait();
             }
         });
@@ -530,6 +559,10 @@ public class SuppliersUI {
                 alert.setTitle("Warning");
                 alert.setHeaderText(null);
                 alert.setContentText("Please choose a supplier to edit.");
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.setGraphic(null);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
                 alert.showAndWait();
             }
         });
