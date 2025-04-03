@@ -4,6 +4,8 @@
 .root {
     -fx-background-color: #F7EFDE;
     -fx-font-family: "Roboto";
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
 }
 
 .returnBtn {
@@ -223,6 +225,7 @@
     -fx-text-fill: #3C582B;
 }
 
+
 /* SHOW PRODUCTS */
 
 .showTitle Label {
@@ -305,18 +308,34 @@
     -fx-text-fill: white;
 }
 
-.table-view .table-row-cell:selected {
+
+/* TABLEVIEW */
+
+.table-view {
+    -fx-selection-bar: white;
+}
+
+.table-view .cell {
+    -fx-text-fill: #3C582B;
+}
+
+.table-view .table-row-cell:selected .cell {
     -fx-background-color: #A4B997;
     -fx-text-fill: white;
     -fx-font-weight: bold;
 }
 
-.table-view:focused {
-    -fx-background-color: transparent;
+.table-view .column-header {
+    -fx-background-color: #758B68;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
 }
 
 
 /* ALERTS */
+
 .dialog-pane {
     -fx-pref-width: 250px;
     -fx-pref-height: 80px;

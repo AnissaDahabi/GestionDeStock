@@ -732,27 +732,23 @@ public class SalesUI {
         searchSalesContainer.setPadding(new Insets(20, 0, 0, 20));
 
         TableView salesTable = new TableView<Sales>();
-        salesTable.setEditable(false);
+        salesTable.setEditable(true);
         salesTable.setId("salesTable");
 
         javafx.scene.control.TableColumn<Sales, Integer> idSaleColumn = new javafx.scene.control.TableColumn<>("ID");
         idSaleColumn.setCellValueFactory(new PropertyValueFactory<>("idSales"));
-        idSaleColumn.setResizable(false);
         idSaleColumn.setReorderable(false);
 
-        javafx.scene.control.TableColumn<Sales, Integer> idProductColumn = new javafx.scene.control.TableColumn<>("ID product");
+        javafx.scene.control.TableColumn<Sales, Integer> idProductColumn = new javafx.scene.control.TableColumn<>("Product");
         idProductColumn.setCellValueFactory(new PropertyValueFactory<>("idProduct"));
-        idProductColumn.setResizable(false);
         idProductColumn.setReorderable(false);
 
-        javafx.scene.control.TableColumn<Sales, Integer> idSupplierColumn = new javafx.scene.control.TableColumn<>("ID supplier");
+        javafx.scene.control.TableColumn<Sales, Integer> idSupplierColumn = new javafx.scene.control.TableColumn<>("Supplier");
         idSupplierColumn.setCellValueFactory(new PropertyValueFactory<>("idSuppliers"));
-        idSupplierColumn.setResizable(false);
         idSupplierColumn.setReorderable(false);
 
-        javafx.scene.control.TableColumn<Sales, Integer> quantitySaleColumn = new javafx.scene.control.TableColumn<>("Quantity");
+        javafx.scene.control.TableColumn<Sales, Integer> quantitySaleColumn = new javafx.scene.control.TableColumn<>("Qty");
         quantitySaleColumn.setCellValueFactory(new PropertyValueFactory<>("quantitySales"));
-        quantitySaleColumn.setResizable(false);
         quantitySaleColumn.setReorderable(false);
 
         javafx.scene.control.TableColumn<Sales, Integer> priceSaleColumn = new TableColumn<>("Price");
@@ -765,12 +761,12 @@ public class SalesUI {
         dateSaleColumn.setResizable(false);
         dateSaleColumn.setReorderable(false);
 
-        idSaleColumn.setPrefWidth(42);
-        idProductColumn.setPrefWidth(42);
-        idSupplierColumn.setPrefWidth(42);
-        quantitySaleColumn.setPrefWidth(42);
-        priceSaleColumn.setPrefWidth(42);
-        dateSaleColumn.setPrefWidth(85);
+        idSaleColumn.setPrefWidth(40);
+        idProductColumn.setPrefWidth(44);
+        idSupplierColumn.setPrefWidth(44);
+        quantitySaleColumn.setPrefWidth(40);
+        priceSaleColumn.setPrefWidth(40);
+        dateSaleColumn.setPrefWidth(70);
 
         ComboBox<Sales>salesComboBox = new ComboBox<>(SalesQuery.getSalesbyId());
         salesComboBox.setId("salesCombox");

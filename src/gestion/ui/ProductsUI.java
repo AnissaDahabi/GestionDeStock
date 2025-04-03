@@ -752,6 +752,7 @@ public class ProductsUI {
         TableView productsTable = new TableView<Products>();
         productsTable.setEditable(false);
         productsTable.setId("productsTable");
+        productsTable.setPrefWidth(262);
 
         TableColumn<Products, Integer> idProductColumn = new TableColumn<>("ID");
         idProductColumn.setCellValueFactory(new PropertyValueFactory<>("idProduct"));
@@ -778,11 +779,11 @@ public class ProductsUI {
         supplierProductColumn.setResizable(false);
         supplierProductColumn.setReorderable(false);
 
-        idProductColumn.setPrefWidth(50);
+        idProductColumn.setPrefWidth(40);
         nameProductColumn.setPrefWidth(85);
-        priceProductColumn.setPrefWidth(42);
+        priceProductColumn.setPrefWidth(40);
         quantityProductColumn.setPrefWidth(45);
-        supplierProductColumn.setPrefWidth(55);
+        supplierProductColumn.setPrefWidth(52);
 
         productsTable.getColumns().addAll(idProductColumn, nameProductColumn, priceProductColumn, quantityProductColumn, supplierProductColumn);
 

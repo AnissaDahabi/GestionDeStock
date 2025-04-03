@@ -4,6 +4,8 @@
 .root {
     -fx-background-color: #F7EFDE;
     -fx-font-family: "Roboto";
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
 }
 
 .returnBtn {
@@ -118,7 +120,17 @@
     -fx-background-color: #DDE0CD;
 }
 
+.radio-button:selected {
+    -fx-faint-focus-color: rgba(117, 139, 104, 0.3) !important;
+    -fx-focus-color: rgba(117, 139, 104, 0.6) !important;
+    -fx-focus-width: 1.5px;
+}
+
 .radio-button:selected .radio .dot {
     -fx-background-color: #758B68;
     -fx-background-insets: 0;
+}
+
+.radio-button:selected > .radio {
+    -fx-background-insets: 0, 2, 3, 4;
 }
