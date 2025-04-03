@@ -5,10 +5,6 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import gestion.dao.ReportsQuery;
-import gestion.model.Reports;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -18,9 +14,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import javafx.scene.text.Text;
-import javafx.util.StringConverter;
-
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -33,7 +26,7 @@ import java.time.LocalDate;
 public class ReportsUI {
     public static Scene createContent() {
 
-        // Return button:
+        //Return button:
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
 
@@ -47,7 +40,7 @@ public class ReportsUI {
         returnBtnContainer.setPadding(new Insets(10, 10, 10, 10));
         returnBtnContainer.getChildren().add(returnBtn);
 
-        // Title:
+        //Title:
         HBox reportsTitle = new HBox(new Label("Reports"));
         reportsTitle.getStyleClass().add("reportsTitle");
         reportsTitle.setAlignment(Pos.CENTER);
@@ -66,28 +59,27 @@ public class ReportsUI {
         Label endDateLabel = new Label("End Date : ");
         Label displayLabel = new Label("Display : ");
 
-        //Fil déroulants
+        //Fil déroulant:
         DatePicker startDatePicker = new DatePicker();
         startDatePicker.getStyleClass().add("startDatePicker");
+        startDatePicker.setEditable(false);
+        startDatePicker.setPrefWidth(100);
         reportsBtnContainer.getChildren().add(startDatePicker);
 
         DatePicker endDatePicker = new DatePicker();
         endDatePicker.getStyleClass().add("endDatePicker");
+        endDatePicker.setEditable(false);
         reportsBtnContainer.getChildren().add(endDatePicker);
 
         //Radiobuttons
-        RadioButton productCheck = new RadioButton("Products : ");
-        RadioButton supplierCheck = new RadioButton("Suppliers : ");
-        RadioButton salesCheck = new RadioButton("Sales : ");
+        RadioButton productCheck = new RadioButton("Products");
+        RadioButton supplierCheck = new RadioButton("Suppliers");
+        RadioButton salesCheck = new RadioButton("Sales");
 
         ToggleGroup toggleGroup = new ToggleGroup();
         productCheck.setToggleGroup(toggleGroup);
         supplierCheck.setToggleGroup(toggleGroup);
         salesCheck.setToggleGroup(toggleGroup);
-
-//        reportsBtnContainer.getChildren().add(productCheck);
-//        reportsBtnContainer.getChildren().add(supplierCheck);
-//        reportsBtnContainer.getChildren().add(salesCheck);
 
         GridPane reportsGrid = new GridPane();
         reportsGrid.getStyleClass().add("reportsGrid");

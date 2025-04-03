@@ -34,4 +34,56 @@
     -fx-padding: 70 0 0 0;
 }
 
+.reportsGrid RadioButton {
+    -fx-text-fill: #3C582B;
+    -fx-font-weight: bold;
+}
+
+.reportsGrid Label {
+    -fx-text-fill: #3C582B;
+    -fx-font-weight: bold;
+}
+
+.date-picker {
+    -fx-background-radius: 20px;
+    -fx-max-width: 120px;
+    -fx-min-width: 120px;
+}
+
+.date-picker > .arrow-button {
+    -fx-background-radius: 0 10 10 0;
+}
+
+.date-picker .text-field {
+    -fx-control-inner-background: #D0D4BE;
+    -fx-background-radius: 20 0 0 20;
+    -fx-border-radius: 20 0 0 20;
+    -fx-border-color: #D0D4BE;
+    -fx-text-fill: #3C582B;
+    -fx-max-height: 12px;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-max-width: 120px;
+    -fx-min-width: 120px;
+}
+
+.date-picker {
+    -fx-font-size: 10px;
+}
+
+.date-picker-popup {
+    -fx-font-size: 8px;
+    -fx-max-width: 165px;
+    -fx-min-width: 165px;
+}
+
+.date-picker .cell {
+    -fx-font-size: 8px;
+}
+
+.radio-button:selected .radio .dot {
+    -fx-background-color: #758B68;
+    -fx-background-insets: 0;
+}
+
 
