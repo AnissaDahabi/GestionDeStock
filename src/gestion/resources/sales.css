@@ -59,6 +59,16 @@
     -fx-font-weight: bold;
 }
 
+.addSalesGrid TextField {
+    -fx-background-color: #D0D4BE;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-text-fill: #3C582B;
+    -fx-max-height: 12px;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+}
+
 .submitAddedSalesBtn {
     -fx-background-color: linear-gradient(#ACBEA2, #A4B997);
     -fx-text-fill: #FFFBF4;
@@ -73,6 +83,23 @@
     -fx-padding: 50 0 0 0;
 }
 
+/* EDIT SALES */
+
+.editSalesContainer Label {
+    -fx-text-fill: #3C582B;
+    -fx-font-weight: bold;
+}
+
+.editSalesContainer ComboBox {
+    -fx-background-color: #D0D4BE;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-max-height: 12px;
+    -fx-font-size: 10px;
+    -fx-prompt-text-fill: #758B68;
+    -fx-text-fill: #3C582B;
+    -fx-font-weight: bold;
+}
 #suppliersComboBox {
     -fx-background-color: #D0D4BE;
     -fx-background-radius: 20px;
@@ -93,6 +120,96 @@
     -fx-prompt-text-fill: #758B68;
     -fx-text-fill: #3C582B;
     -fx-font-weight: bold;
+}
+
+.editSalesGrid Label {
+    -fx-text-fill: #3C582B;
+    -fx-font-weight: bold;
+}
+
+.editSalesGrid TextField {
+    -fx-background-color: #D0D4BE;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-text-fill: #3C582B;
+    -fx-max-height: 12px;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+}
+
+
+.date-picker {
+    -fx-background-radius: 20px;
+    -fx-max-width: 120px;
+    -fx-min-width: 120px;
+}
+
+.date-picker > .arrow-button {
+    -fx-background-radius: 0 10 10 0;
+}
+
+.date-picker .text-field {
+    -fx-control-inner-background: #D0D4BE;
+    -fx-background-radius: 20 0 0 20;
+    -fx-border-radius: 20 0 0 20;
+    -fx-border-color: #D0D4BE;
+    -fx-text-fill: #3C582B;
+    -fx-max-height: 12px;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-max-width: 120px;
+    -fx-min-width: 120px;
+}
+
+.date-picker {
+    -fx-font-size: 10px;
+    -fx-text-fill: #3C582B;
+    -fx-background-color: #A4B997;
+    -fx-font-weight: bold;
+}
+
+.date-picker-popup {
+    -fx-font-size: 8px;
+    -fx-text-fill: #3C582B;
+    -fx-font-weight: bold;
+    -fx-max-width: 165px;
+    -fx-min-width: 165px;
+}
+
+.date-picker .cell {
+    -fx-font-size: 8px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3C582B;
+}
+
+.date-picker .cell:hover {
+    -fx-font-size: 8px;
+    -fx-background-color: #A4B997;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.date-picker .cell:focused {
+    -fx-font-size: 8px;
+    -fx-background-color: #A4B997;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.date-picker-popup .week-number-cell {
+    -fx-text-fill: #A4B997;
+}
+
+.date-picker-popup .week-number-cell:focused {
+    -fx-text-fill: white;
+}
+
+.date-picker-popup .week-number-cell:hover {
+    -fx-text-fill: white;
+}
+
+.date-picker-popup .month-year-pane {
+    -fx-background-color: #DDE0CD;
 }
 
 /* DEL SALES */
@@ -215,60 +332,95 @@
 }
 
 
-/* SHOW Sales */
+/* SHOW SALES */
 
-.showTitle Label{
+.showTitle Label {
     -fx-font-size: 24px;
     -fx-text-fill: #3C582B;
     -fx-font-weight: bold;
     -fx-padding: 40 0 0 0;
 }
 
-.sortFilterContainer {
-    -fx-padding: 20 0 0 0;
-}
-
-.sortSales{
-    -fx-font-size: 13px;
-    -fx-padding: 0 0 0 10;
-    -fx-text-fill: #758B68;
-    -fx-font-weight: bold;
-}
-#sortFilter{
-    -fx-background-color: #D0D4BE;
-    -fx-background-radius: 20px;
-    -fx-border-radius: 20px;
-    -fx-max-height: 12px;
-    -fx-font-size: 10px;
-    -fx-prompt-text-fill: #758B68;
+.searchSalesContainer Label {
     -fx-text-fill: #3C582B;
     -fx-font-weight: bold;
 }
 
-.sortSales {
-    -fx-font-size: 13px;
-    -fx-padding: 0 0 0 10;
-    -fx-text-fill: #758B68;
-    -fx-font-weight: bold;
-}
-.searchSalesInput {
+.searchSalesContainer TextField {
     -fx-background-color: #D0D4BE;
     -fx-background-radius: 20px;
     -fx-border-radius: 20px;
+    -fx-text-fill: #3C582B;
+    -fx-prompt-text-fill: #758B68;
     -fx-max-height: 12px;
     -fx-font-size: 10px;
-    -fx-prompt-text-fill: #758B68;
+    -fx-font-weight: bold;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: #758B68;
+    -fx-font-weight: bold;
+}
+
+.combo-box .list-view .list-cell {
+    -fx-text-fill: #758B68;
+}
+
+.combo-box .list-view .list-cell:hover {
+    -fx-background-color : #D0D4BE;
+    -fx-text-fill: white;
+}
+
+.combo-box .list-view .list-cell:focused {
+    -fx-background-color: #D0D4BE;
+    -fx-text-fill: white;
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: #A4B997;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.table-view:focused {
+    -fx-background-color: transparent;
+}
+
+
+/* ALERTS */
+
+.dialog-pane {
+    -fx-pref-width: 250px;
+    -fx-pref-height: 80px;
+    -fx-background-color: #FFF;
+    -fx-border-color: #D0D4BE;
+    -fx-text-fill: #3C582B;
+}
+
+.dialog-pane .content {
     -fx-text-fill: #3C582B;
     -fx-font-weight: bold;
 }
 
-#sortFilter {
-    -fx-background-color: white;
-    -fx-background-radius: 20px;
-    -fx-border-radius: 20px;
-    -fx-border-color: #758B68;
-    -fx-min-height: 15px;
-    -fx-font-size: 10px;
+.dialog-pane .header {
+    -fx-background-color: #F7EFDE !important;
+}
+
+.dialog-pane .header .graphic {
+    -fx-opacity: 0 !important;
+}
+
+.dialog-pane .button:default {
+    -fx-background-color: linear-gradient(#ACBEA2, #A4B997);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.dialog-pane .header .close-button {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-text-fill: #3C582B;
 }
 
 .combo-box .list-cell {

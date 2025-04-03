@@ -631,7 +631,8 @@ public class ProductsUI {
         editProductsGrid.setVgap(10);
         editProductsGrid.setHgap(10);
 
-        Label idProducts = new Label("ID Number: " + idProductsSql );
+        Label idProducts = new Label("ID Number: ");
+        Label idProductsInput = new Label(" " + idProductsSql );
         idProducts.setId("idProductsLabel");
 
         Label nameProducts = new Label("Name: ");
@@ -675,6 +676,7 @@ public class ProductsUI {
         supplierIdInput.setId("supplierProductsInput");
 
         editProductsGrid.add(idProducts, 0, 0);
+        editProductsGrid.add(idProductsInput, 1, 0);
         editProductsGrid.add(nameProducts, 0, 1);
         editProductsGrid.add(nameProductsInput, 1, 1);
         editProductsGrid.add(priceProducts, 0, 2);
@@ -729,10 +731,10 @@ public class ProductsUI {
         showTitle.setAlignment(Pos.CENTER);
         showTitle.getStyleClass().add("showTitle");
 
-        Label searchProducts = new Label("Search by ID: ");
+        Label searchProducts = new Label("Search:");
         searchProducts.getStyleClass().add("searchProducts");
         TextField searchProductsInput = new TextField();
-        searchProductsInput.setPromptText("Search products...");
+        searchProductsInput.setPromptText("Search...");
         searchProductsInput.getStyleClass().add("searchProductsInput");
 
         HBox searchProductsContainer = new HBox();
@@ -741,7 +743,7 @@ public class ProductsUI {
         searchProductsContainer.getStyleClass().add("searchProductsContainer");
         searchProductsContainer.setSpacing(10);
 
-        //Tableau:
+        // Tableau:
         TableView productsTable = new TableView<Products>();
         productsTable.setEditable(false);
         productsTable.setId("productsTable");
@@ -783,7 +785,7 @@ public class ProductsUI {
         productsTableContainer.setPadding(new Insets(20, 10, 10, 10));
         productsTableContainer.getChildren().add(productsTable);
 
-        //Search filter:
+        // Search filter:
         ObservableList<Products> data = ProductsQuery.showProducts(productsTable);
 
         FilteredList<Products> filteredData = new FilteredList<>(data, p -> true);
@@ -792,7 +794,7 @@ public class ProductsUI {
             filteredData.setPredicate(product -> {
 
                 if (newValue == null || newValue.isEmpty()) {
-                    return true; //si le textfield est vide, afficher ts les produits
+                    return true;
                 }
                 String lowerCaseFilter = newValue.toLowerCase();
 
@@ -808,7 +810,7 @@ public class ProductsUI {
                     return true;
                 }
 
-                return false; //pas de math avec la recherche
+                return false;
             });
         });
 

@@ -575,7 +575,8 @@ public class SuppliersUI {
         editSuppliersGrid.setVgap(10);
         editSuppliersGrid.setHgap(10);
 
-        Label idSuppliers = new Label("ID Number: " + idSuppliersSql );
+        Label idSuppliers = new Label("Supplier ID: ");
+        Label idSuppliersInput = new Label(" " + idSuppliersSql );
         idSuppliers.setId("idSuppliersLabel");
 
         Label nameSuppliers = new Label("Name: ");
@@ -602,9 +603,7 @@ public class SuppliersUI {
 
 
         //ComboBox for the refresh
-
         ComboBox<Suppliers> suppliersComboBox = new ComboBox<>(SuppliersQuery.getSuppliersID());
-        //suppliersComboBox.setPromptText("Choose supplier");
         suppliersComboBox.setId("suppliersComboBox");
         suppliersComboBox.setItems(SuppliersQuery.getSuppliersID());
 
@@ -639,6 +638,7 @@ public class SuppliersUI {
         emailSuppliersInput.setId("emailSuppliersInput");
 
         editSuppliersGrid.add(idSuppliers, 0, 0);
+        editSuppliersGrid.add(idSuppliersInput, 1, 0);
         editSuppliersGrid.add(nameSuppliers, 0, 1);
         editSuppliersGrid.add(nameSuppliersInput, 1, 1);
         editSuppliersGrid.add(phoneSuppliers, 0, 2);
@@ -685,7 +685,6 @@ public class SuppliersUI {
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
 
-
         HBox returnBtnContainer = new HBox(10);
         returnBtnContainer.setAlignment(Pos.TOP_RIGHT);
         returnBtnContainer.setPadding(new Insets(10, 10, 10, 10));
@@ -708,25 +707,15 @@ public class SuppliersUI {
         final ComboBox sortFilter = new ComboBox(sortOptions);
         sortFilter.setId("sortFilter");
 
-
-
-        HBox sortFilterContainer = new HBox();
-        sortFilterContainer.getChildren().add(sortSuppliers);
-        sortFilterContainer.getChildren().add(sortFilter);
-        sortFilterContainer.getStyleClass().add("sortFilterContainer");
-
         Label searchSuppliers = new Label("Search by ID: ");
         searchSuppliers.getStyleClass().add("searchSuppliers");
         TextField searchSuppliersInput = new TextField();
+        searchSuppliersInput.setPromptText("Search...");
         searchSuppliersInput.getStyleClass().add("searchSuppliersInput");
-
-        Button confirmBtn = new Button("Confirm");
-        confirmBtn.getStyleClass().add("confirmBtn");
 
         HBox searchSuppliersContainer = new HBox();
         searchSuppliersContainer.getChildren().add(searchSuppliers);
         searchSuppliersContainer.getChildren().add(searchSuppliersInput);
-        searchSuppliersContainer.getChildren().add(confirmBtn);
         searchSuppliersContainer.getStyleClass().add("searchSuppliersContainer");
         searchSuppliersContainer.setSpacing(10);
 
@@ -792,7 +781,7 @@ public class SuppliersUI {
         suppliersTableContainer.getChildren().add(suppliersTable);
 
 
-        VBox showSuppliers = new VBox(returnBtnContainer, showTitle, sortFilterContainer, searchSuppliersContainer, suppliersTableContainer);
+        VBox showSuppliers = new VBox(returnBtnContainer, showTitle, searchSuppliersContainer, suppliersTableContainer);
 
         Scene showSuppliersScene = new Scene(showSuppliers, 300, 600);
         showSuppliersScene.getStylesheets().add("gestion/resources/suppliers.css");

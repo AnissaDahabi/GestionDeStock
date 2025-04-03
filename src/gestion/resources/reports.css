@@ -69,21 +69,56 @@
 
 .date-picker {
     -fx-font-size: 10px;
+    -fx-text-fill: #3C582B;
+    -fx-background-color: #A4B997;
+    -fx-font-weight: bold;
 }
 
 .date-picker-popup {
     -fx-font-size: 8px;
+    -fx-text-fill: #3C582B;
+    -fx-font-weight: bold;
     -fx-max-width: 165px;
     -fx-min-width: 165px;
 }
 
 .date-picker .cell {
     -fx-font-size: 8px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3C582B;
+}
+
+.date-picker .cell:hover {
+    -fx-font-size: 8px;
+    -fx-background-color: #A4B997;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.date-picker .cell:focused {
+    -fx-font-size: 8px;
+    -fx-background-color: #A4B997;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.date-picker-popup .week-number-cell {
+    -fx-text-fill: #A4B997;
+}
+
+.date-picker-popup .week-number-cell:focused {
+    -fx-text-fill: white;
+}
+
+.date-picker-popup .week-number-cell:hover {
+    -fx-text-fill: white;
+}
+
+.date-picker-popup .month-year-pane {
+    -fx-background-color: #DDE0CD;
 }
 
 .radio-button:selected .radio .dot {
     -fx-background-color: #758B68;
     -fx-background-insets: 0;
 }
-
-

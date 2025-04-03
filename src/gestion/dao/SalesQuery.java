@@ -177,7 +177,7 @@ public class SalesQuery {
 
     }
 
-    public static void editSales(int idSalesInput,TextField idsuppliersInput, TextField idProductInput, TextField quantitySalesInput, TextField priceSalesInput, TextField dateSalesInput) {
+    public static void editSales(int idSalesInput, Label idsuppliersInput, Label idProductInput, TextField quantitySalesInput, TextField priceSalesInput, TextField dateSalesInput) {
         try {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
 
