@@ -493,11 +493,6 @@ public class ProductsUI {
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
 
-        returnBtn.setOnAction(event -> {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(SceneManager.getProductsHomeScene());
-        });
-
         HBox returnBtnContainer = new HBox(10);
         returnBtnContainer.setAlignment(Pos.TOP_RIGHT);
         returnBtnContainer.setPadding(new Insets(10, 10, 10, 10));
@@ -585,6 +580,11 @@ public class ProductsUI {
                 alert.showAndWait();            }
         });
 
+        returnBtn.setOnAction(event -> {
+            productsComboBox.valueProperty().set(null);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(SceneManager.getProductsHomeScene());
+        });
 
         VBox editProducts1 = new VBox(returnBtnContainer, editTitle1, editTxtContainer1, boxProductsContainer, editProductsContainer1);
 
@@ -599,11 +599,6 @@ public class ProductsUI {
         // Return button:
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
-
-        returnBtn.setOnAction(event -> {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(SceneManager.getEditProductsScene1());
-        });
 
         HBox returnBtnContainer = new HBox(10);
         returnBtnContainer.setAlignment(Pos.TOP_RIGHT);
@@ -700,6 +695,16 @@ public class ProductsUI {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             ProductsQuery.editProducts(idProductsSql, nameProductsInput, priceProductsInput, quantityProductsInput, supplierIdInput);
             stage.setScene(SceneManager.getProductsHomeScene());
+        });
+
+        returnBtn.setOnAction(event -> {
+            nameProductsInput.clear();
+            priceProductsInput.clear();
+            quantityProductsInput.clear();
+            supplierIdInput.clear();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(SceneManager.getEditProductsScene1());
+
         });
 
         VBox editProducts2 = new VBox(returnBtnContainer, editTitle2, editTxtContainer2, editProductsGrid, editProductsContainer2);

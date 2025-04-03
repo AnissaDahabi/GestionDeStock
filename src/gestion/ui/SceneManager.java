@@ -67,23 +67,23 @@ public class SceneManager {
     }
 
     public static Scene getEditProductsScene1() {
-        if (editProductsScene1 == null) {
+
             editProductsScene1 = ProductsUI.editProductsScene1();
-        }
+
         return editProductsScene1;
     }
 
     public static Scene getEditProductsScene2(int idProductsSql, String nameProductsSql, double priceProductsSql, int quantityProductsSql, int supplierIdSql) {
-        if (editProductsScene2 == null) {
+
             editProductsScene2 = ProductsUI.editProductsScene2(idProductsSql, nameProductsSql, priceProductsSql, quantityProductsSql, supplierIdSql);
-        }
+
         return editProductsScene2;
     }
 
     public static Scene getShowProductsScene() {
-        if (showProductsScene == null) {
+
             showProductsScene = ProductsUI.showProductsScene();
-        }
+
         return showProductsScene;
     }
 
@@ -112,32 +112,26 @@ public class SceneManager {
 
 
     public static Scene getEditSuppliersScene1() {
-        if (editSuppliersScene == null) {
+
             editSuppliersScene = SuppliersUI.editSuppliersScene1();
-        }
+
         return editSuppliersScene;
     }
 
     public static Scene getEditSuppliersScene2(int idSuppliersSql, String nameSuppliersSql, String phoneSuppliersSql, String addressSuppliersSql, String emailSuppliersSql) {
-        if (editSuppliersScene2 == null) {
+
             editSuppliersScene2 = SuppliersUI.editSuppliersScene2(idSuppliersSql, nameSuppliersSql, phoneSuppliersSql, addressSuppliersSql, emailSuppliersSql);
-        }
+
         return editSuppliersScene2;
     }
 
     public static Scene getShowSuppliersScene1() {
-        if (showSuppliersScene1 == null) {
+
             showSuppliersScene1 = SuppliersUI.showSuppliersScene1();
-        }
+
         return showSuppliersScene1;
     }
 
-  /*  public static Scene showSuppliersScene2() {
-        if (showSuppliersScene2 == null) {
-            showSuppliersScene2 = SuppliersUI.showSuppliersScene2();
-        }
-        return showSuppliersScene2;
-    } */
 
     // SALES SCENES
 
@@ -164,23 +158,23 @@ public class SceneManager {
     }
 
     public static Scene getEditSalesScene1() {
-        if (editSalesScene1 == null) {
+
             editSalesScene1 = SalesUI.editSalesScene1();
-        }
+
         return editSalesScene1;
     }
 
     public static Scene getEditSalesScene2(int idSalesSql, int idSuppliersSql, int idProductSql, int quantitySalesProductSql, int priceSalesSql, String dateSalesSql) {
-        if (editSalesScene2 == null) {
+
             editSalesScene2 = SalesUI.editSalesScene2(idSalesSql, idSuppliersSql, idProductSql, quantitySalesProductSql, priceSalesSql, dateSalesSql);
-        }
+
         return editSalesScene2;
     }
 
     public static Scene getShowSalesScene1() {
-        if (showSalesScene1 == null) {
+
             showSalesScene1 = SalesUI.showSalesScene();
-        }
+
         return showSalesScene1;
     }
 
