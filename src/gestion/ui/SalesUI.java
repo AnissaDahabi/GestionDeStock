@@ -561,6 +561,7 @@ public class SalesUI {
 
         returnBtn.setOnAction(event -> {
             salesComboBox.getValue();
+            salesComboBox.getSelectionModel().clearSelection();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(SceneManager.getSalesHomeScene());
         });

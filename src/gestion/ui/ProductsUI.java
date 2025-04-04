@@ -582,6 +582,7 @@ public class ProductsUI {
 
         returnBtn.setOnAction(event -> {
             productsComboBox.valueProperty().set(null);
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(SceneManager.getProductsHomeScene());
         });

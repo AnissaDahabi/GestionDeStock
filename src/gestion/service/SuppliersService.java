@@ -50,25 +50,9 @@ public class SuppliersService {
 
     }
 
-/*    public static boolean delSuppliers(int idSuppliers, String name, String phone, String address, String email, int idProduct) {
-
-        try {
-            Suppliers suppliers = new Suppliers(idSuppliers, name, phone, address, email, idProduct);
-            return SuppliersQuery.delSuppliers(suppliers);
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
-            return false;
-        }
 
 
-    }
 
-
- */
 
     public static Suppliers getSuppliers(int idSupplier) {
         try {
@@ -105,13 +89,6 @@ public class SuppliersService {
 
     }
 
-   // public static boolean showEditedSuppliers(TextField idSuppliersInput, int idSuppliers) {}
-
-  /*  public static boolean editSuppliers(int idSuppliers, String name, String phone, String address, String email, int idProduct) {
-        Suppliers suppliers = new Suppliers(idSuppliers, name, phone, address, email, idProduct);
-        return SuppliersQuery.editSuppliers(suppliers);
-    }
-*/
 
 
 

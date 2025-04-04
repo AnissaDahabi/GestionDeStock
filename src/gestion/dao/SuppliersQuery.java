@@ -4,70 +4,19 @@ import gestion.model.Suppliers;
 import gestion.ui.SceneManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.sql.*;
 
 public class SuppliersQuery {
 
 
-    private static int currentSuppliersId;
-    //private static int currentPhoneSuppliers;
-
-    /*
-
-    public static void addSuppliers(TextField idSupplierInput, TextField nameSupplierInput, TextField phoneSupplierInput, TextField addressSupplierInput, TextField emailSupplierInput, TextField productInput) {
-        try {
-            Connection con =
-                    DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
-
-            String query = "INSERT INTO Supplier (id_supplier, name_supplier, phone_supplier, address_supplier, email_supplier, id_product) VALUES (?, ?, ?, ?, ?, ?)";
-            PreparedStatement pstmt = con.prepareStatement(query);
-
-            //Récupération des données saisies par l'utilisateur
-            int idSupplier = Integer.parseInt(idSupplierInput.getText());
-            String nameSupplier = nameSupplierInput.getText();
-            int phoneSupplier = Integer.parseInt(phoneSupplierInput.getText());
-            String addressSupplier = addressSupplierInput.getText();
-            String emailSupplier = emailSupplierInput.getText();
-            int productId = Integer.parseInt(productInput.getText());
-
-            //Remplissage des paramètres de la requête SQL
-            pstmt.setInt(1, idSupplier);
-            pstmt.setString(2, nameSupplier);
-            pstmt.setInt(3, phoneSupplier);
-            pstmt.setString(4, addressSupplier);
-            pstmt.setString(5, emailSupplier);
-            pstmt.setInt(6, productId);
-
-            //Exécution de la requête SQL
-            int rowsAffected = pstmt.executeUpdate();
-
-            //Fermeture de la connexion et du PreparedStatement
-            pstmt.close();
-            con.close();
-
-            //Message de succès
-            Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("Success !");
-            alert.setHeaderText(null);
-            alert.setContentText("Supplier added successfully");
-            alert.showAndWait();
-        } catch (SQLException e) {
-            e.printStackTrace();
-
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Error" + e.getMessage());
-            alert.showAndWait();
-        }
-    }
-*/
     public static boolean addSuppliers(Suppliers suppliers) {
 
         try {
@@ -160,6 +109,8 @@ public class SuppliersQuery {
     }
 
 
+/*
+
 
 
     public static void showEditedSuppliers(TextField idSuppliersInput,  Stage stage) {
@@ -213,29 +164,7 @@ public class SuppliersQuery {
         }
     }
 
- /*   public static boolean editSuppliers(Suppliers suppliers) {
-        String query = "UPDATE Suppliers SET name_supplier = ?, phone_supplier = ?, address_supplier = ?, email_supplier = ? WHERE id_supplier = ?";
-
-        try {
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
-            PreparedStatement pstmt = con.prepareStatement(query);
-            pstmt.setString(1, suppliers.getNameSupplier());
-            pstmt.setString(2, suppliers.getPhoneSupplier());
-            pstmt.setString(3, suppliers.getAddressSupplier());
-            pstmt.setString(4, suppliers.getEmailSupplier());
-            pstmt.setInt(5, suppliers.getIdSupplier());
-
-            int rowsAffected = pstmt.executeUpdate();
-            return rowsAffected > 0;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-
-  */
+   */
     public static void editSuppliers(int idSuppliersInput , TextField nameSuppliersInput, TextField phoneSuppliersInput, TextField addressSuppliersInput, TextField emailSuppliersInput) {
         try {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
@@ -267,12 +196,20 @@ public class SuppliersQuery {
                 alert.setTitle("Success!");
                 alert.setHeaderText(null);
                 alert.setContentText("Supplier edited successfully");
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.setGraphic(null);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
                 alert.showAndWait();
             } else {
                 Alert alert = new Alert(AlertType.WARNING);
                 alert.setTitle("No Changes");
                 alert.setHeaderText(null);
                 alert.setContentText("No changes were made.");
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.setGraphic(null);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
                 alert.showAndWait();
             }
 

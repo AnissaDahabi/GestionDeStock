@@ -4,11 +4,14 @@ import gestion.model.Products;
 import gestion.ui.SceneManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+
 import java.sql.*;
 
 
@@ -126,6 +129,11 @@ public class ProductsQuery {
                 alert.setTitle("Error");
                 alert.setHeaderText("Invalid input");
                 alert.setContentText("Please enter a valid number for price");
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.setGraphic(null);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
+                alert.showAndWait();
                 return;
             }
             try {
@@ -135,6 +143,11 @@ public class ProductsQuery {
                 alert.setTitle("Error");
                 alert.setHeaderText("Invalid input");
                 alert.setContentText("Please enter a valid number for quantity");
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.setGraphic(null);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
+                alert.showAndWait();
                 return;
             }
 
@@ -148,12 +161,20 @@ public class ProductsQuery {
                 alert.setTitle("Success!");
                 alert.setHeaderText(null);
                 alert.setContentText("Product edited successfully");
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.setGraphic(null);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
                 alert.showAndWait();
             } else {
                 Alert alert = new Alert(AlertType.WARNING);
                 alert.setTitle("No Changes");
                 alert.setHeaderText(null);
                 alert.setContentText("No changes were made.");
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.setGraphic(null);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
                 alert.showAndWait();
             }
 
@@ -167,6 +188,10 @@ public class ProductsQuery {
             alert.setTitle("Error");
             alert.setHeaderText("Error encountered while editing the product");
             alert.setContentText("Error: " + ex.getMessage());
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.setGraphic(null);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
             alert.showAndWait();
         }
     }

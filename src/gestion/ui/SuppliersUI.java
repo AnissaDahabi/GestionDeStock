@@ -287,17 +287,6 @@ public class SuppliersUI {
 
 
 
-
-
-       /* ComboBox<Integer> supplierIdComboBox = new ComboBox<>();
-        supplierIdComboBox.setPromptText("Choose supplier ID");
-
-        List<Integer> supplierID = SuppliersQuery.getSuppliersID();
-        supplierIdComboBox.getItems().addAll(supplierID);
-
-
-        */
-
         //Fil déroulant
         Label comboLabel = new Label("ID number : ");
         ComboBox<Suppliers> suppliersComboBox = new ComboBox<>(SuppliersQuery.getSuppliersID());
@@ -397,68 +386,6 @@ public class SuppliersUI {
         return delSuppliersScene1;
     }
 
-    // DELETE SUPPLIERS SCENE 2
-  /*  public static Scene delSuppliersScene2(int idSuppliersSql, String nameSuppliersSql) {
-
-        // Return button:
-        Button returnBtn = new Button("Return");
-        returnBtn.getStyleClass().add("returnBtn");
-
-        returnBtn.setOnAction(event -> {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(SceneManager.getDelSuppliersScene1());
-        });
-
-        HBox returnBtnContainer = new HBox(10);
-        returnBtnContainer.setAlignment(Pos.TOP_RIGHT);
-        returnBtnContainer.setPadding(new Insets(10, 10, 10, 10));
-        returnBtnContainer.getChildren().add(returnBtn);
-
-        // Title and txt:
-        VBox delTitle2 = new VBox(new Label("Delete a supplier"));
-        delTitle2.setAlignment(Pos.CENTER);
-        delTitle2.getStyleClass().add("delTitle2");
-
-        Text delTxt2 = new Text();
-        delTxt2.setText("Is this the supplier you want to delete from the database ?");
-        delTxt2.setId("delTxt2");
-        delTxt2.setWrappingWidth(280);
-        HBox delTxtContainer2 = new HBox();
-        delTxtContainer2.getChildren().add(delTxt2);
-        delTxtContainer2.setId("delTxtContainer2");
-        delTxtContainer2.setAlignment(Pos.CENTER);
-
-        // Id and name of supplier selected by user
-        Label idSuppliers = new Label("ID Number: " + idSuppliersSql);
-        Label nameSuppliers = new Label("Name: " + nameSuppliersSql);
-
-        VBox inputResult = new VBox(10, idSuppliers, nameSuppliers);
-        inputResult.setId("inputResult");
-        inputResult.setAlignment(Pos.CENTER);
-        inputResult.setPadding(new Insets(50, 10, 10, 10));
-
-        Button submitDeletedSuppliersBtn2 = new Button("Confirm");
-        submitDeletedSuppliersBtn2.getStyleClass().add("submitDeletedSuppliersBtn2");
-        HBox delSuppliersContainer2 = new HBox(10);
-        delSuppliersContainer2.getChildren().add(submitDeletedSuppliersBtn2);
-        delSuppliersContainer2.setAlignment(Pos.CENTER);
-        delSuppliersContainer2.setPadding(new Insets(130, 10, 10, 10));
-
-        submitDeletedSuppliersBtn2.setOnAction(event -> {
-            try {
-                int idSupplier = Integer.parseInt(idSuppliersSql.getText());
-            } catch (Exception e) {
-
-            }
-        });
-
-        VBox delSuppliers2 = new VBox(returnBtnContainer, delTitle2, delTxtContainer2, inputResult,delSuppliersContainer2);
-
-        Scene delSuppliersScene2 = new Scene(delSuppliers2, 300, 600);
-        delSuppliersScene2.getStylesheets().add("gestion/resources/suppliers.css");
-        return delSuppliersScene2;
-    }
-*/
     //EDIT SUPPLIERS SCENE 1
     public static Scene editSuppliersScene1() {
 
@@ -488,12 +415,6 @@ public class SuppliersUI {
 
         //User input
         Label comboLabel = new Label("ID Number: ");
-        //TextField idSuppliersInput = new TextField();
-        //HBox idSuppliersContainer = new HBox();
-        //idSuppliersContainer.getChildren().add(idSuppliers);
-        //idSuppliersContainer.getChildren().add(idSuppliersInput);
-        //idSuppliersContainer.setId("idSuppliersContainer");
-        //idSuppliersContainer.setAlignment(Pos.CENTER);
 
         ComboBox<Suppliers> suppliersComboBox = new ComboBox<>(SuppliersQuery.getSuppliersID());
         //suppliersComboBox.setPromptText("Choose supplier");
@@ -537,6 +458,7 @@ public class SuppliersUI {
 
         returnBtn.setOnAction(event -> {
             suppliersComboBox.setItems(SuppliersQuery.getSuppliersID());
+            suppliersComboBox.getSelectionModel().clearSelection();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(SceneManager.getSuppliersHomeScene());
         });
@@ -693,6 +615,7 @@ public class SuppliersUI {
 
         returnBtn.setOnAction(event -> {
             suppliersComboBox.setItems(SuppliersQuery.getSuppliersID());
+            suppliersComboBox.getSelectionModel().clearSelection();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(SceneManager.getEditSuppliersScene1());
         });

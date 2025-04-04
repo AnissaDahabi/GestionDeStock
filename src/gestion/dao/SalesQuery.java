@@ -9,6 +9,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+
 import java.sql.*;
 
 
@@ -141,7 +143,11 @@ public class SalesQuery {
                 alert.setTitle("Error");
                 alert.setHeaderText("Invalid sale ID, please enter an integer");
                 alert.setContentText("Error: " + ex.getMessage());
-                alert.showAndWait();
+
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.setGraphic(null);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
                 return;
             }
 
@@ -162,7 +168,10 @@ public class SalesQuery {
                     alert.setTitle("Error");
                     alert.setHeaderText("Sale not found");
                     alert.setContentText("No sale found with this ID");
-                    alert.showAndWait();
+                    DialogPane dialogPane = alert.getDialogPane();
+                    dialogPane.setGraphic(null);
+                    alert.initStyle(StageStyle.UTILITY);
+                    alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
                 }
             }
 
@@ -194,6 +203,10 @@ public class SalesQuery {
                 alert.setTitle("Error");
                 alert.setHeaderText("Invalid quantity value, please enter an integer");
                 alert.setContentText("Error: " + e.getMessage());
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.setGraphic(null);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
             }
 
             try {
@@ -203,6 +216,10 @@ public class SalesQuery {
                 alert.setTitle("Error");
                 alert.setHeaderText("Invalid price value, please enter an integer");
                 alert.setContentText("Error: " + e.getMessage());
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.setGraphic(null);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
             }
 
             try {
@@ -212,6 +229,10 @@ public class SalesQuery {
                 alert.setTitle("Error");
                 alert.setHeaderText("Invalid date value, please enter an integer");
                 alert.setContentText("Error: " + e.getMessage());
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.setGraphic(null);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
             }
 
             pstmt.setInt(6, Integer.parseInt(String.valueOf(idSalesInput)));
@@ -223,13 +244,19 @@ public class SalesQuery {
                 alert.setTitle("Success!");
                 alert.setHeaderText(null);
                 alert.setContentText("Sale edited successfully");
-                alert.showAndWait();
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.setGraphic(null);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
             } else {
                 Alert alert = new Alert(AlertType.WARNING);
                 alert.setTitle("No Changes");
                 alert.setHeaderText(null);
                 alert.setContentText("No changes were made.");
-                alert.showAndWait();
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.setGraphic(null);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
             }
 
             pstmt.close();
@@ -242,7 +269,10 @@ public class SalesQuery {
             alert.setTitle("Error");
             alert.setHeaderText("Error encountered while editing the sale");
             alert.setContentText("Error: " + ex.getMessage());
-            alert.showAndWait();
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.setGraphic(null);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
         }
     }
     public static ObservableList<Sales> showSales(TableView<Sales> salesTable) {
