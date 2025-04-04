@@ -109,62 +109,7 @@ public class SuppliersQuery {
     }
 
 
-/*
 
-
-
-    public static void showEditedSuppliers(TextField idSuppliersInput,  Stage stage) {
-        try {
-
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
-
-            String query = "SELECT id_supplier, name_supplier, phone_supplier, address_supplier, email_supplier FROM Suppliers WHERE id_supplier = ?";
-            PreparedStatement pstmt = con.prepareStatement(query);
-
-            try {
-                currentSuppliersId  = Integer.parseInt(idSuppliersInput.getText());
-                pstmt.setInt(1, currentSuppliersId );
-
-            } catch (NumberFormatException ex) {
-                Alert alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Invalid Supplier ID, please enter an integer");
-                alert.setContentText("Error: " + ex.getMessage());
-                alert.showAndWait();
-                return;
-            }
-
-            try (ResultSet resultSet = pstmt.executeQuery()) {
-
-                if (resultSet.next()) {
-                    int idSuppliersSql = resultSet.getInt("id_supplier");
-                    String nameSuppliersSql = resultSet.getString("name_supplier");
-                    String phoneSuppliersSql = resultSet.getString("phone_supplier");
-                    String addressSuppliersSql = resultSet.getString("address_supplier");
-                    String emailSuppliersSql = resultSet.getString("email_supplier");
-
-                    stage.setScene(SceneManager.getEditSuppliersScene2(idSuppliersSql, nameSuppliersSql, phoneSuppliersSql, addressSuppliersSql, emailSuppliersSql));
-
-                } else {
-                    Alert alert = new Alert(AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setHeaderText("Supplier not found");
-                    alert.setContentText("No supplier found with this ID");
-                    alert.showAndWait();
-                }
-            }
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Error encountered");
-            alert.setContentText("Error: " + ex.getMessage());
-            alert.showAndWait();
-        }
-    }
-
-   */
     public static void editSuppliers(int idSuppliersInput , TextField nameSuppliersInput, TextField phoneSuppliersInput, TextField addressSuppliersInput, TextField emailSuppliersInput) {
         try {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");

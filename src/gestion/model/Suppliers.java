@@ -34,22 +34,4 @@ public class Suppliers {
         return emailSupplier;
     }
 
-
-//Setter
-    public void setIdSupplier(int idSupplier) {
-        this.idSupplier = idSupplier;
-    }
-    public void setNameSupplier(String nameSupplier) {
-        this.nameSupplier = nameSupplier;
-    }
-    public void setPhoneSupplier(String phoneSupplier) {
-        this.phoneSupplier = phoneSupplier;
-    }
-    public void setAddressSupplier(String addressSupplier) {
-        this.addressSupplier = addressSupplier;
-    }
-    public void setEmailSupplier(String emailSupplier) {
-        this.emailSupplier = emailSupplier;
-    }
-
 }
