@@ -118,7 +118,7 @@ public class ReportsUI {
 
             StringBuilder query = new StringBuilder();
             if (sales) {
-                query.append("SELECT s.id_sales, sup.id_supplier, p.id_product, sup.name_supplier, p.name_product, p.price_product, s.quantity_sales, s.price_sales, s.date_sales FROM Sales s JOIN Suppliers sup ON s.id_supplier = sup.id_supplier JOIN Products p ON s.id_product = p.id_product WHERE s.date_sales BETWEEN ? AND ?");
+                query.append("SELECT s.id_sales, sup.id_supplier, p.id_product, sup.name_supplier, p.name_product, p.price_product, s.quantity_sales, (p.price_product * s.quantity_sales) AS price_sales, s.date_sales FROM Sales s JOIN Suppliers sup ON s.id_supplier = sup.id_supplier JOIN Products p ON s.id_product = p.id_product WHERE s.date_sales BETWEEN ? AND ?");
             } else if (product) {
                 query.append("SELECT * FROM Products");
             } else if (supplier) {
@@ -138,6 +138,7 @@ public class ReportsUI {
                     stmt.setDate(1, java.sql.Date.valueOf(startDate));
                     stmt.setDate(2, java.sql.Date.valueOf(endDate));
 
+
                     ResultSet rs = stmt.executeQuery();
 
                     PdfPTable table = new PdfPTable(9);
@@ -155,7 +156,6 @@ public class ReportsUI {
                         table.addCell(new Phrase(rs.getString("id_sales")));
                         table.addCell(new Phrase(rs.getString("id_supplier")));
                         table.addCell(new Phrase(rs.getString("id_product")));
-                        table.addCell(new Phrase(rs.getString("name_sales")));
                         table.addCell(new Phrase(rs.getString("name_supplier")));
                         table.addCell(new Phrase(rs.getString("name_product")));
                         table.addCell(new Phrase(rs.getString("price_product")));
@@ -289,7 +289,7 @@ public class ReportsUI {
 
             StringBuilder query = new StringBuilder();
             if (sales) {
-                query.append("SELECT s.id_sales, sup.id_supplier, p.id_product, sup.name_supplier, p.name_product, p.price_product, s.quantity_sales, s.price_sales, s.date_sales FROM Sales s JOIN Suppliers sup ON s.id_supplier = sup.id_supplier JOIN Products p ON s.id_product = p.id_product WHERE s.date_sales BETWEEN ? AND ?");
+                query.append("SELECT s.id_sales, sup.id_supplier, p.id_product, sup.name_supplier, p.name_product, p.price_product, s.quantity_sales, (p.price_product * s.quantity_sales) AS price_sales, s.date_sales FROM Sales s JOIN Suppliers sup ON s.id_supplier = sup.id_supplier JOIN Products p ON s.id_product = p.id_product WHERE s.date_sales BETWEEN ? AND ?");
             } else if (product) {
                 query.append("SELECT * FROM Products");
             } else if (supplier) {
