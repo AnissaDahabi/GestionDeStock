@@ -260,9 +260,8 @@ public class SalesUI {
 
                         DialogPane dialogPane = alert.getDialogPane();
                         dialogPane.setGraphic(null);
-
+                        alert.initStyle(StageStyle.UTILITY);
                         alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
-
                         alert.showAndWait();
 
                         idSalesInput.clear();
@@ -274,7 +273,9 @@ public class SalesUI {
 
                         Stage stage = (Stage)  ((Node) event.getSource()).getScene().getWindow();
                         stage.setScene(SceneManager.getSalesHomeScene());
-                    }else {
+
+                    } else {
+
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle(null);
                         alert.setHeaderText(null);
@@ -287,7 +288,8 @@ public class SalesUI {
                         alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
                         alert.showAndWait();
                     }
-                }catch (Exception e){
+
+                } catch (Exception e){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle(null);
                     alert.setHeaderText(null);

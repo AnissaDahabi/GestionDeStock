@@ -181,24 +181,12 @@ public class SceneManager {
     // REPORTS SCENES
 
     public static Scene getReportsHomeScene() {
-        if (reportsScene == null) {
+
             reportsScene = ReportsUI.createContent();
-        }
+
         return reportsScene;
     }
 
-    public static Scene getGenerateScene1() {
-        if (showReportsScene == null) {
-            showReportsScene = ReportsUI.createContent();
-        }
-        return showReportsScene;
-    }
-
-    public static Scene getReportsScene2() {
-        if (showReportsScene2 == null) {
-            showReportsScene2 = ReportsUI.createContent();
-        } return showReportsScene2;
-    }
 }
 
 

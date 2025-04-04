@@ -207,6 +207,7 @@ public class ProductsUI {
 
         submitAddedProductsBtn.setOnAction(event -> {
             try {
+
                 if (idProductsInput.getText().isEmpty()){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle(null);
@@ -248,6 +249,7 @@ public class ProductsUI {
                     alert.showAndWait();
                     return;
                 }
+
                 if (priceProductsInput.getText().equals("0")){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle(null);
@@ -320,7 +322,9 @@ public class ProductsUI {
                     Stage addProductsScene = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     addProductsScene.setScene(SceneManager.getProductsHomeScene());
                 }
+
             } catch (Exception e) {
+
                 e.printStackTrace();
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle(null);
@@ -435,9 +439,13 @@ public class ProductsUI {
         delProductsContainer.setPadding(new Insets(250, 10, 10, 10));
 
         submitDeletedProductsBtn.setOnAction(event -> {
+
             Products selectedProduct = productsComboBox.getValue();
+
             if (selectedProduct != null) {
+
                 boolean deleted = ProductsService.delProducts(selectedProduct.getIdProduct());
+
                 if (deleted) {
                     Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
                     successAlert.setTitle(null);
@@ -450,28 +458,30 @@ public class ProductsUI {
                     successAlert.initStyle(StageStyle.UTILITY);
                     successAlert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
                     successAlert.showAndWait();
-                } else {
+                }
+            } else if (selectedProduct == null){
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle(null);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Please choose a product to delete");
+                    //Alert's design
+                    DialogPane dialogPane = alert.getDialogPane();
+                    dialogPane.setGraphic(null);
+                    alert.initStyle(StageStyle.UTILITY);
+                    alert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
+                    alert.showAndWait();
+
+            } else {
                     Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                     errorAlert.setTitle(null);
                     errorAlert.setHeaderText(null);
-                    errorAlert.setContentText(" :( ");
+                    errorAlert.setContentText("Something wrong happened..");
                     //Alert's design
                     DialogPane dialogPane = errorAlert.getDialogPane();
                     dialogPane.setGraphic(null);
                     errorAlert.initStyle(StageStyle.UTILITY);
                     errorAlert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
-                    errorAlert.showAndWait();                }
-            } else {
-                Alert warningAlert = new Alert(Alert.AlertType.WARNING);
-                warningAlert.setTitle(null);
-                warningAlert.setHeaderText(null);
-                warningAlert.setContentText("Please select a product");
-                //Alert's design
-                DialogPane dialogPane = warningAlert.getDialogPane();
-                dialogPane.setGraphic(null);
-                warningAlert.initStyle(StageStyle.UTILITY);
-                warningAlert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
-                warningAlert.showAndWait();
+                    errorAlert.showAndWait();
             }
         });
 
@@ -564,17 +574,18 @@ public class ProductsUI {
                         selectedProduct.getSupplierId()
                 ));
 
-            } else {
+            } else if (selectedProduct == null){
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle(null);
                 alert.setHeaderText(null);
-                alert.setContentText("Please choose a product to edit.");
+                alert.setContentText("Please choose a product to edit");
                 //Alert's design
                 DialogPane dialogPane = alert.getDialogPane();
                 dialogPane.setGraphic(null);
                 alert.initStyle(StageStyle.UTILITY);
                 alert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
-                alert.showAndWait();            }
+                alert.showAndWait();
+            }
         });
 
         returnBtn.setOnAction(event -> {
@@ -582,6 +593,7 @@ public class ProductsUI {
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(SceneManager.getProductsHomeScene());
+
         });
 
         VBox editProducts1 = new VBox(returnBtnContainer, editTitle1, editTxtContainer1, boxProductsContainer, editProductsContainer1);
@@ -718,18 +730,116 @@ public class ProductsUI {
         editProductsContainer2.setPadding(new Insets(145, 10, 10, 10));
 
         submitEditedProductsBtn2.setOnAction(event -> {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            ProductsQuery.editProducts(idProductsSql, nameProductsInput, priceProductsInput, quantityProductsInput, supplierIdInput);
 
-            stage.setScene(SceneManager.getProductsHomeScene());
+            try {
+
+                if (nameProductsInput.getText().isEmpty()){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle(null);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Please enter a name for the product");
+                    //Alert's design
+                    DialogPane dialogPane = alert.getDialogPane();
+                    dialogPane.setGraphic(null);
+                    alert.initStyle(StageStyle.UTILITY);
+                    alert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
+                    alert.showAndWait();
+                    return;
+                }
+
+                if (priceProductsInput.getText().isEmpty()){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle(null);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Please enter a price for the product");
+                    //Alert's design
+                    DialogPane dialogPane = alert.getDialogPane();
+                    dialogPane.setGraphic(null);
+                    alert.initStyle(StageStyle.UTILITY);
+                    alert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
+                    alert.showAndWait();
+                    return;
+                }
+
+                if (priceProductsInput.getText().equals("0")){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle(null);
+                    alert.setHeaderText(null);
+                    alert.setContentText("The price cannot be 0");
+                    //Alert's design
+                    DialogPane dialogPane = alert.getDialogPane();
+                    dialogPane.setGraphic(null);
+                    alert.initStyle(StageStyle.UTILITY);
+                    alert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
+                    alert.showAndWait();
+                    return;
+                }
+
+                if (quantityProductsInput.getText().isEmpty()) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle(null);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Please enter a quantity for the product");
+                    //Alert's design
+                    DialogPane dialogPane = alert.getDialogPane();
+                    dialogPane.setGraphic(null);
+                    alert.initStyle(StageStyle.UTILITY);
+                    alert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
+                    alert.showAndWait();
+                    return;
+                }
+
+                if (supplierIdInput.getValue() == null) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle(null);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Please select a supplier");
+                    //Alert's design
+                    DialogPane dialogPane = alert.getDialogPane();
+                    dialogPane.setGraphic(null);
+                    alert.initStyle(StageStyle.UTILITY);
+                    alert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
+                    alert.showAndWait();
+                    return;
+                }
+
+                ProductsQuery.editProducts(idProductsSql, nameProductsInput, priceProductsInput, quantityProductsInput, supplierIdInput);
+
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle(null);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Product added successfully!");
+                    //Alert's design
+                    DialogPane dialogPane = alert.getDialogPane();
+                    dialogPane.setGraphic(null);
+                    alert.initStyle(StageStyle.UTILITY);
+                    alert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
+                    alert.showAndWait();
+
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(SceneManager.getProductsHomeScene());
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle(null);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Something went wrong");
+                    //Alert's design
+                    DialogPane dialogPane = alert.getDialogPane();
+                    dialogPane.setGraphic(null);
+                    alert.initStyle(StageStyle.UTILITY);
+                    alert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
+                    alert.showAndWait();
+                }
         });
 
-        returnBtn.setOnAction(event -> {
+        returnBtn.setOnAction(event1 -> {
             nameProductsInput.clear();
             priceProductsInput.clear();
             quantityProductsInput.clear();
             supplierIdInput.valueProperty().set(null);
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Stage stage = (Stage) ((Node) event1.getSource()).getScene().getWindow();
             stage.setScene(SceneManager.getEditProductsScene1());
 
         });

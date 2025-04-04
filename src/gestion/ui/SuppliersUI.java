@@ -1,5 +1,6 @@
 package gestion.ui;
 
+import gestion.dao.ProductsQuery;
 import gestion.dao.SuppliersQuery;
 import gestion.model.Suppliers;
 import gestion.service.SuppliersService;
@@ -186,6 +187,77 @@ public class SuppliersUI {
 
         submitAddedSuppliersBtn.setOnAction(event -> {
             try {
+
+                if (idSuppliersInput.getText().isEmpty()){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle(null);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Please enter an ID for the supplier");
+                    //Alert's design
+                    DialogPane dialogPane = alert.getDialogPane();
+                    dialogPane.setGraphic(null);
+                    alert.initStyle(StageStyle.UTILITY);
+                    alert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
+                    alert.showAndWait();
+                    return;
+                }
+
+                if (nameSuppliersInput.getText().isEmpty()){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle(null);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Please enter a name for the supplier");
+                    //Alert's design
+                    DialogPane dialogPane = alert.getDialogPane();
+                    dialogPane.setGraphic(null);
+                    alert.initStyle(StageStyle.UTILITY);
+                    alert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
+                    alert.showAndWait();
+                    return;
+                }
+
+                if (phoneSuppliersInput.getText().isEmpty()){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle(null);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Please enter a phone number for the supplier");
+                    //Alert's design
+                    DialogPane dialogPane = alert.getDialogPane();
+                    dialogPane.setGraphic(null);
+                    alert.initStyle(StageStyle.UTILITY);
+                    alert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
+                    alert.showAndWait();
+                    return;
+                }
+
+                if (addressSuppliersInput.getText().isEmpty()){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle(null);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Please enter an address for the supplier");
+                    //Alert's design
+                    DialogPane dialogPane = alert.getDialogPane();
+                    dialogPane.setGraphic(null);
+                    alert.initStyle(StageStyle.UTILITY);
+                    alert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
+                    alert.showAndWait();
+                    return;
+                }
+
+                if (emailSuppliersInput.getText().isEmpty()){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle(null);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Please enter an email address for the supplier");
+                    //Alert's design
+                    DialogPane dialogPane = alert.getDialogPane();
+                    dialogPane.setGraphic(null);
+                    alert.initStyle(StageStyle.UTILITY);
+                    alert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
+                    alert.showAndWait();
+                    return;
+                }
+
                 int idSuppliers = Integer.parseInt(idSuppliersInput.getText());
                 String name = nameSuppliersInput.getText();
                 String phone = phoneSuppliersInput.getText();
@@ -196,7 +268,7 @@ public class SuppliersUI {
 
                 if (success) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Success");
+                    alert.setTitle(null);
                     alert.setHeaderText(null);
                     alert.setContentText("Supplier added successfully");
 
@@ -212,21 +284,10 @@ public class SuppliersUI {
                     addressSuppliersInput.clear();
                     emailSuppliersInput.clear();
 
-
                     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     stage.setScene(SceneManager.getSuppliersHomeScene());
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle(null);
-                    alert.setHeaderText(null);
-                    alert.setContentText("Something went wrong");
-
-                    DialogPane dialogPane = alert.getDialogPane();
-                    dialogPane.setGraphic(null);
-                    alert.initStyle(StageStyle.UTILITY);
-                    alert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
-                    alert.showAndWait();
                 }
+
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle(null);
@@ -237,9 +298,7 @@ public class SuppliersUI {
                 alert.initStyle(StageStyle.UTILITY);
                 alert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
                 alert.showAndWait();
-
             }
-
         });
 
         VBox addSuppliers = new VBox(returnBtnContainer, addTitle, addTxtContainer, addSuppliersGrid,addSuppliersContainer);
@@ -284,8 +343,6 @@ public class SuppliersUI {
         idSuppliersContainer.getChildren().add(idSuppliersInput);
         idSuppliersContainer.setId("idSuppliersContainer");
         idSuppliersContainer.setAlignment(Pos.CENTER);
-
-
 
         //Fil déroulant
         Label comboLabel = new Label("ID number : ");
@@ -339,11 +396,14 @@ public class SuppliersUI {
         submitDeletedSuppliersBtn1.setOnAction(event -> {
 
             Suppliers selectedSupplier = suppliersComboBox.getValue();
+
             if (selectedSupplier != null) {
+
                 boolean deleted = SuppliersService.delSuppliers(selectedSupplier.getIdSupplier());
+
                 if (deleted) {
                     Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-                    successAlert.setTitle("Success");
+                    successAlert.setTitle(null);
                     successAlert.setHeaderText(null);
                     successAlert.setContentText("Supplier deleted successfully");
 
@@ -353,33 +413,32 @@ public class SuppliersUI {
                     successAlert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
                     successAlert.showAndWait();
                     suppliersComboBox.setItems(SuppliersQuery.getSuppliersID());
-                } else {
+                }
+            } else if (selectedSupplier == null){
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle(null);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Please choose a supplier to delete");
+                    //Alert's design
+                    DialogPane dialogPane = alert.getDialogPane();
+                    dialogPane.setGraphic(null);
+                    alert.initStyle(StageStyle.UTILITY);
+                    alert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
+                    alert.showAndWait();
+            } else {
                     Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                    errorAlert.setTitle("Error");
+                    errorAlert.setTitle(null);
                     errorAlert.setHeaderText(null);
-                    errorAlert.setContentText("Shit happened");
+                    errorAlert.setContentText("Something wrong happened..");
                     DialogPane dialogPane = errorAlert.getDialogPane();
                     dialogPane.setGraphic(null);
                     errorAlert.initStyle(StageStyle.UTILITY);
                     errorAlert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
                     errorAlert.showAndWait();
-                }
-            } else {
-                Alert warningAlert = new Alert(Alert.AlertType.WARNING);
-                warningAlert.setTitle("Warning");
-                warningAlert.setHeaderText(null);
-                warningAlert.setContentText("Please choose a supplier");
-                DialogPane dialogPane = warningAlert.getDialogPane();
-                dialogPane.setGraphic(null);
-                warningAlert.initStyle(StageStyle.UTILITY);
-                warningAlert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
-                warningAlert.showAndWait();
             }
         });
 
         VBox delSuppliers1 = new VBox(returnBtnContainer, delTitle1, delTxtContainer1, boxSuppliersContainer, delSuppliersContainer1);
-
-
 
         Scene delSuppliersScene1 = new Scene(delSuppliers1, 300, 600);
         delSuppliersScene1.getStylesheets().add("gestion/resources/suppliers.css");
@@ -392,7 +451,6 @@ public class SuppliersUI {
         // Return button:
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
-
 
         HBox returnBtnContainer = new HBox(10);
         returnBtnContainer.setAlignment(Pos.TOP_RIGHT);
@@ -476,9 +534,9 @@ public class SuppliersUI {
                         selectedSupplier.getEmailSupplier()
                 ));
 
-            } else {
+            } else if (selectedSupplier == null){
                 Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning");
+                alert.setTitle(null);
                 alert.setHeaderText(null);
                 alert.setContentText("Please choose a supplier to edit.");
                 DialogPane dialogPane = alert.getDialogPane();
@@ -621,9 +679,93 @@ public class SuppliersUI {
         });
 
         submitEditedSuppliersBtn2.setOnAction(event -> {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            SuppliersQuery.editSuppliers(idSuppliersSql ,nameSuppliersInput, phoneSuppliersInput, addressSuppliersInput, emailSuppliersInput);
-            stage.setScene(SceneManager.getSuppliersHomeScene());
+            try {
+
+                if (nameSuppliersInput.getText().isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle(null);
+                alert.setHeaderText(null);
+                alert.setContentText("Please enter a name for the supplier");
+                //Alert's design
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.setGraphic(null);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
+                alert.showAndWait();
+                return;
+            }
+
+                if (phoneSuppliersInput.getText().isEmpty()){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle(null);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Please enter a phone number for the supplier");
+                    //Alert's design
+                    DialogPane dialogPane = alert.getDialogPane();
+                    dialogPane.setGraphic(null);
+                    alert.initStyle(StageStyle.UTILITY);
+                    alert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
+                    alert.showAndWait();
+                    return;
+                }
+
+                if (addressSuppliersInput.getText().isEmpty()){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle(null);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Please enter an address for the supplier");
+                    //Alert's design
+                    DialogPane dialogPane = alert.getDialogPane();
+                    dialogPane.setGraphic(null);
+                    alert.initStyle(StageStyle.UTILITY);
+                    alert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
+                    alert.showAndWait();
+                    return;
+                }
+
+                if (emailSuppliersInput.getText().isEmpty()) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle(null);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Please enter an email address for the supplier");
+                    //Alert's design
+                    DialogPane dialogPane = alert.getDialogPane();
+                    dialogPane.setGraphic(null);
+                    alert.initStyle(StageStyle.UTILITY);
+                    alert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
+                    alert.showAndWait();
+                    return;
+                }
+
+                SuppliersQuery.editSuppliers(idSuppliersSql ,nameSuppliersInput, phoneSuppliersInput, addressSuppliersInput, emailSuppliersInput);
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle(null);
+                alert.setHeaderText(null);
+                alert.setContentText("Supplier added successfully!");
+                //Alert's design
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.setGraphic(null);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
+                alert.showAndWait();
+
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setScene(SceneManager.getSuppliersHomeScene());
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle(null);
+                alert.setHeaderText(null);
+                alert.setContentText("Something went wrong");
+                //Alert's design
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.setGraphic(null);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
+                alert.showAndWait();
+            }
 
         });
 
