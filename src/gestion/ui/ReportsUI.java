@@ -118,7 +118,7 @@ public class ReportsUI {
 
             StringBuilder query = new StringBuilder();
             if (sales) {
-                query.append("SELECT s.id_sales, sup.id_supplier, p.id_product, sup.name_supplier, p.name_product, p.price_product, s.quantity_sales, (p.price_product * s.quantity_sales) AS price_sales, s.date_sales FROM Sales s JOIN Suppliers sup ON s.id_supplier = sup.id_supplier JOIN Products p ON s.id_product = p.id_product WHERE s.date_sales BETWEEN ? AND ?");
+                query.append("SELECT s.id_sales, sup.id_supplier, p.id_product, sup.name_supplier, p.name_product, p.price_product, s.quantity_sales, (p.price_product * s.quantity_sales) AS price_sales, DATE_FORMAT(s.date_sales, '%d-%m-%Y') AS date_sales FROM Sales s JOIN Suppliers sup ON s.id_supplier = sup.id_supplier JOIN Products p ON s.id_product = p.id_product WHERE s.date_sales BETWEEN ? AND ?");
             } else if (product) {
                 query.append("SELECT * FROM Products");
             } else if (supplier) {
@@ -142,6 +142,7 @@ public class ReportsUI {
                     ResultSet rs = stmt.executeQuery();
 
                     PdfPTable table = new PdfPTable(9);
+                    table.setWidthPercentage(100);
                     table.addCell(new Phrase("Sales_ID"));
                     table.addCell(new Phrase("Supplier_ID"));
                     table.addCell(new Phrase("Product_ID"));
@@ -174,6 +175,7 @@ public class ReportsUI {
                     PreparedStatement stmt = con.prepareStatement(query.toString());
                     ResultSet rs = stmt.executeQuery();
                     PdfPTable table = new PdfPTable(5);
+                    table.setWidthPercentage(100);
                     table.addCell(new Phrase("Id_Product"));
                     table.addCell(new Phrase("Id_Supplier"));
                     table.addCell(new Phrase("Product_Name"));
@@ -197,6 +199,7 @@ public class ReportsUI {
                     PreparedStatement stmt = con.prepareStatement(query.toString());
                     ResultSet rs = stmt.executeQuery();
                     PdfPTable table = new PdfPTable(5);
+                    table.setWidthPercentage(100);
                     table.addCell(new Phrase("Id_Supplier"));
                     table.addCell(new Phrase("Supplier_Name"));
                     table.addCell(new Phrase("Supplier_Phone"));
@@ -289,7 +292,7 @@ public class ReportsUI {
 
             StringBuilder query = new StringBuilder();
             if (sales) {
-                query.append("SELECT s.id_sales, sup.id_supplier, p.id_product, sup.name_supplier, p.name_product, p.price_product, s.quantity_sales, (p.price_product * s.quantity_sales) AS price_sales, s.date_sales FROM Sales s JOIN Suppliers sup ON s.id_supplier = sup.id_supplier JOIN Products p ON s.id_product = p.id_product WHERE s.date_sales BETWEEN ? AND ?");
+                query.append("SELECT s.id_sales, sup.id_supplier, p.id_product, sup.name_supplier, p.name_product, p.price_product, s.quantity_sales, (p.price_product * s.quantity_sales) AS price_sales, DATE_FORMAT(s.date_sales, '%d-%m-%Y') AS date_sales FROM Sales s JOIN Suppliers sup ON s.id_supplier = sup.id_supplier JOIN Products p ON s.id_product = p.id_product WHERE s.date_sales BETWEEN ? AND ?");
             } else if (product) {
                 query.append("SELECT * FROM Products");
             } else if (supplier) {
@@ -358,18 +361,30 @@ public class ReportsUI {
                         row.createCell(6).setCellValue(rs.getString("quantity_sales"));
                         row.createCell(7).setCellValue(rs.getString("price_sales"));
                         row.createCell(8).setCellValue(rs.getString("date_sales"));
+
+                        for (int i = 0; i < 9; i++) {
+                            sheet.autoSizeColumn(i);
+                        }
                     } else if (product) {
                         row.createCell(0).setCellValue(rs.getString("id_product"));
                         row.createCell(1).setCellValue(rs.getString("id_supplier"));
                         row.createCell(2).setCellValue(rs.getString("name_product"));
                         row.createCell(3).setCellValue(rs.getString("price_product"));
                         row.createCell(4).setCellValue(rs.getString("quantity_product"));
+
+                        for (int i = 0; i < 5; i++) {
+                            sheet.autoSizeColumn(i);
+                        }
                     } else if (supplier) {
                         row.createCell(0).setCellValue(rs.getString("id_supplier"));
                         row.createCell(1).setCellValue(rs.getString("name_supplier"));
                         row.createCell(2).setCellValue(rs.getString("phone_supplier"));
                         row.createCell(3).setCellValue(rs.getString("address_supplier"));
                         row.createCell(4).setCellValue(rs.getString("email_supplier"));
+
+                        for (int i = 0; i < 5; i++) {
+                            sheet.autoSizeColumn(i);
+                        }
                     }
 
                 }
