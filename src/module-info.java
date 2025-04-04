@@ -9,6 +9,7 @@ module GestionDeStock {
     requires org.controlsfx.controls;
     requires com.almasb.fxgl.scene;
     requires itextpdf;
+    requires org.apache.poi.ooxml;
     requires java.desktop;
 
 
