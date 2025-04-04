@@ -399,8 +399,11 @@
     -fx-font-weight: bold;
 }
 
-
 .table-view .column-header {
+    -fx-background-color: #758B68;
+}
+
+.table-view .column-header-background .filler {
     -fx-background-color: #758B68;
 }
 

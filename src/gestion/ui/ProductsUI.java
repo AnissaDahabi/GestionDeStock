@@ -14,10 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.text.Text;
 import javafx.stage.StageStyle;
@@ -667,9 +664,37 @@ public class ProductsUI {
         }));
 
         Label supplierId = new Label("Supplier: ");
-        TextField supplierIdInput = new TextField();
-        supplierIdInput.setText(String.valueOf(supplierIdSql));
+
+        ComboBox<Suppliers> supplierIdInput = new ComboBox<>(SuppliersQuery.getSuppliersID());
         supplierIdInput.setId("supplierProductsInput");
+        supplierIdInput.setItems(SuppliersQuery.getSuppliersID());
+
+        supplierIdInput.setConverter(new StringConverter<Suppliers>() {
+            @Override
+            public String toString(Suppliers suppliers) {
+                return suppliers != null ? String.valueOf(suppliers.getIdSupplier()) : "";
+            }
+
+            @Override
+            public Suppliers fromString(String s) {
+                return null;
+            }
+        });
+
+        supplierIdInput.setCellFactory(lv -> new ListCell<Suppliers>() {
+            @Override
+            protected void updateItem(Suppliers supplier, boolean empty) {
+                super.updateItem(supplier, empty);
+                setText(empty || supplier == null ? null : String.valueOf(supplier.getIdSupplier()));
+            }
+        });
+
+        for (Suppliers supplier : SuppliersQuery.getSuppliersID()) {
+            if (supplier.getIdSupplier() == supplierIdSql) {
+                supplierIdInput.setValue(supplier);
+                break;
+            }
+        }
 
         editProductsGrid.add(idProducts, 0, 0);
         editProductsGrid.add(idProductsInput, 1, 0);
@@ -695,6 +720,7 @@ public class ProductsUI {
         submitEditedProductsBtn2.setOnAction(event -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             ProductsQuery.editProducts(idProductsSql, nameProductsInput, priceProductsInput, quantityProductsInput, supplierIdInput);
+
             stage.setScene(SceneManager.getProductsHomeScene());
         });
 
@@ -702,7 +728,7 @@ public class ProductsUI {
             nameProductsInput.clear();
             priceProductsInput.clear();
             quantityProductsInput.clear();
-            supplierIdInput.clear();
+            supplierIdInput.valueProperty().set(null);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(SceneManager.getEditProductsScene1());
 
@@ -753,7 +779,7 @@ public class ProductsUI {
         TableView productsTable = new TableView<Products>();
         productsTable.setEditable(false);
         productsTable.setId("productsTable");
-        productsTable.setPrefWidth(262);
+        //productsTable.setPrefWidth(262);
 
         TableColumn<Products, Integer> idProductColumn = new TableColumn<>("ID");
         idProductColumn.setCellValueFactory(new PropertyValueFactory<>("idProduct"));

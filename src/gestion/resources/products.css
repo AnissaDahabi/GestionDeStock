@@ -206,6 +206,17 @@
     -fx-font-weight: bold;
 }
 
+.editProductsGrid ComboBox {
+    -fx-background-color: #D0D4BE;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-max-height: 12px;
+    -fx-font-size: 10px;
+    -fx-prompt-text-fill: #758B68;
+    -fx-text-fill: #3C582B;
+    -fx-font-weight: bold;
+}
+
 #idProductsContainer {
     -fx-padding: 40 0 0 0;
 }
@@ -235,28 +246,6 @@
     -fx-padding: 40 0 0 0;
 }
 
-.sortFilterContainer {
-    -fx-padding: 20 0 0 0;
-}
-
-.sortProducts {
-    -fx-font-size: 13px;
-    -fx-padding: 0 0 0 10;
-    -fx-text-fill: #758B68;
-    -fx-font-weight: bold;
-}
-
-#sortFilter {
-    -fx-background-color: #D0D4BE;
-    -fx-background-radius: 20px;
-    -fx-border-radius: 20px;
-    -fx-max-height: 12px;
-    -fx-font-size: 10px;
-    -fx-prompt-text-fill: #758B68;
-    -fx-text-fill: #3C582B;
-    -fx-font-weight: bold;
-}
-
 .searchProducts {
     -fx-font-size: 13px;
     -fx-padding: 0 0 0 10;
@@ -273,16 +262,6 @@
     -fx-prompt-text-fill: #758B68;
     -fx-text-fill: #3C582B;
     -fx-font-weight: bold;
-}
-
-.confirmBtn {
-    -fx-background-color: linear-gradient(#ACBEA2, #A4B997);
-    -fx-text-fill: #FFFBF4;
-    -fx-font-weight: bold;
-    -fx-background-radius: 20px;
-    -fx-min-height: 15px;
-    -fx-min-width: 20px;
-    -fx-font-size: 10px;
 }
 
 .searchProductsContainer {
@@ -326,6 +305,10 @@
 }
 
 .table-view .column-header {
+    -fx-background-color: #758B68;
+}
+
+.table-view .column-header-background .filler {
     -fx-background-color: #758B68;
 }
 

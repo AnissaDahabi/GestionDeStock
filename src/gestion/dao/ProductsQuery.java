@@ -1,13 +1,11 @@
 package gestion.dao;
 
 import gestion.model.Products;
+import gestion.model.Suppliers;
 import gestion.ui.SceneManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.DialogPane;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -113,7 +111,7 @@ public class ProductsQuery {
         return false;
     }
 
-    public static void editProducts(int idProductsInput, TextField nameProductsInput, TextField priceProductsInput, TextField quantityProductsInput, TextField supplierIdInput) {
+    public static void editProducts(int idProductsInput, TextField nameProductsInput, TextField priceProductsInput, TextField quantityProductsInput, ComboBox<Suppliers> supplierIdInput) {
         try {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
 
@@ -121,44 +119,16 @@ public class ProductsQuery {
             PreparedStatement pstmt = con.prepareStatement(query);
 
             pstmt.setString(1, nameProductsInput.getText());
-
-            try {
-                pstmt.setDouble(2, Double.parseDouble(priceProductsInput.getText()));
-            } catch (NumberFormatException ex) {
-                Alert alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Invalid input");
-                alert.setContentText("Please enter a valid number for price");
-                DialogPane dialogPane = alert.getDialogPane();
-                dialogPane.setGraphic(null);
-                alert.initStyle(StageStyle.UTILITY);
-                alert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
-                alert.showAndWait();
-                return;
-            }
-            try {
-                pstmt.setInt(3, Integer.parseInt(quantityProductsInput.getText()));
-            } catch (NumberFormatException ex) {
-                Alert alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Invalid input");
-                alert.setContentText("Please enter a valid number for quantity");
-                DialogPane dialogPane = alert.getDialogPane();
-                dialogPane.setGraphic(null);
-                alert.initStyle(StageStyle.UTILITY);
-                alert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
-                alert.showAndWait();
-                return;
-            }
-
-            pstmt.setString(4, supplierIdInput.getText());
+            pstmt.setDouble(2, Double.parseDouble(priceProductsInput.getText()));
+            pstmt.setInt(3, Integer.parseInt(quantityProductsInput.getText()));
+            pstmt.setInt(4, supplierIdInput.getValue().getIdSupplier());
             pstmt.setInt(5, Integer.parseInt(String.valueOf(idProductsInput)));
 
             int rowsAffected = pstmt.executeUpdate();
 
             if (rowsAffected > 0) {
                 Alert alert = new Alert(AlertType.INFORMATION);
-                alert.setTitle("Success!");
+                alert.setTitle(null);
                 alert.setHeaderText(null);
                 alert.setContentText("Product edited successfully");
                 DialogPane dialogPane = alert.getDialogPane();
@@ -168,7 +138,7 @@ public class ProductsQuery {
                 alert.showAndWait();
             } else {
                 Alert alert = new Alert(AlertType.WARNING);
-                alert.setTitle("No Changes");
+                alert.setTitle(null);
                 alert.setHeaderText(null);
                 alert.setContentText("No changes were made.");
                 DialogPane dialogPane = alert.getDialogPane();
