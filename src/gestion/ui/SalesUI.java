@@ -5,11 +5,8 @@ import gestion.dao.ProductsQuery;
 import gestion.dao.SuppliersQuery;
 import gestion.model.Products;
 import gestion.model.Sales;
-import gestion.service.ProductsService;
 import gestion.service.SalesService;
 import gestion.model.Suppliers;
-import gestion.service.SuppliersService;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -26,8 +23,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.StringConverter;
-import org.controlsfx.control.spreadsheet.Grid;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 public class SalesUI {
@@ -107,11 +104,6 @@ public class SalesUI {
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
 
-        returnBtn.setOnAction(event -> {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(SceneManager.getSalesHomeScene());
-        });
-
         HBox returnBtnContainer = new HBox(10);
         returnBtnContainer.setAlignment(Pos.TOP_RIGHT);
         returnBtnContainer.setPadding(new Insets(10, 10, 10, 10));
@@ -138,7 +130,7 @@ public class SalesUI {
         addSalesGrid.setVgap(10);
         addSalesGrid.setHgap(10);
 
-        Label idSales = new Label("ID Number: ");
+        Label idSalesLabel = new Label("ID Number: ");
         TextField idSalesInput = new TextField();
         idSalesInput.setTextFormatter(new TextFormatter<>(change -> {
             if (change.getControlNewText().matches("\\d*")){
@@ -162,9 +154,9 @@ public class SalesUI {
         TextField priceSalesInput = new TextField();
 
 
-        Label DateSales = new Label("Date: ");
-        DatePicker DatesSalesInput = new DatePicker();
-        DatesSalesInput.setEditable(false);
+        Label dateSales = new Label("Date: ");
+        DatePicker dateSalesInput = new DatePicker();
+        dateSalesInput.setEditable(false);
 
 
         Label comboLabel1 = new Label("Supplier ID: ");
@@ -172,7 +164,7 @@ public class SalesUI {
         suppliersComboBox.setId("suppliersComboBox");
         suppliersComboBox.setItems(SuppliersQuery.getSuppliersID());
 
-        suppliersComboBox.setConverter(new StringConverter<Suppliers>() {
+        suppliersComboBox.setConverter(new StringConverter<>() {
             @Override
             public String toString(Suppliers suppliers) {
                 return suppliers != null ? String.valueOf(suppliers.getIdSupplier()) : "";
@@ -183,7 +175,7 @@ public class SalesUI {
                 return null;
             }
         });
-        suppliersComboBox.setCellFactory(lv -> new ListCell<Suppliers>() {
+        suppliersComboBox.setCellFactory(lv -> new ListCell<>() {
             @Override
             protected void updateItem(Suppliers supplier, boolean empty) {
                 super.updateItem(supplier, empty);
@@ -196,7 +188,7 @@ public class SalesUI {
         productsComboBox.setId("productsComboBox");
         productsComboBox.setItems(ProductsQuery.getProductsID());
 
-        productsComboBox.setConverter(new StringConverter<Products>() {
+        productsComboBox.setConverter(new StringConverter<>() {
             @Override
             public String toString(Products products) {
                 return products != null ? String.valueOf(products.getIdProduct()) : "";
@@ -207,7 +199,7 @@ public class SalesUI {
                 return null;
             }
         });
-        productsComboBox.setCellFactory(lv -> new ListCell<Products>() {
+        productsComboBox.setCellFactory(lv -> new ListCell<>() {
             @Override
             protected void updateItem(Products product, boolean empty) {
                 super.updateItem(product, empty);
@@ -216,7 +208,7 @@ public class SalesUI {
         });
 
 
-        addSalesGrid.add(idSales, 0, 0);
+        addSalesGrid.add(idSalesLabel, 0, 0);
         addSalesGrid.add(idSalesInput, 1, 0);
         addSalesGrid.add(comboLabel1, 0, 1);
         addSalesGrid.add(suppliersComboBox, 1, 1);
@@ -226,8 +218,8 @@ public class SalesUI {
         addSalesGrid.add(quantitySalesInput, 1, 3);
         addSalesGrid.add(priceSales, 0, 4);
         addSalesGrid.add(priceSalesInput, 1, 4);
-        addSalesGrid.add(DateSales, 0, 5);
-        addSalesGrid.add(DatesSalesInput, 1, 5);
+        addSalesGrid.add(dateSales, 0, 5);
+        addSalesGrid.add(dateSalesInput, 1, 5);
 
         addSalesGrid.setAlignment(Pos.CENTER);
 
@@ -243,16 +235,101 @@ public class SalesUI {
         submitAddedSalesBtn.setOnAction(event -> {
                 try {
 
-                    int idsales = Integer.parseInt(idSalesInput.getText());
+                    if (idSalesInput.getText().isEmpty()) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle(null);
+                        alert.setHeaderText(null);
+                        alert.setContentText("Please enter an ID for the sale");
+                        //Alert's design
+                        DialogPane dialogPane = alert.getDialogPane();
+                        dialogPane.setGraphic(null);
+                        alert.initStyle(StageStyle.UTILITY);
+                        alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
+                        alert.showAndWait();
+                        return;
+                    }
+
+
+                    if (quantitySalesInput.getText().isEmpty()) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle(null);
+                        alert.setHeaderText(null);
+                        alert.setContentText("Please enter a quantity of products for the sale");
+                        //Alert's design
+                        DialogPane dialogPane = alert.getDialogPane();
+                        dialogPane.setGraphic(null);
+                        alert.initStyle(StageStyle.UTILITY);
+                        alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
+                        alert.showAndWait();
+                        return;
+                    }
+
+                    if (quantitySalesInput.getText().equals("0")) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle(null);
+                        alert.setHeaderText(null);
+                        alert.setContentText("The quantity cannot be 0");
+                        //Alert's design
+                        DialogPane dialogPane = alert.getDialogPane();
+                        dialogPane.setGraphic(null);
+                        alert.initStyle(StageStyle.UTILITY);
+                        alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
+                        alert.showAndWait();
+                        return;
+                    }
+
+                    int idSales = Integer.parseInt(idSalesInput.getText());
                     Suppliers selectedSupplier = suppliersComboBox.getValue();
                     Products selectedProduct = productsComboBox.getValue();
                     int quantity = Integer.parseInt(quantitySalesInput.getText());
                     int price = Integer.parseInt(priceSalesInput.getText());
-                    LocalDate date = DatesSalesInput.getValue();
+                    LocalDate selectedDate = dateSalesInput.getValue();
 
-                    boolean success = SalesService.addSales(idsales, selectedSupplier.getIdSupplier(), selectedProduct.getIdProduct(), quantity,price, String.valueOf(date));
+                    if (selectedSupplier == null) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle(null);
+                        alert.setHeaderText(null);
+                        alert.setContentText("Please select a supplier");
+                        //Alert's design
+                        DialogPane dialogPane = alert.getDialogPane();
+                        dialogPane.setGraphic(null);
+                        alert.initStyle(StageStyle.UTILITY);
+                        alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
+                        alert.showAndWait();
+                        return;
+                    }
 
-                    if(success) {
+                    if (selectedProduct == null) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle(null);
+                        alert.setHeaderText(null);
+                        alert.setContentText("Please select a supplier");
+                        //Alert's design
+                        DialogPane dialogPane = alert.getDialogPane();
+                        dialogPane.setGraphic(null);
+                        alert.initStyle(StageStyle.UTILITY);
+                        alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
+                        alert.showAndWait();
+                        return;
+                    }
+
+                    if (selectedDate == null) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle(null);
+                        alert.setHeaderText(null);
+                        alert.setContentText("Please select a date");
+                        //Alert's design
+                        DialogPane dialogPane = alert.getDialogPane();
+                        dialogPane.setGraphic(null);
+                        alert.initStyle(StageStyle.UTILITY);
+                        alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
+                        alert.showAndWait();
+                        return;
+                    }
+
+                    boolean success = SalesService.addSales(idSales, selectedSupplier.getIdSupplier(), selectedProduct.getIdProduct(), quantity, price, String.valueOf(selectedDate));
+
+                    if (success) {
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle(null);
                         alert.setHeaderText(null);
@@ -264,43 +341,35 @@ public class SalesUI {
                         alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
                         alert.showAndWait();
 
-                        idSalesInput.clear();
-                        suppliersComboBox.valueProperty().set(null);
-                        productsComboBox.valueProperty().set(null);
-                        quantitySalesInput.clear();
-                        priceSalesInput.clear();
-                        DatesSalesInput.valueProperty().set(null);
 
-                        Stage stage = (Stage)  ((Node) event.getSource()).getScene().getWindow();
+                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                         stage.setScene(SceneManager.getSalesHomeScene());
+                    }
 
-                    } else {
-
+                } catch (Exception e) {
+                        e.printStackTrace();
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle(null);
                         alert.setHeaderText(null);
                         alert.setContentText("Something went wrong");
-                        alert.showAndWait();
                         //Alert's design
                         DialogPane dialogPane = alert.getDialogPane();
                         dialogPane.setGraphic(null);
                         alert.initStyle(StageStyle.UTILITY);
                         alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
                         alert.showAndWait();
-                    }
+                }
+        });
 
-                } catch (Exception e){
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle(null);
-                    alert.setHeaderText(null);
-                    alert.setContentText("Something went wrong");
-                    alert.showAndWait();
-                    //Alert's design
-                    DialogPane dialogPane = alert.getDialogPane();
-                    dialogPane.setGraphic(null);
-                    alert.initStyle(StageStyle.UTILITY);
-                    alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
-                    alert.showAndWait();                }
+        returnBtn.setOnAction(event -> {
+            idSalesInput.clear();
+            suppliersComboBox.valueProperty().set(null);
+            productsComboBox.valueProperty().set(null);
+            quantitySalesInput.clear();
+            dateSalesInput.setValue(null);
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(SceneManager.getSalesHomeScene());
         });
 
         VBox addSales = new VBox(returnBtnContainer, addTitle, addTxtContainer, addSalesGrid, addSalesContainer);
@@ -315,11 +384,6 @@ public class SalesUI {
         // Return button:
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
-
-        returnBtn.setOnAction(event -> {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(SceneManager.getSalesHomeScene());
-        });
 
         HBox returnBtnContainer = new HBox(10);
         returnBtnContainer.setAlignment(Pos.TOP_RIGHT);
@@ -351,12 +415,12 @@ public class SalesUI {
 
 
         Label comboLabel = new Label("ID number : ");
-        ComboBox<Sales> salesComboBox = new ComboBox<>(SalesQuery.getSalesbyId());
+        ComboBox<Sales> salesComboBox = new ComboBox<>(SalesQuery.getSalesById());
         //suppliersComboBox.setPromptText("Choose sales");
         salesComboBox.setId("salesComboBox");
-        salesComboBox.setItems(SalesQuery.getSalesbyId());
+        salesComboBox.setItems(SalesQuery.getSalesById());
 
-        salesComboBox.setConverter(new StringConverter<Sales>() {
+        salesComboBox.setConverter(new StringConverter<>() {
             @Override
             public String toString(Sales sales) {
                 return sales != null ? String.valueOf(sales.getIdSales()) : "";
@@ -367,7 +431,7 @@ public class SalesUI {
                 return null;
             }
         });
-        salesComboBox.setCellFactory(lv -> new ListCell<Sales>() {
+        salesComboBox.setCellFactory(lv -> new ListCell<>() {
             @Override
             protected void updateItem(Sales sales, boolean empty) {
                 super.updateItem(sales, empty);
@@ -383,7 +447,6 @@ public class SalesUI {
         boxSuppliersContainer.setSpacing(5);
         boxSuppliersContainer.setPadding(new Insets(20, 0, 0, 0));
 
-
         //Next button:
         Button submitDeletedSalesBtn1 = new Button("Delete");
         submitDeletedSalesBtn1.getStyleClass().add("submitDeletedSuppliersBtn1");
@@ -395,100 +458,64 @@ public class SalesUI {
         submitDeletedSalesBtn1.setOnAction(event -> {
 
             Sales selectedSale = salesComboBox.getValue();
+
             if (selectedSale != null) {
+
                 boolean deleted = SalesService.delSales(selectedSale.getIdSales());
+
                 if (deleted) {
                     Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-                    successAlert.setTitle("Success");
+                    successAlert.setTitle(null);
                     successAlert.setHeaderText(null);
-                    successAlert.setContentText("Sales deleted successfully");
+                    successAlert.setContentText("Sale deleted successfully");
+                    salesComboBox.setItems(SalesQuery.getSalesById());
+                    //Alert's design
+                    DialogPane dialogPane = successAlert.getDialogPane();
+                    dialogPane.setGraphic(null);
+                    successAlert.initStyle(StageStyle.UTILITY);
+                    successAlert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
                     successAlert.showAndWait();
-                    salesComboBox.setItems(SalesQuery.getSalesbyId());
-                } else {
-                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                    errorAlert.setTitle("Error");
-                    errorAlert.setHeaderText(null);
-                    errorAlert.setContentText("Shit happened");
-                    errorAlert.showAndWait();
                 }
+            } else if (selectedSale == null){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle(null);
+                alert.setHeaderText(null);
+                alert.setContentText("Please choose a sale to delete");
+                //Alert's design
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.setGraphic(null);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
+                alert.showAndWait();
+
             } else {
-                Alert warningAlert = new Alert(Alert.AlertType.WARNING);
-                warningAlert.setTitle("Warning");
-                warningAlert.setHeaderText(null);
-                warningAlert.setContentText("Please choose a supplier");
-                warningAlert.showAndWait();
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setTitle(null);
+                errorAlert.setHeaderText(null);
+                errorAlert.setContentText("Something wrong happened..");
+                //Alert's design
+                DialogPane dialogPane = errorAlert.getDialogPane();
+                dialogPane.setGraphic(null);
+                errorAlert.initStyle(StageStyle.UTILITY);
+                errorAlert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
+                errorAlert.showAndWait();
             }
         });
 
+        returnBtn.setOnAction(event -> {
+            salesComboBox.valueProperty().set(null);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(SceneManager.getSalesHomeScene());
+        });
+
         VBox delSales1 = new VBox(returnBtnContainer, delTitle1, delTxtContainer1, boxSuppliersContainer, delSalesContainer1);
-
-
 
         Scene delSalesScene1 = new Scene(delSales1, 300, 600);
         delSalesScene1.getStylesheets().add("gestion/resources/suppliers.css");
         return delSalesScene1;
     }
 
-    /*
-    public static Scene delSalesScene2(int idSalesSql, String namesuppliersSql, String nameSalesProductsSql) {
-        // Return button:
-        Button returnBtn = new Button("Return");
-        returnBtn.getStyleClass().add("returnBtn");
 
-        returnBtn.setOnAction(event -> {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(SceneManager.getDelSalesScene1());
-        });
-
-        HBox returnBtnContainer = new HBox(10);
-        returnBtnContainer.setAlignment(Pos.TOP_RIGHT);
-        returnBtnContainer.setPadding(new Insets(10, 10, 10, 10));
-        returnBtnContainer.getChildren().add(returnBtn);
-
-        // Title and txt:
-        VBox delTitle2 = new VBox(new Label("Delete a sale"));
-        delTitle2.setAlignment(Pos.CENTER);
-        delTitle2.getStyleClass().add("delTitle2");
-
-        Text delTxt2 = new Text();
-        delTxt2.setText("Is this the sale you want to delete from the database ?");
-        delTxt2.setId("delTxt2");
-        delTxt2.setWrappingWidth(280);
-        HBox delTxtContainer2 = new HBox();
-        delTxtContainer2.getChildren().add(delTxt2);
-        delTxtContainer2.setId("delTxtContainer2");
-        delTxtContainer2.setAlignment(Pos.CENTER);
-
-        // Id and name of sale selected by user
-        Label idSales = new Label("ID Number: " + idSalesSql);
-        Label namesuppliers = new Label("Name: " + namesuppliersSql);
-        Label nameSalesProducts = new Label("Name: " + nameSalesProductsSql);
-
-        VBox inputResult = new VBox(10, idSales, namesuppliers, nameSalesProducts);
-        inputResult.setId("inputResult");
-        inputResult.setAlignment(Pos.CENTER);
-        inputResult.setPadding(new Insets(50, 10, 10, 10));
-
-        Button submitDeletedSalesBtn2 = new Button("Confirm");
-        submitDeletedSalesBtn2.getStyleClass().add("submitDeletedSalesBtn2");
-        HBox delSalesContainer2 = new HBox(10);
-        delSalesContainer2.getChildren().add(submitDeletedSalesBtn2);
-        delSalesContainer2.setAlignment(Pos.CENTER);
-        delSalesContainer2.setPadding(new Insets(130, 10, 10, 10));
-
-        submitDeletedSalesBtn2.setOnAction(event -> {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            gestion.dao.SalesQuery.delSales();
-            stage.setScene(SceneManager.getSalesHomeScene());
-        });
-
-        VBox delSales2 = new VBox(returnBtnContainer, delTitle2, delTxtContainer2, inputResult, delSalesContainer2);
-
-        Scene delSalesScene2 = new Scene(delSales2, 300, 600);
-        delSalesScene2.getStylesheets().add("gestion/resources/sales.css");
-        return delSalesScene2;
-    }
-*/
     public static Scene editSalesScene1() {
 
         // Return button:
@@ -514,7 +541,7 @@ public class SalesUI {
         editTxtContainer1.setId("delTxtContainer1");
         editTxtContainer1.setAlignment(Pos.CENTER);
 
-        //Fil déroulant:
+        //Fil déroulant :
         GridPane editSalesGrid = new GridPane();
         editSalesGrid.getStyleClass().add("editSalesGrid");
 
@@ -523,11 +550,11 @@ public class SalesUI {
 
         Label comboLabel = new Label("ID Number: ");
 
-        ComboBox<Sales>salesComboBox = new ComboBox<>(SalesQuery.getSalesbyId());
-        salesComboBox.setId("salesCombox");
-        salesComboBox.setItems(SalesQuery.getSalesbyId());
+        ComboBox<Sales>salesComboBox = new ComboBox<>(SalesQuery.getSalesById());
+        salesComboBox.setId("salesComboBox");
+        salesComboBox.setItems(SalesQuery.getSalesById());
 
-        salesComboBox.setConverter(new StringConverter<Sales>() {
+        salesComboBox.setConverter(new StringConverter<>() {
             @Override
             public String toString(Sales sales) {
                 return sales != null ? String.valueOf(sales.getIdSales()) : "";
@@ -537,7 +564,7 @@ public class SalesUI {
                 return null;
             }
         });
-        salesComboBox.setCellFactory(lv -> new ListCell<Sales>() {
+        salesComboBox.setCellFactory(lv -> new ListCell<>() {
             @Override
             protected void updateItem(Sales sales, boolean empty) {
                 super.updateItem(sales, empty);
@@ -561,13 +588,6 @@ public class SalesUI {
         editSalesContainer1.setAlignment(Pos.CENTER);
         editSalesContainer1.setPadding(new Insets(270, 10, 10, 10));
 
-        returnBtn.setOnAction(event -> {
-            salesComboBox.getValue();
-            salesComboBox.getSelectionModel().clearSelection();
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(SceneManager.getSalesHomeScene());
-        });
-
         submitEditedSalesBtn1.setOnAction(event -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Sales selectedSale = salesComboBox.getValue();
@@ -575,23 +595,29 @@ public class SalesUI {
 
                  stage.setScene(SceneManager.getEditSalesScene2(
                          selectedSale.getIdSales(),
-                         selectedSale.getIdSuppliers(),
                          selectedSale.getIdProduct(),
                          selectedSale.getQuantitySales(),
-                         selectedSale.getPriceSales(),
                          selectedSale.getDateSales()
                  ));
-             } else {
+
+             } else if (selectedSale == null){
                  Alert alert = new Alert(Alert.AlertType.WARNING);
                  alert.setTitle(null);
                  alert.setHeaderText(null);
-                 alert.setContentText("Please choose a sales to edit");
+                 alert.setContentText("Please choose a sale to edit");
                  //Alert's design
                  DialogPane dialogPane = alert.getDialogPane();
                  dialogPane.setGraphic(null);
                  alert.initStyle(StageStyle.UTILITY);
                  alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
+                 alert.showAndWait();
              }
+        });
+
+        returnBtn.setOnAction(event -> {
+            salesComboBox.valueProperty().set(null);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(SceneManager.getSalesHomeScene());
         });
 
         VBox editSales1 = new VBox(returnBtnContainer, editTitle1, editTxtContainer1, editSalesContainer, editSalesContainer1);
@@ -601,16 +627,11 @@ public class SalesUI {
         return editSalesScene1;
     }
 
-    public static Scene editSalesScene2(int idSalesSql, int idSuppliersSql, int idProductSql, int quantitySalesSql, int priceSalesSql, String dateSalesSql) {
+    public static Scene editSalesScene2(int idSalesSql, int idProductSql, int quantitySalesSql, String dateSalesSql) {
 
         // Return button:
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
-
-        returnBtn.setOnAction(event -> {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(SceneManager.getEditSalesScene1());
-        });
 
         HBox returnBtnContainer = new HBox(10);
         returnBtnContainer.setAlignment(Pos.TOP_RIGHT);
@@ -642,44 +663,55 @@ public class SalesUI {
         Label idSales1 = new Label(" " + idSalesSql);
         idSales.setId("idSalesLabel");
 
-        Label idSuppliers = new Label("Supplier ID: ");
-        Label idSuppliersInput = new Label();
-        idSuppliersInput.setText(String.valueOf(" " + idSuppliersSql));
-        idSuppliersInput.setId("IdsuppliersInput");
-
         Label idProduct = new Label("Product ID: ");
-        Label idProductInput = new Label();
-        idProductInput.setText(String.valueOf(" " + idProductSql));
-        idProductInput.setId("idProductInput");
+        ComboBox<Products> productsIdInput = new ComboBox<>(ProductsQuery.getProductsID());
+        productsIdInput.setId("productsComboBox");
+        productsIdInput.setItems(ProductsQuery.getProductsID());
+
+        productsIdInput.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(Products products) {
+                return products != null ? String.valueOf(products.getIdProduct()) : "";
+            }
+
+            @Override
+            public Products fromString(String s) {
+                return null;
+            }
+        });
+
+        productsIdInput.setCellFactory(lv -> new ListCell<>() {
+            @Override
+            protected void updateItem(Products product, boolean empty) {
+                super.updateItem(product, empty);
+                setText(empty || product == null ? null : String.valueOf(product.getIdProduct()));
+            }
+        });
+
+        for (Products product : ProductsQuery.getProductsID()) {
+            if (product.getIdProduct() == idProductSql) {
+                productsIdInput.setValue(product);
+                break;
+            }
+        }
 
         Label quantitySales = new Label("Total quantity: ");
         TextField quantitySalesInput = new TextField();
         quantitySalesInput.setText(String.valueOf(quantitySalesSql));
         quantitySalesInput.setId("quantitySalesInput");
 
-        Label priceSales = new Label("Total price: ");
-        TextField priceSalesInput = new TextField();
-        priceSalesInput.setText(String.valueOf(priceSalesSql));
-        priceSalesInput.setId("priceSalesInput");
-
-        Label datesSales = new Label("Sale's date: ");
-        DatePicker datesSalesInput = new DatePicker();
-        datesSales.setId("datesalesInput");
+        Label dateSales = new Label("Sale's date: ");
+        TextField dateSalesInput = new TextField(); // a l'aide
+        dateSalesInput.setText(dateSalesSql);
 
         editSalesGrid.add(idSales, 0, 0);
         editSalesGrid.add(idSales1, 1, 0);
-
-
-        editSalesGrid.add(idSuppliers, 0, 1);
-        editSalesGrid.add(idSuppliersInput, 1, 1);
-        editSalesGrid.add(idProduct, 0, 2);
-        editSalesGrid.add(idProductInput, 1, 2);
-        editSalesGrid.add(quantitySales, 0, 3);
-        editSalesGrid.add(quantitySalesInput, 1, 3);
-        editSalesGrid.add(priceSales, 0, 4);
-        editSalesGrid.add(priceSalesInput, 1, 4);
-        editSalesGrid.add(datesSales, 0, 5);
-        editSalesGrid.add(datesSalesInput, 1, 5);
+        editSalesGrid.add(idProduct, 0, 1);
+        editSalesGrid.add(productsIdInput, 1, 1);
+        editSalesGrid.add(quantitySales, 0, 2);
+        editSalesGrid.add(quantitySalesInput, 1, 2);
+        editSalesGrid.add(dateSales, 0, 3);
+        editSalesGrid.add(dateSalesInput, 1, 3);
 
         editSalesGrid.setAlignment(Pos.CENTER);
         editSalesGrid.setPadding(new Insets(40, 0, 0, 0));
@@ -692,9 +724,87 @@ public class SalesUI {
         editSalesContainer2.setPadding(new Insets(145, 10, 10, 10));
 
         submitEditedSalesBtn2.setOnAction(event -> {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            gestion.dao.SalesQuery.editSales(idSalesSql, idSuppliersInput, idProductInput, quantitySalesInput, priceSalesInput, datesSalesInput.getEditor());
+            try {
+
+                if (productsIdInput.getValue() == null){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle(null);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Please enter a product for the sale");
+                    //Alert's design
+                    DialogPane dialogPane = alert.getDialogPane();
+                    dialogPane.setGraphic(null);
+                    alert.initStyle(StageStyle.UTILITY);
+                    alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
+                    alert.showAndWait();
+                    return;
+                }
+
+                if (quantitySalesInput.getText().isEmpty()){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle(null);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Please enter a quantity for the sale");
+                    //Alert's design
+                    DialogPane dialogPane = alert.getDialogPane();
+                    dialogPane.setGraphic(null);
+                    alert.initStyle(StageStyle.UTILITY);
+                    alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
+                    alert.showAndWait();
+                    return;
+                }
+
+                if (dateSalesInput == null) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle(null);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Please select a date");
+                    //Alert's design
+                    DialogPane dialogPane = alert.getDialogPane();
+                    dialogPane.setGraphic(null);
+                    alert.initStyle(StageStyle.UTILITY);
+                    alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
+                    alert.showAndWait();
+                    return;
+                }
+
+                SalesQuery.editSales(idSalesSql, productsIdInput, quantitySalesInput, dateSalesInput);
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle(null);
+                alert.setHeaderText(null);
+                alert.setContentText("Sale added successfully!");
+                //Alert's design
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.setGraphic(null);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
+                alert.showAndWait();
+
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(SceneManager.getSalesHomeScene());
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle(null);
+                alert.setHeaderText(null);
+                alert.setContentText("Something went wrong");
+                //Alert's design
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.setGraphic(null);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
+                alert.showAndWait();
+            }
+        });
+
+        returnBtn.setOnAction(event -> {
+            productsIdInput.valueProperty().set(null);
+            quantitySalesInput.clear();
+            dateSalesInput.clear();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(SceneManager.getEditSalesScene1());
         });
 
         VBox editSales2 = new VBox(returnBtnContainer, editTitle2, editTxtContainer2, editSalesGrid, editSalesContainer2);
@@ -771,11 +881,11 @@ public class SalesUI {
         priceSaleColumn.setPrefWidth(40);
         dateSaleColumn.setPrefWidth(70);
 
-        ComboBox<Sales>salesComboBox = new ComboBox<>(SalesQuery.getSalesbyId());
-        salesComboBox.setId("salesCombox");
-        salesComboBox.setItems(SalesQuery.getSalesbyId());
+        ComboBox<Sales>salesComboBox = new ComboBox<>(SalesQuery.getSalesById());
+        salesComboBox.setId("salesComboBox");
+        salesComboBox.setItems(SalesQuery.getSalesById());
 
-        salesComboBox.setConverter(new StringConverter<Sales>() {
+        salesComboBox.setConverter(new StringConverter<>() {
             @Override
             public String toString(Sales sales) {
                 return sales != null ? String.valueOf(sales.getIdSales()) : "";
@@ -785,7 +895,7 @@ public class SalesUI {
                 return null;
             }
         });
-        salesComboBox.setCellFactory(lv -> new ListCell<Sales>() {
+        salesComboBox.setCellFactory(lv -> new ListCell<>() {
             @Override
             protected void updateItem(Sales sales, boolean empty) {
                 super.updateItem(sales, empty);

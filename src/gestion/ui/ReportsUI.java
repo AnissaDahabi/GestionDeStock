@@ -445,8 +445,6 @@ public class ReportsUI {
                     }
                 }
 
-
-
             } catch (SQLException | IOException e) {
                 e.printStackTrace();
                 throw new RuntimeException(e);

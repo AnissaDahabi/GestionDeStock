@@ -282,8 +282,8 @@ public class ProductsUI {
                 String name = nameProductsInput.getText();
                 double price = Double.parseDouble(priceProductsInput.getText());
                 int quantity = Integer.parseInt(quantityProductsInput.getText());
-
                 Suppliers selectedSupplier = suppliersComboBox.getValue();
+
                 if (selectedSupplier == null) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle(null);
@@ -362,11 +362,6 @@ public class ProductsUI {
         // Return button:
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
-
-        returnBtn.setOnAction(event -> {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(SceneManager.getProductsHomeScene());
-        });
 
         HBox returnBtnContainer = new HBox(10);
         returnBtnContainer.setAlignment(Pos.TOP_RIGHT);
@@ -485,6 +480,12 @@ public class ProductsUI {
             }
         });
 
+        returnBtn.setOnAction(event -> {
+            productsComboBox.valueProperty().set(null);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(SceneManager.getProductsHomeScene());
+        });
+
         VBox delProducts1 = new VBox(returnBtnContainer, delTitle1, delTxtContainer1, boxProductsContainer, delProductsContainer);
 
         Scene delProductsScene1 = new Scene(delProducts1, 300, 600);
@@ -526,7 +527,7 @@ public class ProductsUI {
         productsComboBox.setId("productsComboBox");
         productsComboBox.setItems(ProductsQuery.getProductsID());
 
-        productsComboBox.setConverter(new StringConverter<Products>() {
+        productsComboBox.setConverter(new StringConverter<>() {
             @Override
             public String toString(Products products) {
                 return products != null ? String.valueOf(products.getIdProduct()) : "";
@@ -537,7 +538,7 @@ public class ProductsUI {
                 return null;
             }
         });
-        productsComboBox.setCellFactory(lv -> new ListCell<Products>() {
+        productsComboBox.setCellFactory(lv -> new ListCell<>() {
             @Override
             protected void updateItem(Products product, boolean empty) {
                 super.updateItem(product, empty);
@@ -590,7 +591,6 @@ public class ProductsUI {
 
         returnBtn.setOnAction(event -> {
             productsComboBox.valueProperty().set(null);
-
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(SceneManager.getProductsHomeScene());
 
@@ -681,7 +681,7 @@ public class ProductsUI {
         supplierIdInput.setId("supplierProductsInput");
         supplierIdInput.setItems(SuppliersQuery.getSuppliersID());
 
-        supplierIdInput.setConverter(new StringConverter<Suppliers>() {
+        supplierIdInput.setConverter(new StringConverter<>() {
             @Override
             public String toString(Suppliers suppliers) {
                 return suppliers != null ? String.valueOf(suppliers.getIdSupplier()) : "";
@@ -885,7 +885,7 @@ public class ProductsUI {
         searchProductsContainer.getStyleClass().add("searchProductsContainer");
         searchProductsContainer.setSpacing(10);
 
-        // Tableau:
+        // Tableau :
         TableView productsTable = new TableView<Products>();
         productsTable.setEditable(false);
         productsTable.setId("productsTable");

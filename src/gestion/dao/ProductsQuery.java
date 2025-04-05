@@ -58,59 +58,6 @@ public class ProductsQuery {
     }
 
 
-    public static boolean showEditedProducts(TextField idProductsInput, Stage stage) {
-        try {
-
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
-
-            String query = "SELECT id_product, name_product, price_product, quantity_product, id_supplier FROM Products WHERE id_product = ?";
-            PreparedStatement pstmt = con.prepareStatement(query);
-
-            try {
-                currentProductsId = Integer.parseInt(idProductsInput.getText());
-                pstmt.setInt(1, currentProductsId);
-
-            } catch (NumberFormatException ex) {
-                Alert alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Invalid Product ID, please enter an integer");
-                alert.setContentText("Error: " + ex.getMessage());
-                alert.showAndWait();
-            }
-
-            try (ResultSet resultSet = pstmt.executeQuery()) {
-
-                if (resultSet.next()) {
-                    int idProductsSql = resultSet.getInt("id_product");
-                    String nameProductsSql = resultSet.getString("name_product");
-                    double priceProductsSql = resultSet.getDouble("price_product");
-                    int quantityProductsSql = resultSet.getInt("quantity_product");
-                    int supplierIdSql = resultSet.getInt("id_supplier");
-
-                    stage.setScene(SceneManager.getEditProductsScene2(idProductsSql, nameProductsSql, priceProductsSql, quantityProductsSql, supplierIdSql));
-
-                } else {
-                    Alert alert = new Alert(AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setHeaderText("Product not found");
-                    alert.setContentText("No product found with this ID");
-                    alert.showAndWait();
-                    return false;
-                }
-            }
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Error encountered");
-            alert.setContentText("Error: " + ex.getMessage());
-            alert.showAndWait();
-            return false;
-        }
-        return false;
-    }
-
     public static void editProducts(int idProductsInput, TextField nameProductsInput, TextField priceProductsInput, TextField quantityProductsInput, ComboBox<Suppliers> supplierIdInput) {
         try {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
@@ -155,8 +102,8 @@ public class ProductsQuery {
 
             ex.printStackTrace();
             Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Error encountered while editing the product");
+            alert.setTitle(null);
+            alert.setHeaderText(null);
             alert.setContentText("Error: " + ex.getMessage());
             DialogPane dialogPane = alert.getDialogPane();
             dialogPane.setGraphic(null);
@@ -201,39 +148,14 @@ public class ProductsQuery {
         return productsList;
     }
 
-    public static Products getProductById(int idProducts) {
-        try {
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
-            String query = "SELECT * FROM Products WHERE id_product = ?";
-            PreparedStatement pstmt = con.prepareStatement(query);
-            pstmt.setInt(1, idProducts);
-
-            ResultSet rs = pstmt.executeQuery();
-            if (rs.next()) {
-                return new Products(
-                        rs.getInt("id_product"),
-                        rs.getString("name_product"),
-                        rs.getDouble("price_product"),
-                        rs.getInt("quantity_product"),
-                        rs.getInt("id_supplier")
-                );
-            }
-            return null;
-        } catch (SQLException e) {
-            throw new RuntimeException("Error getting the product's data: " + e.getMessage());
-        }
-    }
-
-//    public static Products getProductsId (int idProducts) {
-//        String query = "SELECT * FROM Products WHERE id_product = ?";
-//
+//    public static Products getProductById(int idProducts) {
 //        try {
 //            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
-//            PreparedStatement stmt = con.prepareStatement(query);
+//            String query = "SELECT * FROM Products WHERE id_product = ?";
+//            PreparedStatement pstmt = con.prepareStatement(query);
+//            pstmt.setInt(1, idProducts);
 //
-//            stmt.setInt(1, idProducts);
-//            ResultSet rs = stmt.executeQuery();
-//
+//            ResultSet rs = pstmt.executeQuery();
 //            if (rs.next()) {
 //                return new Products(
 //                        rs.getInt("id_product"),
@@ -242,12 +164,13 @@ public class ProductsQuery {
 //                        rs.getInt("quantity_product"),
 //                        rs.getInt("id_supplier")
 //                );
-//
 //            }
+//            return null;
 //        } catch (SQLException e) {
-//            e.printStackTrace();
-//        } return null;
+//            throw new RuntimeException("Error getting the product's data: " + e.getMessage());
+//        }
 //    }
+
 
     public static ObservableList<Products> getProductsID() {
         ObservableList<Products> productsList = FXCollections.observableArrayList();

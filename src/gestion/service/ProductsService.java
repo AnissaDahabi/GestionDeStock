@@ -52,25 +52,16 @@ public class ProductsService {
             return false;
         }
     }
-    public static Products getProductById(int idProducts) {
-        try {
-            return ProductsQuery.getProductById(idProducts);
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Can't find the product");
-            alert.showAndWait();
-            return null;
-        }
-    }
-
-    public static boolean showEditedProducts(TextField idProductsInput, Stage stage) {
-        try {
-            return ProductsQuery.showEditedProducts(idProductsInput, stage);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
+//    public static Products getProductById(int idProducts) {
+//        try {
+//            return ProductsQuery.getProductById(idProducts);
+//        } catch (Exception e) {
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setTitle("Error");
+//            alert.setHeaderText(null);
+//            alert.setContentText("Can't find the product");
+//            alert.showAndWait();
+//            return null;
+//        }
+//    }
 }

@@ -416,7 +416,7 @@
 
 .dialog-pane {
     -fx-pref-width: 250px;
-    -fx-pref-height: 80px;
+    -fx-min-height: 80px;
     -fx-background-color: #FFF;
     -fx-border-color: #D0D4BE;
     -fx-text-fill: #3C582B;

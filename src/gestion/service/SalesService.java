@@ -48,16 +48,4 @@ public SalesService(SalesQuery salesQuery) {this.salesQuery = salesQuery; }
             return false;
         }
     }
-    public static Sales getSales(int idSales){
-        try{
-            return SalesQuery.getSalesbyId(idSales);
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
-            return null;
-        }
-    }
 }
