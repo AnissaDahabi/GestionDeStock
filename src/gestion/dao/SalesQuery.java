@@ -57,18 +57,19 @@ public class SalesQuery {
     }
 
 
-    public static void editSales(int idSalesInput, TextField idProductInput, int priceSalesSql, TextField quantitySalesInput, TextField dateSalesInput) {
+    public static void editSales(int idSalesInput, TextField idProductInput, TextField idSupplierInput, TextField priceSalesSql, TextField quantitySalesInput, TextField dateSalesInput) {
         try {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
 
-            String query = "UPDATE Sales SET id_product = ?, price_sales = ?, quantity_sales = ?, date_sales= ? WHERE id_sales = ?";
+            String query = "UPDATE Sales SET id_product = ?, id_supplier = ?, price_sales = ?, quantity_sales = ?, date_sales= ? WHERE id_sales = ?";
             PreparedStatement pstmt = con.prepareStatement(query);
 
             pstmt.setInt(1, Integer.parseInt(String.valueOf(idProductInput.getText())));
-            pstmt.setInt(2, Integer.parseInt(String.valueOf(priceSalesSql)));
-            pstmt.setInt(2, Integer.parseInt(quantitySalesInput.getText()));
-            pstmt.setString(3, String.valueOf(dateSalesInput));
-            pstmt.setInt(4, Integer.parseInt(String.valueOf(idSalesInput)));
+            pstmt.setInt(2, Integer.parseInt(String.valueOf(idSupplierInput.getText())));
+            pstmt.setInt(3, Integer.parseInt(String.valueOf(priceSalesSql)));
+            pstmt.setInt(4, Integer.parseInt(quantitySalesInput.getText()));
+            pstmt.setString(5, String.valueOf(dateSalesInput));
+            pstmt.setInt(6, Integer.parseInt(String.valueOf(idSalesInput)));
 
             int rowsAffected = pstmt.executeUpdate();
 

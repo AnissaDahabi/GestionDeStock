@@ -207,9 +207,9 @@ public class SalesUI {
 
         addSalesGrid.add(idSalesLabel, 0, 0);
         addSalesGrid.add(idSalesInput, 1, 0);
-        addSalesGrid.add(comboLabel1, 0, 1);
+        addSalesGrid.add(comboLabel2, 0, 1);
         addSalesGrid.add(productsComboBox, 1, 1);
-        addSalesGrid.add(comboLabel2, 0, 2);
+        addSalesGrid.add(comboLabel1, 0, 2);
         addSalesGrid.add(suppliersComboBox, 1, 2);
         addSalesGrid.add(quantitySales, 0, 3);
         addSalesGrid.add(quantitySalesInput, 1, 3);
@@ -593,6 +593,7 @@ public class SalesUI {
                  stage.setScene(SceneManager.getEditSalesScene2(
                          selectedSale.getIdSales(),
                          selectedSale.getIdProduct(),
+                         selectedSale.getIdSuppliers(),
                          selectedSale.getPriceSales(),
                          selectedSale.getQuantitySales(),
                          selectedSale.getDateSales()
@@ -625,7 +626,7 @@ public class SalesUI {
         return editSalesScene1;
     }
 
-    public static Scene editSalesScene2(int idSalesSql, int idProductSql, int priceSalesSql, int quantitySalesSql, String dateSalesSql) {
+    public static Scene editSalesScene2(int idSalesSql, int idProductSql, int idSupplierSql, int priceSalesSql, int quantitySalesSql, String dateSalesSql) {
 
         // Return button:
         Button returnBtn = new Button("Return");
@@ -665,6 +666,9 @@ public class SalesUI {
         TextField productsIdInput = new TextField();
         productsIdInput.setText(String.valueOf(idProductSql));
 
+        Label idSupplier = new Label("Supplier ID: ");
+        TextField supplierIdInput = new TextField();
+        productsIdInput.setText(String.valueOf(idSupplierSql));
 
         Label priceSales = new Label("Total price: ");
         TextField priceSalesInput = new TextField();
@@ -683,12 +687,14 @@ public class SalesUI {
         editSalesGrid.add(idSales1, 1, 0);
         editSalesGrid.add(idProduct, 0, 1);
         editSalesGrid.add(productsIdInput, 1, 1);
-        editSalesGrid.add(priceSales, 0, 2);
-        editSalesGrid.add(priceSalesInput, 1, 2);
-        editSalesGrid.add(quantitySales, 0, 3);
-        editSalesGrid.add(quantitySalesInput, 1, 3);
-        editSalesGrid.add(dateSales, 0, 4);
-        editSalesGrid.add(dateSalesInput, 1, 4);
+        editSalesGrid.add(idSupplier, 0, 2);
+        editSalesGrid.add(supplierIdInput, 1, 2);
+        editSalesGrid.add(priceSales, 0, 3);
+        editSalesGrid.add(priceSalesInput, 1, 3);
+        editSalesGrid.add(quantitySales, 0, 4);
+        editSalesGrid.add(quantitySalesInput, 1, 4);
+        editSalesGrid.add(dateSales, 0, 5);
+        editSalesGrid.add(dateSalesInput, 1, 5);
 
         editSalesGrid.setAlignment(Pos.CENTER);
         editSalesGrid.setPadding(new Insets(40, 0, 0, 0));
@@ -745,7 +751,7 @@ public class SalesUI {
                     return;
                 }
 
-                SalesQuery.editSales(idSalesSql, productsIdInput, priceSalesSql, quantitySalesInput, dateSalesInput);
+                SalesQuery.editSales(idSalesSql, productsIdInput, supplierIdInput, priceSalesInput, quantitySalesInput, dateSalesInput);
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle(null);
