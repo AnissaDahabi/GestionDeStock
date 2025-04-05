@@ -9,15 +9,6 @@ public class Sales {
     private int quantitySales;
     private String dateSales;
 
-    public Sales(){
-        this.idSales=0;
-        this.idProduct=0;
-        this.idSuppliers=0;
-        this.priceSales=0;
-        this.quantitySales=0;
-        this.dateSales="";
-    }
-
 
     public Sales(int idsales, int idProduct, int idSuppliers,int quantitySales,  double priceSales, String dateSales) {
         this.idSales=idsales;

@@ -5,9 +5,7 @@ import gestion.model.Sales;
 import javafx.scene.control.Alert;
 
 public class SalesService {
-    private SalesQuery salesQuery;
 
-public SalesService(SalesQuery salesQuery) {this.salesQuery = salesQuery; }
 
     public static boolean addSales(int idSales, int idproduct, int idsupplier, int quantity, double price, String date ) {
 

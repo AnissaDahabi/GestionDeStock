@@ -21,7 +21,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.StringConverter;
-import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
+
 
 import java.time.LocalDate;
 
@@ -29,7 +29,7 @@ public class SalesUI {
 
     public static Scene createContent() {
 
-        // Return button:
+
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
 
@@ -43,12 +43,12 @@ public class SalesUI {
         returnBtnContainer.setPadding(new Insets(10, 10, 10, 10));
         returnBtnContainer.getChildren().add(returnBtn);
 
-        // Title:
+
         HBox salesTitle = new HBox(new Label("Sales"));
         salesTitle.getStyleClass().add("salesTitle");
         salesTitle.setAlignment(Pos.CENTER);
 
-        // Buttons:
+
         Button addSalesBtn = new Button("Add a sale");
         addSalesBtn.getStyleClass().add("addSalesBtn");
         Button delSalesBtn = new Button("Delete a sale");
@@ -98,7 +98,7 @@ public class SalesUI {
 
     public static Scene addSalesScene() {
 
-        // Return button:
+
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
 
@@ -107,7 +107,7 @@ public class SalesUI {
         returnBtnContainer.setPadding(new Insets(10, 10, 10, 10));
         returnBtnContainer.getChildren().add(returnBtn);
 
-        // Title and txt:
+
         VBox addTitle = new VBox(new Label("Add a sale"));
         addTitle.setAlignment(Pos.CENTER);
         addTitle.getStyleClass().add("addTitle");
@@ -219,7 +219,7 @@ public class SalesUI {
                         alert.setTitle(null);
                         alert.setHeaderText(null);
                         alert.setContentText("Please enter an ID for the sale");
-                        //Alert's design
+
                         DialogPane dialogPane = alert.getDialogPane();
                         dialogPane.setGraphic(null);
                         alert.initStyle(StageStyle.UTILITY);
@@ -234,7 +234,6 @@ public class SalesUI {
                         alert.setTitle(null);
                         alert.setHeaderText(null);
                         alert.setContentText("Please enter a quantity of products for the sale");
-                        //Alert's design
                         DialogPane dialogPane = alert.getDialogPane();
                         dialogPane.setGraphic(null);
                         alert.initStyle(StageStyle.UTILITY);
@@ -248,7 +247,6 @@ public class SalesUI {
                         alert.setTitle(null);
                         alert.setHeaderText(null);
                         alert.setContentText("The quantity cannot be 0");
-                        //Alert's design
                         DialogPane dialogPane = alert.getDialogPane();
                         dialogPane.setGraphic(null);
                         alert.initStyle(StageStyle.UTILITY);
@@ -268,7 +266,6 @@ public class SalesUI {
                         alert.setTitle(null);
                         alert.setHeaderText(null);
                         alert.setContentText("Please select a supplier");
-                        //Alert's design
                         DialogPane dialogPane = alert.getDialogPane();
                         dialogPane.setGraphic(null);
                         alert.initStyle(StageStyle.UTILITY);
@@ -282,7 +279,6 @@ public class SalesUI {
                         alert.setTitle(null);
                         alert.setHeaderText(null);
                         alert.setContentText("Please select a supplier");
-                        //Alert's design
                         DialogPane dialogPane = alert.getDialogPane();
                         dialogPane.setGraphic(null);
                         alert.initStyle(StageStyle.UTILITY);
@@ -296,7 +292,6 @@ public class SalesUI {
                         alert.setTitle(null);
                         alert.setHeaderText(null);
                         alert.setContentText("Please select a date");
-                        //Alert's design
                         DialogPane dialogPane = alert.getDialogPane();
                         dialogPane.setGraphic(null);
                         alert.initStyle(StageStyle.UTILITY);
@@ -331,7 +326,6 @@ public class SalesUI {
                         alert.setTitle(null);
                         alert.setHeaderText(null);
                         alert.setContentText("Something went wrong");
-                        //Alert's design
                         DialogPane dialogPane = alert.getDialogPane();
                         dialogPane.setGraphic(null);
                         alert.initStyle(StageStyle.UTILITY);
@@ -360,7 +354,7 @@ public class SalesUI {
     }
 
     public static Scene delSalesScene1() {
-        // Return button:
+
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
 
@@ -369,7 +363,7 @@ public class SalesUI {
         returnBtnContainer.setPadding(new Insets(10, 10, 10, 10));
         returnBtnContainer.getChildren().add(returnBtn);
 
-        // Title and txt:
+
         VBox delTitle1 = new VBox(new Label("Delete a sale"));
         delTitle1.setAlignment(Pos.CENTER);
         delTitle1.getStyleClass().add("delTitle1");
@@ -383,7 +377,7 @@ public class SalesUI {
         delTxtContainer1.setId("delTxtContainer1");
         delTxtContainer1.setAlignment(Pos.CENTER);
 
-        //User input
+
         Label idSalesLabel = new Label("ID Number: ");
         TextField idSalesInput = new TextField();
         HBox idSalesContainer = new HBox();
@@ -395,7 +389,7 @@ public class SalesUI {
 
         Label comboLabel = new Label("ID number : ");
         ComboBox<Sales> salesComboBox = new ComboBox<>(SalesQuery.getSalesById());
-        //suppliersComboBox.setPromptText("Choose sales");
+
         salesComboBox.setId("salesComboBox");
         salesComboBox.setItems(SalesQuery.getSalesById());
 
@@ -426,7 +420,7 @@ public class SalesUI {
         boxSuppliersContainer.setSpacing(5);
         boxSuppliersContainer.setPadding(new Insets(20, 0, 0, 0));
 
-        //Next button:
+
         Button submitDeletedSalesBtn1 = new Button("Delete");
         submitDeletedSalesBtn1.getStyleClass().add("submitDeletedSuppliersBtn1");
         HBox delSalesContainer1 = new HBox(10);
@@ -448,7 +442,7 @@ public class SalesUI {
                     successAlert.setHeaderText(null);
                     successAlert.setContentText("Sale deleted successfully");
                     salesComboBox.setItems(SalesQuery.getSalesById());
-                    //Alert's design
+
                     DialogPane dialogPane = successAlert.getDialogPane();
                     dialogPane.setGraphic(null);
                     successAlert.initStyle(StageStyle.UTILITY);
@@ -460,7 +454,7 @@ public class SalesUI {
                 alert.setTitle(null);
                 alert.setHeaderText(null);
                 alert.setContentText("Please choose a sale to delete");
-                //Alert's design
+
                 DialogPane dialogPane = alert.getDialogPane();
                 dialogPane.setGraphic(null);
                 alert.initStyle(StageStyle.UTILITY);
@@ -472,7 +466,7 @@ public class SalesUI {
                 errorAlert.setTitle(null);
                 errorAlert.setHeaderText(null);
                 errorAlert.setContentText("Something wrong happened..");
-                //Alert's design
+
                 DialogPane dialogPane = errorAlert.getDialogPane();
                 dialogPane.setGraphic(null);
                 errorAlert.initStyle(StageStyle.UTILITY);
@@ -497,7 +491,7 @@ public class SalesUI {
 
     public static Scene editSalesScene1() {
 
-        // Return button:
+
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
 
@@ -506,7 +500,7 @@ public class SalesUI {
         returnBtnContainer.setPadding(new Insets(10, 10, 10, 10));
         returnBtnContainer.getChildren().add(returnBtn);
 
-        // Title and txt:
+
         VBox editTitle1 = new VBox(new Label("Edit sales"));
         editTitle1.setAlignment(Pos.CENTER);
         editTitle1.getStyleClass().add("editTitle1");
@@ -520,7 +514,7 @@ public class SalesUI {
         editTxtContainer1.setId("delTxtContainer1");
         editTxtContainer1.setAlignment(Pos.CENTER);
 
-        //Fil déroulant :
+
         GridPane editSalesGrid = new GridPane();
         editSalesGrid.getStyleClass().add("editSalesGrid");
 
@@ -559,7 +553,7 @@ public class SalesUI {
         editSalesContainer.setSpacing(5);
         editSalesContainer.setPadding(new Insets(20, 0, 0, 0));
 
-        //Next button:
+
         Button submitEditedSalesBtn1 = new Button("Next");
         submitEditedSalesBtn1.getStyleClass().add("submitEditedSalesBtn1");
         HBox editSalesContainer1 = new HBox(10);
@@ -586,7 +580,7 @@ public class SalesUI {
                  alert.setTitle(null);
                  alert.setHeaderText(null);
                  alert.setContentText("Please choose a sale to edit");
-                 //Alert's design
+
                  DialogPane dialogPane = alert.getDialogPane();
                  dialogPane.setGraphic(null);
                  alert.initStyle(StageStyle.UTILITY);
@@ -610,7 +604,7 @@ public class SalesUI {
 
     public static Scene editSalesScene2(int idSalesSql, int idProductSql, int idSupplierSql, double priceSalesSql, int quantitySalesSql, String dateSalesSql) {
 
-        // Return button:
+
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
 
@@ -619,7 +613,7 @@ public class SalesUI {
         returnBtnContainer.setPadding(new Insets(10, 10, 10, 10));
         returnBtnContainer.getChildren().add(returnBtn);
 
-        // Title and txt:
+
         VBox editTitle2 = new VBox(new Label("Edit sales"));
         editTitle2.setAlignment(Pos.CENTER);
         editTitle2.getStyleClass().add("editTitle2");
@@ -633,7 +627,7 @@ public class SalesUI {
         editTxtContainer2.setId("editTxtContainer2");
         editTxtContainer2.setAlignment(Pos.CENTER);
 
-        // User input:
+
         GridPane editSalesGrid = new GridPane();
         editSalesGrid.getStyleClass().add("editSalesGrid");
 
@@ -696,7 +690,7 @@ public class SalesUI {
                     alert.setTitle(null);
                     alert.setHeaderText(null);
                     alert.setContentText("Please enter a product for the sale");
-                    //Alert's design
+
                     DialogPane dialogPane = alert.getDialogPane();
                     dialogPane.setGraphic(null);
                     alert.initStyle(StageStyle.UTILITY);
@@ -710,7 +704,7 @@ public class SalesUI {
                     alert.setTitle(null);
                     alert.setHeaderText(null);
                     alert.setContentText("Please enter a quantity for the sale");
-                    //Alert's design
+
                     DialogPane dialogPane = alert.getDialogPane();
                     dialogPane.setGraphic(null);
                     alert.initStyle(StageStyle.UTILITY);
@@ -723,8 +717,7 @@ public class SalesUI {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle(null);
                     alert.setHeaderText(null);
-                    alert.setContentText("Please select a date");
-                    //Alert's design
+
                     DialogPane dialogPane = alert.getDialogPane();
                     dialogPane.setGraphic(null);
                     alert.initStyle(StageStyle.UTILITY);
@@ -739,7 +732,7 @@ public class SalesUI {
                 alert.setTitle(null);
                 alert.setHeaderText(null);
                 alert.setContentText("Sale added successfully!");
-                //Alert's design
+
                 DialogPane dialogPane = alert.getDialogPane();
                 dialogPane.setGraphic(null);
                 alert.initStyle(StageStyle.UTILITY);
@@ -755,7 +748,7 @@ public class SalesUI {
                 alert.setTitle(null);
                 alert.setHeaderText(null);
                 alert.setContentText("Something went wrong");
-                //Alert's design
+
                 DialogPane dialogPane = alert.getDialogPane();
                 dialogPane.setGraphic(null);
                 alert.initStyle(StageStyle.UTILITY);
@@ -781,7 +774,7 @@ public class SalesUI {
 
     public static Scene showSalesScene() {
 
-        // Return button:
+
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
 
@@ -790,7 +783,7 @@ public class SalesUI {
         returnBtnContainer.setPadding(new Insets(10, 10, 10, 10));
         returnBtnContainer.getChildren().add(returnBtn);
 
-        // Title and txt:
+
         VBox showTitle = new VBox(new Label("Sales repertory"));
         showTitle.setAlignment(Pos.CENTER);
         showTitle.getStyleClass().add("showTitle");
@@ -809,7 +802,7 @@ public class SalesUI {
         searchSalesContainer.setSpacing(10);
         searchSalesContainer.setPadding(new Insets(20, 0, 0, 20));
 
-        // Tableau :
+
         TableView salesTable = new TableView<Sales>();
         salesTable.setEditable(true);
         salesTable.setId("salesTable");
@@ -881,7 +874,7 @@ public class SalesUI {
         salesTableContainer.setPadding(new Insets(20, 10, 10, 10));
         salesTableContainer.getChildren().add(salesTable);
 
-        //Search filter:
+
         ObservableList<Sales> data = SalesQuery.showSales(salesTable);
 
         FilteredList<Sales> filteredData = new FilteredList<>(data, s -> true);
