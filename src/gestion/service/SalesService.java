@@ -9,7 +9,7 @@ public class SalesService {
 
 public SalesService(SalesQuery salesQuery) {this.salesQuery = salesQuery; }
 
-    public static boolean addSales(int idSales,int idproduct,  int idsupplier, int quantity, int price,String date ) {
+    public static boolean addSales(int idSales, int idproduct, int idsupplier, int quantity, double price, String date ) {
 
         try {
             if (date.isEmpty() || idsupplier == 0 || idproduct == 0  || idSales == 0 || price == 0 || quantity == 0) {
@@ -22,7 +22,7 @@ public SalesService(SalesQuery salesQuery) {this.salesQuery = salesQuery; }
                 throw new IllegalArgumentException("Please enter a valid price");
             }
 
-            Sales sales = new Sales(idSales, idproduct, idsupplier, price, quantity, date);
+            Sales sales = new Sales(idSales, idproduct, idsupplier, quantity, price, date);
 
             return SalesQuery.addSales(sales);
 

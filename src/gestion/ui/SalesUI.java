@@ -2,11 +2,9 @@ package gestion.ui;
 
 import gestion.dao.SalesQuery;
 import gestion.dao.ProductsQuery;
-import gestion.dao.SuppliersQuery;
 import gestion.model.Products;
 import gestion.model.Sales;
 import gestion.service.SalesService;
-import gestion.model.Suppliers;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -23,6 +21,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.StringConverter;
+import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
+
 import java.time.LocalDate;
 
 public class SalesUI {
@@ -147,10 +147,6 @@ public class SalesUI {
         }));
 
 
-        Label priceSales = new Label("Price: ");
-        TextField priceSalesInput = new TextField();
-
-
         Label dateSales = new Label("Date: ");
         DatePicker dateSalesInput = new DatePicker();
         dateSalesInput.setEditable(false);
@@ -159,28 +155,6 @@ public class SalesUI {
         Label comboLabel1 = new Label("Supplier ID: ");
         Label comboLabelSupplier = new Label("");
 
-//        ComboBox<Suppliers> suppliersComboBox = new ComboBox<>(SuppliersQuery.getSuppliersID());
-//        suppliersComboBox.setId("suppliersComboBox");
-//        suppliersComboBox.setItems(SuppliersQuery.getSuppliersID());
-//
-//        suppliersComboBox.setConverter(new StringConverter<>() {
-//            @Override
-//            public String toString(Suppliers suppliers) {
-//                return suppliers != null ? String.valueOf(suppliers.getIdSupplier()) : "";
-//            }
-//
-//            @Override
-//            public Suppliers fromString(String s) {
-//                return null;
-//            }
-//        });
-//        suppliersComboBox.setCellFactory(lv -> new ListCell<>() {
-//            @Override
-//            protected void updateItem(Suppliers supplier, boolean empty) {
-//                super.updateItem(supplier, empty);
-//                setText(empty || supplier == null ? null : String.valueOf(supplier.getIdSupplier()));
-//            }
-//        });
 
         Label comboLabel2 = new Label("Product ID: ");
         ComboBox<Products> productsComboBox = new ComboBox<>(ProductsQuery.getProductsID());
@@ -223,10 +197,8 @@ public class SalesUI {
         addSalesGrid.add(comboLabelSupplier, 1, 2);
         addSalesGrid.add(quantitySales, 0, 3);
         addSalesGrid.add(quantitySalesInput, 1, 3);
-        addSalesGrid.add(priceSales, 0, 4);
-        addSalesGrid.add(priceSalesInput, 1, 4);
-        addSalesGrid.add(dateSales, 0, 5);
-        addSalesGrid.add(dateSalesInput, 1, 5);
+        addSalesGrid.add(dateSales, 0, 4);
+        addSalesGrid.add(dateSalesInput, 1, 4);
 
         addSalesGrid.setAlignment(Pos.CENTER);
 
@@ -289,7 +261,6 @@ public class SalesUI {
                     String selectedSupplier = comboLabelSupplier.getText();
                     Products selectedProduct = productsComboBox.getValue();
                     int quantity = Integer.parseInt(quantitySalesInput.getText());
-                    int price = Integer.parseInt(priceSalesInput.getText());
                     LocalDate selectedDate = dateSalesInput.getValue();
 
                     if (selectedSupplier == null) {
@@ -334,9 +305,13 @@ public class SalesUI {
                         return;
                     }
 
+                    double price = Products.getPriceProduct() * quantity;
                     boolean success = SalesService.addSales(idSales, selectedProduct.getIdProduct(), Integer.parseInt(selectedSupplier), quantity, price, String.valueOf(selectedDate));
 
                     if (success) {
+                        System.out.println("Unit price : " + Products.getPriceProduct());
+                        System.out.println("Quantity " + quantity);
+                        System.out.println("Price = " + price);
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle(null);
                         alert.setHeaderText(null);
@@ -636,7 +611,7 @@ public class SalesUI {
         return editSalesScene1;
     }
 
-    public static Scene editSalesScene2(int idSalesSql, int idProductSql, int idSupplierSql, int priceSalesSql, int quantitySalesSql, String dateSalesSql) {
+    public static Scene editSalesScene2(int idSalesSql, int idProductSql, int idSupplierSql, double priceSalesSql, int quantitySalesSql, String dateSalesSql) {
 
         // Return button:
         Button returnBtn = new Button("Return");
@@ -858,7 +833,7 @@ public class SalesUI {
         quantitySaleColumn.setCellValueFactory(new PropertyValueFactory<>("quantitySales"));
         quantitySaleColumn.setReorderable(false);
 
-        TableColumn<Sales, Integer> priceSaleColumn = new TableColumn<>("Price");
+        TableColumn<Sales, Double> priceSaleColumn = new TableColumn<>("Price");
         priceSaleColumn.setCellValueFactory(new PropertyValueFactory<>("priceSales"));
         priceSaleColumn.setResizable(false);
         priceSaleColumn.setReorderable(false);

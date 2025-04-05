@@ -30,7 +30,7 @@ public class SalesQuery {
             pstmt.setInt(2, sales.getIdProduct());
             pstmt.setInt(3, sales.getIdSuppliers());
             pstmt.setInt(4, sales.getQuantitySales());
-            pstmt.setInt(5, sales.getPriceSales());
+            pstmt.setDouble(5, sales.getPriceSales());
             pstmt.setString(6, sales.getDateSales());
 
             return pstmt.executeUpdate() > 0;
@@ -61,13 +61,13 @@ public class SalesQuery {
         try {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
 
-            String query = "UPDATE Sales SET id_product = ?, id_supplier = ?, price_sales = ?, quantity_sales = ?, date_sales= ? WHERE id_sales = ?";
+            String query = "UPDATE Sales SET id_product = ?, id_supplier = ?, quantity_sales = ?, price_sales = ?, date_sales= ? WHERE id_sales = ?";
             PreparedStatement pstmt = con.prepareStatement(query);
 
             pstmt.setInt(1, Integer.parseInt(String.valueOf(idProductInput.getText())));
             pstmt.setInt(2, Integer.parseInt(String.valueOf(idSupplierInput.getText())));
-            pstmt.setInt(3, Integer.parseInt(String.valueOf(priceSalesSql)));
-            pstmt.setInt(4, Integer.parseInt(quantitySalesInput.getText()));
+            pstmt.setInt(3, Integer.parseInt(quantitySalesInput.getText()));
+            pstmt.setInt(4, Integer.parseInt(String.valueOf(priceSalesSql)));
             pstmt.setString(5, String.valueOf(dateSalesInput));
             pstmt.setInt(6, Integer.parseInt(String.valueOf(idSalesInput)));
 
@@ -160,7 +160,7 @@ public class SalesQuery {
                 int idProduct = rs.getInt("id_product");
                 int idSupplier = rs.getInt("id_supplier");
                 int quantitySales = rs.getInt("quantity_sales");
-                int priceSales = rs.getInt("price_sales");
+                double priceSales = rs.getDouble("price_sales");
                 String dateSales = rs.getString("date_sales");
 
                 Sales sales = new Sales(idSales, idSupplier, idProduct, quantitySales, priceSales, dateSales);

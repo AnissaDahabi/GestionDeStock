@@ -157,7 +157,7 @@ public class SceneManager {
         return editSalesScene1;
     }
 
-    public static Scene getEditSalesScene2(int idSalesSql, int idProductSql, int idSupplierSql, int priceSalesSql, int quantitySalesProductSql, String dateSalesSql) {
+    public static Scene getEditSalesScene2(int idSalesSql, int idProductSql, int idSupplierSql, double priceSalesSql, int quantitySalesProductSql, String dateSalesSql) {
 
             editSalesScene2 = SalesUI.editSalesScene2(idSalesSql, idProductSql, idSupplierSql, priceSalesSql, quantitySalesProductSql, dateSalesSql);
 
