@@ -1,6 +1,5 @@
 package gestion.dao;
 
-import gestion.model.Products;
 import gestion.model.Sales;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,13 +22,13 @@ public class SalesQuery {
             Connection con =
                     DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
 
-            String query = "INSERT INTO Sales (id_sales, id_supplier, id_product, quantity_sales, price_sales, date_sales ) VALUES (?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO Sales (id_sales, id_product, id_supplier, quantity_sales, price_sales, date_sales ) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement pstmt = con.prepareStatement(query);
 
             //Remplissage des paramètres de la requête SQL
             pstmt.setInt(1, sales.getIdSales());
-            pstmt.setInt(2, sales.getIdSuppliers());
-            pstmt.setInt(3, sales.getIdProduct());
+            pstmt.setInt(2, sales.getIdProduct());
+            pstmt.setInt(3, sales.getIdSuppliers());
             pstmt.setInt(4, sales.getQuantitySales());
             pstmt.setInt(5, sales.getPriceSales());
             pstmt.setString(6, sales.getDateSales());
@@ -58,14 +57,15 @@ public class SalesQuery {
     }
 
 
-    public static void editSales(int idSalesInput, ComboBox<Products> idProductInput, TextField quantitySalesInput, TextField dateSalesInput) {
+    public static void editSales(int idSalesInput, TextField idProductInput, int priceSalesSql, TextField quantitySalesInput, TextField dateSalesInput) {
         try {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
 
-            String query = "UPDATE Sales SET id_supplier = ?, id_product = ?, quantity_sales = ?, price_sales = ?, date_sales= ? WHERE id_sales = ?";
+            String query = "UPDATE Sales SET id_product = ?, price_sales = ?, quantity_sales = ?, date_sales= ? WHERE id_sales = ?";
             PreparedStatement pstmt = con.prepareStatement(query);
 
-            pstmt.setInt(1, Integer.parseInt(String.valueOf(idProductInput.getValue())));
+            pstmt.setInt(1, Integer.parseInt(String.valueOf(idProductInput.getText())));
+            pstmt.setInt(2, Integer.parseInt(String.valueOf(priceSalesSql)));
             pstmt.setInt(2, Integer.parseInt(quantitySalesInput.getText()));
             pstmt.setString(3, String.valueOf(dateSalesInput));
             pstmt.setInt(4, Integer.parseInt(String.valueOf(idSalesInput)));

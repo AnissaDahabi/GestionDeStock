@@ -33,11 +33,10 @@ public class SuppliersService {
                 throw new IllegalArgumentException("Please fill a valid email address");
             }
 
-
             return SuppliersQuery.addSuppliers(suppliers);
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
+            alert.setTitle(null);
             alert.setHeaderText(null);
             alert.setContentText(e.getMessage());
             DialogPane dialogPane = alert.getDialogPane();
@@ -47,7 +46,6 @@ public class SuppliersService {
             alert.showAndWait();
             return false;
         }
-
     }
 
 
@@ -59,7 +57,7 @@ public class SuppliersService {
             return SuppliersQuery.getSuppliersId(idSupplier);
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
+            alert.setTitle(null);
             alert.setHeaderText(null);
             alert.setContentText(e.getMessage());
             DialogPane dialogPane = alert.getDialogPane();
@@ -76,7 +74,7 @@ public class SuppliersService {
             return SuppliersQuery.delSuppliers(idSupplier);
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
+            alert.setTitle(null);
             alert.setHeaderText(null);
             alert.setContentText(e.getMessage());
             DialogPane dialogPane = alert.getDialogPane();
@@ -86,12 +84,7 @@ public class SuppliersService {
             alert.showAndWait();
             return false;
         }
-
     }
-
-
-
-
 }
 
 

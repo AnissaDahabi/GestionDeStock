@@ -22,13 +22,13 @@ public SalesService(SalesQuery salesQuery) {this.salesQuery = salesQuery; }
                 throw new IllegalArgumentException("Please enter a valid price");
             }
 
-            Sales sales = new Sales(idSales,  idproduct,idsupplier , price, quantity, date);
+            Sales sales = new Sales(idSales, idproduct, idsupplier, price, quantity, date);
 
             return SalesQuery.addSales(sales);
 
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
+            alert.setTitle(null);
             alert.setHeaderText(null);
             alert.setContentText(e.getMessage());
             alert.showAndWait();
@@ -41,7 +41,7 @@ public SalesService(SalesQuery salesQuery) {this.salesQuery = salesQuery; }
             return SalesQuery.delSales(idSales);
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
+            alert.setTitle(null);
             alert.setHeaderText(null);
             alert.setContentText(e.getMessage());
             alert.showAndWait();

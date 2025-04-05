@@ -3,8 +3,6 @@ package gestion.service;
 import gestion.dao.ProductsQuery;
 import gestion.model.Products;
 import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 public class ProductsService {
     private final ProductsQuery productsQuery;
@@ -32,7 +30,7 @@ public class ProductsService {
 
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
+            alert.setTitle(null);
             alert.setHeaderText(null);
             alert.setContentText(e.getMessage());
             alert.showAndWait();
@@ -45,23 +43,11 @@ public class ProductsService {
             return ProductsQuery.delProducts(idProducts);
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
+            alert.setTitle(null);
             alert.setHeaderText(null);
             alert.setContentText(e.getMessage());
             alert.showAndWait();
             return false;
         }
     }
-//    public static Products getProductById(int idProducts) {
-//        try {
-//            return ProductsQuery.getProductById(idProducts);
-//        } catch (Exception e) {
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setTitle("Error");
-//            alert.setHeaderText(null);
-//            alert.setContentText("Can't find the product");
-//            alert.showAndWait();
-//            return null;
-//        }
-//    }
 }
