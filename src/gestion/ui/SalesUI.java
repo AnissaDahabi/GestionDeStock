@@ -157,33 +157,43 @@ public class SalesUI {
 
 
         Label comboLabel1 = new Label("Supplier ID: ");
-        ComboBox<Suppliers> suppliersComboBox = new ComboBox<>(SuppliersQuery.getSuppliersID());
-        suppliersComboBox.setId("suppliersComboBox");
-        suppliersComboBox.setItems(SuppliersQuery.getSuppliersID());
+        Label comboLabelSupplier = new Label("");
 
-        suppliersComboBox.setConverter(new StringConverter<>() {
-            @Override
-            public String toString(Suppliers suppliers) {
-                return suppliers != null ? String.valueOf(suppliers.getIdSupplier()) : "";
-            }
-
-            @Override
-            public Suppliers fromString(String s) {
-                return null;
-            }
-        });
-        suppliersComboBox.setCellFactory(lv -> new ListCell<>() {
-            @Override
-            protected void updateItem(Suppliers supplier, boolean empty) {
-                super.updateItem(supplier, empty);
-                setText(empty || supplier == null ? null : String.valueOf(supplier.getIdSupplier()));
-            }
-        });
+//        ComboBox<Suppliers> suppliersComboBox = new ComboBox<>(SuppliersQuery.getSuppliersID());
+//        suppliersComboBox.setId("suppliersComboBox");
+//        suppliersComboBox.setItems(SuppliersQuery.getSuppliersID());
+//
+//        suppliersComboBox.setConverter(new StringConverter<>() {
+//            @Override
+//            public String toString(Suppliers suppliers) {
+//                return suppliers != null ? String.valueOf(suppliers.getIdSupplier()) : "";
+//            }
+//
+//            @Override
+//            public Suppliers fromString(String s) {
+//                return null;
+//            }
+//        });
+//        suppliersComboBox.setCellFactory(lv -> new ListCell<>() {
+//            @Override
+//            protected void updateItem(Suppliers supplier, boolean empty) {
+//                super.updateItem(supplier, empty);
+//                setText(empty || supplier == null ? null : String.valueOf(supplier.getIdSupplier()));
+//            }
+//        });
 
         Label comboLabel2 = new Label("Product ID: ");
         ComboBox<Products> productsComboBox = new ComboBox<>(ProductsQuery.getProductsID());
         productsComboBox.setId("productsComboBox");
         productsComboBox.setItems(ProductsQuery.getProductsID());
+        productsComboBox.valueProperty().addListener((obs, oldProduct, newProduct) -> {
+            if (newProduct != null) {
+                int supplierID = newProduct.getSupplierId();
+                comboLabelSupplier.setText(String.valueOf(supplierID));
+            } else {
+                comboLabelSupplier.setText("");
+            }
+        });
 
         productsComboBox.setConverter(new StringConverter<>() {
             @Override
@@ -210,7 +220,7 @@ public class SalesUI {
         addSalesGrid.add(comboLabel2, 0, 1);
         addSalesGrid.add(productsComboBox, 1, 1);
         addSalesGrid.add(comboLabel1, 0, 2);
-        addSalesGrid.add(suppliersComboBox, 1, 2);
+        addSalesGrid.add(comboLabelSupplier, 1, 2);
         addSalesGrid.add(quantitySales, 0, 3);
         addSalesGrid.add(quantitySalesInput, 1, 3);
         addSalesGrid.add(priceSales, 0, 4);
@@ -276,7 +286,7 @@ public class SalesUI {
                     }
 
                     int idSales = Integer.parseInt(idSalesInput.getText());
-                    Suppliers selectedSupplier = suppliersComboBox.getValue();
+                    String selectedSupplier = comboLabelSupplier.getText();
                     Products selectedProduct = productsComboBox.getValue();
                     int quantity = Integer.parseInt(quantitySalesInput.getText());
                     int price = Integer.parseInt(priceSalesInput.getText());
@@ -324,7 +334,7 @@ public class SalesUI {
                         return;
                     }
 
-                    boolean success = SalesService.addSales(idSales, selectedProduct.getIdProduct(), selectedSupplier.getIdSupplier(), quantity, price, String.valueOf(selectedDate));
+                    boolean success = SalesService.addSales(idSales, selectedProduct.getIdProduct(), Integer.parseInt(selectedSupplier), quantity, price, String.valueOf(selectedDate));
 
                     if (success) {
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -360,7 +370,7 @@ public class SalesUI {
 
         returnBtn.setOnAction(event -> {
             idSalesInput.clear();
-            suppliersComboBox.valueProperty().set(null);
+            comboLabelSupplier.setText("");
             productsComboBox.valueProperty().set(null);
             quantitySalesInput.clear();
             dateSalesInput.setValue(null);
