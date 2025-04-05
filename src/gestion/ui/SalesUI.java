@@ -309,9 +309,6 @@ public class SalesUI {
                     boolean success = SalesService.addSales(idSales, selectedProduct.getIdProduct(), Integer.parseInt(selectedSupplier), quantity, price, String.valueOf(selectedDate));
 
                     if (success) {
-                        System.out.println("Unit price : " + Products.getPriceProduct());
-                        System.out.println("Quantity " + quantity);
-                        System.out.println("Price = " + price);
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle(null);
                         alert.setHeaderText(null);
