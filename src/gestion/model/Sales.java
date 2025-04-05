@@ -2,9 +2,9 @@ package gestion.model;
 
 public class Sales {
 
-    private int idSuppliers;
-    private int idProduct;
     private int idSales;
+    private int idProduct;
+    private int idSuppliers;
     private int priceSales;
     private int quantitySales;
     private String dateSales;
@@ -19,10 +19,10 @@ public class Sales {
     }
 
 
-    public Sales(int idsales ,int idSuppliers, int idProduct,  int priceSales,int quantitySales, String dateSales) {
+    public Sales(int idsales, int idProduct, int idSuppliers, int priceSales, int quantitySales, String dateSales) {
         this.idSales=idsales;
-        this.idSuppliers=idSuppliers;
         this.idProduct=idProduct;
+        this.idSuppliers=idSuppliers;
         this.priceSales=priceSales;
         this.quantitySales=quantitySales;
         this.dateSales=dateSales;
@@ -34,17 +34,17 @@ public class Sales {
     public void setIdSales(int idSales) {
         this.idSales = idSales;
     }
-    public int getIdSuppliers() {
-        return idSuppliers;
-    }
-    public void setIdSuppliers(int idSuppliers) {
-        this.idSuppliers = idSuppliers;
-    }
     public int getIdProduct() {
         return idProduct;
     }
     public void setIdProduct(int idProduct) {
         this.idProduct = idProduct;
+    }
+    public int getIdSuppliers() {
+        return idSuppliers;
+    }
+    public void setIdSuppliers(int idSuppliers) {
+        this.idSuppliers = idSuppliers;
     }
     public int getPriceSales() {
         return priceSales;

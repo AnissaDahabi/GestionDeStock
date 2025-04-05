@@ -23,8 +23,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.StringConverter;
-
-import java.sql.Date;
 import java.time.LocalDate;
 
 public class SalesUI {
@@ -40,9 +38,9 @@ public class SalesUI {
             stage.setScene(SceneManager.getHomeScene());
         });
 
-        HBox returnBtnContainer = new HBox(10); // HBox = container horizontal
+        HBox returnBtnContainer = new HBox(10);
         returnBtnContainer.setAlignment(Pos.TOP_RIGHT);
-        returnBtnContainer.setPadding(new Insets(10, 10, 10, 10)); //équivalent du <style> blabla </style> en html
+        returnBtnContainer.setPadding(new Insets(10, 10, 10, 10));
         returnBtnContainer.getChildren().add(returnBtn);
 
         // Title:
@@ -844,32 +842,33 @@ public class SalesUI {
         searchSalesContainer.setSpacing(10);
         searchSalesContainer.setPadding(new Insets(20, 0, 0, 20));
 
+        // Tableau :
         TableView salesTable = new TableView<Sales>();
         salesTable.setEditable(true);
         salesTable.setId("salesTable");
 
-        javafx.scene.control.TableColumn<Sales, Integer> idSaleColumn = new javafx.scene.control.TableColumn<>("ID");
+        TableColumn<Sales, Integer> idSaleColumn = new TableColumn<>("ID");
         idSaleColumn.setCellValueFactory(new PropertyValueFactory<>("idSales"));
         idSaleColumn.setReorderable(false);
 
-        javafx.scene.control.TableColumn<Sales, Integer> idProductColumn = new javafx.scene.control.TableColumn<>("Product");
+        TableColumn<Sales, Integer> idProductColumn = new TableColumn<>("Product");
         idProductColumn.setCellValueFactory(new PropertyValueFactory<>("idProduct"));
         idProductColumn.setReorderable(false);
 
-        javafx.scene.control.TableColumn<Sales, Integer> idSupplierColumn = new javafx.scene.control.TableColumn<>("Supplier");
+        TableColumn<Sales, Integer> idSupplierColumn = new TableColumn<>("Supplier");
         idSupplierColumn.setCellValueFactory(new PropertyValueFactory<>("idSuppliers"));
         idSupplierColumn.setReorderable(false);
 
-        javafx.scene.control.TableColumn<Sales, Integer> quantitySaleColumn = new javafx.scene.control.TableColumn<>("Qty");
+        TableColumn<Sales, Integer> quantitySaleColumn = new TableColumn<>("Qty");
         quantitySaleColumn.setCellValueFactory(new PropertyValueFactory<>("quantitySales"));
         quantitySaleColumn.setReorderable(false);
 
-        javafx.scene.control.TableColumn<Sales, Integer> priceSaleColumn = new TableColumn<>("Price");
+        TableColumn<Sales, Integer> priceSaleColumn = new TableColumn<>("Price");
         priceSaleColumn.setCellValueFactory(new PropertyValueFactory<>("priceSales"));
         priceSaleColumn.setResizable(false);
         priceSaleColumn.setReorderable(false);
 
-        javafx.scene.control.TableColumn<Sales, String> dateSaleColumn = new javafx.scene.control.TableColumn<>("Date");
+        TableColumn<Sales, String> dateSaleColumn = new TableColumn<>("Date");
         dateSaleColumn.setCellValueFactory(new PropertyValueFactory<>("dateSales"));
         dateSaleColumn.setResizable(false);
         dateSaleColumn.setReorderable(false);
@@ -957,8 +956,6 @@ public class SalesUI {
             return showProductsScene;
 
         }
-
-
 
     }
 

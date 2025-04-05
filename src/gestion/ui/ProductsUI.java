@@ -887,7 +887,7 @@ public class ProductsUI {
 
         // Tableau :
         TableView productsTable = new TableView<Products>();
-        productsTable.setEditable(false);
+        productsTable.setEditable(true);
         productsTable.setId("productsTable");
         //productsTable.setPrefWidth(262);
 

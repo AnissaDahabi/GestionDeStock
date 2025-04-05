@@ -148,29 +148,6 @@ public class ProductsQuery {
         return productsList;
     }
 
-//    public static Products getProductById(int idProducts) {
-//        try {
-//            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
-//            String query = "SELECT * FROM Products WHERE id_product = ?";
-//            PreparedStatement pstmt = con.prepareStatement(query);
-//            pstmt.setInt(1, idProducts);
-//
-//            ResultSet rs = pstmt.executeQuery();
-//            if (rs.next()) {
-//                return new Products(
-//                        rs.getInt("id_product"),
-//                        rs.getString("name_product"),
-//                        rs.getDouble("price_product"),
-//                        rs.getInt("quantity_product"),
-//                        rs.getInt("id_supplier")
-//                );
-//            }
-//            return null;
-//        } catch (SQLException e) {
-//            throw new RuntimeException("Error getting the product's data: " + e.getMessage());
-//        }
-//    }
-
 
     public static ObservableList<Products> getProductsID() {
         ObservableList<Products> productsList = FXCollections.observableArrayList();

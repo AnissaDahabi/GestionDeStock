@@ -143,29 +143,6 @@ public class SalesQuery {
         return salesList;
     }
 
-//    public static Sales getSalesById(int idSales) {
-//        try {
-//            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
-//            String query = "Select * from Sales where id_sales = ?";
-//            PreparedStatement pstmt = con.prepareStatement(query);
-//            pstmt.setInt(1, idSales);
-//
-//            ResultSet rs = pstmt.executeQuery();
-//            if (rs.next()) {
-//                return new Sales(
-//                        rs.getInt("id_sales"),
-//                        rs.getInt("id_product"),
-//                        rs.getInt("id_supplier"),
-//                        rs.getInt("quantity_sales"),
-//                        rs.getInt("price_sales"),
-//                        rs.getString("date_sales")
-//                );
-//            }
-//            return null;
-//        } catch (SQLException e) {
-//            throw new RuntimeException("Error getting sales data: " + e.getMessage());
-//        }
-//    }
 
     public static ObservableList<Sales> getSalesById() {
         ObservableList<Sales> salesList = FXCollections.observableArrayList();
