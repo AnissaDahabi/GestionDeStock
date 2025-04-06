@@ -32,7 +32,14 @@ public class SalesQuery {
             pstmt.setInt(3, sales.getIdSuppliers());
             pstmt.setInt(4, sales.getQuantitySales());
             pstmt.setDouble(5, sales.getPriceSales());
-            pstmt.setString(6, sales.getDateSales());
+
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+            LocalDate date = LocalDate.parse(sales.getDateSales(), inputFormatter);
+            String formattedDate = date.format(outputFormatter);
+            pstmt.setString(6, formattedDate);
+
 
             return pstmt.executeUpdate() > 0;
 
@@ -69,7 +76,10 @@ public class SalesQuery {
             pstmt.setInt(2, Integer.parseInt(String.valueOf(idSupplierInput.getText())));
             pstmt.setInt(3, Integer.parseInt(String.valueOf(quantitySalesInput)));
             pstmt.setDouble(4, Double.parseDouble(String.valueOf(priceSalesSql)));
-            pstmt.setString(5, dateSalesInput.toString());
+
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+            pstmt.setString(5, dateSalesInput.format(outputFormatter));
             pstmt.setInt(6, Integer.parseInt(String.valueOf(idSalesInput)));
 
             int rowsAffected = pstmt.executeUpdate();

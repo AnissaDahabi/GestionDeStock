@@ -29,6 +29,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class SalesUI {
 
@@ -713,6 +714,7 @@ public class SalesUI {
         DatePicker dateSalesInput = new DatePicker();
 
 
+
         Label idProduct = new Label("Product ID: ");
 //        TextField idProductInput = new TextField();
 //        idProductInput.setText(String.valueOf(idProductSql));
@@ -957,6 +959,26 @@ public class SalesUI {
         dateSaleColumn.setCellValueFactory(new PropertyValueFactory<>("dateSales"));
         dateSaleColumn.setResizable(false);
         dateSaleColumn.setReorderable(false);
+        dateSaleColumn.setCellFactory(column -> new TableCell<Sales, String>() {
+            private final DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            private final DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            @Override
+            protected void updateItem(String dateStr, boolean empty) {
+                super.updateItem(dateStr, empty);
+                if (empty || dateStr == null || dateStr.isEmpty()) {
+                    setText(null);
+                } else {
+                    try {
+                        LocalDate date = LocalDate.parse(dateStr, inputFormatter);
+                        setText(date.format(outputFormatter));
+                    } catch (DateTimeParseException e) {
+                        setText(dateStr);
+                    }
+                }
+            }
+        });
+
+
 
         idSaleColumn.setPrefWidth(40);
         idProductColumn.setPrefWidth(44);
@@ -986,6 +1008,10 @@ public class SalesUI {
                 setText(empty || sales == null ? null : String.valueOf(sales.getIdSales()));
             }
         });
+
+
+
+
 
         returnBtn.setOnAction(event -> {
             salesComboBox.getValue();
@@ -1028,6 +1054,10 @@ public class SalesUI {
                     return false;
                 });
             });
+
+
+
+
 
             SortedList<Sales> sortedData = new SortedList<>(filteredData);
 
