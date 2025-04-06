@@ -33,7 +33,7 @@ public class SalesUI {
 
     public static Scene createContent() {
 
-
+        // Return button
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
 
@@ -47,12 +47,12 @@ public class SalesUI {
         returnBtnContainer.setPadding(new Insets(10, 10, 10, 10));
         returnBtnContainer.getChildren().add(returnBtn);
 
-
+        //Tittle
         HBox salesTitle = new HBox(new Label("Sales"));
         salesTitle.getStyleClass().add("salesTitle");
         salesTitle.setAlignment(Pos.CENTER);
 
-
+        //Buttons
         Button addSalesBtn = new Button("Add a sale");
         addSalesBtn.getStyleClass().add("addSalesBtn");
         Button delSalesBtn = new Button("Delete a sale");
@@ -99,7 +99,7 @@ public class SalesUI {
 
         return salesScene;
     }
-
+        //ADD SALES SCENE
     public static Scene addSalesScene() {
 
 
@@ -355,7 +355,7 @@ public class SalesUI {
                                 alert.setTitle(null);
                                 alert.setHeaderText(null);
                                 alert.setContentText("Sale added successfully");
-
+                                //ALert's design
                                 DialogPane dialogPane = alert.getDialogPane();
                                 dialogPane.setGraphic(null);
                                 alert.initStyle(StageStyle.UTILITY);
@@ -366,6 +366,7 @@ public class SalesUI {
                                 alert.setTitle(null);
                                 alert.setHeaderText(null);
                                 alert.setContentText("Something went wrong");
+                                //alert's design
                                 DialogPane dialogPane = alert.getDialogPane();
                                 dialogPane.setGraphic(null);
                                 alert.initStyle(StageStyle.UTILITY);
@@ -411,9 +412,9 @@ public class SalesUI {
 
         return addSalesScene;
     }
-
+        //DELETE SALES SCENE
     public static Scene delSalesScene1() {
-
+        //Return button
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
 
@@ -422,7 +423,7 @@ public class SalesUI {
         returnBtnContainer.setPadding(new Insets(10, 10, 10, 10));
         returnBtnContainer.getChildren().add(returnBtn);
 
-
+        //Title and txt :
         VBox delTitle1 = new VBox(new Label("Delete a sale"));
         delTitle1.setAlignment(Pos.CENTER);
         delTitle1.getStyleClass().add("delTitle1");
@@ -436,7 +437,7 @@ public class SalesUI {
         delTxtContainer1.setId("delTxtContainer1");
         delTxtContainer1.setAlignment(Pos.CENTER);
 
-
+        //User input
         Label idSalesLabel = new Label("ID Number: ");
         TextField idSalesInput = new TextField();
         HBox idSalesContainer = new HBox();
@@ -445,7 +446,7 @@ public class SalesUI {
         idSalesContainer.setId("idSalesContainer");
         idSalesContainer.setAlignment(Pos.CENTER);
 
-
+        //ComboBOX
         Label comboLabel = new Label("ID number : ");
         ComboBox<Sales> salesComboBox = new ComboBox<>(SalesQuery.getSalesById());
 
@@ -479,7 +480,7 @@ public class SalesUI {
         boxSuppliersContainer.setSpacing(5);
         boxSuppliersContainer.setPadding(new Insets(20, 0, 0, 0));
 
-
+        //Delete button :
         Button submitDeletedSalesBtn1 = new Button("Delete");
         submitDeletedSalesBtn1.getStyleClass().add("submitDeletedSuppliersBtn1");
         HBox delSalesContainer1 = new HBox(10);
@@ -501,7 +502,7 @@ public class SalesUI {
                     successAlert.setHeaderText(null);
                     successAlert.setContentText("Sale deleted successfully");
                     salesComboBox.setItems(SalesQuery.getSalesById());
-
+                    //Alert's design
                     DialogPane dialogPane = successAlert.getDialogPane();
                     dialogPane.setGraphic(null);
                     successAlert.initStyle(StageStyle.UTILITY);
@@ -513,7 +514,7 @@ public class SalesUI {
                 alert.setTitle(null);
                 alert.setHeaderText(null);
                 alert.setContentText("Please choose a sale to delete");
-
+                //alert's design
                 DialogPane dialogPane = alert.getDialogPane();
                 dialogPane.setGraphic(null);
                 alert.initStyle(StageStyle.UTILITY);
@@ -525,7 +526,7 @@ public class SalesUI {
                 errorAlert.setTitle(null);
                 errorAlert.setHeaderText(null);
                 errorAlert.setContentText("Something wrong happened..");
-
+                //alert's design
                 DialogPane dialogPane = errorAlert.getDialogPane();
                 dialogPane.setGraphic(null);
                 errorAlert.initStyle(StageStyle.UTILITY);
@@ -547,7 +548,7 @@ public class SalesUI {
         return delSalesScene1;
     }
 
-
+// EDIT SALES SCENE 1
     public static Scene editSalesScene1() {
 
 
@@ -748,7 +749,7 @@ public class SalesUI {
                     alert.setTitle(null);
                     alert.setHeaderText(null);
                     alert.setContentText("Please enter a product for the sale");
-
+                    //Alert's design
                     DialogPane dialogPane = alert.getDialogPane();
                     dialogPane.setGraphic(null);
                     alert.initStyle(StageStyle.UTILITY);
@@ -762,7 +763,7 @@ public class SalesUI {
                     alert.setTitle(null);
                     alert.setHeaderText(null);
                     alert.setContentText("Please enter a supplier for the product");
-
+                    //alert's design
                     DialogPane dialogPane = alert.getDialogPane();
                     dialogPane.setGraphic(null);
                     alert.initStyle(StageStyle.UTILITY);
@@ -776,7 +777,7 @@ public class SalesUI {
                     alert.setTitle(null);
                     alert.setHeaderText(null);
                     alert.setContentText("Please enter a quantity for the sale");
-
+                    //alert's design
                     DialogPane dialogPane = alert.getDialogPane();
                     dialogPane.setGraphic(null);
                     alert.initStyle(StageStyle.UTILITY);
@@ -789,7 +790,7 @@ public class SalesUI {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle(null);
                     alert.setHeaderText(null);
-
+                    //alert's design
                     DialogPane dialogPane = alert.getDialogPane();
                     dialogPane.setGraphic(null);
                     alert.initStyle(StageStyle.UTILITY);
@@ -804,7 +805,7 @@ public class SalesUI {
                 alert.setTitle(null);
                 alert.setHeaderText(null);
                 alert.setContentText("Sale added successfully!");
-
+                //Alert's design
                 DialogPane dialogPane = alert.getDialogPane();
                 dialogPane.setGraphic(null);
                 alert.initStyle(StageStyle.UTILITY);
@@ -847,7 +848,7 @@ public class SalesUI {
 
     public static Scene showSalesScene() {
 
-
+        //bouton return
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
 

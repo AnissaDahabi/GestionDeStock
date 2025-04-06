@@ -23,7 +23,7 @@ public class SalesQuery {
             String query = "INSERT INTO Sales (id_sales, id_product, id_supplier, quantity_sales, price_sales, date_sales ) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement pstmt = con.prepareStatement(query);
 
-
+            // Remplissage des paramètres de la requête SQL
             pstmt.setInt(1, sales.getIdSales());
             pstmt.setInt(2, sales.getIdProduct());
             pstmt.setInt(3, sales.getIdSuppliers());
