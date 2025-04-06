@@ -28,6 +28,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class SalesUI {
 
@@ -702,6 +703,11 @@ public class SalesUI {
         idSupplierInput.setPromptText(String.valueOf(idSupplierSql));
         idSupplierInput.setEditable(false);
 
+        Label dateSales = new Label("Sale's date: ");
+//        TextField dateSalesInput = new TextField(); // a l'aide
+//        dateSalesInput.setText(dateSalesSql);
+        DatePicker dateSalesInput = new DatePicker();
+
 
         Label idProduct = new Label("Product ID: ");
 //        TextField idProductInput = new TextField();
@@ -712,6 +718,8 @@ public class SalesUI {
             if (product.getIdProduct() == idProductSql) {
                 idProductInput.setValue(product);
                 idSupplierInput.setText(String.valueOf(product.getSupplierId()));
+                dateSalesInput.setValue(LocalDate.parse(dateSalesSql));
+
                 break;
             }
         }
@@ -756,10 +764,7 @@ public class SalesUI {
         quantitySalesInput.setText(String.valueOf(quantitySalesSql));
         quantitySalesInput.setId("quantitySalesInput");
 
-        Label dateSales = new Label("Sale's date: ");
-//        TextField dateSalesInput = new TextField(); // a l'aide
-//        dateSalesInput.setText(dateSalesSql);
-        DatePicker dateSalesInput = new DatePicker();
+
 
         editSalesGrid.add(idSales, 0, 0);
         editSalesGrid.add(idSales1, 1, 0);
