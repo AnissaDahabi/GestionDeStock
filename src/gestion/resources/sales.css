@@ -68,6 +68,8 @@
     -fx-border-radius: 20px;
     -fx-text-fill: #3C582B;
     -fx-max-height: 12px;
+    -fx-min-width: 120px;
+    -fx-max-width: 120px;
     -fx-font-size: 10px;
     -fx-font-weight: bold;
 }

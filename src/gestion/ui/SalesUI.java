@@ -128,7 +128,7 @@ public class SalesUI {
         addSalesGrid.setVgap(10);
         addSalesGrid.setHgap(10);
 
-        Label idSalesLabel = new Label("ID Number: ");
+        Label idSalesLabel = new Label("Sale ID: ");
         TextField idSalesInput = new TextField();
         idSalesInput.setTextFormatter(new TextFormatter<>(change -> {
             if (change.getControlNewText().matches("\\d*")){
@@ -153,7 +153,8 @@ public class SalesUI {
 
 
         Label comboLabel1 = new Label("Supplier ID: ");
-        Label comboLabelSupplier = new Label("");
+        TextField comboLabelSupplier = new TextField("");
+        comboLabelSupplier.setEditable(false);
 
 
         Label comboLabel2 = new Label("Product ID: ");
@@ -300,7 +301,7 @@ public class SalesUI {
                         return;
                     }
 
-                    double price = Products.getPriceProduct() * quantity;
+                    double price = selectedProduct.getPriceProduct() * quantity;
                     boolean success = SalesService.addSales(idSales, selectedProduct.getIdProduct(), Integer.parseInt(selectedSupplier), quantity, price, String.valueOf(selectedDate));
 
                     if (success) {

@@ -889,7 +889,6 @@ public class ProductsUI {
         TableView productsTable = new TableView<Products>();
         productsTable.setEditable(true);
         productsTable.setId("productsTable");
-        //productsTable.setPrefWidth(262);
 
         TableColumn<Products, Integer> idProductColumn = new TableColumn<>("ID");
         idProductColumn.setCellValueFactory(new PropertyValueFactory<>("idProduct"));

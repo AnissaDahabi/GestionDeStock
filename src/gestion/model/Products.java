@@ -4,7 +4,7 @@ public class Products {
 
         private int idProduct;
         private String nameProduct;
-        private static double priceProduct;
+        private double priceProduct;
         private int quantityProduct;
         private int supplierId;
 
@@ -30,7 +30,7 @@ public class Products {
     public String getNameProduct() { return nameProduct; }
     public void setNameProduct(String nameProduct) { this.nameProduct = nameProduct; }
 
-    public static double getPriceProduct() { return priceProduct; }
+    public double getPriceProduct() { return priceProduct; }
     public void setPriceProduct(double priceProduct) { this.priceProduct = priceProduct; }
 
     public int getQuantityProduct() { return quantityProduct; }
