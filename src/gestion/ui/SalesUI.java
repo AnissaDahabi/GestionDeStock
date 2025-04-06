@@ -860,7 +860,7 @@ public class SalesUI {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle(null);
                 alert.setHeaderText(null);
-                alert.setContentText("Sale added successfully!");
+                alert.setContentText("Sale edited successfully!");
                 //Alert's design
                 DialogPane dialogPane = alert.getDialogPane();
                 dialogPane.setGraphic(null);
