@@ -853,8 +853,6 @@ public class SalesUI {
                 }
 
                 LocalDate selectedDate = dateSalesInput.getValue();
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-                String formattedDate = selectedDate.format(formatter);
                 Products selectedProduct = idProductInput.getValue();
                 int quantity = Integer.parseInt(quantitySalesInput.getText());
                 double price = selectedProduct.getPriceProduct() * quantity;
@@ -862,7 +860,7 @@ public class SalesUI {
                 roundingPrice = roundingPrice.replace(",", ".");
                 double roundedPrice = Double.parseDouble(roundingPrice);
 
-                SalesQuery.editSales(idSalesSql, idProductInput, idSupplierInput, roundedPrice, quantity, LocalDate.parse(formattedDate));
+                SalesQuery.editSales(idSalesSql, idProductInput, idSupplierInput, roundedPrice, quantity, selectedDate);
 
 
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
