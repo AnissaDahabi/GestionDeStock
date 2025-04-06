@@ -697,17 +697,53 @@ public class SalesUI {
         Label idSales1 = new Label(" " + idSalesSql);
         idSales.setId("idSalesLabel");
 
-        Label idProduct = new Label("Product ID: ");
-        TextField idProductInput = new TextField();
-        idProductInput.setText(String.valueOf(idProductSql));
-
         Label idSupplier = new Label("Supplier ID: ");
-        TextField idSupplierInput = new TextField();
-        idSupplierInput.setText(String.valueOf(idSupplierSql));
+        TextField idSupplierInput = new TextField("");
+        idSupplierInput.setPromptText(String.valueOf(idSupplierSql));
+        idSupplierInput.setEditable(false);
 
-        Label priceSales = new Label("Total price: ");
-        TextField priceSalesInput = new TextField();
-        priceSalesInput.setText(String.valueOf(priceSalesSql));
+
+        Label idProduct = new Label("Product ID: ");
+//        TextField idProductInput = new TextField();
+//        idProductInput.setText(String.valueOf(idProductSql));
+        ComboBox<Products> idProductInput = new ComboBox<>(ProductsQuery.getProductsID());
+        idProductInput.setId("productsComboBox");
+        idProductInput.setPromptText(String.valueOf(idProductSql));
+
+        idProductInput.valueProperty().addListener((obs, oldProduct, newProduct) -> {
+            if (newProduct != null) {
+                int supplierID = newProduct.getSupplierId();
+                idSupplierInput.setText(String.valueOf(supplierID));
+            } else {
+                idSupplierInput.setText("");
+            }
+        });
+
+        idProductInput.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(Products products) {
+                return products != null ? String.valueOf(products.getIdProduct()) : "";
+            }
+
+            @Override
+            public Products fromString(String s) {
+                return null;
+            }
+        });
+        idProductInput.setCellFactory(lv -> new ListCell<>() {
+            @Override
+            protected void updateItem(Products product, boolean empty) {
+                super.updateItem(product, empty);
+                setText(empty || product == null ? null : String.valueOf(product.getIdProduct()));
+            }
+        });
+
+
+
+
+//        Label priceSales = new Label("Total price: ");
+//        TextField priceSalesInput = new TextField();
+//        priceSalesInput.setText(String.valueOf(priceSalesSql));
 
         Label quantitySales = new Label("Total quantity: ");
         TextField quantitySalesInput = new TextField();
@@ -715,8 +751,9 @@ public class SalesUI {
         quantitySalesInput.setId("quantitySalesInput");
 
         Label dateSales = new Label("Sale's date: ");
-        TextField dateSalesInput = new TextField(); // a l'aide
-        dateSalesInput.setText(dateSalesSql);
+//        TextField dateSalesInput = new TextField(); // a l'aide
+//        dateSalesInput.setText(dateSalesSql);
+        DatePicker dateSalesInput = new DatePicker();
 
         editSalesGrid.add(idSales, 0, 0);
         editSalesGrid.add(idSales1, 1, 0);
@@ -724,12 +761,12 @@ public class SalesUI {
         editSalesGrid.add(idProductInput, 1, 1);
         editSalesGrid.add(idSupplier, 0, 2);
         editSalesGrid.add(idSupplierInput, 1, 2);
-        editSalesGrid.add(priceSales, 0, 3);
-        editSalesGrid.add(priceSalesInput, 1, 3);
-        editSalesGrid.add(quantitySales, 0, 4);
-        editSalesGrid.add(quantitySalesInput, 1, 4);
-        editSalesGrid.add(dateSales, 0, 5);
-        editSalesGrid.add(dateSalesInput, 1, 5);
+//        editSalesGrid.add(priceSales, 0, 3);
+//        editSalesGrid.add(priceSalesInput, 1, 3);
+        editSalesGrid.add(quantitySales, 0, 3);
+        editSalesGrid.add(quantitySalesInput, 1, 3);
+        editSalesGrid.add(dateSales, 0, 4);
+        editSalesGrid.add(dateSalesInput, 1, 4);
 
         editSalesGrid.setAlignment(Pos.CENTER);
         editSalesGrid.setPadding(new Insets(40, 0, 0, 0));
@@ -744,7 +781,7 @@ public class SalesUI {
         submitEditedSalesBtn2.setOnAction(event -> {
             try {
 
-                if (idProductInput.getText().isEmpty()){
+                if (idProductInput.getValue() == null){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle(null);
                     alert.setHeaderText(null);
@@ -799,7 +836,15 @@ public class SalesUI {
                     return;
                 }
 
-                SalesQuery.editSales(idSalesSql, idProductInput, idSupplierInput, priceSalesInput, quantitySalesInput, dateSalesInput);
+                LocalDate selectedDate = dateSalesInput.getValue();
+                Products selectedProduct = idProductInput.getValue();
+                int quantity = Integer.parseInt(quantitySalesInput.getText());
+                double price = selectedProduct.getPriceProduct() * quantity;
+                String roundingPrice = String.format("%.2f", price);
+                roundingPrice = roundingPrice.replace(",", ".");
+                double roundedPrice = Double.parseDouble(roundingPrice);
+
+                SalesQuery.editSales(idSalesSql, idProductInput, idSupplierInput, roundedPrice, quantity, selectedDate);
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle(null);
@@ -831,10 +876,10 @@ public class SalesUI {
         });
 
         returnBtn.setOnAction(event -> {
-            idProductInput.clear();
+            idProductInput.valueProperty().set(null);
             idSupplierInput.clear();
             quantitySalesInput.clear();
-            dateSalesInput.clear();
+            dateSalesInput.setValue(null);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(SceneManager.getEditSalesScene1());
         });

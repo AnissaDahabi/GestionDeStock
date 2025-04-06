@@ -1,5 +1,6 @@
 package gestion.dao;
 
+import gestion.model.Products;
 import gestion.model.Sales;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,6 +10,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.StageStyle;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 
 public class SalesQuery {
@@ -55,18 +58,19 @@ public class SalesQuery {
     }
 
 
-    public static void editSales(int idSalesInput, TextField idProductInput, TextField idSupplierInput, TextField priceSalesSql, TextField quantitySalesInput, TextField dateSalesInput) {
+    public static void editSales(int idSalesInput, ComboBox<Products> idProductInput, TextField idSupplierInput, double priceSalesSql, int quantitySalesInput, LocalDate dateSalesInput) {
         try {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
 
             String query = "UPDATE Sales SET id_product = ?, id_supplier = ?, quantity_sales = ?, price_sales = ?, date_sales= ? WHERE id_sales = ?";
             PreparedStatement pstmt = con.prepareStatement(query);
 
-            pstmt.setInt(1, Integer.parseInt(String.valueOf(idProductInput.getText())));
+            pstmt.setInt(1, idProductInput.getValue().getIdProduct());
             pstmt.setInt(2, Integer.parseInt(String.valueOf(idSupplierInput.getText())));
-            pstmt.setInt(3, Integer.parseInt(quantitySalesInput.getText()));
-            pstmt.setInt(4, Integer.parseInt(String.valueOf(priceSalesSql)));
-            pstmt.setString(5, String.valueOf(dateSalesInput));
+            pstmt.setInt(3, Integer.parseInt(String.valueOf(quantitySalesInput)));
+            pstmt.setDouble(4, Double.parseDouble(String.valueOf(priceSalesSql)));
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            pstmt.setString(5, dateSalesInput.format(formatter));
             pstmt.setInt(6, Integer.parseInt(String.valueOf(idSalesInput)));
 
             int rowsAffected = pstmt.executeUpdate();
