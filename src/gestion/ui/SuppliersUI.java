@@ -285,16 +285,6 @@ public class SuppliersUI {
                 boolean success = SuppliersService.addSuppliers(idSuppliers, name, phone, address, email);
 
                 if (success) {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle(null);
-                    alert.setHeaderText(null);
-                    alert.setContentText("Supplier added successfully");
-
-                    DialogPane dialogPane = alert.getDialogPane();
-                    dialogPane.setGraphic(null);
-                    alert.initStyle(StageStyle.UTILITY);
-                    alert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
-                    alert.showAndWait();
 
                     idSuppliersInput.clear();
                     nameSuppliersInput.clear();
@@ -771,16 +761,6 @@ public class SuppliersUI {
 
                 SuppliersQuery.editSuppliers(idSuppliersSql ,nameSuppliersInput, phoneSuppliersInput, addressSuppliersInput, emailSuppliersInput);
 
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle(null);
-                alert.setHeaderText(null);
-                alert.setContentText("Supplier added successfully!");
-                //Alert's design
-                DialogPane dialogPane = alert.getDialogPane();
-                dialogPane.setGraphic(null);
-                alert.initStyle(StageStyle.UTILITY);
-                alert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
-                alert.showAndWait();
 
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 stage.setScene(SceneManager.getSuppliersHomeScene());

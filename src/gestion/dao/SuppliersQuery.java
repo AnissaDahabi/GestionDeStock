@@ -120,17 +120,7 @@ public class SuppliersQuery {
 
 
             pstmt.setString(1, nameSuppliersInput.getText());
-
-            try {
-                pstmt.setString(2, phoneSuppliersInput.getText());
-            } catch (NumberFormatException ex) {
-                Alert alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Invalid input");
-                alert.setContentText("Please enter a valid phone number");
-                return;
-            }
-
+            pstmt.setString(2, phoneSuppliersInput.getText());
             pstmt.setString(3, addressSuppliersInput.getText());
             pstmt.setString(4, emailSuppliersInput.getText());
             pstmt.setInt(5, Integer.parseInt(String.valueOf(idSuppliersInput)));
@@ -138,10 +128,11 @@ public class SuppliersQuery {
             int rowsAffected = pstmt.executeUpdate();
 
             if (rowsAffected > 0) {
-                Alert alert = new Alert(AlertType.INFORMATION);
-                alert.setTitle("Success!");
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle(null);
                 alert.setHeaderText(null);
-                alert.setContentText("Supplier edited successfully");
+                alert.setContentText("Supplier added successfully");
+
                 DialogPane dialogPane = alert.getDialogPane();
                 dialogPane.setGraphic(null);
                 alert.initStyle(StageStyle.UTILITY);
