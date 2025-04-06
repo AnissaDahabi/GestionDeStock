@@ -267,6 +267,9 @@ public class SalesUI {
                     String selectedSupplier = comboLabelSupplier.getText();
                     int quantity = Integer.parseInt(quantitySalesInput.getText());
                     LocalDate selectedDate = dateSalesInput.getValue();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                    String formattedDate = selectedDate.format(formatter);
+
 
                     if (selectedSupplier == null) {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -312,7 +315,7 @@ public class SalesUI {
                     roundingPrice = roundingPrice.replace(",", ".");
                     double roundedPrice = Double.parseDouble(roundingPrice);
 
-                    boolean success = SalesService.addSales(idSales, selectedProduct.getIdProduct(), Integer.parseInt(selectedSupplier), quantity, roundedPrice, String.valueOf(selectedDate));
+                    boolean success = SalesService.addSales(idSales, selectedProduct.getIdProduct(), Integer.parseInt(selectedSupplier), quantity, roundedPrice, formattedDate);
 
                     if (success) {
 
@@ -850,6 +853,8 @@ public class SalesUI {
                 }
 
                 LocalDate selectedDate = dateSalesInput.getValue();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                String formattedDate = selectedDate.format(formatter);
                 Products selectedProduct = idProductInput.getValue();
                 int quantity = Integer.parseInt(quantitySalesInput.getText());
                 double price = selectedProduct.getPriceProduct() * quantity;
@@ -857,7 +862,7 @@ public class SalesUI {
                 roundingPrice = roundingPrice.replace(",", ".");
                 double roundedPrice = Double.parseDouble(roundingPrice);
 
-                SalesQuery.editSales(idSalesSql, idProductInput, idSupplierInput, roundedPrice, quantity, selectedDate);
+                SalesQuery.editSales(idSalesSql, idProductInput, idSupplierInput, roundedPrice, quantity, LocalDate.parse(formattedDate));
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle(null);
