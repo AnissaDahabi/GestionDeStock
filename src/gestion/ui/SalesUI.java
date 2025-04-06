@@ -302,9 +302,14 @@ public class SalesUI {
                     }
 
                     double price = selectedProduct.getPriceProduct() * quantity;
-                    boolean success = SalesService.addSales(idSales, selectedProduct.getIdProduct(), Integer.parseInt(selectedSupplier), quantity, price, String.valueOf(selectedDate));
+                    String roundingPrice = String.format("%.2f", price);
+                    roundingPrice = roundingPrice.replace(",", ".");
+                    double roundedPrice = Double.parseDouble(roundingPrice);
+
+                    boolean success = SalesService.addSales(idSales, selectedProduct.getIdProduct(), Integer.parseInt(selectedSupplier), quantity, roundedPrice, String.valueOf(selectedDate));
 
                     if (success) {
+
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle(null);
                         alert.setHeaderText(null);
