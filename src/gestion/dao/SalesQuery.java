@@ -60,7 +60,7 @@ public class SalesQuery {
 
     public static void editSales(int idSalesInput, ComboBox<Products> idProductInput, TextField idSupplierInput, double priceSalesSql, int quantitySalesInput, LocalDate dateSalesInput) {
         try {
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava?useAffectedRows=true", "root", "root");
 
             String query = "UPDATE Sales SET id_product = ?, id_supplier = ?, quantity_sales = ?, price_sales = ?, date_sales= ? WHERE id_sales = ?";
             PreparedStatement pstmt = con.prepareStatement(query);
@@ -69,13 +69,12 @@ public class SalesQuery {
             pstmt.setInt(2, Integer.parseInt(String.valueOf(idSupplierInput.getText())));
             pstmt.setInt(3, Integer.parseInt(String.valueOf(quantitySalesInput)));
             pstmt.setDouble(4, Double.parseDouble(String.valueOf(priceSalesSql)));
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-            pstmt.setString(5, dateSalesInput.format(formatter));
+            pstmt.setString(5, dateSalesInput.toString());
             pstmt.setInt(6, Integer.parseInt(String.valueOf(idSalesInput)));
 
             int rowsAffected = pstmt.executeUpdate();
 
-            if (rowsAffected > 1) {
+            if (rowsAffected > 0) {
                 Alert alert = new Alert(AlertType.INFORMATION);
                 alert.setTitle(null);
                 alert.setHeaderText(null);
