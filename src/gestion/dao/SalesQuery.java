@@ -74,16 +74,7 @@ public class SalesQuery {
 
             int rowsAffected = pstmt.executeUpdate();
 
-            if (rowsAffected > 0) {
-                Alert alert = new Alert(AlertType.INFORMATION);
-                alert.setTitle(null);
-                alert.setHeaderText(null);
-                alert.setContentText("Sale edited successfully");
-                DialogPane dialogPane = alert.getDialogPane();
-                dialogPane.setGraphic(null);
-                alert.initStyle(StageStyle.UTILITY);
-                alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
-            } else {
+            if (rowsAffected == 0) {
                 Alert alert = new Alert(AlertType.WARNING);
                 alert.setTitle(null);
                 alert.setHeaderText(null);
@@ -92,6 +83,19 @@ public class SalesQuery {
                 dialogPane.setGraphic(null);
                 alert.initStyle(StageStyle.UTILITY);
                 alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
+                alert.showAndWait();
+
+
+            } else if (rowsAffected > 0) {
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle(null);
+                alert.setHeaderText(null);
+                alert.setContentText("Sale edited successfully");
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.setGraphic(null);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
+                alert.showAndWait();
             }
 
             pstmt.close();
@@ -102,11 +106,12 @@ public class SalesQuery {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle(null);
             alert.setHeaderText(null);
-            alert.setContentText("Error: " + ex.getMessage());
+            alert.setContentText("Something went wrong");
             DialogPane dialogPane = alert.getDialogPane();
             dialogPane.setGraphic(null);
             alert.initStyle(StageStyle.UTILITY);
             alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
+            alert.showAndWait();
         }
     }
 

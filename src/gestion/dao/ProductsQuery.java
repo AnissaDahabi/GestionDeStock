@@ -73,22 +73,21 @@ public class ProductsQuery {
 
             int rowsAffected = pstmt.executeUpdate();
 
-            if (rowsAffected == 0) {
-                Alert alert = new Alert(AlertType.WARNING);
+            if (rowsAffected > 0) {
+                Alert alert = new Alert(AlertType.INFORMATION);
                 alert.setTitle(null);
                 alert.setHeaderText(null);
-                alert.setContentText("No changes were made.");
+                alert.setContentText("Product edited successfully");
                 DialogPane dialogPane = alert.getDialogPane();
                 dialogPane.setGraphic(null);
                 alert.initStyle(StageStyle.UTILITY);
                 alert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
                 alert.showAndWait();
-
-            } else if (rowsAffected > 0) {
-                Alert alert = new Alert(AlertType.INFORMATION);
+            } else {
+                Alert alert = new Alert(AlertType.WARNING);
                 alert.setTitle(null);
                 alert.setHeaderText(null);
-                alert.setContentText("Product edited successfully");
+                alert.setContentText("No changes were made.");
                 DialogPane dialogPane = alert.getDialogPane();
                 dialogPane.setGraphic(null);
                 alert.initStyle(StageStyle.UTILITY);
