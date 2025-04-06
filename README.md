@@ -33,5 +33,5 @@ Assurez-vous que le JDK Java 11+ est sélectionné dans votre configuration; <br
 Vérifiez que JavaFX soit présent dans vos librairies; <br>
 Compilez et exécutez le projet directement depuis votre IDE.
 
-## Screenshots:
+## Screenshot:
 <img src="./src/gestion/resources/readmeImg/phone-addProduct.png" height="500">
