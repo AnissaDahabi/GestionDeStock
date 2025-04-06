@@ -1,5 +1,6 @@
 package gestion.dao;
 
+import gestion.model.Products;
 import gestion.model.Suppliers;
 import gestion.ui.SceneManager;
 import javafx.collections.FXCollections;
@@ -205,7 +206,40 @@ public class SuppliersQuery {
         return false;
     }
 
+    public static ObservableList<Suppliers> searchSuppliers(TableView<Suppliers> suppliersTable) {
+        ObservableList<Suppliers> suppliersList = FXCollections.observableArrayList();
 
+        try {
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
+
+            String query = "SELECT id_supplier, name_supplier, phone_supplier, address_supplier, email_supplier FROM Suppliers";
+            PreparedStatement pstmt = con.prepareStatement(query);
+
+            ResultSet rs = pstmt.executeQuery();
+
+
+            while (rs.next()) {
+                Suppliers suppliers = new Suppliers(
+                        rs.getInt("id_supplier"),
+                        rs.getString("name_supplier"),
+                        rs.getString("phone_supplier"),
+                        rs.getString("address_supplier"),
+                        rs.getString("email_supplier")
+                );
+                suppliersList.add(suppliers);
+            }
+            if (suppliersTable != null) {
+                suppliersTable.setItems(suppliersList);
+            }
+            rs.close();
+            pstmt.close();
+            con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Database error: " + e.getMessage());
+        }
+        return suppliersList;
+    }
 
 }
 

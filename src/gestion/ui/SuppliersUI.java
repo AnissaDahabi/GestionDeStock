@@ -2,6 +2,7 @@ package gestion.ui;
 
 import gestion.dao.ProductsQuery;
 import gestion.dao.SuppliersQuery;
+import gestion.model.Products;
 import gestion.model.Suppliers;
 import gestion.service.SuppliersService;
 import javafx.collections.FXCollections;
@@ -847,32 +848,45 @@ public class SuppliersUI {
 
         SuppliersQuery.showSuppliers(suppliersTable);
 
-        ObservableList<Suppliers> suppliersData = SuppliersQuery.getSuppliersID();
-        FilteredList<Suppliers> filteredSuppliersData = new FilteredList<>(suppliersData, p -> true);
+        // Search filter:
+        ObservableList<Suppliers> data = SuppliersQuery.searchSuppliers(suppliersTable);
+
+        FilteredList<Suppliers> filteredData = new FilteredList<>(data, p -> true);
 
         searchSuppliersInput.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredSuppliersData.setPredicate(suppliers -> {
+            filteredData.setPredicate(supplier -> {
+
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
                 String lowerCaseFilter = newValue.toLowerCase();
 
-                return String.valueOf(suppliers.getIdSupplier()).toLowerCase().contains(lowerCaseFilter);
+                if (String.valueOf(supplier.getIdSupplier()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (supplier.getNameSupplier().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (supplier.getPhoneSupplier().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (supplier.getAddressSupplier().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (supplier.getEmailSupplier().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                }
+
+                return false;
             });
         });
+
+        SortedList<Suppliers> sortedData = new SortedList<>(filteredData);
+
+        sortedData.comparatorProperty().bind(suppliersTable.comparatorProperty());
+        suppliersTable.setItems(sortedData);
+
         returnBtn.setOnAction(event -> {
-            ObservableList<Suppliers> newData = SuppliersQuery.getSuppliersID();
-            suppliersData.setAll(newData);
             suppliersTable.refresh();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(SceneManager.getSuppliersHomeScene());
         });
-
-        SortedList<Suppliers> sortedSuppliersData = new SortedList<>(filteredSuppliersData);
-        sortedSuppliersData.comparatorProperty().bind(suppliersTable.comparatorProperty());
-        suppliersTable.setItems(sortedSuppliersData);
-        suppliersData.setAll(SuppliersQuery.getSuppliersID());
-        suppliersTable.refresh();
 
         VBox suppliersTableContainer = new VBox();
         suppliersTableContainer.setPadding(new Insets(10, 10, 10, 10));
