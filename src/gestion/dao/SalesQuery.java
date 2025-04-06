@@ -99,12 +99,13 @@ public class SalesQuery {
             int newIdSupplier = Integer.parseInt(String.valueOf(idSupplierInput.getText()));
             int newQuantitySales = Integer.parseInt(String.valueOf(quantitySalesInput));
             Double newPriceSales = Double.parseDouble(String.valueOf(priceSalesSql));
-            String newDate = dateSalesInput.toString();
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            String newDate = dateSalesInput.format(outputFormatter);
 
             boolean noChanges = currentIdProduct == newIdProduct &&
                     currentIdSupplier == newIdSupplier &&
                     currentQuantitySales == newQuantitySales &&
-                    currentPriceSales == newPriceSales &&
+                    Double.compare(currentPriceSales, newPriceSales) == 0 &&
                     currentDateSales.equals(newDate);
 
             if (noChanges) {
@@ -126,7 +127,7 @@ public class SalesQuery {
                 pstmt.setInt(3, Integer.parseInt(String.valueOf(quantitySalesInput)));
                 pstmt.setDouble(4, Double.parseDouble(String.valueOf(priceSalesSql)));
 
-                DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                outputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
                 pstmt.setString(5, dateSalesInput.format(outputFormatter));
                 pstmt.setInt(6, Integer.parseInt(String.valueOf(idSalesInput)));

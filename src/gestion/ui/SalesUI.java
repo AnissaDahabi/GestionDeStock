@@ -864,9 +864,8 @@ public class SalesUI {
 
                 SalesQuery.editSales(idSalesSql, idProductInput, idSupplierInput, roundedPrice, quantity, selectedDate);
 
-
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(SceneManager.getSalesHomeScene());
+                stage.setScene(SceneManager.getSalesHomeScene());
 
             } catch (Exception e) {
                 e.printStackTrace();
