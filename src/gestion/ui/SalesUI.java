@@ -708,7 +708,13 @@ public class SalesUI {
 //        idProductInput.setText(String.valueOf(idProductSql));
         ComboBox<Products> idProductInput = new ComboBox<>(ProductsQuery.getProductsID());
         idProductInput.setId("productsComboBox");
-        idProductInput.setPromptText(String.valueOf(idProductSql));
+        for (Products product : ProductsQuery.getProductsID()) {
+            if (product.getIdProduct() == idProductSql) {
+                idProductInput.setValue(product);
+                idSupplierInput.setText(String.valueOf(product.getSupplierId()));
+                break;
+            }
+        }
 
         idProductInput.valueProperty().addListener((obs, oldProduct, newProduct) -> {
             if (newProduct != null) {
