@@ -131,7 +131,7 @@ public class SalesUI {
         Label idSalesLabel = new Label("Sale ID: ");
         TextField idSalesInput = new TextField();
         idSalesInput.setTextFormatter(new TextFormatter<>(change -> {
-            if (change.getControlNewText().matches("\\d*")){
+            if (change.getControlNewText().matches("\\d{0,4}")) {
                 return change;
             }
             return null;

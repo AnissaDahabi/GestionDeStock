@@ -133,7 +133,7 @@ public class SuppliersUI {
         Label idSupplier = new Label("ID Number: ");
         TextField idSuppliersInput = new TextField();
         idSuppliersInput.setTextFormatter(new TextFormatter<>(change -> {
-            if (change.getControlNewText().matches("\\d*")) {
+            if (change.getControlNewText().matches("\\d{0,4}")) {
                 return change;
             }
             return null;
@@ -142,7 +142,8 @@ public class SuppliersUI {
         Label nameSuppliers = new Label("Name: ");
         TextField nameSuppliersInput = new TextField();
         nameSuppliersInput.setTextFormatter(new TextFormatter<>(change -> {
-            if (change.getControlNewText().matches("[a-zA-Z\\s\\-']+")) {
+            String input = change.getControlNewText();
+            if (input.isEmpty() || input.matches("[\\p{L}0-9\\s\\-']+")) {
                 return change;
             }
             return null;
@@ -151,7 +152,8 @@ public class SuppliersUI {
         Label phoneSuppliers = new Label("Phone: ");
         TextField phoneSuppliersInput = new TextField();
         phoneSuppliersInput.setTextFormatter(new TextFormatter<>(change -> {
-            if (change.getControlNewText().matches("^[0-9]*")) {
+            String input = change.getControlNewText();
+            if (input.isEmpty() || input.matches("^[0-9]*")) {
                 return change;
             }
             return null;
@@ -159,9 +161,24 @@ public class SuppliersUI {
 
         Label addressSuppliers = new Label("Address: ");
         TextField addressSuppliersInput = new TextField();
+        addressSuppliersInput.setTextFormatter(new TextFormatter<>(change -> {
+            String input = change.getControlNewText();
+            if (input.isEmpty() || input.matches("[\\p{L}0-9\\s\\-']+")) {
+                return change;
+            }
+            return null;
+        }));
+
 
         Label emailSuppliers = new Label("Email: ");
         TextField emailSuppliersInput = new TextField();
+        emailSuppliersInput.setTextFormatter(new TextFormatter<>(change -> {
+            String input = change.getControlNewText();
+            if (input.isEmpty() || input.matches("[a-zA-Z0-9@\\.\\-_]+")) {
+                return change;
+            }
+            return null;
+        }));
 
 
         addSuppliersGrid.add(idSupplier, 0, 0);
@@ -561,8 +578,6 @@ public class SuppliersUI {
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
 
-
-
         HBox returnBtnContainer = new HBox(10);
         returnBtnContainer.setAlignment(Pos.TOP_RIGHT);
         returnBtnContainer.setPadding(new Insets(10, 10, 10, 10));
@@ -598,7 +613,8 @@ public class SuppliersUI {
         nameSuppliersInput.setText(nameSuppliersSql);
         nameSuppliersInput.setId("nameSuppliersInput");
         nameSuppliersInput.setTextFormatter(new TextFormatter<>(change -> {
-            if (change.getControlNewText().matches("[a-zA-Z\\s\\-']+")) {
+            String input = change.getControlNewText();
+            if (input.isEmpty() || input.matches("[\\p{L}0-9\\s\\-']+")) {
                 return change;
             }
             return null;
@@ -609,7 +625,8 @@ public class SuppliersUI {
         phoneSuppliersInput.setText(String.valueOf(phoneSuppliersSql));
         phoneSuppliersInput.setId("phoneSuppliersInput");
         phoneSuppliersInput.setTextFormatter(new TextFormatter<>(change -> {
-            if (change.getControlNewText().matches("^[0-9]*")) {
+            String input = change.getControlNewText();
+            if (input.isEmpty() || input.matches("^[0-9]*")) {
                 return change;
             }
             return null;
@@ -645,11 +662,25 @@ public class SuppliersUI {
         TextField addressSuppliersInput = new TextField();
         addressSuppliersInput.setText(String.valueOf(addressSuppliersSql));
         addressSuppliersInput.setId("addressSuppliersInput");
+        addressSuppliersInput.setTextFormatter(new TextFormatter<>(change -> {
+            String input = change.getControlNewText();
+            if (input.isEmpty() || input.matches("[\\p{L}0-9\\s\\-']+")) {
+                return change;
+            }
+            return null;
+        }));
 
         Label emailSuppliers = new Label("Email: ");
         TextField emailSuppliersInput = new TextField();
         emailSuppliersInput.setText(emailSuppliersSql);
         emailSuppliersInput.setId("emailSuppliersInput");
+        emailSuppliersInput.setTextFormatter(new TextFormatter<>(change -> {
+            String input = change.getControlNewText();
+            if (input.isEmpty() || input.matches("[a-zA-Z0-9@\\.\\-_]+")) {
+                return change;
+            }
+            return null;
+        }));
 
         editSuppliersGrid.add(idSuppliers, 0, 0);
         editSuppliersGrid.add(idSuppliersInput, 1, 0);

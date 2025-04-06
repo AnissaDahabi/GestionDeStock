@@ -134,7 +134,7 @@ public class ProductsUI {
         TextField nameProductsInput = new TextField();
         nameProductsInput.setTextFormatter(new TextFormatter<>(change -> {
             String input = change.getControlNewText();
-            if (input.isEmpty() || input.matches("[a-zA-Z0-9\\s\\-']+")) {
+            if (input.isEmpty() || input.matches("[\\p{L}0-9\\s\\-']+")) {
                 return change;
             }
             return null;
@@ -646,7 +646,7 @@ public class ProductsUI {
         nameProductsInput.setId("nameProductsInput");
         nameProductsInput.setTextFormatter(new TextFormatter<>(change -> {
             String input = change.getControlNewText();
-            if (input.isEmpty() || input.matches("[a-zA-Z0-9\\s\\-']+")) {
+            if (input.isEmpty() || input.matches("[\\p{L}0-9\\s\\-']+")) {
                 return change;
             }
             return null;
