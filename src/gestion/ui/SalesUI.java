@@ -23,6 +23,10 @@ import javafx.stage.StageStyle;
 import javafx.util.StringConverter;
 
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.time.LocalDate;
 
 public class SalesUI {
@@ -310,16 +314,65 @@ public class SalesUI {
 
                     if (success) {
 
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle(null);
-                        alert.setHeaderText(null);
-                        alert.setContentText("Sale added successfully");
 
-                        DialogPane dialogPane = alert.getDialogPane();
-                        dialogPane.setGraphic(null);
-                        alert.initStyle(StageStyle.UTILITY);
-                        alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
-                        alert.showAndWait();
+                        try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root")) {
+
+                            String checkQuery = "SELECT quantity_product FROM Products WHERE id_product = ?";
+                            PreparedStatement checkStmt = con.prepareStatement(checkQuery);
+                            checkStmt.setInt(1, selectedProduct.getIdProduct());
+                            ResultSet checkRs = checkStmt.executeQuery();
+
+                            if (checkRs.next()) {
+                                int currentStock = checkRs.getInt("quantity_product");
+                                if (currentStock - quantity < 0) {
+                                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                                    alert.setTitle("Not enough stock");
+                                    alert.setHeaderText(null);
+                                    alert.setContentText("The sale quantity exceeds the current stock. Stock cannot be negative.");
+                                    DialogPane dialogPane = alert.getDialogPane();
+                                    dialogPane.setGraphic(null);
+                                    alert.initStyle(StageStyle.UTILITY);
+                                    alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
+                                    alert.showAndWait();
+                                    checkRs.close();
+                                    checkStmt.close();
+                                    return;
+                                }
+                            }
+                            checkRs.close();
+                            checkStmt.close();
+
+
+                            String updateQuery = "UPDATE Products SET quantity_product = quantity_product - ? WHERE id_product = ?";
+                            PreparedStatement updateStmt = con.prepareStatement(updateQuery);
+                            updateStmt.setInt(1, quantity);
+                            updateStmt.setInt(2, selectedProduct.getIdProduct());
+                            int rowsAffected = updateStmt.executeUpdate();
+                            updateStmt.close();
+
+                            if (rowsAffected > 0) {
+                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                alert.setTitle(null);
+                                alert.setHeaderText(null);
+                                alert.setContentText("Sale added successfully");
+
+                                DialogPane dialogPane = alert.getDialogPane();
+                                dialogPane.setGraphic(null);
+                                alert.initStyle(StageStyle.UTILITY);
+                                alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
+                                alert.showAndWait();
+                            } else {
+                                Alert alert = new Alert(Alert.AlertType.ERROR);
+                                alert.setTitle(null);
+                                alert.setHeaderText(null);
+                                alert.setContentText("Something went wrong");
+                                DialogPane dialogPane = alert.getDialogPane();
+                                dialogPane.setGraphic(null);
+                                alert.initStyle(StageStyle.UTILITY);
+                                alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
+                                alert.showAndWait();
+                            }
+                        }
 
 
                         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
