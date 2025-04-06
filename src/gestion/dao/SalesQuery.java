@@ -32,13 +32,7 @@ public class SalesQuery {
             pstmt.setInt(3, sales.getIdSuppliers());
             pstmt.setInt(4, sales.getQuantitySales());
             pstmt.setDouble(5, sales.getPriceSales());
-
-            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-
-            LocalDate date = LocalDate.parse(sales.getDateSales(), inputFormatter);
-            String formattedDate = date.format(outputFormatter);
-            pstmt.setString(6, formattedDate);
+            pstmt.setString(6, sales.getDateSales());
 
 
             return pstmt.executeUpdate() > 0;
