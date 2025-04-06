@@ -75,7 +75,7 @@ public class SalesQuery {
 
             int rowsAffected = pstmt.executeUpdate();
 
-            if (rowsAffected > 0) {
+            if (rowsAffected > 1) {
                 Alert alert = new Alert(AlertType.INFORMATION);
                 alert.setTitle(null);
                 alert.setHeaderText(null);
@@ -85,6 +85,7 @@ public class SalesQuery {
                 alert.initStyle(StageStyle.UTILITY);
                 alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
             } else {
+
                 Alert alert = new Alert(AlertType.WARNING);
                 alert.setTitle(null);
                 alert.setHeaderText(null);
