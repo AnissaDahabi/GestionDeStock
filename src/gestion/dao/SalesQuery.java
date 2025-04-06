@@ -153,6 +153,7 @@ public class SalesQuery {
                 pstmt.close();
             }
 
+
             con.close();
 
         } catch (SQLException ex) {
