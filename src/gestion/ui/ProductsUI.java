@@ -805,16 +805,6 @@ public class ProductsUI {
 
                 ProductsQuery.editProducts(idProductsSql, nameProductsInput, priceProductsInput, quantityProductsInput, supplierIdInput);
 
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle(null);
-                    alert.setHeaderText(null);
-                    alert.setContentText("Product added successfully!");
-                    //Alert's design
-                    DialogPane dialogPane = alert.getDialogPane();
-                    dialogPane.setGraphic(null);
-                    alert.initStyle(StageStyle.UTILITY);
-                    alert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
-                    alert.showAndWait();
 
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 stage.setScene(SceneManager.getProductsHomeScene());

@@ -3,6 +3,8 @@ package gestion.service;
 import gestion.dao.ProductsQuery;
 import gestion.model.Products;
 import javafx.scene.control.Alert;
+import javafx.scene.control.DialogPane;
+import javafx.stage.StageStyle;
 
 public class ProductsService {
     private final ProductsQuery productsQuery;
@@ -14,15 +16,6 @@ public class ProductsService {
     public static boolean addProducts(int idProducts, String name, double price, int quantity, int supplier) {
 
         try {
-            if (name.isEmpty() || supplier == 0 | idProducts == 0 || price == 0 || quantity == 0) {
-                throw new IllegalArgumentException("Please fill all the required fields");
-            }
-            if (quantity < 0) {
-                throw new IllegalArgumentException("Please enter a valid quantity");
-            }
-            if (price < 0) {
-                throw new IllegalArgumentException("Please enter a valid price");
-            }
 
             Products products = new Products(idProducts, name, price, quantity, supplier);
 
@@ -32,7 +25,11 @@ public class ProductsService {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle(null);
             alert.setHeaderText(null);
-            alert.setContentText(e.getMessage());
+            alert.setContentText("Something went wrong");
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.setGraphic(null);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
             alert.showAndWait();
             return false;
         }
@@ -45,7 +42,11 @@ public class ProductsService {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle(null);
             alert.setHeaderText(null);
-            alert.setContentText(e.getMessage());
+            alert.setContentText("Something went wrong");
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.setGraphic(null);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
             alert.showAndWait();
             return false;
         }

@@ -864,16 +864,6 @@ public class SalesUI {
 
                 SalesQuery.editSales(idSalesSql, idProductInput, idSupplierInput, roundedPrice, quantity, LocalDate.parse(formattedDate));
 
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle(null);
-                alert.setHeaderText(null);
-                alert.setContentText("Sale edited successfully!");
-                //Alert's design
-                DialogPane dialogPane = alert.getDialogPane();
-                dialogPane.setGraphic(null);
-                alert.initStyle(StageStyle.UTILITY);
-                alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
-                alert.showAndWait();
 
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(SceneManager.getSalesHomeScene());

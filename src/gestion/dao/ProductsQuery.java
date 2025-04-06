@@ -73,21 +73,22 @@ public class ProductsQuery {
 
             int rowsAffected = pstmt.executeUpdate();
 
-            if (rowsAffected > 0) {
-                Alert alert = new Alert(AlertType.INFORMATION);
+            if (rowsAffected == 0) {
+                Alert alert = new Alert(AlertType.WARNING);
                 alert.setTitle(null);
                 alert.setHeaderText(null);
-                alert.setContentText("Product edited successfully");
+                alert.setContentText("No changes were made.");
                 DialogPane dialogPane = alert.getDialogPane();
                 dialogPane.setGraphic(null);
                 alert.initStyle(StageStyle.UTILITY);
                 alert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
                 alert.showAndWait();
-            } else {
-                Alert alert = new Alert(AlertType.WARNING);
+
+            } else if (rowsAffected > 0) {
+                Alert alert = new Alert(AlertType.INFORMATION);
                 alert.setTitle(null);
                 alert.setHeaderText(null);
-                alert.setContentText("No changes were made.");
+                alert.setContentText("Product edited successfully");
                 DialogPane dialogPane = alert.getDialogPane();
                 dialogPane.setGraphic(null);
                 alert.initStyle(StageStyle.UTILITY);
@@ -101,15 +102,7 @@ public class ProductsQuery {
         } catch (SQLException ex) {
 
             ex.printStackTrace();
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText("Error: " + ex.getMessage());
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.setGraphic(null);
-            alert.initStyle(StageStyle.UTILITY);
-            alert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
-            alert.showAndWait();
+
         }
     }
 
