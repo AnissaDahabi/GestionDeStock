@@ -362,6 +362,7 @@ public class ReportsUI {
                         row.createCell(7).setCellValue(rs.getString("price_sales"));
                         row.createCell(8).setCellValue(rs.getString("date_sales"));
 
+                        rowIndex++;
                         for (int i = 0; i < 9; i++) {
                             sheet.autoSizeColumn(i);
                         }
@@ -372,6 +373,7 @@ public class ReportsUI {
                         row.createCell(3).setCellValue(rs.getString("price_product"));
                         row.createCell(4).setCellValue(rs.getString("quantity_product"));
 
+                        rowIndex++;
                         for (int i = 0; i < 5; i++) {
                             sheet.autoSizeColumn(i);
                         }
@@ -382,6 +384,7 @@ public class ReportsUI {
                         row.createCell(3).setCellValue(rs.getString("address_supplier"));
                         row.createCell(4).setCellValue(rs.getString("email_supplier"));
 
+                        rowIndex++;
                         for (int i = 0; i < 5; i++) {
                             sheet.autoSizeColumn(i);
                         }
