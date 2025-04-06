@@ -153,7 +153,8 @@ public class SuppliersQuery {
                 Alert alert = new Alert(AlertType.WARNING);
                 alert.setTitle(null);
                 alert.setHeaderText(null);
-                alert.setContentText("No changes were made.");
+                alert.setContentText("No changes were made");
+
                 DialogPane dialogPane = alert.getDialogPane();
                 dialogPane.setGraphic(null);
                 alert.initStyle(StageStyle.UTILITY);

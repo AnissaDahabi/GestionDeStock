@@ -164,7 +164,7 @@ public class ProductsUI {
         suppliersComboBox.setId("suppliersComboBox");
         suppliersComboBox.setItems(SuppliersQuery.getSuppliersID());
 
-        suppliersComboBox.setConverter(new StringConverter<Suppliers>() {
+        suppliersComboBox.setConverter(new StringConverter<>() {
             @Override
             public String toString(Suppliers suppliers) {
                 return suppliers != null ? String.valueOf(suppliers.getIdSupplier()) : "";
@@ -176,7 +176,7 @@ public class ProductsUI {
             }
         });
 
-        suppliersComboBox.setCellFactory(lv -> new ListCell<Suppliers>() {
+        suppliersComboBox.setCellFactory(lv -> new ListCell<>() {
             @Override
             protected void updateItem(Suppliers supplier, boolean empty) {
                 super.updateItem(supplier, empty);
@@ -399,7 +399,7 @@ public class ProductsUI {
         productsComboBox.setId("productsComboBox");
         productsComboBox.setItems(ProductsQuery.getProductsID());
 
-        productsComboBox.setConverter(new StringConverter<Products>() {
+        productsComboBox.setConverter(new StringConverter<>() {
             @Override
             public String toString(Products products) {
                 return products != null ? String.valueOf(products.getIdProduct()) : "";
@@ -411,7 +411,7 @@ public class ProductsUI {
             }
         });
 
-        productsComboBox.setCellFactory(lv -> new ListCell<Products>() {
+        productsComboBox.setCellFactory(lv -> new ListCell<>() {
             @Override
             protected void updateItem(Products product, boolean empty) {
                 super.updateItem(product, empty);
@@ -696,7 +696,7 @@ public class ProductsUI {
             }
         });
 
-        supplierIdInput.setCellFactory(lv -> new ListCell<Suppliers>() {
+        supplierIdInput.setCellFactory(lv -> new ListCell<>() {
             @Override
             protected void updateItem(Suppliers supplier, boolean empty) {
                 super.updateItem(supplier, empty);

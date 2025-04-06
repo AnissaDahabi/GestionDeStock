@@ -930,7 +930,7 @@ public class SalesUI {
         dateSaleColumn.setCellValueFactory(new PropertyValueFactory<>("dateSales"));
         dateSaleColumn.setResizable(false);
         dateSaleColumn.setReorderable(false);
-        dateSaleColumn.setCellFactory(column -> new TableCell<Sales, String>() {
+        dateSaleColumn.setCellFactory(column -> new TableCell<>() {
             private final DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             private final DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             @Override

@@ -353,7 +353,7 @@ public class SuppliersUI {
         suppliersComboBox.setId("suppliersComboBox");
         suppliersComboBox.setItems(SuppliersQuery.getSuppliersID());
 
-        suppliersComboBox.setConverter(new StringConverter<Suppliers>() {
+        suppliersComboBox.setConverter(new StringConverter<>() {
             @Override
             public String toString(Suppliers suppliers) {
                 return suppliers != null ? String.valueOf(suppliers.getIdSupplier()) : "";
@@ -364,7 +364,7 @@ public class SuppliersUI {
                 return null;
             }
         });
-        suppliersComboBox.setCellFactory(lv -> new ListCell<Suppliers>() {
+        suppliersComboBox.setCellFactory(lv -> new ListCell<>() {
             @Override
             protected void updateItem(Suppliers supplier, boolean empty) {
                 super.updateItem(supplier, empty);
@@ -482,7 +482,7 @@ public class SuppliersUI {
         suppliersComboBox.setId("suppliersComboBox");
         suppliersComboBox.setItems(SuppliersQuery.getSuppliersID());
 
-        suppliersComboBox.setConverter(new StringConverter<Suppliers>() {
+        suppliersComboBox.setConverter(new StringConverter<>() {
             @Override
             public String toString(Suppliers suppliers) {
                 return suppliers != null ? String.valueOf(suppliers.getIdSupplier()) : "";
@@ -494,7 +494,7 @@ public class SuppliersUI {
             }
         });
 
-        suppliersComboBox.setCellFactory(lv -> new ListCell<Suppliers>() {
+        suppliersComboBox.setCellFactory(lv -> new ListCell<>() {
             @Override
             protected void updateItem(Suppliers supplier, boolean empty) {
                 super.updateItem(supplier, empty);
@@ -624,7 +624,7 @@ public class SuppliersUI {
         suppliersComboBox.setId("suppliersComboBox");
         suppliersComboBox.setItems(SuppliersQuery.getSuppliersID());
 
-        suppliersComboBox.setConverter(new StringConverter<Suppliers>() {
+        suppliersComboBox.setConverter(new StringConverter<>() {
             @Override
             public String toString(Suppliers suppliers) {
                 return suppliers != null ? String.valueOf(suppliers.getIdSupplier()) : "";
@@ -635,7 +635,7 @@ public class SuppliersUI {
                 return null;
             }
         });
-        suppliersComboBox.setCellFactory(lv -> new ListCell<Suppliers>() {
+        suppliersComboBox.setCellFactory(lv -> new ListCell<>() {
             @Override
             protected void updateItem(Suppliers supplier, boolean empty) {
                 super.updateItem(supplier, empty);

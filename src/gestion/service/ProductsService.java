@@ -26,6 +26,7 @@ public class ProductsService {
             alert.setTitle(null);
             alert.setHeaderText(null);
             alert.setContentText("Something went wrong");
+
             DialogPane dialogPane = alert.getDialogPane();
             dialogPane.setGraphic(null);
             alert.initStyle(StageStyle.UTILITY);
@@ -44,6 +45,7 @@ public class ProductsService {
             alert.setTitle(null);
             alert.setHeaderText(null);
             alert.setContentText("Something went wrong");
+
             DialogPane dialogPane = alert.getDialogPane();
             dialogPane.setGraphic(null);
             alert.initStyle(StageStyle.UTILITY);
