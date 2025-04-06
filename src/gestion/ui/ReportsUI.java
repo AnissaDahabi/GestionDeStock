@@ -57,11 +57,12 @@ public class ReportsUI {
         Button generateExcelReportBtn = new Button("Generate Excel");
         generateExcelReportBtn.getStyleClass().add("generateBtn");
 
-        VBox reportsBtnContainer = new VBox(10);
+        VBox reportsBtnContainer = new VBox(20);
         reportsBtnContainer.getStyleClass().add("reportsBtnContainer");
         reportsBtnContainer.setAlignment(Pos.CENTER);
         reportsBtnContainer.getChildren().add(generatePdfReportsBtn);
         reportsBtnContainer.getChildren().add(generateExcelReportBtn);
+
 
         //Labels:
         Label startDateLabel = new Label("Start Date : ");
@@ -93,7 +94,7 @@ public class ReportsUI {
         GridPane reportsGrid = new GridPane();
         reportsGrid.getStyleClass().add("reportsGrid");
         reportsGrid.setAlignment(Pos.CENTER);
-        reportsGrid.setPadding(new Insets(60, 0, 70, 0));
+        reportsGrid.setPadding(new Insets(60, 0, 40, 0));
 
         reportsGrid.setVgap(20);
         reportsGrid.setHgap(20);
@@ -113,7 +114,6 @@ public class ReportsUI {
             boolean product = productCheck.isSelected();
             boolean supplier = supplierCheck.isSelected();
             boolean sales = salesCheck.isSelected();
-
 
             StringBuilder query = new StringBuilder();
             if (sales) {

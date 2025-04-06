@@ -383,6 +383,8 @@ public class ProductsUI {
         delTxtContainer1.getChildren().add(delTxt1);
         delTxtContainer1.setId("delTxtContainer1");
         delTxtContainer1.setAlignment(Pos.CENTER);
+        delTxtContainer1.setPadding(new Insets(30, 0, 0, 0));
+
 
         //User input:
         Label idProductsLabel = new Label("ID Number: ");
@@ -425,7 +427,7 @@ public class ProductsUI {
         boxProductsContainer.getChildren().add(productsComboBox);
         boxProductsContainer.setAlignment(Pos.CENTER);
         boxProductsContainer.setSpacing(5);
-        boxProductsContainer.setPadding(new Insets(20, 0, 0, 0));
+        boxProductsContainer.setPadding(new Insets(30, 0, 0, 0));
 
 
         //Delete button:
@@ -522,6 +524,8 @@ public class ProductsUI {
         editTxtContainer1.getChildren().add(editTxt1);
         editTxtContainer1.setId("delTxtContainer1");
         editTxtContainer1.setAlignment(Pos.CENTER);
+        editTxtContainer1.setPadding(new Insets(30, 0, 0, 0));
+
 
         //User input:
         Label comboLabel = new Label("ID Number: ");
@@ -555,7 +559,7 @@ public class ProductsUI {
         boxProductsContainer.getChildren().add(productsComboBox);
         boxProductsContainer.setAlignment(Pos.CENTER);
         boxProductsContainer.setSpacing(5);
-        boxProductsContainer.setPadding(new Insets(20, 0, 0, 0));
+        boxProductsContainer.setPadding(new Insets(30, 0, 0, 0));
 
         //Next button:
         Button submitEditedProductsBtn1 = new Button("Next");

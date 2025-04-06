@@ -351,6 +351,8 @@ public class SuppliersUI {
         delTxtContainer1.getChildren().add(delTxt1);
         delTxtContainer1.setId("delTxtContainer1");
         delTxtContainer1.setAlignment(Pos.CENTER);
+        delTxtContainer1.setPadding(new Insets(30, 0, 0, 0));
+
 
         //User input:
        Label idSuppliersLabel = new Label("ID Number: ");
@@ -392,7 +394,7 @@ public class SuppliersUI {
         boxSuppliersContainer.getChildren().add(suppliersComboBox);
         boxSuppliersContainer.setAlignment(Pos.CENTER);
         boxSuppliersContainer.setSpacing(5);
-        boxSuppliersContainer.setPadding(new Insets(20, 0, 0, 0));
+        boxSuppliersContainer.setPadding(new Insets(30, 0, 0, 0));
 
         //Next button:
         Button submitDeletedSuppliersBtn1 = new Button("Delete");
@@ -491,6 +493,8 @@ public class SuppliersUI {
         editTxtContainer1.getChildren().add(editTxt1);
         editTxtContainer1.setId("delTxtContainer1");
         editTxtContainer1.setAlignment(Pos.CENTER);
+        editTxtContainer1.setPadding(new Insets(30, 0, 0, 0));
+
 
         //User input:
         Label comboLabel = new Label("ID Number: ");
@@ -525,7 +529,7 @@ public class SuppliersUI {
         boxSuppliersContainer.getChildren().add(suppliersComboBox);
         boxSuppliersContainer.setAlignment(Pos.CENTER);
         boxSuppliersContainer.setSpacing(5);
-        boxSuppliersContainer.setPadding(new Insets(20, 0, 0, 0));
+        boxSuppliersContainer.setPadding(new Insets(30, 0, 0, 0));
 
         //Next button:
         Button submitEditedSuppliersBtn1 = new Button("Next");

@@ -208,7 +208,7 @@ public class SalesUI {
         HBox addSalesContainer = new HBox(10);
         addSalesContainer.getChildren().add(submitAddedSalesBtn);
         addSalesContainer.setAlignment(Pos.CENTER);
-        addSalesContainer.setPadding(new Insets(100, 10, 10, 10));
+        addSalesContainer.setPadding(new Insets(120, 10, 10, 10));
 
         submitAddedSalesBtn.setOnAction(event -> {
                 try {
@@ -411,7 +411,7 @@ public class SalesUI {
     }
 
 
-        //DELETE SALES SCENE/
+    //DELETE SALES SCENE/
     public static Scene delSalesScene1() {
 
         Button returnBtn = new Button("Return");
@@ -435,15 +435,7 @@ public class SalesUI {
         delTxtContainer1.getChildren().add(delTxt1);
         delTxtContainer1.setId("delTxtContainer1");
         delTxtContainer1.setAlignment(Pos.CENTER);
-
-        //User input:
-        Label idSalesLabel = new Label("ID Number: ");
-        TextField idSalesInput = new TextField();
-        HBox idSalesContainer = new HBox();
-        idSalesContainer.getChildren().add(idSalesLabel);
-        idSalesContainer.getChildren().add(idSalesInput);
-        idSalesContainer.setId("idSalesContainer");
-        idSalesContainer.setAlignment(Pos.CENTER);
+        delTxtContainer1.setPadding(new Insets(30, 0, 0, 0));
 
         //ComboBox:
         Label comboLabel = new Label("ID number : ");
@@ -477,7 +469,7 @@ public class SalesUI {
         boxSuppliersContainer.getChildren().add(salesComboBox);
         boxSuppliersContainer.setAlignment(Pos.CENTER);
         boxSuppliersContainer.setSpacing(5);
-        boxSuppliersContainer.setPadding(new Insets(20, 0, 0, 0));
+        boxSuppliersContainer.setPadding(new Insets(30, 0, 0, 0));
 
         //Delete button:
         Button submitDeletedSalesBtn1 = new Button("Delete");
@@ -485,7 +477,7 @@ public class SalesUI {
         HBox delSalesContainer1 = new HBox(10);
         delSalesContainer1.getChildren().add(submitDeletedSalesBtn1);
         delSalesContainer1.setAlignment(Pos.CENTER);
-        delSalesContainer1.setPadding(new Insets(250, 10, 10, 10));
+        delSalesContainer1.setPadding(new Insets(255, 10, 10, 10));
 
         submitDeletedSalesBtn1.setOnAction(event -> {
 
@@ -571,6 +563,8 @@ public class SalesUI {
         editTxtContainer1.getChildren().add(editTxt1);
         editTxtContainer1.setId("delTxtContainer1");
         editTxtContainer1.setAlignment(Pos.CENTER);
+        editTxtContainer1.setPadding(new Insets(30, 0, 0, 0));
+
 
         GridPane editSalesGrid = new GridPane();
         editSalesGrid.getStyleClass().add("editSalesGrid");
@@ -608,7 +602,7 @@ public class SalesUI {
         editSalesContainer.getChildren().add(salesComboBox);
         editSalesContainer.setAlignment(Pos.CENTER);
         editSalesContainer.setSpacing(5);
-        editSalesContainer.setPadding(new Insets(20, 0, 0, 0));
+        editSalesContainer.setPadding(new Insets(30, 0, 0, 0));
 
         Button submitEditedSalesBtn1 = new Button("Next");
         submitEditedSalesBtn1.getStyleClass().add("submitEditedSalesBtn1");
