@@ -115,32 +115,50 @@ public class SuppliersQuery {
         try {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
 
-            String query = "UPDATE Suppliers SET name_supplier = ?, phone_supplier = ?, address_supplier = ?, email_supplier = ? WHERE id_supplier = ?";
-            PreparedStatement pstmt = con.prepareStatement(query);
+            String query1 = "SELECT id_supplier, name_supplier, phone_supplier, address_supplier, email_supplier FROM Suppliers WHERE id_supplier = ?";
+            PreparedStatement pstmt1 = con.prepareStatement(query1);
+            pstmt1.setInt(1, idSuppliersInput);
 
+            ResultSet rs = pstmt1.executeQuery();
 
-            pstmt.setString(1, nameSuppliersInput.getText());
-            pstmt.setString(2, phoneSuppliersInput.getText());
-            pstmt.setString(3, addressSuppliersInput.getText());
-            pstmt.setString(4, emailSuppliersInput.getText());
-            pstmt.setInt(5, Integer.parseInt(String.valueOf(idSuppliersInput)));
-
-            int rowsAffected = pstmt.executeUpdate();
-
-            if (rowsAffected > 0) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            if (!rs.next()) {
+                Alert alert = new Alert(AlertType.WARNING);
                 alert.setTitle(null);
                 alert.setHeaderText(null);
-                alert.setContentText("Supplier added successfully");
-
+                alert.setContentText("No supplier found with this ID");
                 DialogPane dialogPane = alert.getDialogPane();
                 dialogPane.setGraphic(null);
                 alert.initStyle(StageStyle.UTILITY);
                 alert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
                 alert.showAndWait();
-            } else {
+
+                rs.close();
+                pstmt1.close();
+                con.close();
+                return;
+            }
+
+            String currentName = rs.getString("name_supplier");
+            String currentPhone = rs.getString("phone_supplier");
+            String currentAddress = rs.getString("address_supplier");
+            String currentEmail = rs.getString("email_supplier");
+
+            rs.close();
+            pstmt1.close();
+
+            String newName = nameSuppliersInput.getText();
+            String newPhone = phoneSuppliersInput.getText();
+            String newAddress = addressSuppliersInput.getText();
+            String newEmail = emailSuppliersInput.getText();
+
+            boolean noChanges = currentName.equals(newName) &&
+                    currentPhone.equals(newPhone) &&
+                    currentAddress.equals(newAddress) &&
+                    currentEmail.equals(newEmail);
+
+            if (noChanges) {
                 Alert alert = new Alert(AlertType.WARNING);
-                alert.setTitle("No Changes");
+                alert.setTitle(null);
                 alert.setHeaderText(null);
                 alert.setContentText("No changes were made.");
                 DialogPane dialogPane = alert.getDialogPane();
@@ -148,19 +166,34 @@ public class SuppliersQuery {
                 alert.initStyle(StageStyle.UTILITY);
                 alert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
                 alert.showAndWait();
+            } else {
+                String query = "UPDATE Suppliers SET name_supplier = ?, phone_supplier = ?, address_supplier = ?, email_supplier = ? WHERE id_supplier = ?";
+                PreparedStatement pstmt = con.prepareStatement(query);
+
+                pstmt.setString(1, nameSuppliersInput.getText());
+                pstmt.setString(2, phoneSuppliersInput.getText());
+                pstmt.setString(3, addressSuppliersInput.getText());
+                pstmt.setString(4, emailSuppliersInput.getText());
+
+                pstmt.executeUpdate();
+
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle(null);
+                alert.setHeaderText(null);
+                alert.setContentText("Supplier edited successfully");
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.setGraphic(null);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
+                alert.showAndWait();
+
+                pstmt.close();
             }
 
-            pstmt.close();
             con.close();
 
         } catch (SQLException ex) {
-            // Gestion des erreurs SQL
             ex.printStackTrace();
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Error encountered while editing the supplier");
-            alert.setContentText("Error: " + ex.getMessage());
-            alert.showAndWait();
         }
     }
 
