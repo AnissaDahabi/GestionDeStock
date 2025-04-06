@@ -62,28 +62,48 @@ public class ProductsQuery {
         try {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
 
-            String query = "UPDATE Products SET name_product = ?, price_product = ?, quantity_product = ?, id_supplier = ? WHERE id_product = ?";
-            PreparedStatement pstmt = con.prepareStatement(query);
+            String query1 = "SELECT id_product, name_product, price_product, quantity_product, id_supplier FROM Products WHERE id_product = ?";
+            PreparedStatement pstmt1 = con.prepareStatement(query1);
+            pstmt1.setInt(1, idProductsInput);
 
-            pstmt.setString(1, nameProductsInput.getText());
-            pstmt.setDouble(2, Double.parseDouble(priceProductsInput.getText()));
-            pstmt.setInt(3, Integer.parseInt(quantityProductsInput.getText()));
-            pstmt.setInt(4, supplierIdInput.getValue().getIdSupplier());
-            pstmt.setInt(5, Integer.parseInt(String.valueOf(idProductsInput)));
+            ResultSet rs = pstmt1.executeQuery();
 
-            int rowsAffected = pstmt.executeUpdate();
-
-            if (rowsAffected > 0) {
-                Alert alert = new Alert(AlertType.INFORMATION);
+            if (!rs.next()) {
+                Alert alert = new Alert(AlertType.WARNING);
                 alert.setTitle(null);
                 alert.setHeaderText(null);
-                alert.setContentText("Product edited successfully");
+                alert.setContentText("No product found with this ID");
                 DialogPane dialogPane = alert.getDialogPane();
                 dialogPane.setGraphic(null);
                 alert.initStyle(StageStyle.UTILITY);
                 alert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
                 alert.showAndWait();
-            } else {
+
+                rs.close();
+                pstmt1.close();
+                con.close();
+                return;
+            }
+
+            String currentName = rs.getString("name_product");
+            Double currentPrice = rs.getDouble("price_product");
+            int currentQuantity = rs.getInt("quantity_product");
+            int currentSupplier = rs.getInt("id_supplier");
+
+            rs.close();
+            pstmt1.close();
+
+            String newName = nameProductsInput.getText();
+            Double newPrice = Double.parseDouble(priceProductsInput.getText());
+            int newQuantity = Integer.parseInt(quantityProductsInput.getText());
+            int newSupplier = supplierIdInput.getValue().getIdSupplier();
+
+            boolean noChanges = currentName.equals(newName) &&
+                    currentPrice.equals(newPrice) &&
+                    currentQuantity == newQuantity &&
+                    currentSupplier == newSupplier;
+
+            if (noChanges) {
                 Alert alert = new Alert(AlertType.WARNING);
                 alert.setTitle(null);
                 alert.setHeaderText(null);
@@ -93,9 +113,32 @@ public class ProductsQuery {
                 alert.initStyle(StageStyle.UTILITY);
                 alert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
                 alert.showAndWait();
+
+            } else {
+                String query2 = "UPDATE Products SET name_product = ?, price_product = ?, quantity_product = ?, id_supplier = ? WHERE id_product = ?";
+                PreparedStatement pstmt = con.prepareStatement(query2);
+
+                pstmt.setString(1, nameProductsInput.getText());
+                pstmt.setDouble(2, Double.parseDouble(priceProductsInput.getText()));
+                pstmt.setInt(3, Integer.parseInt(quantityProductsInput.getText()));
+                pstmt.setInt(4, supplierIdInput.getValue().getIdSupplier());
+                pstmt.setInt(5, Integer.parseInt(String.valueOf(idProductsInput)));
+
+                pstmt.executeUpdate();
+
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle(null);
+                alert.setHeaderText(null);
+                alert.setContentText("Product edited successfully");
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.setGraphic(null);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.getDialogPane().getStylesheets().add("gestion/resources/products.css");
+                alert.showAndWait();
+
+                pstmt.close();
             }
 
-            pstmt.close();
             con.close();
 
         } catch (SQLException ex) {

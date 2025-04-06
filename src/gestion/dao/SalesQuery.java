@@ -67,24 +67,53 @@ public class SalesQuery {
 
     public static void editSales(int idSalesInput, ComboBox<Products> idProductInput, TextField idSupplierInput, double priceSalesSql, int quantitySalesInput, LocalDate dateSalesInput) {
         try {
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava?useAffectedRows=true", "root", "root");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
 
-            String query = "UPDATE Sales SET id_product = ?, id_supplier = ?, quantity_sales = ?, price_sales = ?, date_sales= ? WHERE id_sales = ?";
-            PreparedStatement pstmt = con.prepareStatement(query);
+            String query1 = "Select id_sales, id_product, id_supplier, quantity_sales, price_sales, date_sales from Sales WHERE id_sales = ?";
+            PreparedStatement pstmt1 = con.prepareStatement(query1);
+            pstmt1.setInt(1, idSalesInput);
 
-            pstmt.setInt(1, idProductInput.getValue().getIdProduct());
-            pstmt.setInt(2, Integer.parseInt(String.valueOf(idSupplierInput.getText())));
-            pstmt.setInt(3, Integer.parseInt(String.valueOf(quantitySalesInput)));
-            pstmt.setDouble(4, Double.parseDouble(String.valueOf(priceSalesSql)));
+            ResultSet rs = pstmt1.executeQuery();
 
-            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            if (!rs.next()) {
+                Alert alert = new Alert(AlertType.WARNING);
+                alert.setTitle(null);
+                alert.setHeaderText(null);
+                alert.setContentText("No sale found with this ID");
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.setGraphic(null);
+                alert.initStyle(StageStyle.UTILITY);
+                alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
+                alert.showAndWait();
 
-            pstmt.setString(5, dateSalesInput.format(outputFormatter));
-            pstmt.setInt(6, Integer.parseInt(String.valueOf(idSalesInput)));
+                rs.close();
+                pstmt1.close();
+                con.close();
+                return;
+            }
 
-            int rowsAffected = pstmt.executeUpdate();
+            int currentIdProduct = rs.getInt("id_product");
+            int currentIdSupplier = rs.getInt("id_supplier");
+            int currentQuantitySales = rs.getInt("quantity_sales");
+            Double currentPriceSales = rs.getDouble("price_sales");
+            String currentDateSales = rs.getString("date_sales");
 
-            if (rowsAffected == 0) {
+            rs.close();
+            pstmt1.close();
+
+            int newIdProduct = idProductInput.getValue().getIdProduct();
+            int newIdSupplier = Integer.parseInt(String.valueOf(idSupplierInput.getText()));
+            int newQuantitySales = Integer.parseInt(String.valueOf(quantitySalesInput));
+            Double newPriceSales = Double.parseDouble(String.valueOf(priceSalesSql));
+            String newDate = dateSalesInput.toString();
+
+            boolean noChanges = currentIdProduct == newIdProduct &&
+                    currentIdSupplier == newIdSupplier &&
+                    currentQuantitySales == newQuantitySales &&
+                    currentPriceSales == newPriceSales &&
+                    currentDateSales.equals(newDate);
+
+            if (noChanges) {
                 Alert alert = new Alert(AlertType.WARNING);
                 alert.setTitle(null);
                 alert.setHeaderText(null);
@@ -94,9 +123,23 @@ public class SalesQuery {
                 alert.initStyle(StageStyle.UTILITY);
                 alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
                 alert.showAndWait();
+            } else {
+                String query = "UPDATE Sales SET id_product = ?, id_supplier = ?, quantity_sales = ?, price_sales = ?, date_sales = ? WHERE id_sales = ?";
+                PreparedStatement pstmt = con.prepareStatement(query);
+
+                pstmt.setInt(1, idProductInput.getValue().getIdProduct());
+                pstmt.setInt(2, Integer.parseInt(String.valueOf(idSupplierInput.getText())));
+                pstmt.setInt(3, Integer.parseInt(String.valueOf(quantitySalesInput)));
+                pstmt.setDouble(4, Double.parseDouble(String.valueOf(priceSalesSql)));
+
+                DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+                pstmt.setString(5, dateSalesInput.format(outputFormatter));
+                pstmt.setInt(6, Integer.parseInt(String.valueOf(idSalesInput)));
 
 
-            } else if (rowsAffected > 0) {
+                pstmt.executeUpdate();
+
                 Alert alert = new Alert(AlertType.INFORMATION);
                 alert.setTitle(null);
                 alert.setHeaderText(null);
@@ -106,9 +149,10 @@ public class SalesQuery {
                 alert.initStyle(StageStyle.UTILITY);
                 alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
                 alert.showAndWait();
+
+                pstmt.close();
             }
 
-            pstmt.close();
             con.close();
 
         } catch (SQLException ex) {
