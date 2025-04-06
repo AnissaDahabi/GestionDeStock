@@ -271,6 +271,20 @@ public class SuppliersUI {
                     return;
                 }
 
+                if (!emailSuppliersInput.getText().contains("@")) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle(null);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Please enter a valid email address for the supplier");
+
+                    DialogPane dialogPane = alert.getDialogPane();
+                    dialogPane.setGraphic(null);
+                    alert.initStyle(StageStyle.UTILITY);
+                    alert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
+                    alert.showAndWait();
+                    return;
+                }
+
                 int idSuppliers = Integer.parseInt(idSuppliersInput.getText());
                 String name = nameSuppliersInput.getText();
                 String phone = phoneSuppliersInput.getText();
@@ -415,6 +429,9 @@ public class SuppliersUI {
                     successAlert.showAndWait();
 
                     suppliersComboBox.setItems(SuppliersQuery.getSuppliersID());
+
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    stage.setScene(SceneManager.getSuppliersHomeScene());
                 }
             } else if (selectedSupplier == null){
                     Alert alert = new Alert(Alert.AlertType.WARNING);

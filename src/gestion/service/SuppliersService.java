@@ -20,26 +20,17 @@ public class SuppliersService {
     public static boolean addSuppliers(int idSuppliers, String name, String phone, String address, String email) {
 
         try {
+
             Suppliers suppliers = new Suppliers(idSuppliers, name, phone, address, email);
 
-            if (!email.contains("@")) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle(null);
-                alert.setHeaderText(null);
-                alert.setContentText("Please enter a valid email address");
-                DialogPane dialogPane = alert.getDialogPane();
-                dialogPane.setGraphic(null);
-                alert.initStyle(StageStyle.UTILITY);
-                alert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
-                alert.showAndWait();
-            }
-
             return SuppliersQuery.addSuppliers(suppliers);
+
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle(null);
             alert.setHeaderText(null);
             alert.setContentText("Something went wrong");
+
             DialogPane dialogPane = alert.getDialogPane();
             dialogPane.setGraphic(null);
             alert.initStyle(StageStyle.UTILITY);
@@ -58,6 +49,7 @@ public class SuppliersService {
             alert.setTitle(null);
             alert.setHeaderText(null);
             alert.setContentText("Something went wrong");
+
             DialogPane dialogPane = alert.getDialogPane();
             dialogPane.setGraphic(null);
             alert.initStyle(StageStyle.UTILITY);
