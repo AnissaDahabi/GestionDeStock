@@ -257,8 +257,8 @@ public class SalesUI {
                     }
 
                     int idSales = Integer.parseInt(idSalesInput.getText());
-                    String selectedSupplier = comboLabelSupplier.getText();
                     Products selectedProduct = productsComboBox.getValue();
+                    String selectedSupplier = comboLabelSupplier.getText();
                     int quantity = Integer.parseInt(quantitySalesInput.getText());
                     LocalDate selectedDate = dateSalesInput.getValue();
 
@@ -337,8 +337,8 @@ public class SalesUI {
 
         returnBtn.setOnAction(event -> {
             idSalesInput.clear();
-            comboLabelSupplier.setText("");
             productsComboBox.valueProperty().set(null);
+            comboLabelSupplier.setText("");
             quantitySalesInput.clear();
             dateSalesInput.setValue(null);
 
@@ -605,7 +605,6 @@ public class SalesUI {
 
     public static Scene editSalesScene2(int idSalesSql, int idProductSql, int idSupplierSql, double priceSalesSql, int quantitySalesSql, String dateSalesSql) {
 
-
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
 
@@ -640,12 +639,12 @@ public class SalesUI {
         idSales.setId("idSalesLabel");
 
         Label idProduct = new Label("Product ID: ");
-        TextField productsIdInput = new TextField();
-        productsIdInput.setText(String.valueOf(idProductSql));
+        TextField idProductInput = new TextField();
+        idProductInput.setText(String.valueOf(idProductSql));
 
         Label idSupplier = new Label("Supplier ID: ");
-        TextField supplierIdInput = new TextField();
-        productsIdInput.setText(String.valueOf(idSupplierSql));
+        TextField idSupplierInput = new TextField();
+        idSupplierInput.setText(String.valueOf(idSupplierSql));
 
         Label priceSales = new Label("Total price: ");
         TextField priceSalesInput = new TextField();
@@ -663,9 +662,9 @@ public class SalesUI {
         editSalesGrid.add(idSales, 0, 0);
         editSalesGrid.add(idSales1, 1, 0);
         editSalesGrid.add(idProduct, 0, 1);
-        editSalesGrid.add(productsIdInput, 1, 1);
+        editSalesGrid.add(idProductInput, 1, 1);
         editSalesGrid.add(idSupplier, 0, 2);
-        editSalesGrid.add(supplierIdInput, 1, 2);
+        editSalesGrid.add(idSupplierInput, 1, 2);
         editSalesGrid.add(priceSales, 0, 3);
         editSalesGrid.add(priceSalesInput, 1, 3);
         editSalesGrid.add(quantitySales, 0, 4);
@@ -686,11 +685,25 @@ public class SalesUI {
         submitEditedSalesBtn2.setOnAction(event -> {
             try {
 
-                if (productsIdInput.getText().isEmpty()){
+                if (idProductInput.getText().isEmpty()){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle(null);
                     alert.setHeaderText(null);
                     alert.setContentText("Please enter a product for the sale");
+
+                    DialogPane dialogPane = alert.getDialogPane();
+                    dialogPane.setGraphic(null);
+                    alert.initStyle(StageStyle.UTILITY);
+                    alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
+                    alert.showAndWait();
+                    return;
+                }
+
+                if (idSupplierInput.getText().isEmpty()){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle(null);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Please enter a supplier for the product");
 
                     DialogPane dialogPane = alert.getDialogPane();
                     dialogPane.setGraphic(null);
@@ -727,7 +740,7 @@ public class SalesUI {
                     return;
                 }
 
-                SalesQuery.editSales(idSalesSql, productsIdInput, supplierIdInput, priceSalesInput, quantitySalesInput, dateSalesInput);
+                SalesQuery.editSales(idSalesSql, idProductInput, idSupplierInput, priceSalesInput, quantitySalesInput, dateSalesInput);
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle(null);
@@ -759,7 +772,8 @@ public class SalesUI {
         });
 
         returnBtn.setOnAction(event -> {
-            productsIdInput.clear();
+            idProductInput.clear();
+            idSupplierInput.clear();
             quantitySalesInput.clear();
             dateSalesInput.clear();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

@@ -4,19 +4,19 @@ public class Sales {
 
     private int idSales;
     private int idProduct;
-    private int idSuppliers;
+    private int idSupplier;
     private double priceSales;
     private int quantitySales;
     private String dateSales;
 
 
-    public Sales(int idsales, int idProduct, int idSuppliers,int quantitySales,  double priceSales, String dateSales) {
-        this.idSales=idsales;
-        this.idProduct=idProduct;
-        this.idSuppliers=idSuppliers;
-        this.priceSales=priceSales;
-        this.quantitySales=quantitySales;
-        this.dateSales=dateSales;
+    public Sales(int idSales, int idProduct, int idSupplier,int quantitySales,  double priceSales, String dateSales) {
+        this.idSales = idSales;
+        this.idProduct = idProduct;
+        this.idSupplier = idSupplier;
+        this.priceSales = priceSales;
+        this.quantitySales = quantitySales;
+        this.dateSales = dateSales;
     }
 
     public int getIdSales() {
@@ -32,10 +32,10 @@ public class Sales {
         this.idProduct = idProduct;
     }
     public int getIdSuppliers() {
-        return idSuppliers;
+        return idSupplier;
     }
-    public void setIdSuppliers(int idSuppliers) {
-        this.idSuppliers = idSuppliers;
+    public void setIdSuppliers(int idSupplier) {
+        this.idSupplier = idSupplier;
     }
     public double getPriceSales() {
         return priceSales;

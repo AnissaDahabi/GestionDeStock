@@ -7,10 +7,10 @@ import javafx.scene.control.Alert;
 public class SalesService {
 
 
-    public static boolean addSales(int idSales, int idproduct, int idsupplier, int quantity, double price, String date ) {
+    public static boolean addSales(int idSales, int idProduct, int idSupplier, int quantity, double price, String date ) {
 
         try {
-            if (date.isEmpty() || idsupplier == 0 || idproduct == 0  || idSales == 0 || price == 0 || quantity == 0) {
+            if (date.isEmpty()|| idSales == 0 || idProduct == 0 || idSupplier == 0 || quantity == 0 || price == 0  ) {
                 throw new IllegalArgumentException("Please fill all the required fields");
             }
             if (quantity < 0) {
@@ -20,7 +20,7 @@ public class SalesService {
                 throw new IllegalArgumentException("Please enter a valid price");
             }
 
-            Sales sales = new Sales(idSales, idproduct, idsupplier, quantity, price, date);
+            Sales sales = new Sales(idSales, idProduct, idSupplier, quantity, price, date);
 
             return SalesQuery.addSales(sales);
 

@@ -161,7 +161,7 @@ public class SalesQuery {
                 double priceSales = rs.getDouble("price_sales");
                 String dateSales = rs.getString("date_sales");
 
-                Sales sales = new Sales(idSales, idSupplier, idProduct, quantitySales, priceSales, dateSales);
+                Sales sales = new Sales(idSales, idProduct, idSupplier, quantitySales, priceSales, dateSales);
                 salesList.add(sales);
             }
         } catch (SQLException e) {
