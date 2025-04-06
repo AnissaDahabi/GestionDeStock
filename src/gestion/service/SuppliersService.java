@@ -17,7 +17,6 @@ public class SuppliersService {
         this.productsQuery = productsQuery;
     }
 
-
     public static boolean addSuppliers(int idSuppliers, String name, String phone, String address, String email) {
 
         try {
@@ -51,26 +50,6 @@ public class SuppliersService {
         }
     }
 
-
-
-
-
-    public static Suppliers getSuppliers(int idSupplier) {
-        try {
-            return SuppliersQuery.getSuppliersId(idSupplier);
-        } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText(e.getMessage());
-            DialogPane dialogPane = alert.getDialogPane();
-            dialogPane.setGraphic(null);
-            alert.initStyle(StageStyle.UTILITY);
-            alert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
-            alert.showAndWait();
-            return null;
-        }
-    }
 
     public static boolean delSuppliers(int idSupplier) {
         try {

@@ -15,7 +15,6 @@ import java.sql.*;
 
 public class ProductsQuery {
 
-    private static int currentProductsId;
 
     public static boolean addProducts(Products products) {
 

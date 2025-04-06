@@ -1,8 +1,6 @@
 package gestion.ui;
 
-import gestion.dao.ProductsQuery;
 import gestion.dao.SuppliersQuery;
-import gestion.model.Products;
 import gestion.model.Suppliers;
 import gestion.service.SuppliersService;
 import javafx.collections.FXCollections;
