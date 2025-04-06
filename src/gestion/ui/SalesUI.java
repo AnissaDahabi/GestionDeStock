@@ -157,6 +157,7 @@ public class SalesUI {
         dateSalesInput.setEditable(false);
 
 
+
         Label comboLabel1 = new Label("Supplier ID: ");
         TextField comboLabelSupplier = new TextField("");
         comboLabelSupplier.setEditable(false);
@@ -718,7 +719,8 @@ public class SalesUI {
             if (product.getIdProduct() == idProductSql) {
                 idProductInput.setValue(product);
                 idSupplierInput.setText(String.valueOf(product.getSupplierId()));
-                dateSalesInput.setValue(LocalDate.parse(dateSalesSql));
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                dateSalesInput.setValue(LocalDate.parse(dateSalesSql.trim(), formatter));
 
                 break;
             }

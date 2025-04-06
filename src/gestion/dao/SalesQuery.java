@@ -60,7 +60,7 @@ public class SalesQuery {
 
     public static void editSales(int idSalesInput, ComboBox<Products> idProductInput, TextField idSupplierInput, double priceSalesSql, int quantitySalesInput, LocalDate dateSalesInput) {
         try {
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava?useAffectedRows=true", "root", "root");
 
             String query = "UPDATE Sales SET id_product = ?, id_supplier = ?, quantity_sales = ?, price_sales = ?, date_sales= ? WHERE id_sales = ?";
             PreparedStatement pstmt = con.prepareStatement(query);
