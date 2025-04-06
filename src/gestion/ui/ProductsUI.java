@@ -20,12 +20,11 @@ import javafx.scene.text.Text;
 import javafx.stage.StageStyle;
 import javafx.util.StringConverter;
 
-
 public class ProductsUI {
 
     public static Scene createContent() {
 
-        // Return button:
+        //Return button:
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
 
@@ -39,12 +38,12 @@ public class ProductsUI {
         returnBtnContainer.setPadding(new Insets(10, 10, 10, 10));
         returnBtnContainer.getChildren().add(returnBtn);
 
-        // Title:
+        //Title:
         HBox productsTitle = new HBox(new Label("Products"));
         productsTitle.getStyleClass().add("productsTitle");
         productsTitle.setAlignment(Pos.CENTER);
 
-        // Buttons:
+        //Buttons:
         Button addBtnProducts = new Button("Add a product");
         addBtnProducts.getStyleClass().add("addBtnProducts");
         Button delBtnProducts = new Button("Delete a product");
@@ -88,10 +87,11 @@ public class ProductsUI {
         return productsScene;
     }
 
+
     //ADD PRODUCT SCENE
     public static Scene addProductsScene() {
 
-        // Return button:
+        //Return button:
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
 
@@ -100,7 +100,7 @@ public class ProductsUI {
         returnBtnContainer.setPadding(new Insets(10, 10, 10, 10));
         returnBtnContainer.getChildren().add(returnBtn);
 
-        // Title and txt:
+        //Title and txt:
         VBox addTitle = new VBox(new Label("Add a product"));
         addTitle.setAlignment(Pos.CENTER);
         addTitle.getStyleClass().add("addTitle");
@@ -114,7 +114,7 @@ public class ProductsUI {
         addTxtContainer.setId("addTxtContainer");
         addTxtContainer.setAlignment(Pos.CENTER);
 
-        // User input:
+        //User input:
         GridPane addProductsGrid = new GridPane();
         addProductsGrid.getStyleClass().add("addProductGrid");
 
@@ -175,6 +175,7 @@ public class ProductsUI {
                 return null;
             }
         });
+
         suppliersComboBox.setCellFactory(lv -> new ListCell<Suppliers>() {
             @Override
             protected void updateItem(Suppliers supplier, boolean empty) {
@@ -206,6 +207,7 @@ public class ProductsUI {
         addProductsContainer.setPadding(new Insets(100, 10, 10, 10));
 
         submitAddedProductsBtn.setOnAction(event -> {
+
             try {
 
                 if (idProductsInput.getText().isEmpty()){
@@ -213,7 +215,7 @@ public class ProductsUI {
                     alert.setTitle(null);
                     alert.setHeaderText(null);
                     alert.setContentText("Please enter an ID for the product");
-                    //Alert's design
+
                     DialogPane dialogPane = alert.getDialogPane();
                     dialogPane.setGraphic(null);
                     alert.initStyle(StageStyle.UTILITY);
@@ -227,7 +229,7 @@ public class ProductsUI {
                     alert.setTitle(null);
                     alert.setHeaderText(null);
                     alert.setContentText("Please enter a name for the product");
-                    //Alert's design
+
                     DialogPane dialogPane = alert.getDialogPane();
                     dialogPane.setGraphic(null);
                     alert.initStyle(StageStyle.UTILITY);
@@ -241,7 +243,7 @@ public class ProductsUI {
                     alert.setTitle(null);
                     alert.setHeaderText(null);
                     alert.setContentText("Please enter a price for the product");
-                    //Alert's design
+
                     DialogPane dialogPane = alert.getDialogPane();
                     dialogPane.setGraphic(null);
                     alert.initStyle(StageStyle.UTILITY);
@@ -255,7 +257,7 @@ public class ProductsUI {
                     alert.setTitle(null);
                     alert.setHeaderText(null);
                     alert.setContentText("The price cannot be 0");
-                    //Alert's design
+
                     DialogPane dialogPane = alert.getDialogPane();
                     dialogPane.setGraphic(null);
                     alert.initStyle(StageStyle.UTILITY);
@@ -269,7 +271,7 @@ public class ProductsUI {
                     alert.setTitle(null);
                     alert.setHeaderText(null);
                     alert.setContentText("Please enter a quantity for the product");
-                    //Alert's design
+
                     DialogPane dialogPane = alert.getDialogPane();
                     dialogPane.setGraphic(null);
                     alert.initStyle(StageStyle.UTILITY);
@@ -289,7 +291,7 @@ public class ProductsUI {
                     alert.setTitle(null);
                     alert.setHeaderText(null);
                     alert.setContentText("Please select a supplier");
-                    //Alert's design
+
                     DialogPane dialogPane = alert.getDialogPane();
                     dialogPane.setGraphic(null);
                     alert.initStyle(StageStyle.UTILITY);
@@ -306,7 +308,6 @@ public class ProductsUI {
                     alert.setHeaderText(null);
                     alert.setContentText("Product added successfully!");
 
-                    //Alert's design
                     DialogPane dialogPane = alert.getDialogPane();
                     dialogPane.setGraphic(null);
                     alert.initStyle(StageStyle.UTILITY);
@@ -330,7 +331,7 @@ public class ProductsUI {
                 alert.setTitle(null);
                 alert.setHeaderText(null);
                 alert.setContentText("Something went wrong");
-                //Alert's design
+
                 DialogPane dialogPane = alert.getDialogPane();
                 dialogPane.setGraphic(null);
                 alert.initStyle(StageStyle.UTILITY);
@@ -356,10 +357,11 @@ public class ProductsUI {
         return addProductsScene;
     }
 
-    // DELETE PRODUCT SCENE
+
+    //DELETE PRODUCT SCENE
     public static Scene delProductsScene() {
 
-        // Return button:
+        //Return button:
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
 
@@ -368,13 +370,13 @@ public class ProductsUI {
         returnBtnContainer.setPadding(new Insets(10, 10, 10, 10));
         returnBtnContainer.getChildren().add(returnBtn);
 
-        // Title and txt:
+        //Title and txt:
         VBox delTitle1 = new VBox(new Label("Delete a product"));
         delTitle1.setAlignment(Pos.CENTER);
         delTitle1.getStyleClass().add("delTitle1");
 
         Text delTxt1 = new Text();
-        delTxt1.setText("Please enter the ID number of the product you want to delete from the inventory");
+        delTxt1.setText("Please enter the ID of the product you want to delete from the inventory");
         delTxt1.setId("delTxt1");
         delTxt1.setWrappingWidth(280);
         HBox delTxtContainer1 = new HBox();
@@ -408,6 +410,7 @@ public class ProductsUI {
                 return null;
             }
         });
+
         productsComboBox.setCellFactory(lv -> new ListCell<Products>() {
             @Override
             protected void updateItem(Products product, boolean empty) {
@@ -447,7 +450,7 @@ public class ProductsUI {
                     successAlert.setHeaderText(null);
                     successAlert.setContentText("Product deleted successfully");
                     productsComboBox.setItems(ProductsQuery.getProductsID());
-                    //Alert's design
+
                     DialogPane dialogPane = successAlert.getDialogPane();
                     dialogPane.setGraphic(null);
                     successAlert.initStyle(StageStyle.UTILITY);
@@ -459,7 +462,7 @@ public class ProductsUI {
                     alert.setTitle(null);
                     alert.setHeaderText(null);
                     alert.setContentText("Please choose a product to delete");
-                    //Alert's design
+
                     DialogPane dialogPane = alert.getDialogPane();
                     dialogPane.setGraphic(null);
                     alert.initStyle(StageStyle.UTILITY);
@@ -471,7 +474,7 @@ public class ProductsUI {
                     errorAlert.setTitle(null);
                     errorAlert.setHeaderText(null);
                     errorAlert.setContentText("Something wrong happened..");
-                    //Alert's design
+
                     DialogPane dialogPane = errorAlert.getDialogPane();
                     dialogPane.setGraphic(null);
                     errorAlert.initStyle(StageStyle.UTILITY);
@@ -494,10 +497,10 @@ public class ProductsUI {
     }
 
 
-    // EDIT PRODUCT SCENE 1
+    //EDIT PRODUCT SCENE 1
     public static Scene editProductsScene1() {
 
-        // Return button:
+        //Return button:
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
 
@@ -506,13 +509,13 @@ public class ProductsUI {
         returnBtnContainer.setPadding(new Insets(10, 10, 10, 10));
         returnBtnContainer.getChildren().add(returnBtn);
 
-        // Title and txt:
+        //Title and txt:
         VBox editTitle1 = new VBox(new Label("Edit product"));
         editTitle1.setAlignment(Pos.CENTER);
         editTitle1.getStyleClass().add("editTitle1");
 
         Text editTxt1 = new Text();
-        editTxt1.setText("Please enter the ID number of the product you want to edit");
+        editTxt1.setText("Please enter the ID of the product you want to edit");
         editTxt1.setId("editTxt1");
         editTxt1.setWrappingWidth(280);
         HBox editTxtContainer1 = new HBox();
@@ -520,7 +523,7 @@ public class ProductsUI {
         editTxtContainer1.setId("delTxtContainer1");
         editTxtContainer1.setAlignment(Pos.CENTER);
 
-        //User input
+        //User input:
         Label comboLabel = new Label("ID Number: ");
 
         ComboBox<Products> productsComboBox = new ComboBox<>(ProductsQuery.getProductsID());
@@ -580,7 +583,7 @@ public class ProductsUI {
                 alert.setTitle(null);
                 alert.setHeaderText(null);
                 alert.setContentText("Please choose a product to edit");
-                //Alert's design
+
                 DialogPane dialogPane = alert.getDialogPane();
                 dialogPane.setGraphic(null);
                 alert.initStyle(StageStyle.UTILITY);
@@ -603,10 +606,10 @@ public class ProductsUI {
         return editProductsScene1;
     }
 
-    // EDIT PRODUCT SCENE 2
+    //EDIT PRODUCT SCENE 2
     public static Scene editProductsScene2(int idProductsSql, String nameProductsSql, double priceProductsSql, int quantityProductsSql, int supplierIdSql) {
 
-        // Return button:
+        //Return button:
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
 
@@ -615,7 +618,7 @@ public class ProductsUI {
         returnBtnContainer.setPadding(new Insets(10, 10, 10, 10));
         returnBtnContainer.getChildren().add(returnBtn);
 
-        // Title and txt:
+        //Title and txt:
         VBox editTitle2 = new VBox(new Label("Edit product"));
         editTitle2.setAlignment(Pos.CENTER);
         editTitle2.getStyleClass().add("editTitle2");
@@ -629,7 +632,7 @@ public class ProductsUI {
         editTxtContainer2.setId("editTxtContainer2");
         editTxtContainer2.setAlignment(Pos.CENTER);
 
-        // User input:
+        //User input:
         GridPane editProductsGrid = new GridPane();
         editProductsGrid.getStyleClass().add("editProductsGrid");
 
@@ -738,7 +741,7 @@ public class ProductsUI {
                     alert.setTitle(null);
                     alert.setHeaderText(null);
                     alert.setContentText("Please enter a name for the product");
-                    //Alert's design
+
                     DialogPane dialogPane = alert.getDialogPane();
                     dialogPane.setGraphic(null);
                     alert.initStyle(StageStyle.UTILITY);
@@ -752,7 +755,7 @@ public class ProductsUI {
                     alert.setTitle(null);
                     alert.setHeaderText(null);
                     alert.setContentText("Please enter a price for the product");
-                    //Alert's design
+
                     DialogPane dialogPane = alert.getDialogPane();
                     dialogPane.setGraphic(null);
                     alert.initStyle(StageStyle.UTILITY);
@@ -766,7 +769,7 @@ public class ProductsUI {
                     alert.setTitle(null);
                     alert.setHeaderText(null);
                     alert.setContentText("The price cannot be 0");
-                    //Alert's design
+
                     DialogPane dialogPane = alert.getDialogPane();
                     dialogPane.setGraphic(null);
                     alert.initStyle(StageStyle.UTILITY);
@@ -780,7 +783,7 @@ public class ProductsUI {
                     alert.setTitle(null);
                     alert.setHeaderText(null);
                     alert.setContentText("Please enter a quantity for the product");
-                    //Alert's design
+
                     DialogPane dialogPane = alert.getDialogPane();
                     dialogPane.setGraphic(null);
                     alert.initStyle(StageStyle.UTILITY);
@@ -794,7 +797,7 @@ public class ProductsUI {
                     alert.setTitle(null);
                     alert.setHeaderText(null);
                     alert.setContentText("Please select a supplier");
-                    //Alert's design
+
                     DialogPane dialogPane = alert.getDialogPane();
                     dialogPane.setGraphic(null);
                     alert.initStyle(StageStyle.UTILITY);
@@ -805,7 +808,6 @@ public class ProductsUI {
 
                 ProductsQuery.editProducts(idProductsSql, nameProductsInput, priceProductsInput, quantityProductsInput, supplierIdInput);
 
-
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 stage.setScene(SceneManager.getProductsHomeScene());
 
@@ -815,7 +817,7 @@ public class ProductsUI {
                     alert.setTitle(null);
                     alert.setHeaderText(null);
                     alert.setContentText("Something went wrong");
-                    //Alert's design
+
                     DialogPane dialogPane = alert.getDialogPane();
                     dialogPane.setGraphic(null);
                     alert.initStyle(StageStyle.UTILITY);
@@ -844,7 +846,7 @@ public class ProductsUI {
     //SHOW PRODUCTS SCENE
     public static Scene showProductsScene() {
 
-        // Return button:
+        //Return button:
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
 
@@ -858,7 +860,7 @@ public class ProductsUI {
         returnBtnContainer.setPadding(new Insets(10, 10, 10, 10));
         returnBtnContainer.getChildren().add(returnBtn);
 
-        // Title and txt:
+        //Title and txt:
         VBox showTitle = new VBox(new Label("Products Inventory"));
         showTitle.setAlignment(Pos.CENTER);
         showTitle.getStyleClass().add("showTitle");
@@ -875,7 +877,7 @@ public class ProductsUI {
         searchProductsContainer.getStyleClass().add("searchProductsContainer");
         searchProductsContainer.setSpacing(10);
 
-        // Tableau :
+        //TableView :
         TableView productsTable = new TableView<Products>();
         productsTable.setEditable(true);
         productsTable.setId("productsTable");
@@ -917,7 +919,7 @@ public class ProductsUI {
         productsTableContainer.setPadding(new Insets(20, 10, 10, 10));
         productsTableContainer.getChildren().add(productsTable);
 
-        // Search filter:
+        //Search filter:
         ObservableList<Products> data = ProductsQuery.showProducts(productsTable);
 
         FilteredList<Products> filteredData = new FilteredList<>(data, p -> true);

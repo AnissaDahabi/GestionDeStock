@@ -37,8 +37,7 @@
 }
 
 
-/* ADD PRODUCTS*/
-
+/* ADD PRODUCTS */
 .addTitle Label {
     -fx-font-size: 24px;
     -fx-text-fill: #3C582B;
@@ -99,7 +98,6 @@
 
 
 /* DELETE PRODUCTS */
-
 .delTitle1 Label {
     -fx-font-size: 24px;
     -fx-text-fill: #3C582B;
@@ -156,7 +154,6 @@
 
 
 /* EDIT PRODUCTS */
-
 .editTitle1 Label, .editTitle2 Label{
     -fx-font-size: 24px;
     -fx-text-fill: #3C582B;
@@ -238,7 +235,6 @@
 
 
 /* SHOW PRODUCTS */
-
 .showTitle Label {
     -fx-font-size: 24px;
     -fx-text-fill: #3C582B;
@@ -289,7 +285,6 @@
 
 
 /* TABLEVIEW */
-
 .table-view {
     -fx-selection-bar: white;
 }
@@ -318,7 +313,6 @@
 
 
 /* ALERTS */
-
 .dialog-pane {
     -fx-pref-width: 250px;
     -fx-min-height: 80px;

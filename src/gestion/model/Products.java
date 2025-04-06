@@ -22,5 +22,4 @@ public class Products {
     public int getQuantityProduct() { return quantityProduct; }
     public int getSupplierId() { return supplierId; }
 
-
 }

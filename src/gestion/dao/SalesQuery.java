@@ -13,9 +13,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-
 public class SalesQuery {
-
 
     public static boolean addSales(Sales sales) {
 
@@ -26,14 +24,12 @@ public class SalesQuery {
             String query = "INSERT INTO Sales (id_sales, id_product, id_supplier, quantity_sales, price_sales, date_sales ) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement pstmt = con.prepareStatement(query);
 
-            // Remplissage des paramètres de la requête SQL
             pstmt.setInt(1, sales.getIdSales());
             pstmt.setInt(2, sales.getIdProduct());
             pstmt.setInt(3, sales.getIdSuppliers());
             pstmt.setInt(4, sales.getQuantitySales());
             pstmt.setDouble(5, sales.getPriceSales());
             pstmt.setString(6, sales.getDateSales());
-
 
             return pstmt.executeUpdate() > 0;
 
@@ -43,7 +39,9 @@ public class SalesQuery {
         }
     }
 
+
     public static boolean delSales(int idSales) {
+
         try {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
             String query = "DELETE FROM Sales WHERE id_sales = ?";
@@ -132,7 +130,6 @@ public class SalesQuery {
                 pstmt.setString(5, dateSalesInput.format(outputFormatter));
                 pstmt.setInt(6, Integer.parseInt(String.valueOf(idSalesInput)));
 
-
                 pstmt.executeUpdate();
 
                 Alert alert = new Alert(AlertType.INFORMATION);
@@ -147,7 +144,6 @@ public class SalesQuery {
 
                 pstmt.close();
             }
-
 
             con.close();
 
@@ -164,6 +160,7 @@ public class SalesQuery {
             alert.showAndWait();
         }
     }
+
 
     public static ObservableList<Sales> showSales(TableView<Sales> salesTable) {
         ObservableList<Sales> salesList = FXCollections.observableArrayList();

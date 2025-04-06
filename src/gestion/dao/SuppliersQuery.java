@@ -1,8 +1,6 @@
 package gestion.dao;
 
-import gestion.model.Products;
 import gestion.model.Suppliers;
-import gestion.ui.SceneManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.DialogPane;
@@ -10,13 +8,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
 import java.sql.*;
 
 public class SuppliersQuery {
-
 
     public static boolean addSuppliers(Suppliers suppliers) {
 
@@ -32,13 +27,13 @@ public class SuppliersQuery {
             pstmt.setString(4, suppliers.getAddressSupplier());
             pstmt.setString(5, suppliers.getEmailSupplier());
 
-
-            return pstmt.executeUpdate() > 0; //en gros ça return true parce que y'a eu une affectation
+            return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
     }
+
 
     public static boolean delSuppliers(int suppliersId) {
 
@@ -53,8 +48,8 @@ public class SuppliersQuery {
         } catch (SQLException e) {
             throw new RuntimeException("Error deleting supplier", e.getCause());
         }
-
     }
+
 
     public static ObservableList<Suppliers> getSuppliersID() {
         ObservableList<Suppliers> suppliersList = FXCollections.observableArrayList();
@@ -102,13 +97,11 @@ public class SuppliersQuery {
                         rs.getString("address_supplier"),
                         rs.getString("email_supplier")
                 );
-
             }
         } catch (SQLException e) {
             e.printStackTrace();
         } return null;
     }
-
 
 
     public static void editSuppliers(int idSuppliersInput , TextField nameSuppliersInput, TextField phoneSuppliersInput, TextField addressSuppliersInput, TextField emailSuppliersInput) {
@@ -198,8 +191,6 @@ public class SuppliersQuery {
     }
 
 
-
-
     public static boolean showSuppliers(TableView<Suppliers> suppliersTable) {
 
         try {
@@ -209,7 +200,6 @@ public class SuppliersQuery {
             PreparedStatement pstmt = con.prepareStatement(query);
 
             ResultSet rs = pstmt.executeQuery();
-
 
             while (rs.next()) {
                 Suppliers suppliers = new Suppliers(
@@ -230,6 +220,7 @@ public class SuppliersQuery {
         return false;
     }
 
+
     public static ObservableList<Suppliers> searchSuppliers(TableView<Suppliers> suppliersTable) {
         ObservableList<Suppliers> suppliersList = FXCollections.observableArrayList();
 
@@ -240,7 +231,6 @@ public class SuppliersQuery {
             PreparedStatement pstmt = con.prepareStatement(query);
 
             ResultSet rs = pstmt.executeQuery();
-
 
             while (rs.next()) {
                 Suppliers suppliers = new Suppliers(
@@ -264,7 +254,6 @@ public class SuppliersQuery {
         }
         return suppliersList;
     }
-
 }
 
 

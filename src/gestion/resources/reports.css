@@ -135,8 +135,8 @@
     -fx-background-insets: 0, 2, 3, 4;
 }
 
-/* ALERTS */
 
+/* ALERTS */
 .dialog-pane {
     -fx-pref-width: 250px;
     -fx-pref-height: 80px;

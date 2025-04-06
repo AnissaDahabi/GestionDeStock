@@ -22,7 +22,6 @@ public class SuppliersService {
         try {
             Suppliers suppliers = new Suppliers(idSuppliers, name, phone, address, email);
 
-
             if (!email.contains("@")) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle(null);
@@ -58,7 +57,7 @@ public class SuppliersService {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle(null);
             alert.setHeaderText(null);
-            alert.setContentText(e.getMessage());
+            alert.setContentText("Something went wrong");
             DialogPane dialogPane = alert.getDialogPane();
             dialogPane.setGraphic(null);
             alert.initStyle(StageStyle.UTILITY);

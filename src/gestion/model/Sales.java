@@ -22,38 +22,21 @@ public class Sales {
     public int getIdSales() {
         return idSales;
     }
-    public void setIdSales(int idSales) {
-        this.idSales = idSales;
-    }
     public int getIdProduct() {
         return idProduct;
-    }
-    public void setIdProduct(int idProduct) {
-        this.idProduct = idProduct;
     }
     public int getIdSuppliers() {
         return idSupplier;
     }
-    public void setIdSuppliers(int idSupplier) {
-        this.idSupplier = idSupplier;
-    }
     public double getPriceSales() {
         return priceSales;
-    }
-    public void setPriceSales(int priceSales) {
-        this.priceSales = priceSales;
     }
     public int getQuantitySales() {
         return quantitySales;
     }
-    public void setQuantitySales(int quantitySales) {
-        this.quantitySales = quantitySales;
-    }
     public String getDateSales() {
         return dateSales;
     }
-    public void setDateSales(String dateSales) {
-        this.dateSales = dateSales;
-    }
+
 }
 

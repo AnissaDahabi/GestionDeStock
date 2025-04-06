@@ -19,7 +19,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -28,8 +27,8 @@ import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
 
-
 public class ReportsUI {
+
     public static Scene createContent() {
 
         //Return button:
@@ -81,7 +80,7 @@ public class ReportsUI {
         endDatePicker.setEditable(false);
         reportsBtnContainer.getChildren().add(endDatePicker);
 
-        //Radiobuttons
+        //Radiobuttons:
         RadioButton productCheck = new RadioButton("Products");
         RadioButton supplierCheck = new RadioButton("Suppliers");
         RadioButton salesCheck = new RadioButton("Sales");
@@ -137,7 +136,6 @@ public class ReportsUI {
 
                     stmt.setDate(1, java.sql.Date.valueOf(startDate));
                     stmt.setDate(2, java.sql.Date.valueOf(endDate));
-
 
                     ResultSet rs = stmt.executeQuery();
 
@@ -228,9 +226,13 @@ public class ReportsUI {
                         }
                     } else {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("Error");
+                        alert.setTitle(null);
                         alert.setHeaderText(null);
                         alert.setContentText("Desktop is not supported");
+                        DialogPane dialogPane = alert.getDialogPane();
+                        dialogPane.setGraphic(null);
+                        alert.initStyle(StageStyle.UTILITY);
+                        alert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
                         alert.showAndWait();
                     }
 
@@ -248,9 +250,13 @@ public class ReportsUI {
                         }
                     } else {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("Error");
+                        alert.setTitle(null);
                         alert.setHeaderText(null);
                         alert.setContentText("Desktop is not supported");
+                        DialogPane dialogPane = alert.getDialogPane();
+                        dialogPane.setGraphic(null);
+                        alert.initStyle(StageStyle.UTILITY);
+                        alert.getDialogPane().getStylesheets().add("gestion/resources/reports.css");
                         alert.showAndWait();
                     }
 
@@ -267,9 +273,13 @@ public class ReportsUI {
                         }
                     } else {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("Error");
+                        alert.setTitle(null);
                         alert.setHeaderText(null);
                         alert.setContentText("Desktop is not supported");
+                        DialogPane dialogPane = alert.getDialogPane();
+                        dialogPane.setGraphic(null);
+                        alert.initStyle(StageStyle.UTILITY);
+                        alert.getDialogPane().getStylesheets().add("gestion/resources/reports.css");
                         alert.showAndWait();
                     }
 
@@ -389,7 +399,6 @@ public class ReportsUI {
                             sheet.autoSizeColumn(i);
                         }
                     }
-
                 }
                 try (FileOutputStream fileOutSales = new FileOutputStream("reportSales.xlsx")) {
                     FileOutputStream fileOutProduct = new FileOutputStream("reportProduct.xlsx");
@@ -407,9 +416,10 @@ public class ReportsUI {
                         Desktop.getDesktop().open(excelFile);
                     } else {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("Error");
+                        alert.setTitle(null);
                         alert.setHeaderText(null);
                         alert.setContentText("Desktop is not supported");
+
                         DialogPane dialogPane = alert.getDialogPane();
                         dialogPane.setGraphic(null);
                         alert.initStyle(StageStyle.UTILITY);
@@ -422,9 +432,10 @@ public class ReportsUI {
                         Desktop.getDesktop().open(excelFile);
                     } else {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("Error");
+                        alert.setTitle(null);
                         alert.setHeaderText(null);
                         alert.setContentText("Desktop is not supported");
+
                         DialogPane dialogPane = alert.getDialogPane();
                         dialogPane.setGraphic(null);
                         alert.initStyle(StageStyle.UTILITY);
@@ -437,9 +448,10 @@ public class ReportsUI {
                         Desktop.getDesktop().open(excelFile);
                     } else {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("Error");
+                        alert.setTitle(null);
                         alert.setHeaderText(null);
                         alert.setContentText("Desktop is not supported");
+
                         DialogPane dialogPane = alert.getDialogPane();
                         dialogPane.setGraphic(null);
                         alert.initStyle(StageStyle.UTILITY);
@@ -453,8 +465,6 @@ public class ReportsUI {
                 throw new RuntimeException(e);
             }
         });
-
-
 
         VBox homeReports = new VBox(returnBtnContainer, reportsTitle, reportsGrid, reportsBtnContainer);
 

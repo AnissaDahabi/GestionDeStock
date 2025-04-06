@@ -38,7 +38,6 @@
 
 
 /* ADD SALES */
-
 .addTitle Label {
     -fx-font-size: 24px;
     -fx-text-fill: #3C582B;
@@ -89,7 +88,123 @@
 }
 
 
-/* EDIT SALES */
+/* DELETE SALES */
+.delTitle1 Label, .delTitle2 Label {
+    -fx-font-size: 24px;
+    -fx-text-fill: #3C582B;
+    -fx-font-weight: bold;
+    -fx-padding: 40 0 0 0;
+}
+
+#delTxt1, #delTxt2 {
+    -fx-font-size: 16px;
+    -fx-fill: #758B68;
+    -fx-text-alignment: center;
+    -fx-font-weight: bold;
+}
+
+#delTxtContainer1, #delTxtContainer2 {
+    -fx-padding: 20 0 0 0;
+}
+
+#idSalesContainer {
+    -fx-padding: 40 0 0 0;
+}
+
+.submitDeletedSalesBtn1, .submitDeletedSalesBtn2 {
+    -fx-background-color: linear-gradient(#ACBEA2, #A4B997);
+    -fx-text-fill: #FFFBF4;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20px;
+    -fx-min-height: 35px;
+    -fx-min-width: 110px;
+    -fx-font-size: 15px;
+}
+
+#inputResult Label {
+    -fx-font-size: 15px;
+    -fx-text-fill: #3C582B;
+}
+
+
+/* EDIT Sales */
+.editTitle1 Label, .editTitle2 Label{
+    -fx-font-size: 24px;
+    -fx-text-fill: #3C582B;
+    -fx-font-weight: bold;
+    -fx-padding: 40 0 0 0;
+}
+
+#editTxt1, #editTxt2 {
+    -fx-font-size: 16px;
+    -fx-fill: #758B68;
+    -fx-text-alignment: center;
+    -fx-font-weight: bold;
+}
+
+#editTxtContainer1, #editTxtContainer2 {
+    -fx-padding: 20 0 0 0;
+}
+
+#idSalesLabel Label {
+    fx-font-size: 20px;
+    -fx-text-fill: #3C582B;
+}
+
+#idSalesContainer Textfield{
+    -fx-background-color: #D0D4BE;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-max-height: 12px;
+    -fx-font-size: 10px;
+    -fx-prompt-text-fill: #758B68;
+    -fx-text-fill: #3C582B;
+    -fx-font-weight: bold;
+}
+
+.editSalesGrid Label {
+    -fx-text-fill: #3C582B;
+    -fx-font-weight: bold;
+}
+
+.editSalesGrid Textfield{
+    -fx-background-color: #D0D4BE;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-text-fill: #3C582B;
+    -fx-max-height: 12px;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+}
+#idSalesContainer {
+    -fx-padding: 40 0 0 0;
+}
+
+.submitEditedSalesBtn1, .submitEditedSalesBtn2 {
+    -fx-background-color: linear-gradient(#ACBEA2, #A4B997);
+    -fx-text-fill: #FFFBF4;
+    -fx-font-weight: bold;
+    -fx-background-radius: 20px;
+    -fx-min-height: 35px;
+    -fx-min-width: 110px;
+    -fx-font-size: 15px;
+}
+
+#idSalesInput, #nameSalesSuppliersInput, #nameSalesProductInput, #quantitySalesProductInput, #priceSalesInput {
+    -fx-prompt-text-fill: #758B68;
+    -fx-text-fill: #3C582B;
+}
+
+#salesComboBox {
+    -fx-background-color: #D0D4BE;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-max-height: 12px;
+    -fx-font-size: 10px;
+    -fx-prompt-text-fill: #758B68;
+    -fx-text-fill: #3C582B;
+    -fx-font-weight: bold;
+}
 
 .editSalesContainer Label {
     -fx-text-fill: #3C582B;
@@ -219,129 +334,7 @@
 }
 
 
-/* DELETE SALES */
-
-.delTitle1 Label, .delTitle2 Label {
-    -fx-font-size: 24px;
-    -fx-text-fill: #3C582B;
-    -fx-font-weight: bold;
-    -fx-padding: 40 0 0 0;
-}
-
-#delTxt1, #delTxt2 {
-    -fx-font-size: 16px;
-    -fx-fill: #758B68;
-    -fx-text-alignment: center;
-    -fx-font-weight: bold;
-}
-
-#delTxtContainer1, #delTxtContainer2 {
-    -fx-padding: 20 0 0 0;
-}
-
-#idSalesContainer {
-    -fx-padding: 40 0 0 0;
-}
-
-.submitDeletedSalesBtn1, .submitDeletedSalesBtn2 {
-    -fx-background-color: linear-gradient(#ACBEA2, #A4B997);
-    -fx-text-fill: #FFFBF4;
-    -fx-font-weight: bold;
-    -fx-background-radius: 20px;
-    -fx-min-height: 35px;
-    -fx-min-width: 110px;
-    -fx-font-size: 15px;
-}
-
-#inputResult Label {
-    -fx-font-size: 15px;
-    -fx-text-fill: #3C582B;
-}
-
-
-/* EDIT Sales */
-
-.editTitle1 Label, .editTitle2 Label{
-    -fx-font-size: 24px;
-    -fx-text-fill: #3C582B;
-    -fx-font-weight: bold;
-    -fx-padding: 40 0 0 0;
-}
-
-#editTxt1, #editTxt2 {
-    -fx-font-size: 16px;
-    -fx-fill: #758B68;
-    -fx-text-alignment: center;
-    -fx-font-weight: bold;
-}
-
-#editTxtContainer1, #editTxtContainer2 {
-    -fx-padding: 20 0 0 0;
-}
-
-#idSalesLabel Label {
-    fx-font-size: 20px;
-    -fx-text-fill: #3C582B;
-}
-
-#idSalesContainer Textfield{
-    -fx-background-color: #D0D4BE;
-    -fx-background-radius: 20px;
-    -fx-border-radius: 20px;
-    -fx-max-height: 12px;
-    -fx-font-size: 10px;
-    -fx-prompt-text-fill: #758B68;
-    -fx-text-fill: #3C582B;
-    -fx-font-weight: bold;
-}
-
-.editSalesGrid Label {
-    -fx-text-fill: #3C582B;
-    -fx-font-weight: bold;
-}
-
-.editSalesGrid Textfield{
-    -fx-background-color: #D0D4BE;
-    -fx-background-radius: 20px;
-    -fx-border-radius: 20px;
-    -fx-text-fill: #3C582B;
-    -fx-max-height: 12px;
-    -fx-font-size: 10px;
-    -fx-font-weight: bold;
-}
-#idSalesContainer {
-    -fx-padding: 40 0 0 0;
-}
-
-.submitEditedSalesBtn1, .submitEditedSalesBtn2 {
-    -fx-background-color: linear-gradient(#ACBEA2, #A4B997);
-    -fx-text-fill: #FFFBF4;
-    -fx-font-weight: bold;
-    -fx-background-radius: 20px;
-    -fx-min-height: 35px;
-    -fx-min-width: 110px;
-    -fx-font-size: 15px;
-}
-
-#idSalesInput, #nameSalesSuppliersInput, #nameSalesProductInput, #quantitySalesProductInput, #priceSalesInput {
-    -fx-prompt-text-fill: #758B68;
-    -fx-text-fill: #3C582B;
-}
-
-#salesComboBox {
-    -fx-background-color: #D0D4BE;
-    -fx-background-radius: 20px;
-    -fx-border-radius: 20px;
-    -fx-max-height: 12px;
-    -fx-font-size: 10px;
-    -fx-prompt-text-fill: #758B68;
-    -fx-text-fill: #3C582B;
-    -fx-font-weight: bold;
-}
-
-
 /* SHOW SALES */
-
 .showTitle Label {
     -fx-font-size: 24px;
     -fx-text-fill: #3C582B;
@@ -386,7 +379,6 @@
 
 
 /* TABLEVIEW */
-
 .table-view {
     -fx-selection-bar: white;
 }
@@ -415,7 +407,6 @@
 
 
 /* ALERTS */
-
 .dialog-pane {
     -fx-pref-width: 250px;
     -fx-min-height: 80px;
@@ -468,7 +459,3 @@
     -fx-background-color: #D0D4BE;
     -fx-text-fill: white;
 }
-
-
-
-

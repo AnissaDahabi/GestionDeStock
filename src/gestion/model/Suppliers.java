@@ -8,16 +8,14 @@ public class Suppliers {
     private String addressSupplier;
     private String emailSupplier;
 
-
     public Suppliers(int idSupplier, String nameSupplier, String phoneSupplier, String addressSupplier, String emailSupplier) {
         this.idSupplier = idSupplier;
         this.nameSupplier = nameSupplier;
         this.phoneSupplier = phoneSupplier;
         this.addressSupplier = addressSupplier;
         this.emailSupplier = emailSupplier;
-
     }
-//Getter
+
     public int getIdSupplier() {
         return idSupplier;
     }

@@ -37,7 +37,8 @@ public class SceneManager {
         return homeScene;
     }
 
-    // PRODUCTS SCENES
+
+    //PRODUCTS SCENES:
     public static Scene getProductsHomeScene() {
         if (productsScene == null) {
             productsScene = ProductsUI.createContent();
@@ -80,8 +81,8 @@ public class SceneManager {
         return showProductsScene;
     }
 
-    // SUPPLIERS SCENES
 
+    //SUPPLIERS SCENES:
     public static Scene getSuppliersHomeScene() {
         if (suppliersScene == null) {
             suppliersScene = SuppliersUI.createContent();
@@ -126,9 +127,7 @@ public class SceneManager {
     }
 
 
-    // SALES SCENES
-
-
+    //SALES SCENES:
     public static Scene getSalesHomeScene() {
         if (salesScene == null) {
             salesScene = SalesUI.createContent();
@@ -171,8 +170,8 @@ public class SceneManager {
         return showSalesScene1;
     }
 
-    // REPORTS SCENES
 
+    //REPORTS SCENES:
     public static Scene getReportsHomeScene() {
 
             reportsScene = ReportsUI.createContent();

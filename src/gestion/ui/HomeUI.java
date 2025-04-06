@@ -62,6 +62,7 @@ public class HomeUI extends Application {
         return new VBox(20, closeBtnContainer, homeTitle, logoContainer, createHomeButtons());
     }
 
+
     private static Node createHomeButtons() {
 
         Button productsBtn = new Button("Products");
@@ -91,7 +92,7 @@ public class HomeUI extends Application {
 
         homeButtons.setAlignment(Pos.BASELINE_CENTER);
 
-        //Actions des boutons :
+        //Actions des boutons:
         productsBtn.setOnAction(event -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(gestion.ui.SceneManager.getProductsHomeScene());

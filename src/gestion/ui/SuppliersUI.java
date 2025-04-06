@@ -21,13 +21,11 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.StringConverter;
 
-
 public class SuppliersUI {
-
 
     public static Scene createContent() {
 
-        // Return button:
+        //Return button:
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
 
@@ -36,17 +34,17 @@ public class SuppliersUI {
             stage.setScene(SceneManager.getHomeScene());
         });
 
-        HBox returnBtnContainer = new HBox(10); // HBox = container horizontal
+        HBox returnBtnContainer = new HBox(10);
         returnBtnContainer.setAlignment(Pos.TOP_RIGHT);
-        returnBtnContainer.setPadding(new Insets(10, 10, 10, 10)); //équivalent du <style> blabla </style> en html
+        returnBtnContainer.setPadding(new Insets(10, 10, 10, 10));
         returnBtnContainer.getChildren().add(returnBtn);
 
-        // Title:
+        //Title:
         HBox suppliersTitle = new HBox(new Label("Suppliers"));
         suppliersTitle.getStyleClass().add("suppliersTitle");
         suppliersTitle.setAlignment(Pos.CENTER);
 
-        // Buttons:
+        //Buttons:
         Button addSuppliersBtn = new Button("Add a supplier");
         addSuppliersBtn.getStyleClass().add("addSuppliersBtn");
         Button delSuppliersBtn = new Button("Delete a supplier");
@@ -90,10 +88,11 @@ public class SuppliersUI {
         return suppliersScene;
     }
 
-    //Add Suppliers Scene
+
+    //ADD SUPPLIERS SCENE:
     public static Scene addSuppliersScene() {
 
-        // Return button:
+        //Return button:
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
 
@@ -107,7 +106,7 @@ public class SuppliersUI {
         returnBtnContainer.setPadding(new Insets(10, 10, 10, 10));
         returnBtnContainer.getChildren().add(returnBtn);
 
-        // Title and txt:
+        //Title and txt:
         VBox addTitle = new VBox(new Label("Add a supplier"));
         addTitle.setAlignment(Pos.CENTER);
         addTitle.getStyleClass().add("addTitle");
@@ -121,7 +120,7 @@ public class SuppliersUI {
         addTxtContainer.setId("addTxtContainer");
         addTxtContainer.setAlignment(Pos.CENTER);
 
-        // User input:
+        //User input:
         GridPane addSuppliersGrid = new GridPane();
         addSuppliersGrid.getStyleClass().add("addSuppliersGrid");
 
@@ -167,7 +166,6 @@ public class SuppliersUI {
             return null;
         }));
 
-
         Label emailSuppliers = new Label("Email: ");
         TextField emailSuppliersInput = new TextField();
         emailSuppliersInput.setTextFormatter(new TextFormatter<>(change -> {
@@ -177,7 +175,6 @@ public class SuppliersUI {
             }
             return null;
         }));
-
 
         addSuppliersGrid.add(idSupplier, 0, 0);
         addSuppliersGrid.add(idSuppliersInput, 1, 0);
@@ -202,14 +199,14 @@ public class SuppliersUI {
         addSuppliersContainer.setPadding(new Insets(100, 10, 10, 10));
 
         submitAddedSuppliersBtn.setOnAction(event -> {
-            try {
 
+            try {
                 if (idSuppliersInput.getText().isEmpty()){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle(null);
                     alert.setHeaderText(null);
                     alert.setContentText("Please enter an ID for the supplier");
-                    //Alert's design
+
                     DialogPane dialogPane = alert.getDialogPane();
                     dialogPane.setGraphic(null);
                     alert.initStyle(StageStyle.UTILITY);
@@ -223,7 +220,7 @@ public class SuppliersUI {
                     alert.setTitle(null);
                     alert.setHeaderText(null);
                     alert.setContentText("Please enter a name for the supplier");
-                    //Alert's design
+
                     DialogPane dialogPane = alert.getDialogPane();
                     dialogPane.setGraphic(null);
                     alert.initStyle(StageStyle.UTILITY);
@@ -237,7 +234,7 @@ public class SuppliersUI {
                     alert.setTitle(null);
                     alert.setHeaderText(null);
                     alert.setContentText("Please enter a phone number for the supplier");
-                    //Alert's design
+
                     DialogPane dialogPane = alert.getDialogPane();
                     dialogPane.setGraphic(null);
                     alert.initStyle(StageStyle.UTILITY);
@@ -251,7 +248,7 @@ public class SuppliersUI {
                     alert.setTitle(null);
                     alert.setHeaderText(null);
                     alert.setContentText("Please enter an address for the supplier");
-                    //Alert's design
+
                     DialogPane dialogPane = alert.getDialogPane();
                     dialogPane.setGraphic(null);
                     alert.initStyle(StageStyle.UTILITY);
@@ -265,7 +262,7 @@ public class SuppliersUI {
                     alert.setTitle(null);
                     alert.setHeaderText(null);
                     alert.setContentText("Please enter an email address for the supplier");
-                    //Alert's design
+
                     DialogPane dialogPane = alert.getDialogPane();
                     dialogPane.setGraphic(null);
                     alert.initStyle(StageStyle.UTILITY);
@@ -314,26 +311,26 @@ public class SuppliersUI {
         return addSuppliersScene;
     }
 
+
+    //DELETE SUPPLIERS SCENE:
     public static Scene delSuppliersScene1() {
 
-        // Return button:
+        //Return button:
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
-
-
 
         HBox returnBtnContainer = new HBox(10);
         returnBtnContainer.setAlignment(Pos.TOP_RIGHT);
         returnBtnContainer.setPadding(new Insets(10, 10, 10, 10));
         returnBtnContainer.getChildren().add(returnBtn);
 
-        // Title and txt:
+        //Title and txt:
         VBox delTitle1 = new VBox(new Label("Delete a supplier"));
         delTitle1.setAlignment(Pos.CENTER);
         delTitle1.getStyleClass().add("delTitle1");
 
         Text delTxt1 = new Text();
-        delTxt1.setText("Please select the ID number of the supplier you want to delete from the inventory");
+        delTxt1.setText("Please select the ID of the supplier you want to delete from the inventory");
         delTxt1.setId("delTxt1");
         delTxt1.setWrappingWidth(280);
         HBox delTxtContainer1 = new HBox();
@@ -341,7 +338,7 @@ public class SuppliersUI {
         delTxtContainer1.setId("delTxtContainer1");
         delTxtContainer1.setAlignment(Pos.CENTER);
 
-        //User input
+        //User input:
        Label idSuppliersLabel = new Label("ID Number: ");
         TextField idSuppliersInput = new TextField();
         HBox idSuppliersContainer = new HBox();
@@ -350,10 +347,9 @@ public class SuppliersUI {
         idSuppliersContainer.setId("idSuppliersContainer");
         idSuppliersContainer.setAlignment(Pos.CENTER);
 
-        //Fil déroulant
+        //Fil déroulant:
         Label comboLabel = new Label("ID number : ");
         ComboBox<Suppliers> suppliersComboBox = new ComboBox<>(SuppliersQuery.getSuppliersID());
-        //suppliersComboBox.setPromptText("Choose supplier");
         suppliersComboBox.setId("suppliersComboBox");
         suppliersComboBox.setItems(SuppliersQuery.getSuppliersID());
 
@@ -383,7 +379,6 @@ public class SuppliersUI {
         boxSuppliersContainer.setAlignment(Pos.CENTER);
         boxSuppliersContainer.setSpacing(5);
         boxSuppliersContainer.setPadding(new Insets(20, 0, 0, 0));
-
 
         //Next button:
         Button submitDeletedSuppliersBtn1 = new Button("Delete");
@@ -418,6 +413,7 @@ public class SuppliersUI {
                     successAlert.initStyle(StageStyle.UTILITY);
                     successAlert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
                     successAlert.showAndWait();
+
                     suppliersComboBox.setItems(SuppliersQuery.getSuppliersID());
                 }
             } else if (selectedSupplier == null){
@@ -425,7 +421,7 @@ public class SuppliersUI {
                     alert.setTitle(null);
                     alert.setHeaderText(null);
                     alert.setContentText("Please choose a supplier to delete");
-                    //Alert's design
+
                     DialogPane dialogPane = alert.getDialogPane();
                     dialogPane.setGraphic(null);
                     alert.initStyle(StageStyle.UTILITY);
@@ -435,7 +431,8 @@ public class SuppliersUI {
                     Alert errorAlert = new Alert(Alert.AlertType.ERROR);
                     errorAlert.setTitle(null);
                     errorAlert.setHeaderText(null);
-                    errorAlert.setContentText("Something wrong happened..");
+                    errorAlert.setContentText("Something wrong happened");
+
                     DialogPane dialogPane = errorAlert.getDialogPane();
                     dialogPane.setGraphic(null);
                     errorAlert.initStyle(StageStyle.UTILITY);
@@ -451,10 +448,11 @@ public class SuppliersUI {
         return delSuppliersScene1;
     }
 
-    //EDIT SUPPLIERS SCENE 1
+
+    //EDIT SUPPLIERS SCENE 1:
     public static Scene editSuppliersScene1() {
 
-        // Return button:
+        //Return button:
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
 
@@ -463,13 +461,13 @@ public class SuppliersUI {
         returnBtnContainer.setPadding(new Insets(10, 10, 10, 10));
         returnBtnContainer.getChildren().add(returnBtn);
 
-        // Title and txt:
+        //Title and txt:
         VBox editTitle1 = new VBox(new Label("Edit suppliers"));
         editTitle1.setAlignment(Pos.CENTER);
         editTitle1.getStyleClass().add("editTitle1");
 
         Text editTxt1 = new Text();
-        editTxt1.setText("Please select the ID number of the supplier you want to edit");
+        editTxt1.setText("Please select the ID of the supplier you want to edit");
         editTxt1.setId("editTxt1");
         editTxt1.setWrappingWidth(280);
         HBox editTxtContainer1 = new HBox();
@@ -477,11 +475,10 @@ public class SuppliersUI {
         editTxtContainer1.setId("delTxtContainer1");
         editTxtContainer1.setAlignment(Pos.CENTER);
 
-        //User input
+        //User input:
         Label comboLabel = new Label("ID Number: ");
 
         ComboBox<Suppliers> suppliersComboBox = new ComboBox<>(SuppliersQuery.getSuppliersID());
-        //suppliersComboBox.setPromptText("Choose supplier");
         suppliersComboBox.setId("suppliersComboBox");
         suppliersComboBox.setItems(SuppliersQuery.getSuppliersID());
 
@@ -496,6 +493,7 @@ public class SuppliersUI {
                 return null;
             }
         });
+
         suppliersComboBox.setCellFactory(lv -> new ListCell<Suppliers>() {
             @Override
             protected void updateItem(Suppliers supplier, boolean empty) {
@@ -530,8 +528,8 @@ public class SuppliersUI {
         submitEditedSuppliersBtn1.setOnAction(event -> {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Suppliers selectedSupplier = suppliersComboBox.getValue();
-            if (selectedSupplier != null) {
 
+            if (selectedSupplier != null) {
                 stage.setScene(SceneManager.getEditSuppliersScene2(
                         selectedSupplier.getIdSupplier(),
                         selectedSupplier.getNameSupplier(),
@@ -539,12 +537,12 @@ public class SuppliersUI {
                         selectedSupplier.getAddressSupplier(),
                         selectedSupplier.getEmailSupplier()
                 ));
-
             } else if (selectedSupplier == null){
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle(null);
                 alert.setHeaderText(null);
-                alert.setContentText("Please choose a supplier to edit.");
+                alert.setContentText("Please choose a supplier to edit");
+
                 DialogPane dialogPane = alert.getDialogPane();
                 dialogPane.setGraphic(null);
                 alert.initStyle(StageStyle.UTILITY);
@@ -560,9 +558,10 @@ public class SuppliersUI {
         return editSuppliersScene1;
     }
 
+    //EDIT SUPPLIERS SCENE 2:
     public static Scene editSuppliersScene2(int idSuppliersSql, String nameSuppliersSql, String phoneSuppliersSql, String addressSuppliersSql, String emailSuppliersSql) {
 
-        // Return button:
+        //Return button:
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
 
@@ -571,7 +570,7 @@ public class SuppliersUI {
         returnBtnContainer.setPadding(new Insets(10, 10, 10, 10));
         returnBtnContainer.getChildren().add(returnBtn);
 
-        // Title and txt:
+        //Title and txt:
         VBox editTitle2 = new VBox(new Label("Edit supplier"));
         editTitle2.setAlignment(Pos.CENTER);
         editTitle2.getStyleClass().add("editTitle2");
@@ -585,7 +584,7 @@ public class SuppliersUI {
         editTxtContainer2.setId("editTxtContainer2");
         editTxtContainer2.setAlignment(Pos.CENTER);
 
-        // User input:
+        //User input:
         GridPane editSuppliersGrid = new GridPane();
         editSuppliersGrid.getStyleClass().add("editSuppliersGrid");
 
@@ -620,8 +619,7 @@ public class SuppliersUI {
             return null;
         }));
 
-
-        //ComboBox for the refresh
+        //ComboBox to refresh
         ComboBox<Suppliers> suppliersComboBox = new ComboBox<>(SuppliersQuery.getSuppliersID());
         suppliersComboBox.setId("suppliersComboBox");
         suppliersComboBox.setItems(SuppliersQuery.getSuppliersID());
@@ -644,7 +642,6 @@ public class SuppliersUI {
                 setText(empty || supplier == null ? null : String.valueOf(supplier.getIdSupplier()));
             }
         });
-
 
         Label addressSuppliers = new Label("Address: ");
         TextField addressSuppliersInput = new TextField();
@@ -699,28 +696,28 @@ public class SuppliersUI {
         });
 
         submitEditedSuppliersBtn2.setOnAction(event -> {
-            try {
 
+            try {
                 if (nameSuppliersInput.getText().isEmpty()){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle(null);
                 alert.setHeaderText(null);
                 alert.setContentText("Please enter a name for the supplier");
-                //Alert's design
+
                 DialogPane dialogPane = alert.getDialogPane();
                 dialogPane.setGraphic(null);
                 alert.initStyle(StageStyle.UTILITY);
                 alert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
                 alert.showAndWait();
                 return;
-            }
+                }
 
                 if (phoneSuppliersInput.getText().isEmpty()){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle(null);
                     alert.setHeaderText(null);
                     alert.setContentText("Please enter a phone number for the supplier");
-                    //Alert's design
+
                     DialogPane dialogPane = alert.getDialogPane();
                     dialogPane.setGraphic(null);
                     alert.initStyle(StageStyle.UTILITY);
@@ -734,7 +731,7 @@ public class SuppliersUI {
                     alert.setTitle(null);
                     alert.setHeaderText(null);
                     alert.setContentText("Please enter an address for the supplier");
-                    //Alert's design
+
                     DialogPane dialogPane = alert.getDialogPane();
                     dialogPane.setGraphic(null);
                     alert.initStyle(StageStyle.UTILITY);
@@ -748,7 +745,7 @@ public class SuppliersUI {
                     alert.setTitle(null);
                     alert.setHeaderText(null);
                     alert.setContentText("Please enter an email address for the supplier");
-                    //Alert's design
+
                     DialogPane dialogPane = alert.getDialogPane();
                     dialogPane.setGraphic(null);
                     alert.initStyle(StageStyle.UTILITY);
@@ -759,7 +756,6 @@ public class SuppliersUI {
 
                 SuppliersQuery.editSuppliers(idSuppliersSql ,nameSuppliersInput, phoneSuppliersInput, addressSuppliersInput, emailSuppliersInput);
 
-
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 stage.setScene(SceneManager.getSuppliersHomeScene());
 
@@ -769,7 +765,7 @@ public class SuppliersUI {
                 alert.setTitle(null);
                 alert.setHeaderText(null);
                 alert.setContentText("Something went wrong");
-                //Alert's design
+
                 DialogPane dialogPane = alert.getDialogPane();
                 dialogPane.setGraphic(null);
                 alert.initStyle(StageStyle.UTILITY);
@@ -786,10 +782,11 @@ public class SuppliersUI {
         return editSuppliersScene2;
     }
 
-    //SHOW SUPPLIERS SCENE
+
+    //SHOW SUPPLIERS SCENE:
     public static Scene showSuppliersScene1() {
 
-        // Return button:
+        //Return button:
         Button returnBtn = new Button("Return");
         returnBtn.getStyleClass().add("returnBtn");
 
@@ -798,7 +795,7 @@ public class SuppliersUI {
         returnBtnContainer.setPadding(new Insets(10, 10, 10, 10));
         returnBtnContainer.getChildren().add(returnBtn);
 
-        // Title and txt:
+        //Title and txt:
         VBox showTitle = new VBox(new Label("Suppliers repertory"));
         showTitle.setAlignment(Pos.CENTER);
         showTitle.getStyleClass().add("showTitle");
@@ -857,7 +854,7 @@ public class SuppliersUI {
 
         SuppliersQuery.showSuppliers(suppliersTable);
 
-        // Search filter:
+        //Search filter:
         ObservableList<Suppliers> data = SuppliersQuery.searchSuppliers(suppliersTable);
 
         FilteredList<Suppliers> filteredData = new FilteredList<>(data, p -> true);
@@ -901,7 +898,6 @@ public class SuppliersUI {
         suppliersTableContainer.setPadding(new Insets(10, 10, 10, 10));
         suppliersTableContainer.getChildren().add(suppliersTable);
 
-
         VBox showSuppliers = new VBox(returnBtnContainer, showTitle, searchSuppliersContainer, suppliersTableContainer);
 
         Scene showSuppliersScene = new Scene(showSuppliers, 300, 600);
@@ -909,8 +905,4 @@ public class SuppliersUI {
 
         return showSuppliersScene;
     }
-
-
-
-
 }

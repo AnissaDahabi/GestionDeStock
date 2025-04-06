@@ -2,19 +2,14 @@ package gestion.dao;
 
 import gestion.model.Products;
 import gestion.model.Suppliers;
-import gestion.ui.SceneManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
 import java.sql.*;
 
-
 public class ProductsQuery {
-
 
     public static boolean addProducts(Products products) {
 
@@ -26,7 +21,6 @@ public class ProductsQuery {
             String query = "INSERT INTO Products (id_product, name_product, price_product, quantity_product, id_supplier) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement pstmt = con.prepareStatement(query);
 
-            // Remplissage des paramètres de la requête SQL
             pstmt.setInt(1, products.getIdProduct());
             pstmt.setString(2, products.getNameProduct());
             pstmt.setDouble(3, products.getPriceProduct());
@@ -41,7 +35,9 @@ public class ProductsQuery {
         }
     }
 
+
     public static boolean delProducts(int idProducts) {
+
         try {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
             String query = "DELETE FROM Products WHERE id_product = ?";
@@ -58,6 +54,7 @@ public class ProductsQuery {
 
 
     public static void editProducts(int idProductsInput, TextField nameProductsInput, TextField priceProductsInput, TextField quantityProductsInput, ComboBox<Suppliers> supplierIdInput) {
+
         try {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/projetjava", "root", "root");
 
@@ -141,11 +138,10 @@ public class ProductsQuery {
             con.close();
 
         } catch (SQLException ex) {
-
             ex.printStackTrace();
-
         }
     }
+
 
     public static ObservableList<Products> showProducts(TableView<Products> productsTable) {
         ObservableList<Products> productsList = FXCollections.observableArrayList();
@@ -157,7 +153,6 @@ public class ProductsQuery {
             PreparedStatement pstmt = con.prepareStatement(query);
 
             ResultSet rs = pstmt.executeQuery();
-
 
             while (rs.next()) {
                 Products products = new Products(

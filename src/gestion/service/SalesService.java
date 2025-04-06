@@ -8,7 +8,6 @@ import javafx.stage.StageStyle;
 
 public class SalesService {
 
-
     public static boolean addSales(int idSales, int idProduct, int idSupplier, int quantity, double price, String date ) {
 
         try {
@@ -30,6 +29,7 @@ public class SalesService {
             return false;
         }
     }
+
 
     public static boolean delSales(int idSales){
         try {

@@ -35,6 +35,7 @@ public class ProductsService {
         }
     }
 
+
     public static boolean delProducts(int idProducts) {
         try {
             return ProductsQuery.delProducts(idProducts);
