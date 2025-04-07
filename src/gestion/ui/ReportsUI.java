@@ -117,7 +117,7 @@ public class ReportsUI {
 
             StringBuilder query = new StringBuilder();
             if (sales) {
-                query.append("SELECT s.id_sales, sup.id_supplier, p.id_product, sup.name_supplier, p.name_product, p.price_product, s.quantity_sales, ROUND(s.price_sales, 2) AS price_sales, DATE_FORMAT(s.date_sales, '%d-%m-%Y') AS date_sales FROM Sales s JOIN Suppliers sup ON s.id_supplier = sup.id_supplier JOIN Products p ON s.id_product = p.id_product WHERE s.date_sales BETWEEN ? AND ?");
+                query.append("SELECT s.id_sales, sup.id_supplier, p.id_product, sup.name_supplier, p.name_product, p.price_product, s.quantity_sales, ROUND(s.price_sales, 2) AS price_sales, DATE_FORMAT(STR_TO_DATE(s.date_sales, '%d-%m-%Y'), '%d-%m-%Y') AS date_sales FROM Sales s JOIN Suppliers sup ON s.id_supplier = sup.id_supplier JOIN Products p ON s.id_product = p.id_product WHERE STR_TO_DATE(s.date_sales, '%d-%m-%Y') BETWEEN ? AND ?");
             } else if (product) {
                 query.append("SELECT * FROM Products");
             } else if (supplier) {
@@ -151,7 +151,9 @@ public class ReportsUI {
                     table.addCell(new Phrase("Sales_Price"));
                     table.addCell(new Phrase("Date"));
 
+                    int rowCount = 0;
                     while (rs.next()) {
+                        rowCount++;
                         table.addCell(new Phrase(rs.getString("id_sales")));
                         table.addCell(new Phrase(rs.getString("id_supplier")));
                         table.addCell(new Phrase(rs.getString("id_product")));
@@ -162,7 +164,7 @@ public class ReportsUI {
                         table.addCell(new Phrase(rs.getString("price_sales")));
                         table.addCell(new Phrase(rs.getString("date_sales")));
                     }
-
+                    System.out.println("Nombre de lignes récupérées : " + rowCount);
                     stmt.close();
                     document.add(table);
 
@@ -302,7 +304,7 @@ public class ReportsUI {
 
             StringBuilder query = new StringBuilder();
             if (sales) {
-                query.append("SELECT s.id_sales, sup.id_supplier, p.id_product, sup.name_supplier, p.name_product, p.price_product, s.quantity_sales, ROUND(s.price_sales, 2) AS price_sales, DATE_FORMAT(s.date_sales, '%d-%m-%Y') AS date_sales FROM Sales s JOIN Suppliers sup ON s.id_supplier = sup.id_supplier JOIN Products p ON s.id_product = p.id_product WHERE s.date_sales BETWEEN ? AND ?");
+                query.append("SELECT s.id_sales, sup.id_supplier, p.id_product, sup.name_supplier, p.name_product, p.price_product, s.quantity_sales, ROUND(s.price_sales, 2) AS price_sales, DATE_FORMAT(STR_TO_DATE(s.date_sales, '%d-%m-%Y'), '%d-%m-%Y') AS date_sales FROM Sales s JOIN Suppliers sup ON s.id_supplier = sup.id_supplier JOIN Products p ON s.id_product = p.id_product WHERE STR_TO_DATE(s.date_sales, '%d-%m-%Y') BETWEEN ? AND ?");
             } else if (product) {
                 query.append("SELECT * FROM Products");
             } else if (supplier) {
