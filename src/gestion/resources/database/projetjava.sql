@@ -27,7 +27,7 @@ CREATE TABLE Sales (
     id_supplier int,
 	quantity_sales int,
     price_sales double,
-    date_sales date,
+    date_sales VARCHAR(50),
     PRIMARY KEY (id_sales),
     foreign key (id_product) references Products(id_product)
 		ON DELETE CASCADE 
