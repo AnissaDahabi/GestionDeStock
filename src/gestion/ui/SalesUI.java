@@ -260,6 +260,21 @@ public class SalesUI {
                     String selectedSupplier = comboLabelSupplier.getText();
                     int quantity = Integer.parseInt(quantitySalesInput.getText());
                     LocalDate selectedDate = dateSalesInput.getValue();
+
+                    if (selectedDate == null) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle(null);
+                        alert.setHeaderText(null);
+                        alert.setContentText("Please select a date");
+
+                        DialogPane dialogPane = alert.getDialogPane();
+                        dialogPane.setGraphic(null);
+                        alert.initStyle(StageStyle.UTILITY);
+                        alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
+                        alert.showAndWait();
+                        return;
+                    }
+
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                     String formattedDate = selectedDate.format(formatter);
 
@@ -291,19 +306,7 @@ public class SalesUI {
                         return;
                     }
 
-                    if (selectedDate == null) {
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle(null);
-                        alert.setHeaderText(null);
-                        alert.setContentText("Please select a date");
 
-                        DialogPane dialogPane = alert.getDialogPane();
-                        dialogPane.setGraphic(null);
-                        alert.initStyle(StageStyle.UTILITY);
-                        alert.getDialogPane().getStylesheets().add("gestion/resources/sales.css");
-                        alert.showAndWait();
-                        return;
-                    }
 
                     double price = selectedProduct.getPriceProduct() * quantity;
                     String roundingPrice = String.format("%.2f", price);
