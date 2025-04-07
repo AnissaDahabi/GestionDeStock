@@ -295,6 +295,17 @@ public class SuppliersUI {
 
                 if (success) {
 
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle(null);
+                    alert.setHeaderText(null);
+                    alert.setContentText("Supplier added successfully!");
+
+                    DialogPane dialogPane = alert.getDialogPane();
+                    dialogPane.setGraphic(null);
+                    alert.initStyle(StageStyle.UTILITY);
+                    alert.getDialogPane().getStylesheets().add("gestion/resources/suppliers.css");
+                    alert.showAndWait();
+
                     idSuppliersInput.clear();
                     nameSuppliersInput.clear();
                     phoneSuppliersInput.clear();
