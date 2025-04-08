@@ -306,7 +306,7 @@ public class ProductsUI {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle(null);
                     alert.setHeaderText(null);
-                    alert.setContentText("COUCOU");
+                    alert.setContentText("Product added successfully");
 
                     DialogPane dialogPane = alert.getDialogPane();
                     dialogPane.setGraphic(null);
